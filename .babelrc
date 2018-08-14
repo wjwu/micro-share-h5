@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "Android >= 4.2",
+            "ios >= 8"
+          ]
+        },
+        "useBuiltIns": true
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    [
+      "component",
+      [
+        {
+          "libraryName": "mint-ui",
+          "style": true
+        }
+      ]
+    ]
+  ]
+}

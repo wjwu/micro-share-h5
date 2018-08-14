@@ -1,0 +1,3 @@
+src/common/js/*.js
+src/children/**/*.js
+src/children/**/*.vue

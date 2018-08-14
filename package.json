@@ -1,0 +1,62 @@
+{
+  "name": "micro-share-h5",
+  "version": "1.0.0",
+  "description": "micro-share-h5",
+  "author": "wjwu",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --port 8080 --inline --progress --config build/webpack.dev.conf.babel.js",
+    "dev-host": "cross-env NODE_ENV=dev webpack-dev-server --public --host 192.168.5.8 --port 8080 --inline --progress --config build/webpack.dev.conf.babel.js",
+    "start": "npm run dev",
+    "test": "cross-env NODE_ENV=test webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details",
+    "uat": "cross-env NODE_ENV=uat webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details",
+    "prod": "cross-env NODE_ENV=prod webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "mint-ui": "^2.2.13",
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-component": "^1.1.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "copy-webpack-plugin": "^4.3.1",
+    "css-loader": "^0.28.10",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.4",
+    "glob": "^7.1.2",
+    "html-webpack-externals-plugin": "^3.8.0",
+    "html-webpack-plugin": "^3.0.6",
+    "image-webpack-loader": "^4.1.0",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.1.5",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-merge": "^4.1.0"
+  },
+  "browserslist": [
+    "Android >= 4.2",
+    "ios >= 8"
+  ]
+}
