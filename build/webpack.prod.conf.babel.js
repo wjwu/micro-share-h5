@@ -5,7 +5,7 @@ import baseConfig from './webpack.base.conf.babel';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+// import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const dist = path.join(__dirname, '..', 'dist');
 
@@ -32,11 +32,7 @@ const config = merge(baseConfig, {
       'process.env': {
         NODE_ENV: '"production"'
       }
-    }),
-    new CopyWebpackPlugin([
-      { from: './config/*.js', to: './vendor' },
-      { from: './src/index.html', to: './' }
-    ])
+    })
   ],
   externals: {
     vue: 'Vue',

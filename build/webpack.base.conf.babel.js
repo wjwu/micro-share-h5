@@ -15,17 +15,8 @@ const entryDirs = glob.sync('src/**/index.js').map(item => {
 
 const entry = {};
 const htmlPlugins = [];
-const htmlExternals = [
-  {
-    module: 'config',
-    entry: {
-      path: process.env.NODE_ENV === 'dev' ? 'config.dev.js' : 'config.js',
-      cwpPatternConfig: {
-        context: path.resolve(__dirname, '../')
-      }
-    }
-  }
-];
+const htmlExternals = [];
+
 if (process.env.NODE_ENV !== 'dev') {
   htmlExternals.push({
     module: 'vue',
@@ -40,7 +31,6 @@ if (process.env.NODE_ENV !== 'dev') {
 }
 
 entryDirs.forEach(item => {
-  // const entryName = item.substring(item.lastIndexOf('/') + 1);
   const entryName = item;
   entry[entryName] = `./src/${item}/index.js`;
 
@@ -53,6 +43,17 @@ entryDirs.forEach(item => {
     })
   );
 });
+
+const plugins = [new webpack.NoEmitOnErrorsPlugin(), ...htmlPlugins];
+
+if (htmlExternals.length > 0) {
+  plugins.push(
+    new HtmlWebpackExternalsPlugin({
+      externals: htmlExternals,
+      files: htmlPlugins.map(item => item.options.filename)
+    })
+  );
+}
 
 const extractCss = ExtractTextPlugin.extract({
   use: [
@@ -68,7 +69,7 @@ const extractCss = ExtractTextPlugin.extract({
   ]
 });
 
-var extractSass = ExtractTextPlugin.extract({
+const extractSass = ExtractTextPlugin.extract({
   use: [
     {
       loader: 'css-loader',
@@ -154,14 +155,7 @@ export default {
       }
     ]
   },
-  plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    ...htmlPlugins,
-    new HtmlWebpackExternalsPlugin({
-      externals: htmlExternals,
-      files: htmlPlugins.map(item => item.options.filename)
-    })
-  ],
+  plugins: plugins,
   resolve: {
     extensions: ['.js', '.vue']
   }
