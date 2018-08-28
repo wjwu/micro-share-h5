@@ -15,9 +15,7 @@ window.onload = async () => {
       }&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect`;
     } else {
       const response = await axios.get(`${config.apiHost}/auth?code=${code}`);
-      alert(JSON.stringify(response.data));
       localStorage.setItem('userId', response.data.userId);
-      // debugger;
     }
   }
 };

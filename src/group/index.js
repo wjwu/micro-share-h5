@@ -1,3 +1,4 @@
+import '../common/js/auth';
 import '../common/css/common.css';
 import '../common/css/app.scss';
 import Vue from 'vue';
