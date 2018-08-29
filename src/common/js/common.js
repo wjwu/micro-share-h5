@@ -15,7 +15,7 @@ export const checkPhone = phone => {
   return regPhone.test(phone);
 };
 
-export const openToast = (message, position = 'middle', duration = 2000) => {
+export const openToast = (message, position = 'middle', duration = 3000) => {
   Toast({
     message,
     position,

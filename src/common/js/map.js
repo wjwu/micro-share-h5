@@ -4,7 +4,9 @@ export const getAddress = (latitude, longitude) => {
       let latLng = new window.qq.maps.LatLng(latitude, longitude);
       // gps坐标转腾讯地图坐标
       window.qq.maps.convertor.translate(latLng, 1, result => {
-        latLng = new window.qq.maps.LatLng(result[0].lat, result[0].lng);
+        const transLat = result[0].lat;
+        const transLng = result[0].lng;
+        latLng = new window.qq.maps.LatLng(transLat, transLng);
         const geocoder = new window.qq.maps.Geocoder();
         geocoder.getAddress(latLng);
         geocoder.setComplete(result => {
@@ -14,7 +16,11 @@ export const getAddress = (latitude, longitude) => {
             district,
             street
           } = result.detail.addressComponents;
-          resolve(`${province}${city}${district}${street}`);
+          resolve({
+            address: `${province}${city}${district}${street}`,
+            latitude: transLat,
+            longitude: transLng
+          });
         });
         geocoder.setError(error => {
           reject(error);

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showApp">
     <div class="title">
       <h1>提交群申请</h1>
       <div class="sub">注意：提交资料后机器人将会入驻群并审核</div>
@@ -54,14 +54,14 @@
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea v-model="description" class="weui-textarea" placeholder="请输入描述" rows="3"></textarea>
+          <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3" @input="handleDescChange"></textarea>
           <div class="weui-textarea-counter">
-            <span>0</span>/200</div>
+            <span>{{descLength}}</span>/200</div>
         </div>
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary  weui-btn_disabled" href="javascript:" @click="handleSave">提交</a>
+      <a class="weui-btn weui-btn_primary" :class="{'weui-btn_disabled':(groups && groups.length === 0 )}" href="javascript:;" @click="handleSave">提交</a>
     </div>
   </div>
 </template>
@@ -69,19 +69,24 @@
 <script>
 import 'babel-polyfill';
 import axios from 'axios';
+import { auth } from '../common/js/auth';
 import wxApi from '../common/js/wxApi';
 import config from '../common/js/config';
 import { getAddress } from '../common/js/map';
 import { openToast } from '../common/js/common';
 import { Indicator } from 'mint-ui';
-import { mockRequest } from '../common/js/mock';
 
 export default {
   data() {
     return {
+      showApp: false,
+      name: '',
       number: '0',
       description: '',
+      descLength: 0,
       address: '',
+      latitude: '',
+      longitude: '',
       selectedGroupId: '',
       selectedIndustryId: '',
       groups: []
@@ -89,35 +94,49 @@ export default {
   },
   async mounted() {
     Indicator.open();
-    await this.getGroups();
-    if (this.groups && this.groups.length > 0) {
-      await wxApi.config(['getLocation']);
-      const location = await wxApi.getLocation();
-      this.address = await getAddress(location.latitude, location.longitude);
+    try {
+      await auth();
+      this.showApp = true;
+      await this.getGroups();
+      if (this.groups && this.groups.length > 0) {
+        await wxApi.config(['getLocation']);
+        const location = await wxApi.getLocation();
+        const result = await getAddress(location.latitude, location.longitude);
+        this.address = result.address;
+        this.latitude = result.latitude;
+        this.longitude = result.longitude;
+        Indicator.close();
+      } else {
+        Indicator.close();
+        openToast('抱歉，您没有可用微信群');
+      }
+    } catch (e) {
       Indicator.close();
-    } else {
-      Indicator.close();
-      openToast('抱歉，您没有可用微信群');
+      if (e.response && e.response.data) {
+        openToast(e.response.data.message);
+      } else {
+        openToast(e);
+      }
     }
   },
   methods: {
     async getGroups() {
-      // try {
       const { data } = await axios.get(`${config.apiHost}/user/myGroup`, {
         headers: {
           userId: localStorage.getItem('userId')
         }
       });
       this.groups = data;
-      // } catch (e) {
-      //   openToast(JSON.stringify(e));
-      // }
+    },
+    handleDescChange() {
+      this.descLength = this.description.length;
     },
     handleChange() {
       if (this.selectedGroupId) {
         for (let group of this.groups) {
           if (group.id === this.selectedGroupId) {
             this.number = group.number;
+            this.name = group.name;
             break;
           }
         }
@@ -126,23 +145,46 @@ export default {
       }
     },
     async handleSave() {
-      if (!this.groups || this.groups.length === 0) {
-        openToast('抱歉，您没有可用微信群');
+      if (this.groups && this.groups.length === 0) {
         return;
       }
 
-      if (!this.description) {
-        openToast('请输入描述');
+      if (!this.selectedGroupId) {
+        openToast('请选择微信群');
+        return;
+      }
+      if (!this.selectedIndustryId) {
+        openToast('请选择微信群行业');
+        return;
+      }
+      if (!this.latitude || !this.latitude) {
+        openToast('请先定位位置');
         return;
       }
 
       Indicator.open();
       try {
-        await mockRequest();
+        const request = {
+          count: this.number,
+          name: this.name,
+          industryId: this.selectedIndustryId,
+          latitude: this.latitude.toString(),
+          longitude: this.latitude.toString(),
+          desc: this.description
+        };
+        await axios.post(`${config.apiHost}/group`, request, {
+          headers: {
+            userId: localStorage.getItem('userId')
+          }
+        });
         window.location.href = './group_submit_success.html';
       } catch (e) {
         Indicator.close();
-        openToast(e);
+        if (e.response && e.response.data) {
+          openToast(e.response.data.message);
+        } else {
+          openToast(e);
+        }
       }
     }
   }
