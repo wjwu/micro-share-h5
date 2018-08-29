@@ -52,6 +52,7 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
+import { audit } from '../common/js/auth.js';
 import { Indicator } from 'mint-ui';
 import { openToast } from '../common/js/common';
 
@@ -65,8 +66,25 @@ export default {
       traded: []
     };
   },
-  mounted() {
-    this.load();
+  async mounted() {
+    Indicator.open();
+    try {
+      await audit();
+      const data = await axios.get(`${config.apiHost}/user/myGroup`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      console.log(data);
+    } catch (e) {
+      Indicator.close();
+      if (e.response && e.response.data) {
+        openToast(e.response.data.message);
+      } else {
+        openToast(e);
+      }
+    }
+    // this.load();
   },
   methods: {
     async load() {
