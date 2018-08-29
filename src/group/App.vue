@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     async getGroups() {
-      const { data } = await axios.get(`${config.apiHost}/user/myGroup`, {
+      const { data } = await axios.get(`${config.apiHost}/user/myRoom`, {
         headers: {
           userId: localStorage.getItem('userId')
         }
