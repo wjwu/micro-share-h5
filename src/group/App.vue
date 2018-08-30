@@ -168,6 +168,7 @@ export default {
           count: this.number,
           name: this.name,
           industryId: this.selectedIndustryId,
+          location: this.address,
           latitude: this.latitude.toString(),
           longitude: this.latitude.toString(),
           desc: this.description
