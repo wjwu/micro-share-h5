@@ -17,39 +17,39 @@
     <div class="weui-tab__panel">
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__bd" v-if="selected === 'all' && all.length>0">
-          <div v-if="all && all.length > 0" v-for="(item,i) in all" :key="i" class="weui-media-box weui-media-box_appmsg">
+          <div v-for="(item,i) in all" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
               <i class="fa fa-weixin fa-3x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
-                <span class="count">{{item.count}}人 / {{item.status | status}}</span>
+                <span class="count">{{item.count}}人 | {{item.industry}} | {{item.status | status}}</span>
               </h4>
               <p class="weui-media-box__desc">{{item.location}}</p>
             </div>
           </div>
         </div>
         <div class="weui-panel__bd" v-else-if="selected === 'auditing' && auditing.length>0">
-          <div v-if="auditing && auditing.length > 0" v-for="(item,i) in auditing" :key="i" class="weui-media-box weui-media-box_appmsg">
+          <div v-for="(item,i) in auditing" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
               <i class="fa fa-weixin fa-3x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
-                <span class="count">{{item.count}}人</span>
+                <span class="count">{{item.count}}人 | {{item.industry}}</span>
               </h4>
               <p class="weui-media-box__desc">{{item.location}}</p>
             </div>
           </div>
         </div>
         <div class="weui-panel__bd" v-else-if="selected === 'success' && success.length>0">
-          <div v-if="success && success.length > 0" v-for="(item,i) in success" :key="i" class="weui-media-box weui-media-box_appmsg">
+          <div v-for="(item,i) in success" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
               <i class="fa fa-weixin fa-3x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
-                <span class="count">{{item.count}}人</span>
+                <span class="count">{{item.count}}人 | {{item.industry}}</span>
               </h4>
               <p class="weui-media-box__desc">{{item.location}}</p>
             </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
-                <span class="count">{{item.count}}人</span>
+                <span class="count">{{item.count}}人 | {{item.industry}}</span>
               </h4>
               <p class="weui-media-box__desc">{{item.location}}</p>
             </div>

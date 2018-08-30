@@ -24,9 +24,7 @@
         <div class="weui-cell__bd">
           <select v-model="selectedIndustryId" class="weui-select">
             <option value="">请选择群所属行业</option>
-            <option value="1">服装</option>
-            <option value="2">游戏</option>
-            <option value="3">开发</option>
+            <option :value="item.id" v-for="item in industries" :key="item.id">{{item.name}}</option>
           </select>
         </div>
       </div>
@@ -72,6 +70,7 @@ import axios from 'axios';
 import { auth } from '../common/js/auth';
 import wxApi from '../common/js/wxApi';
 import config from '../common/js/config';
+import industries from '../common/js/industries';
 import { getAddress } from '../common/js/map';
 import { openToast } from '../common/js/common';
 import { Indicator } from 'mint-ui';
@@ -89,7 +88,8 @@ export default {
       longitude: '',
       selectedGroupId: '',
       selectedIndustryId: '',
-      groups: []
+      groups: [],
+      industries
     };
   },
   async mounted() {
