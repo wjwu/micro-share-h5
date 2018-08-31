@@ -1,25 +1,96 @@
 <template>
-  <div>
-    <!-- <div class="title">
-      <h1>订单评价</h1>
-    </div> -->
-    <div class="weui-cells__title">打分</div>
-    <rate :length="5" />
+  <div v-if="showApp">
+    <div class="title">
+      <h1>评价订单</h1>
+    </div>
+    <div class="weui-cells__title">评分</div>
+    <rate :length="5" v-model="score" />
     <div class="weui-cells__title">评价</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea class="weui-textarea" placeholder="内容" rows="3"></textarea>
+          <textarea v-model="content" class="weui-textarea" placeholder="请输入内容" rows="3" @input="handleChange" maxlength="200"></textarea>
           <div class="weui-textarea-counter">
-            <span>0</span>/200</div>
+            <span>{{contentLength}}</span>/200</div>
         </div>
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:">提交</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleClick">提交</a>
     </div>
   </div>
 </template>
+
+<script>
+import 'babel-polyfill';
+import axios from 'axios';
+import config from '../common/js/config';
+import { auth } from '../common/js/auth';
+import { Indicator } from 'mint-ui';
+import { openToast, getQueryString } from '../common/js/common';
+
+export default {
+  data() {
+    return {
+      score: 0,
+      content: '',
+      contentLength: 0,
+      showApp: false
+    };
+  },
+  async mounted() {
+    Indicator.open();
+    try {
+      await auth();
+      this.showApp = true;
+      Indicator.close();
+    } catch (e) {
+      Indicator.close();
+      if (e.response && e.response.data) {
+        openToast(e.response.data.message);
+      } else {
+        openToast(e);
+      }
+    }
+  },
+  methods: {
+    handleChange() {
+      this.contentLength = this.content.length;
+    },
+    async handleClick() {
+      const orderId = getQueryString('orderId');
+      if (!orderId) {
+        openToast('订单Id无效');
+        return;
+      }
+      if (this.score === 0) {
+        openToast('请先评分');
+        return;
+      }
+      Indicator.open();
+      try {
+        const request = {
+          content: this.content,
+          score: this.score
+        };
+        await axios.post(`${config.apiHost}/comment/${orderId}`, request, {
+          headers: {
+            userId: localStorage.getItem('userId')
+          }
+        });
+        Indicator.close();
+      } catch (e) {
+        Indicator.close();
+        if (e.response && e.response.data) {
+          openToast(e.response.data.message);
+        } else {
+          openToast(e);
+        }
+      }
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 .Rate {
@@ -29,7 +100,7 @@
 .Rate__star {
   outline: none !important;
 }
-.icon{
+.icon {
   height: 20px !important;
   width: 20px !important;
 }
