@@ -19,7 +19,7 @@
         <div class="weui-panel__bd" v-if="selected === 'all' && all.length>0">
           <div v-for="(item,i) in all" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
-              <i class="fa fa-weixin fa-3x"></i>
+              <i class="fa fa-weixin fa-2x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
@@ -32,7 +32,7 @@
         <div class="weui-panel__bd" v-else-if="selected === 'auditing' && auditing.length>0">
           <div v-for="(item,i) in auditing" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
-              <i class="fa fa-weixin fa-3x"></i>
+              <i class="fa fa-weixin fa-2x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
@@ -45,7 +45,7 @@
         <div class="weui-panel__bd" v-else-if="selected === 'success' && success.length>0">
           <div v-for="(item,i) in success" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
-              <i class="fa fa-weixin fa-3x"></i>
+              <i class="fa fa-weixin fa-2x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
@@ -58,7 +58,7 @@
         <div class="weui-panel__bd" v-else-if="selected === 'fail' && fail.length>0">
           <div v-for="(item,i) in fail" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
-              <i class="fa fa-weixin fa-3x"></i>
+              <i class="fa fa-weixin fa-2x"></i>
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{item.name}}
@@ -85,8 +85,7 @@ import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
 import { auth } from '../common/js/auth';
-import { Indicator } from 'mint-ui';
-import { openToast } from '../common/js/common';
+import { tryFunc } from '../common/js/common';
 
 export default {
   data() {
@@ -100,8 +99,7 @@ export default {
     };
   },
   async mounted() {
-    Indicator.open();
-    try {
+    tryFunc(async () => {
       await auth();
       this.showApp = true;
       const { data } = await axios.get(`${config.apiHost}/user/myGroup`, {
@@ -119,15 +117,7 @@ export default {
           this.fail.push(item);
         }
       }
-      Indicator.close();
-    } catch (e) {
-      Indicator.close();
-      if (e.response && e.response.data) {
-        openToast(e.response.data.message);
-      } else {
-        openToast(e);
-      }
-    }
+    });
   },
   methods: {
     handleTabChange(name) {

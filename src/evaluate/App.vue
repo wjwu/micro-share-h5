@@ -26,8 +26,7 @@ import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
 import { auth } from '../common/js/auth';
-import { Indicator } from 'mint-ui';
-import { openToast, getQueryString } from '../common/js/common';
+import { openToast, tryFunc, getQueryString } from '../common/js/common';
 
 export default {
   data() {
@@ -38,20 +37,11 @@ export default {
       showApp: false
     };
   },
-  async mounted() {
-    Indicator.open();
-    try {
+  mounted() {
+    tryFunc(async () => {
       await auth();
       this.showApp = true;
-      Indicator.close();
-    } catch (e) {
-      Indicator.close();
-      if (e.response && e.response.data) {
-        openToast(e.response.data.message);
-      } else {
-        openToast(e);
-      }
-    }
+    });
   },
   methods: {
     handleChange() {
@@ -67,8 +57,7 @@ export default {
         openToast('请先评分');
         return;
       }
-      Indicator.open();
-      try {
+      tryFunc(async () => {
         const request = {
           content: this.content,
           score: this.score
@@ -78,15 +67,7 @@ export default {
             userId: localStorage.getItem('userId')
           }
         });
-        Indicator.close();
-      } catch (e) {
-        Indicator.close();
-        if (e.response && e.response.data) {
-          openToast(e.response.data.message);
-        } else {
-          openToast(e);
-        }
-      }
+      });
     }
   }
 };

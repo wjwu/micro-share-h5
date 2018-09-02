@@ -1,4 +1,4 @@
-import { Toast } from 'mint-ui';
+import { Toast, Indicator } from 'mint-ui';
 
 export const getQueryString = name => {
   const url = window.location.href;
@@ -21,4 +21,19 @@ export const openToast = (message, position = 'middle', duration = 3000) => {
     position,
     duration
   });
+};
+
+export const tryFunc = async func => {
+  try {
+    Indicator.open();
+    await func();
+    Indicator.close();
+  } catch (e) {
+    Indicator.close();
+    if (e.response && e.response.data) {
+      openToast(e.response.data.message);
+    } else {
+      openToast(e);
+    }
+  }
 };

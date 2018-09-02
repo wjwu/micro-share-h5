@@ -4,7 +4,7 @@ import { getQueryString } from './common';
 import config from './config';
 
 export const auth = () => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const userId = localStorage.getItem('userId');
     if (!userId) {
       const code = getQueryString('code');
@@ -15,9 +15,15 @@ export const auth = () => {
           window.location.pathname
         }&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect`;
       } else {
-        const response = await axios.get(`${config.apiHost}/auth?code=${code}`);
-        localStorage.setItem('userId', response.data.userId);
-        resolve();
+        axios
+          .get(`${config.apiHost}/auth?code=${code}`)
+          .then(response => {
+            localStorage.setItem('userId', response.data.userId);
+            resolve();
+          })
+          .catch(e => {
+            reject(e);
+          });
       }
     } else {
       resolve();

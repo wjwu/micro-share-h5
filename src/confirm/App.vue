@@ -45,8 +45,7 @@ import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
 import { auth } from '../common/js/auth';
-import { Indicator } from 'mint-ui';
-import { openToast, getQueryString } from '../common/js/common';
+import { openToast, tryFunc, getQueryString } from '../common/js/common';
 
 export default {
   data() {
@@ -57,20 +56,11 @@ export default {
       showApp: false
     };
   },
-  async mounted() {
-    Indicator.open();
-    try {
+  mounted() {
+    tryFunc(async () => {
       await auth();
       this.showApp = true;
-      Indicator.close();
-    } catch (e) {
-      Indicator.close();
-      if (e.response && e.response.data) {
-        openToast(e.response.data.message);
-      } else {
-        openToast(e);
-      }
-    }
+    });
   },
   methods: {
     handleChange() {
@@ -79,8 +69,7 @@ export default {
     handleChecked(result) {
       this.flag = result === 'agree';
     },
-    async handleClick() {
-      console.log(this.flag);
+    handleClick() {
       const id = getQueryString('id');
       if (!id) {
         openToast('投诉id无效');
@@ -90,8 +79,7 @@ export default {
         openToast('请先输入拒绝理由');
         return;
       }
-      Indicator.open();
-      try {
+      tryFunc(async () => {
         const request = {
           flag: this.flag,
           reason: this.content
@@ -105,15 +93,7 @@ export default {
             }
           }
         );
-        Indicator.close();
-      } catch (e) {
-        Indicator.close();
-        if (e.response && e.response.data) {
-          openToast(e.response.data.message);
-        } else {
-          openToast(e);
-        }
-      }
+      });
     }
   }
 };

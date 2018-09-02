@@ -72,8 +72,7 @@ import wxApi from '../common/js/wxApi';
 import config from '../common/js/config';
 import industries from '../common/js/industries';
 import { getAddress } from '../common/js/map';
-import { openToast } from '../common/js/common';
-import { Indicator } from 'mint-ui';
+import { openToast, tryFunc } from '../common/js/common';
 
 export default {
   data() {
@@ -92,9 +91,8 @@ export default {
       industries
     };
   },
-  async mounted() {
-    Indicator.open();
-    try {
+  mounted() {
+    tryFunc(async () => {
       await auth();
       this.showApp = true;
       await this.getGroups();
@@ -105,19 +103,10 @@ export default {
         this.address = result.address;
         this.latitude = result.latitude;
         this.longitude = result.longitude;
-        Indicator.close();
       } else {
-        Indicator.close();
         openToast('抱歉，您没有可用微信群');
       }
-    } catch (e) {
-      Indicator.close();
-      if (e.response && e.response.data) {
-        openToast(e.response.data.message);
-      } else {
-        openToast(e);
-      }
-    }
+    });
   },
   methods: {
     async getGroups() {
@@ -144,7 +133,7 @@ export default {
         this.number = '0';
       }
     },
-    async handleSave() {
+    handleSave() {
       if (this.groups && this.groups.length === 0) {
         return;
       }
@@ -162,8 +151,7 @@ export default {
         return;
       }
 
-      Indicator.open();
-      try {
+      tryFunc(async () => {
         const request = {
           count: this.number,
           name: this.name,
@@ -179,14 +167,7 @@ export default {
           }
         });
         window.location.href = './group_submit_success.html';
-      } catch (e) {
-        Indicator.close();
-        if (e.response && e.response.data) {
-          openToast(e.response.data.message);
-        } else {
-          openToast(e);
-        }
-      }
+      });
     }
   }
 };
