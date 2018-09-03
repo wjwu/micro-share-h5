@@ -27,10 +27,9 @@
               <p class="weui-media-box__desc">{{item.createTime | time}} | {{item.status | status}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a v-if="item.status === 'MATCH_FAILED'" @click="handleManual" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
-              <a v-if="item.status === 'DONE'" :href="`./order_detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a v-if="item.status === 'MATCH_FAILED'" :href="`./manual_list.html?orderId=${item.id}&name=${encodeURIComponent(item.groupName)}`" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
+              <a :href="`./match_detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
               <a v-if="item.status === 'DONE'" :href="`./evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
-              <a v-if="item.status === 'MATCH_SUCCESS'" :href="`./partner.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看商伴</a>
             </div>
           </div>
         </div>
@@ -43,6 +42,9 @@
               <h4 class="weui-media-box__title">{{item.groupName}}</h4>
               <p class="weui-media-box__desc">{{item.groupMemberCount}}人 | {{item.industry}}</p>
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
+            </div>
+            <div class="weui-media-box__fd">
+              <a :href="`./match_detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -57,7 +59,7 @@
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a :href="`./partner.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看商伴</a>
+              <a :href="`./match_detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -72,7 +74,7 @@
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a :href="`./order_detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a :href="`./match_detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
               <a :href="`./evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
             </div>
           </div>
@@ -130,24 +132,11 @@ export default {
     });
   },
   methods: {
+    encodeURIComponent(val) {
+      window.encodeURIComponent(val);
+    },
     handleTabChange(name) {
       this.selected = name;
-    },
-    handleManual() {
-      tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/order/manual`,
-          {
-            matchedOrderId: '',
-            originalOrderId: ''
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
-      });
     }
   },
   filters: {
