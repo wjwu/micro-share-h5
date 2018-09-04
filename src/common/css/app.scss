@@ -14,6 +14,10 @@
   }
 }
 
+* {
+  user-select: text !important;
+}
+
 .mint-msgbox-content {
   padding: 2.7em 20px 1.7em !important;
   min-height: auto !important;

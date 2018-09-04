@@ -33,7 +33,7 @@
           <label class="weui-label">人数</label>
         </div>
         <div class="weui-cell__bd">
-          <input v-model="number" class="weui-input" readonly>
+          <input type="text" unselectable="on" onfocus="this.blur()" v-model="number" class="weui-input" readonly>
         </div>
       </div>
       <div class="weui-cell">
@@ -176,7 +176,7 @@ export default {
 <style lang="scss">
 .location {
   display: flex;
-  align-items: baseline;
+  align-items: center;
 
   i {
     margin-right: 5px;

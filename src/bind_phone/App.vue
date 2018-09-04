@@ -36,7 +36,8 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import { auth } from '../common/js/auth';
-import { MessageBox } from 'mint-ui';
+// import { MessageBox } from 'mint-ui';
+import weui from 'weui.js';
 import config from '../common/js/config';
 import {
   openToast,
@@ -44,6 +45,11 @@ import {
   checkPhone,
   getQueryString
 } from '../common/js/common';
+// import {
+//   openToast,
+//   tryFunc,
+//   checkPhone
+// } from '../common/js/common';
 
 export default {
   data() {
@@ -90,9 +96,21 @@ export default {
             }
           }
         );
-        MessageBox.alert('绑定手机成功，点击确定返回前一个页面').then(() => {
-          window.location.href = getQueryString('redirect');
+        weui.dialog({
+          content: '绑定手机成功，点击确定返回前一个页面',
+          buttons: [
+            {
+              label: '确定',
+              type: 'primary',
+              onClick: function() {
+                window.location.href = getQueryString('redirect');
+              }
+            }
+          ]
         });
+        // MessageBox.alert('绑定手机成功，点击确定返回前一个页面').then(() => {
+        //   window.location.href = getQueryString('redirect');
+        // });
       });
     },
     handleSend() {

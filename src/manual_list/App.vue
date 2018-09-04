@@ -39,7 +39,7 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
-import { MessageBox } from 'mint-ui';
+// import { MessageBox } from 'mint-ui';
 import { auth } from '../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../common/js/common';
 
@@ -83,15 +83,15 @@ export default {
       });
     },
     handleClick(id) {
-      MessageBox({
-        showCancelButton: true,
-        message: '确定进行匹配',
-        confirmButtonText: '匹配'
-      }).then(action => {
-        if (action === 'confirm') {
-          this.handleManual(id);
-        }
-      });
+      // MessageBox({
+      //   showCancelButton: true,
+      //   message: '确定进行匹配',
+      //   confirmButtonText: '匹配'
+      // }).then(action => {
+      //   if (action === 'confirm') {
+      //     this.handleManual(id);
+      //   }
+      // });
     },
     handleManual(id) {
       tryFunc(async () => {
