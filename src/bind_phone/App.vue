@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showApp">
     <div class="title">
       <h1>绑定手机</h1>
       <div class="sub">为了您的信息安全，请绑定手机</div>
@@ -21,7 +21,8 @@
           <input v-model="captcha" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码">
         </div>
         <div class="weui-cell__ft">
-          <button class="weui-vcode-btn" @click="handleSend">获取验证码</button>
+          <span v-if="sending" class="time">{{time}}s重新获取</span>
+          <button v-else class="weui-vcode-btn" @click="handleSend">获取验证码</button>
         </div>
       </div>
     </div>
@@ -33,19 +34,35 @@
 
 <script>
 import 'babel-polyfill';
-import { openToast, checkPhone } from '../common/js/common';
-import { Indicator } from 'mint-ui';
-import { mockRequest } from '../common/js/mock';
+import axios from 'axios';
+import { auth } from '../common/js/auth';
+import { MessageBox } from 'mint-ui';
+import config from '../common/js/config';
+import {
+  openToast,
+  tryFunc,
+  checkPhone,
+  getQueryString
+} from '../common/js/common';
 
 export default {
   data() {
     return {
       phone: '',
-      captcha: ''
+      captcha: '',
+      showApp: false,
+      sending: false,
+      time: 60
     };
   },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+    });
+  },
   methods: {
-    async handleSave() {
+    handleSave() {
       if (!this.phone) {
         openToast('请输入手机号');
         return;
@@ -60,16 +77,25 @@ export default {
         return;
       }
 
-      Indicator.open();
-      try {
-        await mockRequest();
-        Indicator.close();
-      } catch (e) {
-        Indicator.close();
-        openToast(e);
-      }
+      tryFunc(async () => {
+        await axios.put(
+          `${config.apiHost}/user/safe/phone`,
+          {
+            phone: this.phone,
+            captcha: this.captcha
+          },
+          {
+            headers: {
+              userId: localStorage.getItem('userId')
+            }
+          }
+        );
+        MessageBox.alert('绑定手机成功，点击确定返回前一个页面').then(() => {
+          window.location.href = getQueryString('redirect');
+        });
+      });
     },
-    async handleSend() {
+    handleSend() {
       if (!this.phone) {
         openToast('请输入手机号');
         return;
@@ -79,18 +105,46 @@ export default {
         return;
       }
 
-      Indicator.open();
-      try {
-        await mockRequest();
+      tryFunc(async () => {
+        await axios.get(`${config.apiHost}/captcha`, {
+          params: {
+            phone: this.phone,
+            type: 'BIND'
+          },
+          headers: {
+            userId: localStorage.getItem('userId')
+          }
+        });
+        const timer = setInterval(() => {
+          if (this.time <= 0) {
+            this.sending = false;
+            this.time = 60;
+            window.clearInterval(timer);
+          } else {
+            this.sending = true;
+            this.time = this.time - 1;
+          }
+        }, 1000);
         openToast('验证码已发送');
-        Indicator.close();
-      } catch (e) {
-        Indicator.close();
-        openToast(e);
-      }
+      });
     }
   }
 };
 </script>
+
+<style lang="scss">
+.time {
+  display: inline-block;
+  height: 45px;
+  margin-left: 5px;
+  padding: 0 0.6em 0 0.7em;
+  border-left: 1px solid #e5e5e5;
+  line-height: 45px;
+  vertical-align: middle;
+  font-size: 17px;
+  color: #09bb07;
+}
+</style>
+
 
 

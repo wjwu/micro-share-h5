@@ -18,7 +18,18 @@ export const auth = () => {
         axios
           .get(`${config.apiHost}/auth?code=${code}`)
           .then(response => {
-            localStorage.setItem('userId', response.data.userId);
+            localStorage.setItem('userId', response.data.id);
+            if (
+              !response.data.phone &&
+              window.location.pathname.indexOf('bind_phone.html') < 0
+            ) {
+              window.location.href = `./bind_phone.html?redirect=${
+                config.webHost
+              }${window.location.pathname}`;
+            } else {
+              localStorage.setItem('phone', response.data.phone);
+            }
+
             resolve();
           })
           .catch(e => {

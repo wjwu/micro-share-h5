@@ -1,4 +1,4 @@
-import { Toast, Indicator } from 'mint-ui';
+import { MessageBox, Indicator } from 'mint-ui';
 
 export const getQueryString = name => {
   const url = window.location.href;
@@ -15,12 +15,16 @@ export const checkPhone = phone => {
   return regPhone.test(phone);
 };
 
-export const openToast = (message, position = 'middle', duration = 3000) => {
-  Toast({
-    message,
-    position,
-    duration
-  });
+// export const openToast = (message, position = 'middle', duration = 3000) => {
+//   Toast({
+//     message,
+//     position,
+//     duration
+//   });
+// };
+
+export const openToast = message => {
+  MessageBox('', message);
 };
 
 export const tryFunc = async func => {

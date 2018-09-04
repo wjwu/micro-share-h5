@@ -158,7 +158,7 @@ export default {
           industryId: this.selectedIndustryId,
           location: this.address,
           latitude: this.latitude.toString(),
-          longitude: this.latitude.toString(),
+          longitude: this.longitude.toString(),
           desc: this.description
         };
         await axios.post(`${config.apiHost}/group`, request, {

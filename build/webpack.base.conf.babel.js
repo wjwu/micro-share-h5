@@ -4,6 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import glob from 'glob';
 import HtmlWebpackExternalsPlugin from 'html-webpack-externals-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const src = path.join(__dirname, '..', 'src');
 
@@ -44,7 +45,11 @@ entryDirs.forEach(item => {
   );
 });
 
-const plugins = [new webpack.NoEmitOnErrorsPlugin(), ...htmlPlugins];
+const plugins = [
+  new webpack.NoEmitOnErrorsPlugin(),
+  new CopyWebpackPlugin([{ from: './src/index.html', to: './index.html' }]),
+  ...htmlPlugins
+];
 
 if (htmlExternals.length > 0) {
   plugins.push(
