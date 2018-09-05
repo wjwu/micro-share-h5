@@ -81,6 +81,16 @@
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label class="weui-label">
+            订单状态
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{order.matchedOrder.status | status}}</span>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
             群名称
           </label>
         </div>
@@ -110,7 +120,8 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="./match_list.html">返回</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
+      <a class="weui-btn weui-btn_default" href="./match_list.html">返回</a>
     </div>
   </div>
 </template>
@@ -149,6 +160,14 @@ export default {
       );
       this.order = data;
     });
+  },
+  methods: {
+    handlePay() {
+      tryFunc(async () => {
+        await axios.post(`${config.apiHost}/pay/${this.orderId}/fortest`);
+        window.location.href = './pay_success.html';
+      });
+    }
   },
   filters: {
     status: val => {
