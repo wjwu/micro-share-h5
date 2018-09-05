@@ -5,12 +5,12 @@
     </div>
     <div class="weui-msg__text-area">
       <h2 class="weui-msg__title">支付成功</h2>
-      <p class="weui-msg__desc"  style="width:80%;margin:0 auto;">success
+      <p class="weui-msg__desc"  style="width:80%;margin:0 auto;">恭喜您支付成功，点击下方按钮查看订单详情
       </p>
     </div>
     <div class="weui-msg__opr-area">
       <p class="weui-btn-area">
-        <a href="/index.html" class="weui-btn weui-btn_default">返回首页</a>
+        <a href="/index.html" class="weui-btn weui-btn_default">查看订单</a>
       </p>
     </div>
   </div>

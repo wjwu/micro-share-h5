@@ -5,7 +5,7 @@
     </div>
     <div class="weui-msg__text-area">
       <h2 class="weui-msg__title">支付失败</h2>
-      <p class="weui-msg__desc"  style="width:80%;margin:0 auto;">xxxxxxxx
+      <p class="weui-msg__desc"  style="width:80%;margin:0 auto;">抱歉支付失败，请稍后再试或联系客服
       </p>
     </div>
     <div class="weui-msg__opr-area">
