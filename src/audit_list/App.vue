@@ -71,7 +71,9 @@
         <div class="weui-panel__bd" v-else>
           <div class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__bd">
-              <p class="weui-media-box__desc no-data">暂无数据</p>
+              <div class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">暂无数据</span>
+              </div>
             </div>
           </div>
         </div>
