@@ -16,15 +16,15 @@
         <div>我的微信群</div>
       </div>
       <ul class="menu">
-        <li>个人资料</li>
-        <li>我的商伴</li>
-        <li>宣传海报</li>
-        <li>商品货架</li>
-        <li>电子账簿</li>
+        <li class="menu-info">个人资料</li>
+        <li class="menu-partner">我的商伴</li>
+        <li class="menu-poster">宣传海报</li>
+        <li class="menu-shelves">商品货架</li>
+        <li class="menu-books">电子账簿</li>
       </ul>
       <ul class="menu">
-        <li>系统设置</li>
-        <li>联系客服</li>
+        <li class="menu-setup">系统设置</li>
+        <li class="menu-service">联系客服</li>
       </ul>
     </div>
   </div>
@@ -94,17 +94,23 @@ body,
         .credit {
           display: inline-block;
           margin: 0 0.3125rem;
-          height: 1.1875rem;
-          text-align: center;
+          padding: 0 0.5rem;
+          text-align: right;
           border-radius: 10px;
         }
         .vip {
-          background: #fc863f;
+          background: url('./assets/images/VIP@3x.png') no-repeat;
+          background-size: 1rem 1rem;
+          background-position: 0.375rem center;
+          background-color: #fc863f;
           width: 3.25rem;
         }
 
         .credit {
-          background: #49c7f6;
+          background: url('./assets/images/credit@3x.png') no-repeat;
+          background-size: 1rem 1rem;
+          background-position: 0.375rem center;
+          background-color: #49c7f6;
           width: 4.375rem;
         }
       }
@@ -123,30 +129,72 @@ body,
       div {
         flex: 1;
         text-align: center;
+        padding-top: 1.3rem;
       }
 
       div:first-of-type {
         border-right: 1px solid #c3c3c3;
+        background: url('./assets/images/Robot@3x.png') no-repeat;
+        background-size: 1.5rem;
+        background-position-x: center;
+      }
+
+      div:last-of-type {
+        background: url('./assets/images/group@3x.png') no-repeat;
+        background-size: 1.5rem;
+        background-position-x: center;
       }
     }
 
     .menu {
-      padding-left: .9375rem;
+      padding-left: 0.9375rem;
       background: #fff;
       margin: 0.9375rem 0;
       border-bottom: 1px solid #e6e6e6;
       border-top: 1px solid #e6e6e6;
 
       li {
+        padding-left: 2.3125rem;
         color: #333;
         font-size: 1rem;
         height: 2.75rem;
         line-height: 2.75rem;
         border-bottom: 1px solid #e6e6e6;
+        background: url('./assets/images/Go@3x.png') no-repeat;
+        background-size: 1rem;
+        background-position: calc(100% - 0.625rem) center;
       }
 
       li:last-of-type {
         border-bottom: none;
+      }
+
+      .menu-info {
+        background: url('./assets/images/homepage@3x.png') no-repeat 0 center / 1.5rem;
+      }
+
+      .menu-partner {
+        background: url('./assets/images/companion@3x.png') no-repeat 0 center / 1.5rem;
+      }
+
+      .menu-poster {
+        background: url('./assets/images/poster@3x.png') no-repeat 0 center / 1.5rem;
+      }
+
+      .menu-shelves {
+        background: url('./assets/images/classification@3x.png') no-repeat 0 center / 1.5rem;
+      }
+
+      .menu-books {
+        background: url('./assets/images/Books@3x.png') no-repeat 0 center / 1.5rem;
+      }
+
+      .menu-setup {
+        background: url('./assets/images/Syste-setup@3x.png') no-repeat 0 center / 1.5rem;
+      }
+
+      .menu-service {
+        background: url('./assets/images/service@3x.png') no-repeat 0 center / 1.5rem;
       }
     }
   }

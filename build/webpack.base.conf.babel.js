@@ -8,13 +8,13 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const src = path.join(__dirname, '..', 'src');
 
-const entryDirs = glob.sync('src/**/index.js').map(item => {
-  const firstIdx = item.indexOf('/');
-  const lastIdx = item.lastIndexOf('/');
-  return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
-});
+// const entryDirs = glob.sync('src/**/index.js').map(item => {
+//   const firstIdx = item.indexOf('/');
+//   const lastIdx = item.lastIndexOf('/');
+//   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
+// });
 
-// const entryDirs = ['self_center'];
+const entryDirs = ['self_center'];
 
 const entry = {};
 const htmlPlugins = [];
