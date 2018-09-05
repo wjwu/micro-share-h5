@@ -1,5 +1,5 @@
-.mint-indicator-wrapper {
-  z-index: 99999 !important;
+body {
+  background-color: #f8f8f8;
 }
 
 .title {
@@ -12,31 +12,4 @@
     color: #888;
     font-size: 0.875rem;
   }
-}
-
-* {
-  user-select: text !important;
-}
-
-.mint-msgbox-content {
-  padding: 2.7em 20px 1.7em !important;
-  min-height: auto !important;
-}
-
-.mint-msgbox-message {
-  color: #353535 !important;
-  line-height: unset !important;
-}
-
-.mint-msgbox-confirm {
-  color: #09BB07 !important;
-}
-
-.mint-msgbox-btns {
-  height: 48px !important;
-  line-height: 48px !important;
-}
-
-.mint-msgbox-btn {
-  font-size: 18px !important;
 }

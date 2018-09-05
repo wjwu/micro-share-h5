@@ -153,10 +153,6 @@ export default {
   font-size: 13px;
   line-height: 2.1;
 }
-
-.no-data {
-  text-align: center;
-}
 </style>
 
 

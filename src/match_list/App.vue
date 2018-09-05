@@ -82,7 +82,9 @@
         <div class="weui-panel__bd" v-else>
           <div class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__bd">
-              <p class="weui-media-box__desc no-data">暂无数据</p>
+              <div class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">暂无数据</span>
+              </div>
             </div>
           </div>
         </div>
@@ -173,19 +175,9 @@ export default {
   color: #1aad19;
 }
 
-// .count {
-//   float: right;
-//   color: #999;
-//   font-size: 13px;
-//   line-height: 2.1;
-// }
 .weui-media-box__fd {
   display: flex;
   flex-direction: column;
-}
-
-.no-data {
-  text-align: center;
 }
 </style>
 
