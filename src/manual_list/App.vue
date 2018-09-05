@@ -39,7 +39,7 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
-// import { MessageBox } from 'mint-ui';
+import weui from 'weui.js';
 import { auth } from '../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../common/js/common';
 
@@ -83,15 +83,26 @@ export default {
       });
     },
     handleClick(id) {
-      // MessageBox({
-      //   showCancelButton: true,
-      //   message: '确定进行匹配',
-      //   confirmButtonText: '匹配'
-      // }).then(action => {
-      //   if (action === 'confirm') {
-      //     this.handleManual(id);
-      //   }
-      // });
+      const _this = this;
+      const $dialog = weui.dialog({
+        content: '确定进行匹配',
+        buttons: [
+          {
+            label: '取消',
+            type: 'default',
+            onClick: function() {
+              $dialog.hide();
+            }
+          },
+          {
+            label: '确定',
+            type: 'primary',
+            onClick: function() {
+              _this.handleManual(id);
+            }
+          }
+        ]
+      });
     },
     handleManual(id) {
       tryFunc(async () => {

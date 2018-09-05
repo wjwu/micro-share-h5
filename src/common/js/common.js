@@ -1,4 +1,3 @@
-//import { MessageBox, Indicator } from 'mint-ui';
 import weui from 'weui.js';
 
 export const getQueryString = name => {
@@ -16,29 +15,17 @@ export const checkPhone = phone => {
   return regPhone.test(phone);
 };
 
-// export const openToast = (message, position = 'middle', duration = 3000) => {
-//   Toast({
-//     message,
-//     position,
-//     duration
-//   });
-// };
-
 export const openToast = message => {
   weui.alert(message);
-  // MessageBox('', message);
 };
 
 export const tryFunc = async func => {
   const loading = weui.loading('loading');
   try {
-    // Indicator.open();
     await func();
-    // Indicator.close();
     loading.hide();
   } catch (e) {
     loading.hide();
-    // Indicator.close();
     if (e.response && e.response.data) {
       openToast(e.response.data.message);
     } else {
