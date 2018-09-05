@@ -137,8 +137,8 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_primary" href="./evaluate.html?orderId={{order.id}}">去评价</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_default" href="./complaint.html?orderId={{order.id}}">去投诉</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`./evaluate.html?orderId=${order.id}`">去评价</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_default" :href="`./complaint.html?orderId=${order.id}`">去投诉</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
       <a class="weui-btn weui-btn_default" href="./match_list.html">返回</a>
     </div>
