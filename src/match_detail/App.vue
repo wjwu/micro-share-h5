@@ -1,8 +1,5 @@
 <template>
   <div v-if="showApp">
-    <div class="title">
-      <h1>订单详情</h1>
-    </div>
     <div class="weui-cells__title">订单信息</div>
     <div class="weui-cells weui-cells_form" v-if="order.originalOrder">
       <div class="weui-cell">
@@ -78,6 +75,26 @@
     </div>
     <div class="weui-cells__title">商伴信息</div>
     <div class="weui-cells weui-cells_form" v-if="order.matchedOrder">
+      <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            手机号<span class="weui-badge" style="margin-left: 5px;">重要</span>
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{order.matchedOrder.phone | phone}}</span>
+        </div>
+      </div>
+      <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            微信号<span class="weui-badge" style="margin-left: 5px;">重要</span>
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{order.matchedOrder.wechat | wechat}}</span>
+        </div>
+      </div>
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label class="weui-label">
@@ -120,6 +137,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
+      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="./evaluate.html?orderId={{order.id}}">去评价</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
       <a class="weui-btn weui-btn_default" href="./match_list.html">返回</a>
     </div>
