@@ -99,17 +99,13 @@ body,
           border-radius: 10px;
         }
         .vip {
-          background: url('./assets/images/VIP@3x.png') no-repeat;
-          background-size: 1rem 1rem;
-          background-position: 0.375rem center;
+          background: url('./assets/images/VIP@3x.png') no-repeat 0.375rem center/ 1rem;
           background-color: #fc863f;
           width: 3.25rem;
         }
 
         .credit {
-          background: url('./assets/images/credit@3x.png') no-repeat;
-          background-size: 1rem 1rem;
-          background-position: 0.375rem center;
+          background: url('./assets/images/credit@3x.png') no-repeat 0.375rem center/ 1rem;
           background-color: #49c7f6;
           width: 4.375rem;
         }
@@ -134,15 +130,11 @@ body,
 
       div:first-of-type {
         border-right: 1px solid #c3c3c3;
-        background: url('./assets/images/Robot@3x.png') no-repeat;
-        background-size: 1.5rem;
-        background-position-x: center;
+        background: url('./assets/images/Robot@3x.png') no-repeat center 0 /1.5rem;
       }
 
       div:last-of-type {
-        background: url('./assets/images/group@3x.png') no-repeat;
-        background-size: 1.5rem;
-        background-position-x: center;
+        background: url('./assets/images/group@3x.png') no-repeat center 0 /1.5rem;
       }
     }
 
@@ -160,41 +152,45 @@ body,
         height: 2.75rem;
         line-height: 2.75rem;
         border-bottom: 1px solid #e6e6e6;
-        background: url('./assets/images/Go@3x.png') no-repeat;
-        background-size: 1rem;
-        background-position: calc(100% - 0.625rem) center;
       }
 
       li:last-of-type {
         border-bottom: none;
       }
 
+      $arrow: url('./assets/images/Go@3x.png') no-repeat calc(100% - 0.625rem)
+        center/1rem;
+
+      @function icon($path) {
+        @return url($path) no-repeat 0 center / 1.5rem;
+      }
+
       .menu-info {
-        background: url('./assets/images/homepage@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/homepage@3x.png'), $arrow;
       }
 
       .menu-partner {
-        background: url('./assets/images/companion@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/companion@3x.png'), $arrow;
       }
 
       .menu-poster {
-        background: url('./assets/images/poster@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/poster@3x.png'), $arrow;
       }
 
       .menu-shelves {
-        background: url('./assets/images/classification@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/classification@3x.png'), $arrow;
       }
 
       .menu-books {
-        background: url('./assets/images/Books@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/Books@3x.png'), $arrow;
       }
 
       .menu-setup {
-        background: url('./assets/images/Syste-setup@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/Syste-setup@3x.png'), $arrow;
       }
 
       .menu-service {
-        background: url('./assets/images/service@3x.png') no-repeat 0 center / 1.5rem;
+        background: icon('./assets/images/service@3x.png'), $arrow;
       }
     }
   }
