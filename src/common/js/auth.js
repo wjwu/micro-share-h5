@@ -18,7 +18,16 @@ export const auth = () => {
         axios
           .get(`${config.apiHost}/auth?code=${code}`)
           .then(response => {
-            localStorage.setItem('userId', response.data.id);
+            if (process.env['NODE_ENV'] === 'development') {
+              // localStorage.setItem(
+              //   'userId',
+              //   'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+              // );
+              localStorage.setItem('userId', response.data.id);
+            } else {
+              localStorage.setItem('userId', response.data.id);
+            }
+
             if (
               !response.data.phone &&
               window.location.pathname.indexOf('bind_phone.html') < 0

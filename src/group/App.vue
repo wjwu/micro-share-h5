@@ -87,6 +87,7 @@ export default {
       longitude: '',
       selectedGroupId: '',
       selectedIndustryId: '',
+      wechatId: '',
       groups: [],
       industries
     };
@@ -113,6 +114,7 @@ export default {
       const { data } = await axios.get(`${config.apiHost}/user/myRoom`, {
         headers: {
           userId: localStorage.getItem('userId')
+          // userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
         }
       });
       this.groups = data;
@@ -126,6 +128,7 @@ export default {
           if (group.id === this.selectedGroupId) {
             this.number = group.number;
             this.name = group.name;
+            this.wechatId = group.wechatId;
             break;
           }
         }
@@ -159,7 +162,8 @@ export default {
           location: this.address,
           latitude: this.latitude.toString(),
           longitude: this.longitude.toString(),
-          desc: this.description
+          desc: this.description,
+          wechatId: this.wechatId
         };
         await axios.post(`${config.apiHost}/group`, request, {
           headers: {

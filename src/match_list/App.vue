@@ -119,7 +119,6 @@ export default {
       const { data } = await axios.get(`${config.apiHost}/order/`, {
         headers: {
           userId: localStorage.getItem('userId')
-          // userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
         }
       });
       this.all = data;

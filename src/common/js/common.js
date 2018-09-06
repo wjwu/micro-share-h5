@@ -20,7 +20,7 @@ export const openToast = message => {
 };
 
 export const tryFunc = async func => {
-  const loading = weui.loading('加载中...');
+  const loading = weui.loading('数据加载中');
   try {
     await func();
     loading.hide();

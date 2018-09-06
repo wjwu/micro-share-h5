@@ -23,6 +23,7 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import config from '../common/js/config';
+import weui from 'weui.js';
 import { auth } from '../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../common/js/common';
 
@@ -62,6 +63,18 @@ export default {
           headers: {
             userId: localStorage.getItem('userId')
           }
+        });
+        weui.dialog({
+          content: '投诉成功，点击确定返回',
+          buttons: [
+            {
+              label: '确定',
+              type: 'primary',
+              onClick: function() {
+                window.location.href = `./match_detail.html?orderId=${orderId}`;
+              }
+            }
+          ]
         });
       });
     }

@@ -78,21 +78,23 @@
       <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
         <div class="weui-cell__hd">
           <label class="weui-label">
-            手机号<span class="weui-badge" style="margin-left: 5px;">重要</span>
+            手机号
+            <span class="weui-badge" style="margin-left: 5px;">重要</span>
           </label>
         </div>
         <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.phone | phone}}</span>
+          <span>{{order.matchedOrder.phone}}</span>
         </div>
       </div>
       <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
         <div class="weui-cell__hd">
           <label class="weui-label">
-            微信号<span class="weui-badge" style="margin-left: 5px;">重要</span>
+            微信号
+            <span class="weui-badge" style="margin-left: 5px;">重要</span>
           </label>
         </div>
         <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.wechat | wechat}}</span>
+          <span>{{order.matchedOrder.wechat}}</span>
         </div>
       </div>
       <div class="weui-cell">
@@ -137,8 +139,8 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`./evaluate.html?orderId=${order.id}`">去评价</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE'" class="weui-btn weui-btn_default" :href="`./complaint.html?orderId=${order.id}`">去投诉</a>
+      <a v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`./evaluate.html?orderId=${order.matchedOrder.id}`">去评价</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" class="weui-btn weui-btn_default" :href="`./complaint.html?orderId=${order.originalOrder.id}`">去投诉</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
       <a class="weui-btn weui-btn_default" href="./match_list.html">返回</a>
     </div>

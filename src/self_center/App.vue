@@ -1,37 +1,83 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="showApp">
     <div class="hd">
       <div class="avatar"></div>
       <div class="info">
-        <div class="name">时光它在沙漏里</div>
+        <div class="name">{{user.userName}}</div>
         <div class="tag">
-          <span class="vip">VIP</span>
-          <span class="credit">信用分</span>
+          <span class="vip" v-if="user.vipDto">VIP</span>
+          <span class="credit">{{user.creditScore}}分</span>
         </div>
       </div>
     </div>
     <div class="bd">
       <div class="my">
-        <div>我的机器人</div>
-        <div>我的微信群</div>
+        <div @click="handleJump('./group.html')">我的机器人</div>
+        <div @click="handleJump('./group.html')">
+          我的微信群
+        </div>
       </div>
       <ul class="menu">
-        <li class="menu-info">个人资料</li>
-        <li class="menu-partner">我的商伴</li>
+        <li class="menu-info">
+          <a href="./self_info.html">个人资料</a>
+        </li>
+        <li class="menu-partner">
+          <a href="./match_list.html">我的商伴</a>
+        </li>
         <li class="menu-poster">宣传海报</li>
         <li class="menu-shelves">商品货架</li>
         <li class="menu-books">电子账簿</li>
       </ul>
       <ul class="menu">
         <li class="menu-setup">系统设置</li>
-        <li class="menu-service">联系客服</li>
+        <li class="menu-service" @click="handleClick">联系客服</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import 'babel-polyfill';
+import axios from 'axios';
+import { auth } from '../common/js/auth';
+import config from '../common/js/config';
+import { tryFunc } from '../common/js/common';
+import weui from 'weui.js';
+
+export default {
+  data() {
+    return {
+      showApp: false,
+      user: {}
+    };
+  },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+      const { data } = await axios.get(`${config.apiHost}/user/info`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      this.user = data;
+      this.$el.querySelector('.hd').style.background = `url("${
+        this.user.headPhoto
+      }") no-repeat`;
+      this.$el.querySelector('.avatar').style.background = `url("${
+        this.user.headPhoto
+      }") no-repeat`;
+    });
+  },
+  methods: {
+    handleJump(url) {
+      window.location.href = url;
+    },
+    handleClick() {
+      weui.alert('请在公众号发送消息咨询');
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -45,8 +91,8 @@ body,
   .hd {
     position: relative;
     height: 11.5625rem;
-    background: url('./assets/images/timg.jpg') no-repeat;
-    background-size: cover;
+    // background: url('./assets/images/timg.jpg') no-repeat;
+    background-size: cover !important;
 
     &:after {
       content: '';
@@ -68,8 +114,8 @@ body,
       height: 5.25rem;
       border-radius: 50%;
       border: 1px solid #fff;
-      background: url('./assets/images/timg.jpg') no-repeat;
-      background-size: cover;
+      // background: url('./assets/images/timg.jpg') no-repeat;
+      background-size: cover !important;
       z-index: 3;
     }
 
@@ -86,7 +132,7 @@ body,
 
       .tag {
         display: flex;
-        font-size: 0.75rem;
+        font-size: 0.875rem;
         color: #fff;
         justify-content: center;
 
@@ -94,20 +140,20 @@ body,
         .credit {
           display: inline-block;
           margin: 0 0.3125rem;
-          padding: 0 0.5rem;
+          padding: 0 0.5rem 0 1.5rem;
           text-align: right;
-          border-radius: 10px;
+          border-radius: 15px;
         }
         .vip {
-          background: url('./assets/images/VIP@3x.png') no-repeat 0.375rem center/ 1rem;
+          background: url('./assets/images/VIP@3x.png') no-repeat 0.375rem
+            center/ 1rem;
           background-color: #fc863f;
-          width: 3.25rem;
         }
 
         .credit {
-          background: url('./assets/images/credit@3x.png') no-repeat 0.375rem center/ 1rem;
+          background: url('./assets/images/credit@3x.png') no-repeat 0.375rem
+            center/ 1rem;
           background-color: #49c7f6;
-          width: 4.375rem;
         }
       }
     }
@@ -147,11 +193,18 @@ body,
 
       li {
         padding-left: 2.3125rem;
-        color: #333;
-        font-size: 1rem;
+
         height: 2.75rem;
         line-height: 2.75rem;
         border-bottom: 1px solid #e6e6e6;
+      }
+
+      a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        color: #333;
+        font-size: 1rem;
       }
 
       li:last-of-type {
