@@ -80,24 +80,24 @@
 </template>
 
 <script>
-import 'babel-polyfill';
-import * as qiniu from 'qiniu-js';
-import axios from 'axios';
+import "babel-polyfill";
+import * as qiniu from "qiniu-js";
+import axios from "axios";
 // import { auth } from '../common/js/auth';
-import config from '../common/js/config';
-import { tryFunc, openToast } from '../common/js/common';
+import config from "../common/js/config";
+import { tryFunc, openToast } from "../common/js/common";
 
 export default {
   data() {
     return {
-      token: ''
+      token: ""
     };
   },
   created() {
     tryFunc(async () => {
       const { data } = await axios.get(`${config.apiHost}/token`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       this.token = data.uptoken;
@@ -106,7 +106,7 @@ export default {
   methods: {
     handleImgChange(e) {
       if (!this.token) {
-        openToast('上传Token无效，请刷新页面重试');
+        openToast("上传Token无效，请刷新页面重试");
         return;
       }
       let file = e.target.files[0];
@@ -118,7 +118,7 @@ export default {
         {
           fname: file.name,
           params: {},
-          mimeType: ["image/png", "image/jpeg", "image/gif"]
+          mimeType: ["image/png", "image/jpeg", "image/jpg", "image/gif"]
         },
         {
           useCdnDomain: false,
