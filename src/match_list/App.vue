@@ -83,7 +83,7 @@
           <div class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__bd">
               <div class="weui-loadmore weui-loadmore_line">
-                <span class="weui-loadmore__tips">暂无数据</span>
+                <span class="weui-loadmore__tips">没有更多数据了</span>
               </div>
             </div>
           </div>
