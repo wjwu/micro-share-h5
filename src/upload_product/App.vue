@@ -112,16 +112,16 @@ export default {
       let file = e.target.files[0];
       console.log(file);
       const observable = qiniu.upload(
-        file.name,
         file,
+        null,
         this.token,
         {
           fname: file.name,
-          params: {}
-          // mimeType: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
+          params: {},
+          mimeType: ["image/png", "image/jpeg", "image/gif"]
         },
         {
-          useCdnDomain: true,
+          useCdnDomain: false,
           disableStatisticsReport: false,
           retryCount: 3,
           region: null
