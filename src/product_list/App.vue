@@ -5,7 +5,7 @@
         <span>/ MY SHELVES</span>
       </h2>
     </div>
-    <ul class="product" v-if="products.length > 1">
+    <ul class="product" v-if="products.length >= 1">
       <li v-for="item in products" :key="item.id">
         <a href="">
           <img :src="item.imgUrl" />
@@ -47,10 +47,16 @@ export default {
     tryFunc(async () => {
       const { data } = await axios.get(`${config.apiHost}/item`, {
         headers: {
-          userId: '1'
+          // userId: '1'
+          userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
         }
       });
-      this.products = data;
+      this.products = data.map(item => {
+        return {
+          ...item,
+          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
+        };
+      });
     });
   }
 };

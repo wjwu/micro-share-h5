@@ -7,31 +7,24 @@
           <label class="weui-label">名称</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="请输入商品名">
+          <input class="weui-input" type="text" placeholder="请输入商品名" maxlength="100" v-model="name">
         </div>
       </div>
       <div class="weui-cell">
         <div class="weui-cell__bd">
           <div class="weui-uploader">
             <div class="weui-uploader__hd">
-              <p class="weui-uploader__title">图片</p>
-              <div class="weui-uploader__info">0/2</div>
+              <p class="weui-uploader__title">图片（最大4MB）</p>
+              <div class="weui-uploader__info">{{images.length}}/5</div>
             </div>
             <div class="weui-uploader__bd">
               <ul class="weui-uploader__files" id="uploaderFiles">
-                <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
-                <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
-                <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
-                <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
-                  <div class="weui-uploader__file-content">
-                    <i class="weui-icon-warn"></i>
-                  </div>
-                </li>
-                <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
-                  <div class="weui-uploader__file-content">50%</div>
+                <li v-for="(image,i) in images" :key="i" class="weui-uploader__file" @click="handleImgClick(image,i)" :style="`background-image:url('${imageHost}/${image}')`"></li>
+                <li v-if="uploading" class="weui-uploader__file weui-uploader__file_status">
+                  <div class="weui-uploader__file-content">{{percent}}%</div>
                 </li>
               </ul>
-              <div class="weui-uploader__input-box">
+              <div v-if="images.length !== 5" class="weui-uploader__input-box">
                 <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="">
               </div>
             </div>
@@ -43,7 +36,7 @@
           <label class="weui-label">价格</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="请输入商品价格">
+          <input class="weui-input" v-model="price" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="请输入商品价格">
         </div>
       </div>
       <div class="weui-cell">
@@ -51,7 +44,7 @@
           <label class="weui-label">成本</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="成本价（可选）">
+          <input class="weui-input" v-model="cost" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="成本价（可选）">
         </div>
       </div>
       <div class="weui-cell">
@@ -59,7 +52,7 @@
           <label class="weui-label">库存</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="库存数量">
+          <input class="weui-input" v-model="stock" type="number" pattern="[0-9]*" @textInput="handlKeyDownStock($event)" placeholder="库存数量">
         </div>
       </div>
     </div>
@@ -67,14 +60,14 @@
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea class="weui-textarea" placeholder="请输入商品描述信息（可选）" rows="3"></textarea>
+          <textarea class="weui-textarea" v-model="desc" maxlength="200" placeholder="请输入商品描述信息（可选）" rows="3"></textarea>
           <div class="weui-textarea-counter">
-            <span>0</span>/200</div>
+            <span>{{desc.length}}</span>/200</div>
         </div>
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">确定</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">提交</a>
     </div>
   </div>
 </template>
@@ -83,6 +76,7 @@
 import 'babel-polyfill';
 import * as qiniu from 'qiniu-js';
 import axios from 'axios';
+import weui from 'weui.js';
 // import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc, openToast } from '../common/js/common';
@@ -90,7 +84,17 @@ import { tryFunc, openToast } from '../common/js/common';
 export default {
   data() {
     return {
-      token: ''
+      token: '',
+      uploading: false,
+      percent: 0,
+      images: [],
+      imageHost: config.imageHost,
+      name: '',
+      price: '',
+      cost: '',
+      stock: '',
+      desc: '',
+      regPrice: new RegExp('[0-9\\.]')
     };
   },
   created() {
@@ -104,19 +108,22 @@ export default {
     });
   },
   methods: {
-    handleImgChange(e) {
+    async handleImgChange(e) {
       if (!this.token) {
         openToast('上传Token无效，请刷新页面重试');
         return;
       }
       let file = e.target.files[0];
+      debugger;
+      if (file.size > 1024 * 1024 * 4) {
+        openToast('图片大小最大不超过4MB');
+        return;
+      }
       const observable = qiniu.upload(
         file,
         null,
         this.token,
         {
-          fname: file.name,
-          params: {},
           mimeType: ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
         },
         {
@@ -126,19 +133,105 @@ export default {
           region: null
         }
       );
+      const _this = this;
+      this.uploading = true;
       observable.subscribe({
         next(res) {
-          console.log(res);
+          _this.percent = res.total.percent.toFixed(0);
         },
         error(error) {
-          console.log(error);
+          openToast(JSON.stringify(error));
         },
         complete(res) {
-          console.log(res);
+          _this.uploading = false;
+          _this.images.push(res.hash);
         }
       });
     },
-    handleSave() {}
+    handleImgClick(hash, idx) {
+      const _this = this;
+      const gallery = weui.gallery(`${this.imageHost}/${hash}`, {
+        onDelete: function() {
+          if (confirm('确定删除该图片？')) {
+            _this.images.splice(idx, 1);
+          }
+          gallery.hide(function() {});
+        }
+      });
+    },
+    handlKeyDownStock(e) {
+      if (!/^[0-9]$/.test(e.data)) {
+        e.preventDefault();
+      }
+    },
+    handlKeyDownPrice(e) {
+      if (!this.regPrice.test(e.data)) {
+        e.preventDefault();
+      }
+    },
+    handleSave() {
+      if (!this.name) {
+        openToast('请输入商品名称');
+        return;
+      }
+      if (this.images.length === 0) {
+        openToast('请至少上传一张商品图片');
+        return;
+      }
+      const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
+      if (!reg.test(this.price)) {
+        openToast('商品价格不能为空，最多保留两位小数');
+        return;
+      }
+      if (this.cost && !reg.test(this.cost)) {
+        openToast('成本价格格式不正确，最多保留两位小数');
+        return;
+      }
+      if (!this.stock.toString()) {
+        openToast('请输入商品库存');
+        return;
+      }
+      tryFunc(async () => {
+        await axios.post(
+          `${config.apiHost}/item`,
+          {
+            count: this.stock,
+            description: this.desc,
+            name: this.name,
+            originalPrice: this.cost,
+            sellPrice: this.price,
+            imgUrl: this.images
+              .map(item => `${this.imageHost}/${item}`)
+              .join(',')
+          },
+          {
+            headers: {
+              // userId: localStorage.getItem('userId')
+              userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+            }
+          }
+        );
+        const dialog = weui.dialog({
+          content: '操作成功',
+          buttons: [
+            {
+              label: '查看货架',
+              type: 'default',
+              onClick: () => {
+                window.location.href = './product_list.html';
+              }
+            },
+            {
+              label: '继续上传',
+              type: 'primary',
+              onClick: () => {
+                dialog.hide();
+              }
+            }
+          ]
+        });
+      });
+    }
   }
 };
 </script>
