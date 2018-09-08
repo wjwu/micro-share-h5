@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="weui-cells__title">上传商品</div>
+  <div v-if="product">
+    <div class="weui-cells__title">修改商品信息</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
@@ -79,18 +79,13 @@ import axios from 'axios';
 import weui from 'weui.js';
 // import { auth } from '../common/js/auth';
 import config from '../common/js/config';
-import { tryFunc, openToast } from '../common/js/common';
+import { tryFunc, openToast, getQueryString } from '../common/js/common';
 
 export default {
   data() {
     return {
-      product: {
-        name: '',
-        sellPrice: '',
-        originalPrice: '',
-        count: '',
-        description: ''
-      },
+      pId: getQueryString('pId'),
+      product: null,
       token: '',
       uploading: false,
       percent: 0,
@@ -107,6 +102,23 @@ export default {
         }
       });
       this.token = data.uptoken;
+    });
+  },
+  mounted() {
+    tryFunc(async () => {
+      if (!this.pId) {
+        openToast('商品编号无效');
+        return;
+      }
+      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      this.product = data;
+      this.images = data.imgUrl
+        .split(',')
+        .map(item => item.substr(item.lastIndexOf('/') + 1));
     });
   },
   methods: {
@@ -196,10 +208,9 @@ export default {
         openToast('请输入商品库存');
         return;
       }
-      const _this = this;
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/item`,
+        await axios.put(
+          `${config.apiHost}/item/${this.pId}`,
           {
             ...this.product,
             imgUrl: this.images
@@ -224,17 +235,9 @@ export default {
               }
             },
             {
-              label: '继续上传',
+              label: '留在本页',
               type: 'primary',
               onClick: () => {
-                _this.product = {
-                  name: '',
-                  sellPrice: '',
-                  originalPrice: '',
-                  count: '',
-                  description: ''
-                };
-                _this.images = [];
                 dialog.hide();
               }
             }

@@ -7,7 +7,7 @@
     </div>
     <ul class="product" v-if="products.length >= 1">
       <li v-for="item in products" :key="item.id">
-        <a href="">
+        <a :href="`./product_detail.html?pId=${item.id}`">
           <img :src="item.imgUrl" />
           <h3>{{item.name}}</h3>
           <p class="desc">{{item.description?item.description:'.'}}</p>
