@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="showApp">
     <div class="title">
       <h2>我的货架
         <span>/ MY SHELVES</span>
@@ -33,22 +33,24 @@
 <script>
 import 'babel-polyfill';
 import axios from 'axios';
-// import { auth } from '../common/js/auth';
+import { auth } from '../common/js/auth';
 import config from '../common/js/config';
-import { tryFunc } from '../common/js/common';
+import { tryFunc, getQueryString } from '../common/js/common';
 
 export default {
   data() {
     return {
-      products: []
+      products: [],
+      showApp: false
     };
   },
   mounted() {
     tryFunc(async () => {
-      const { data } = await axios.get(`${config.apiHost}/item`, {
-        headers: {
-          // userId: '1'
-          userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+      await auth();
+      this.showApp = true;
+      const { data } = await axios.get(`${config.apiHost}/item/owner`, {
+        params: {
+          userId: getQueryString('userId')
         }
       });
       this.products = data.map(item => {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showApp">
     <div class="weui-cells__title">上传商品</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -77,7 +77,7 @@ import 'babel-polyfill';
 import * as qiniu from 'qiniu-js';
 import axios from 'axios';
 import weui from 'weui.js';
-// import { auth } from '../common/js/auth';
+import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc, openToast } from '../common/js/common';
 
@@ -96,11 +96,14 @@ export default {
       percent: 0,
       images: [],
       imageHost: config.imageHost,
-      regPrice: new RegExp('[0-9\\.]')
+      regPrice: new RegExp('[0-9\\.]'),
+      showApp: false
     };
   },
   created() {
     tryFunc(async () => {
+      await auth();
+      this.showApp = true;
       const { data } = await axios.get(`${config.apiHost}/token`, {
         headers: {
           userId: localStorage.getItem('userId')

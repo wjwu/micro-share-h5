@@ -5,7 +5,7 @@
   "author": "wjwu",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --port 8080 --inline --progress --config build/webpack.dev.conf.babel.js",
-    "dev-host": "cross-env NODE_ENV=dev webpack-dev-server --public --host 192.168.0.108 --port 8082 --inline --progress --config build/webpack.dev.conf.babel.js",
+    "dev-host": "cross-env NODE_ENV=dev webpack-dev-server --public --host 127.0.0.1 --port 8082 --inline --progress --config build/webpack.dev.conf.babel.js",
     "start": "npm run dev",
     "test": "cross-env NODE_ENV=test webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details",
     "uat": "cross-env NODE_ENV=uat webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details",

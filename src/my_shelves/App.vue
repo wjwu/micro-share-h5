@@ -1,5 +1,5 @@
 <template>
-  <div class="weui-panel">
+  <div class="weui-panel" v-if="showApp">
     <div class="weui-panel__hd">我的货架</div>
     <div class="page__bd page__bd_spacing" style="padding: 0 .8rem;">
       <a href="./product_list.html" class="weui-btn weui-btn_primary">查看我的货架</a>
@@ -34,25 +34,29 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import weui from 'weui.js';
-// import { auth } from '../common/js/auth';
+import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc } from '../common/js/common';
 
 export default {
   data() {
     return {
+      showApp: false,
       products: []
     };
   },
   mounted() {
-    tryFunc(this.getProducts);
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+      await this.getProducts();
+    });
   },
   methods: {
     async getProducts() {
       const { data } = await axios.get(`${config.apiHost}/item`, {
         headers: {
-          // userId: '1'
-          userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+          userId: localStorage.getItem('userId')
         }
       });
       this.products = data.map(item => {

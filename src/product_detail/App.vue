@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product">
+  <div v-if="product && showApp">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(img,i) in product.images" :key="i">
@@ -14,7 +14,7 @@
 <script>
 import 'babel-polyfill';
 import axios from 'axios';
-// import { auth } from '../common/js/auth';
+import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc, openToast, getQueryString } from '../common/js/common';
 
@@ -22,11 +22,14 @@ export default {
   data() {
     return {
       pId: getQueryString('pId'),
-      product: null
+      product: null,
+      showApp: false
     };
   },
   mounted() {
     tryFunc(async () => {
+      await auth();
+      this.showApp = true;
       if (!this.pId) {
         openToast('商品编号无效');
         return;
