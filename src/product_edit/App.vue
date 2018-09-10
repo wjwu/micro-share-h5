@@ -11,6 +11,17 @@
         </div>
       </div>
       <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">类型</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" v-model="product.type">
+            <option value="NORMAL" selected>普通</option>
+            <option value="GROUP">团购</option>
+          </select>
+        </div>
+      </div>
+      <div class="weui-cell">
         <div class="weui-cell__bd">
           <div class="weui-uploader">
             <div class="weui-uploader__hd">

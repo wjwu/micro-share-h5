@@ -11,6 +11,17 @@
         </div>
       </div>
       <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">类型</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" v-model="product.type">
+            <option value="NORMAL" selected>普通</option>
+            <option value="GROUP">团购</option>
+          </select>
+        </div>
+      </div>
+      <div class="weui-cell">
         <div class="weui-cell__bd">
           <div class="weui-uploader">
             <div class="weui-uploader__hd">
@@ -73,37 +84,37 @@
 </template>
 
 <script>
-import 'babel-polyfill';
-import * as qiniu from 'qiniu-js';
-import axios from 'axios';
-import weui from 'weui.js';
+import "babel-polyfill";
+import * as qiniu from "qiniu-js";
+import axios from "axios";
+import weui from "weui.js";
 // import { auth } from '../common/js/auth';
-import config from '../common/js/config';
-import { tryFunc, openToast } from '../common/js/common';
+import config from "../common/js/config";
+import { tryFunc, openToast } from "../common/js/common";
 
 export default {
   data() {
     return {
       product: {
-        name: '',
-        sellPrice: '',
-        originalPrice: '',
-        count: '',
-        description: ''
+        name: "",
+        sellPrice: "",
+        originalPrice: "",
+        count: "",
+        description: ""
       },
-      token: '',
+      token: "",
       uploading: false,
       percent: 0,
       images: [],
       imageHost: config.imageHost,
-      regPrice: new RegExp('[0-9\\.]')
+      regPrice: new RegExp("[0-9\\.]")
     };
   },
   created() {
     tryFunc(async () => {
       const { data } = await axios.get(`${config.apiHost}/token`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       this.token = data.uptoken;
@@ -112,7 +123,7 @@ export default {
   methods: {
     async handleImgChange(e) {
       if (!this.token) {
-        openToast('上传Token无效，请刷新页面重试');
+        openToast("上传Token无效，请刷新页面重试");
         return;
       }
       let file = e.target.files[0];
@@ -120,7 +131,7 @@ export default {
         return;
       }
       if (file.size > 1024 * 1024 * 4) {
-        openToast('图片大小最大不超过4MB');
+        openToast("图片大小最大不超过4MB");
         return;
       }
       const observable = qiniu.upload(
@@ -128,7 +139,7 @@ export default {
         null,
         this.token,
         {
-          mimeType: ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
+          mimeType: ["image/png", "image/jpeg", "image/jpg", "image/gif"]
         },
         {
           useCdnDomain: false,
@@ -157,7 +168,7 @@ export default {
       const _this = this;
       const gallery = weui.gallery(`${this.imageHost}/${hash}`, {
         onDelete: function() {
-          if (confirm('确定删除该图片？')) {
+          if (confirm("确定删除该图片？")) {
             _this.images.splice(idx, 1);
           }
           gallery.hide(function() {});
@@ -176,24 +187,24 @@ export default {
     },
     handleSave() {
       if (!this.product.name) {
-        openToast('请输入商品名称');
+        openToast("请输入商品名称");
         return;
       }
       if (this.images.length === 0) {
-        openToast('请至少上传一张商品图片');
+        openToast("请至少上传一张商品图片");
         return;
       }
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
       if (!reg.test(this.product.sellPrice)) {
-        openToast('商品价格不能为空，最多保留两位小数');
+        openToast("商品价格不能为空，最多保留两位小数");
         return;
       }
       if (this.product.originalPrice && !reg.test(this.product.originalPrice)) {
-        openToast('成本价格格式不正确，最多保留两位小数');
+        openToast("成本价格格式不正确，最多保留两位小数");
         return;
       }
       if (!this.product.count.toString()) {
-        openToast('请输入商品库存');
+        openToast("请输入商品库存");
         return;
       }
       const _this = this;
@@ -204,35 +215,35 @@ export default {
             ...this.product,
             imgUrl: this.images
               .map(item => `${this.imageHost}/${item}`)
-              .join(',')
+              .join(",")
           },
           {
             headers: {
               // userId: localStorage.getItem('userId')
-              userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+              userId: "f6217fc2-7bae-4972-87d5-563f02fdd9e4"
             }
           }
         );
         const dialog = weui.dialog({
-          content: '操作成功',
+          content: "操作成功",
           buttons: [
             {
-              label: '查看货架',
-              type: 'default',
+              label: "查看货架",
+              type: "default",
               onClick: () => {
-                window.location.href = './my_shelves.html';
+                window.location.href = "./my_shelves.html";
               }
             },
             {
-              label: '继续上传',
-              type: 'primary',
+              label: "继续上传",
+              type: "primary",
               onClick: () => {
                 _this.product = {
-                  name: '',
-                  sellPrice: '',
-                  originalPrice: '',
-                  count: '',
-                  description: ''
+                  name: "",
+                  sellPrice: "",
+                  originalPrice: "",
+                  count: "",
+                  description: ""
                 };
                 _this.images = [];
                 dialog.hide();
