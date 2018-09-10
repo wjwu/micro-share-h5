@@ -6,9 +6,10 @@
       </h2>
     </div>
     <ul class="product" v-if="products.length >= 1">
-      <li v-for="item in products" :key="item.id">
+      <li v-for="item in products" :key="item.id" style="position:relative;">
         <a :href="`./product_detail.html?pId=${item.id}`">
           <img :src="item.imgUrl" />
+          <span class="weui-badge" style="position: absolute;top: 0em;right: 0rem;font-size: 1rem;border-radius: 0px;" v-if="item.type === 'GROUP'">团</span>
           <h3>{{item.name}}</h3>
           <p class="desc">{{item.description?item.description:'.'}}</p>
           <p class="price">
@@ -18,24 +19,20 @@
         </a>
       </li>
     </ul>
-    <div class="weui-panel__bd" v-else>
-      <div class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__bd">
+    <div class="page__bd">
           <div class="weui-loadmore weui-loadmore_line">
             <span class="weui-loadmore__tips">没有更多商品了</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import 'babel-polyfill';
-import axios from 'axios';
+import "babel-polyfill";
+import axios from "axios";
 // import { auth } from '../common/js/auth';
-import config from '../common/js/config';
-import { tryFunc } from '../common/js/common';
+import config from "../common/js/config";
+import { tryFunc } from "../common/js/common";
 
 export default {
   data() {
@@ -48,13 +45,13 @@ export default {
       const { data } = await axios.get(`${config.apiHost}/item`, {
         headers: {
           // userId: '1'
-          userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+          userId: "f6217fc2-7bae-4972-87d5-563f02fdd9e4"
         }
       });
       this.products = data.map(item => {
         return {
           ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
+          imgUrl: item.imgUrl ? item.imgUrl.split(",")[0] : ""
         };
       });
     });
@@ -99,6 +96,7 @@ body,
 
     li {
       flex: 0 0 48%;
+      margin-bottom: 1rem;
       overflow: hidden;
 
       a {
@@ -111,6 +109,7 @@ body,
 
       img {
         width: 100%;
+        height: 9rem;
       }
 
       h3 {
