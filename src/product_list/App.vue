@@ -6,12 +6,12 @@
       </h2>
     </div>
     <ul class="product" v-if="products.length >= 1">
-      <li v-for="item in products" :key="item.id" style="position:relative;">
+      <li v-for="item in products" :key="item.id">
         <a :href="`./product_detail.html?pId=${item.id}`">
           <img :src="item.imgUrl" />
-          <span class="weui-badge" style="position: absolute;top: 0em;right: 0rem;font-size: 1rem;border-radius: 0px;" v-if="item.type === 'GROUP'">团</span>
+          <span class="weui-badge badge" v-if="item.type === 'GROUP'">团</span>
           <h3>{{item.name}}</h3>
-          <p class="desc">{{item.description?item.description:'.'}}</p>
+          <p class="desc">{{item.description}}</p>
           <p class="price">
             <span>￥{{item.sellPrice}}元</span>
             <small>{{item.sales}}已售</small>
@@ -19,7 +19,7 @@
         </a>
       </li>
     </ul>
-    <div class="page__bd">
+    <div class="page__bd" v-else>
       <div class="weui-loadmore weui-loadmore_line">
         <span class="weui-loadmore__tips">没有更多商品了</span>
       </div>
@@ -67,6 +67,7 @@ body,
 .main {
   height: 100%;
   background-color: #fff;
+  font-family: "Helvetica Neue",Helvetica,STHeiTi,Arial,sans-serif !important;
 }
 .main {
   .title {
@@ -97,6 +98,7 @@ body,
     padding: 0 1.25rem;
 
     li {
+      position: relative;
       flex: 0 0 48%;
       margin-bottom: 1rem;
       overflow: hidden;
@@ -111,7 +113,15 @@ body,
 
       img {
         width: 100%;
-        height: 9rem;
+        height: 10rem;
+      }
+
+      .badge {
+        position: absolute;
+        top: 0em;
+        right: 0rem;
+        font-size: 1rem;
+        border-radius: 0px;
       }
 
       h3 {
@@ -135,6 +145,7 @@ body,
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        min-height: 2.125rem;
       }
 
       .price {
