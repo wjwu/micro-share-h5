@@ -11,6 +11,17 @@
         </div>
       </div>
       <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">类型</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" v-model="product.type">
+            <option value="NORMAL" selected>普通</option>
+            <option value="GROUP">团购</option>
+          </select>
+        </div>
+      </div>
+      <div class="weui-cell">
         <div class="weui-cell__bd">
           <div class="weui-uploader">
             <div class="weui-uploader__hd">
@@ -211,8 +222,7 @@ export default {
           },
           {
             headers: {
-              // userId: localStorage.getItem('userId')
-              userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+              userId: localStorage.getItem('userId')
             }
           }
         );

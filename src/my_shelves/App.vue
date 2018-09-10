@@ -3,11 +3,12 @@
     <div class="weui-panel__hd">我的货架</div>
     <div class="page__bd page__bd_spacing" style="padding: 0 .8rem;">
       <a href="./product_list.html" class="weui-btn weui-btn_primary">查看我的货架</a>
+      <a href="./upload_product.html" class="weui-btn weui-btn_primary">添加商品</a>
     </div>
     <div class="weui-panel__hd">商品管理</div>
     <div class="weui-cell" v-for="item in products" :key="item.id">
-      <div class="weui-cell__hd">
-        <img :src="item.imgUrl" />
+      <div class="weui-cell__hd" style="position: relative;">
+        <img :src="item.imgUrl" /><span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;" v-if="item.type === 'GROUP'">团</span>
       </div>
       <div class="weui-cell__bd">
         <p>{{item.name}}</p>
@@ -18,7 +19,7 @@
         <a class="weui-btn weui-btn_mini weui-btn_warn" href="javascript:;" @click="handleDelete(item.id)">删除</a>
       </div>
     </div>
-    <div class="weui-panel__bd" v-if="products.length === 0">
+    <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__bd">
           <div class="weui-loadmore weui-loadmore_line">
