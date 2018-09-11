@@ -22,7 +22,7 @@
     <div class="buy-wrap">
       <a :href="'./list.html?userId=' + userId" class="buy-tohome"></a>
       <a @click="showWechat" class="buy-concat"></a>
-      <div class="buy">立即购买</div>
+      <div class="buy" @click="buy">立即购买</div>
     </div>
   </div>
 </template>
@@ -41,7 +41,8 @@ export default {
       userId: "",
       wechat: "",
       product: null,
-      showApp: false
+      showApp: false,
+      buyed: false
     };
   },
   mounted() {
@@ -71,13 +72,34 @@ export default {
     });
 
     tryFunc(async () => {
-      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}/shopInfo`);
+      const { data } = await axios.get(
+        `${config.apiHost}/item/${this.pId}/shopInfo`
+      );
       this.userId = data.userId;
       this.wechat = data.wechat;
     });
-  },methods: {
-    showWechat(){
-      openToast('请联系卖家微信：' + this.wechat);
+  },
+  methods: {
+    showWechat() {
+      openToast("请联系卖家微信：" + this.wechat);
+    },
+    async buy() {
+      var name = localStorage.getItem("name");
+      if (!name) {
+        var name = prompt("请正确输入您的联系方式或微信号", "");
+        if (!name) {
+          openToast("请输入正确的联系方式或微信号");
+          return;
+        }
+        localStorage.setItem("name", name);
+      }
+      if (!this.buyed) {
+        this.buyed = true;
+        await axios.get(`${config.apiHost}/item/${this.pId}/buy?name=` + name);
+      }
+      openToast(
+        "购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!"
+      );
     }
   }
 };
@@ -198,8 +220,8 @@ body {
   }
 }
 
-.product-detail{
-  padding:1rem;
+.product-detail {
+  padding: 1rem;
 }
 </style>
 
