@@ -4,18 +4,17 @@
   "description": "micro-share-h5",
   "author": "wjwu",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --port 8080 --inline --progress --config build/webpack.dev.conf.babel.js",
-    "dev-host": "cross-env NODE_ENV=dev webpack-dev-server --public --host 127.0.0.1 --port 8082 --inline --progress --config build/webpack.dev.conf.babel.js",
+    "dev": "webpack-dev-server --port 8081 --inline --progress --config build/webpack.dev.conf.babel.js",
+    "dev-host": "webpack-dev-server --public --host 127.0.0.1 --port 8082 --inline --progress --config build/webpack.dev.conf.babel.js",
     "start": "npm run dev",
-    "test": "cross-env NODE_ENV=test webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details",
-    "uat": "cross-env NODE_ENV=uat webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details",
-    "prod": "cross-env NODE_ENV=prod webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details"
+    "build": "webpack --config build/webpack.prod.conf.babel.js --progress --colors --display-error-details"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "moment": "^2.22.2",
     "qiniu-js": "^2.5.1",
+    "qrcode.vue": "^1.6.0",
     "vue": "^2.5.16",
     "vue-rate": "^2.2.0",
     "weui.js": "^1.1.4"

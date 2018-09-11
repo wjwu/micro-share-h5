@@ -132,7 +132,7 @@ export default {
           {
             loader: 'file-loader',
             options: {
-              name: 'assets/images/[name].[[hash:8]].[ext]'
+              name: 'assets/images/[name].[hash:8].[ext]'
             }
           },
           {

@@ -21,7 +21,11 @@ export default merge(baseConfig, {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"development"'
+        NODE_ENV: '"development"',
+        APP_ID: '"wx78ec611707faf6af"',
+        API_HOST: '"http://web.j-coder.com"',
+        WEB_HOST: '"http://frp.j-coder.com"',
+        IMAGE_HOST: '"http://oncwhpqgj.bkt.clouddn.com"'
       }
     })
   ],

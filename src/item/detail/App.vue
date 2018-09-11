@@ -95,25 +95,29 @@ export default {
   },
   methods: {
     showWechat() {
-      openToast("请联系卖家微信：" + this.wechat);
+      openToast('请联系卖家微信：' + this.wechat);
     },
     async buy() {
-      var name = localStorage.getItem("name");
+      let name = localStorage.getItem('name');
       if (!name) {
-        var name = prompt("请正确输入您的联系方式或微信号", "");
+        name = prompt('请正确输入您的联系方式或微信号', '');
         if (!name) {
-          openToast("请输入正确的联系方式或微信号");
+          openToast('请输入正确的联系方式或微信号');
           return;
         }
-        localStorage.setItem("name", name);
+        localStorage.setItem('name', name);
       }
       if (!this.buyed) {
         this.buyed = true;
-        await axios.get(`${config.apiHost}/item/${this.pId}/buy?name=` + name);
+        tryFunc(async () => {
+          await axios.get(
+            `${config.apiHost}/item/${this.pId}/buy?name=${name}`
+          );
+          openToast(
+            '购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!'
+          );
+        });
       }
-      openToast(
-        "购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!"
-      );
     }
   }
 };

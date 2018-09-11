@@ -12,25 +12,26 @@ const dist = path.join(__dirname, '..', 'dist');
 const config = merge(baseConfig, {
   output: {
     path: dist,
-    filename: '[name].[hash].js',
-    publicPath: '../'
+    filename: '[name].[hash:8].js',
+    publicPath: './'
   },
   plugins: [
     new UglifyJsPlugin({
-      uglifyOptions: {
-        ie8: true,
-        ecma: 5
-      }
+      uglifyOptions: {}
     }),
     new CleanWebpackPlugin('./dist', {
       root: path.join(__dirname, '..'),
       verbose: true,
       dry: false
     }),
-    new ExtractTextPlugin('[name].[hash].css'),
+    new ExtractTextPlugin('[name].[hash:8].css'),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"production"',
+        APP_ID: '"wx78ec611707faf6af"',
+        API_HOST: '"http://web.j-coder.com"',
+        WEB_HOST: '"http://frp.j-coder.com"',
+        IMAGE_HOST: '"http://static.fangzhoubuluo.com"'
       }
     })
   ],

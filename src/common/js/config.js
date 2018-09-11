@@ -1,6 +1,6 @@
 export default {
-  appId: 'wx78ec611707faf6af',
-  webHost: 'http://frp.j-coder.com',
-  apiHost: 'http://web.j-coder.com',
-  imageHost: 'http://oncwhpqgj.bkt.clouddn.com'
+  appId: process.env['APP_ID'],
+  webHost: process.env['WEB_HOST'],
+  apiHost: process.env['API_HOST'],
+  imageHost: process.env['IMAGE_HOST']
 };
