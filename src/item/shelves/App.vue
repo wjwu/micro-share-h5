@@ -3,6 +3,7 @@
     <div class="weui-panel__hd">我的货架</div>
     <div class="page__bd page__bd_spacing" style="padding: 0 .8rem;">
       <a href="./product_list.html" class="weui-btn weui-btn_primary">查看我的货架</a>
+      <a :href="'http://api.k780.com:88/?app=qr.get&data=http://' + config.webHost + '/item/list?userId=' + userId + '&level=L&size=6'" class="weui-btn weui-btn_primary">店铺二维码</a>
       <a href="./upload_product.html" class="weui-btn weui-btn_primary">添加商品</a>
     </div>
     <div class="weui-panel__hd">商品管理</div>
@@ -43,7 +44,8 @@ export default {
   data() {
     return {
       showApp: false,
-      products: []
+      products: [],
+      userId: localStorage.getItem('userId')
     };
   },
   mounted() {
