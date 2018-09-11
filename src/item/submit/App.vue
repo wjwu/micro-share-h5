@@ -7,7 +7,7 @@
           <label class="weui-label">名称</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="请输入商品名" maxlength="100" v-model="product.name">
+          <input class="weui-input" type="text" placeholder="请输入商品名(不超过50字)" maxlength="50" v-model="product.name">
         </div>
       </div>
       <div class="weui-cell">
@@ -50,30 +50,14 @@
           <input class="weui-input" v-model="product.sellPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="请输入商品价格">
         </div>
       </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">成本</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.originalPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="成本价（可选）">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">库存</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.count" type="number" pattern="[0-9]*" @textInput="handlKeyDownStock($event)" placeholder="库存数量">
-        </div>
-      </div>
     </div>
     <div class="weui-cells__title">描述</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea class="weui-textarea" v-model="product.description" maxlength="200" placeholder="请输入商品描述信息（可选）" rows="3"></textarea>
+          <textarea class="weui-textarea" v-model="product.description" maxlength="100" placeholder="请输入商品描述信息（可选）,不超过100字" rows="3"></textarea>
           <div class="weui-textarea-counter">
-            <span>{{product.description.length}}</span>/200</div>
+            <span>{{product.description.length}}</span>/100</div>
         </div>
       </div>
     </div>
@@ -98,8 +82,6 @@ export default {
       product: {
         name: '',
         sellPrice: '',
-        originalPrice: '',
-        count: '',
         description: '',
         type: 'NORMAL'
       },
@@ -203,14 +185,6 @@ export default {
         openToast('商品价格不能为空，最多保留两位小数');
         return;
       }
-      if (this.product.originalPrice && !reg.test(this.product.originalPrice)) {
-        openToast('成本价格格式不正确，最多保留两位小数');
-        return;
-      }
-      if (!this.product.count.toString()) {
-        openToast('请输入商品库存');
-        return;
-      }
       const _this = this;
       tryFunc(async () => {
         await axios.post(
@@ -244,8 +218,6 @@ export default {
                 _this.product = {
                   name: '',
                   sellPrice: '',
-                  originalPrice: '',
-                  count: '',
                   description: ''
                 };
                 _this.images = [];
