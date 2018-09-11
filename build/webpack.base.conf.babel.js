@@ -15,7 +15,8 @@ const entryDirs = glob.sync('src/**/index.js').map(item => {
 });
 
 // const entryDirs = [
-//   'bill/save'
+//   'bill/save',
+//   'bill/my'
 // ];
 
 const entry = {};
