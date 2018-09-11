@@ -17,6 +17,7 @@ module.exports = {
         SwitchCase: 1
       }
     ],
+    "linebreak-style": [0 ,"error", "windows"],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],

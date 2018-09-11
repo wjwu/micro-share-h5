@@ -8,8 +8,8 @@
         </div>
         <div class="weui-cell__bd">
           <select class="weui-select" v-model="type" @change="handleTypeChange">
-            <option value="1">收入</option>
-            <option value="2">支出</option>
+            <option value="IN" selected="selected">收入</option>
+            <option value="OUT">支出</option>
           </select>
         </div>
       </div>
@@ -20,7 +20,7 @@
         <div class="weui-cell__bd">
           <input class="weui-input" type="date" v-model="date">
         </div>
-        <div class="weui-cell__bd">
+        <div class="weui-cell__bd" v-if="date === today">
           <span class="weui-badge" style="margin-left: 5px;">今天</span>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <label class="weui-label">{{typeName}}金额</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" v-model="amount" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)">
+          <input class="weui-input" v-model="amount" type="text" placeholder="请输入账单金额" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)">
         </div>
       </div>
     </div>
@@ -49,24 +49,27 @@
   </div>
 </template>
 <script>
-import 'babel-polyfill';
-import axios from 'axios';
-import moment from 'moment';
-// import weui from 'weui.js';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast } from '../../common/js/common';
+import "babel-polyfill";
+import axios from "axios";
+import moment from "moment";
+import weui from "weui.js";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
+import { tryFunc, openToast } from "../../common/js/common";
+
+var today = moment(new Date()).format("YYYY-MM-DD");
 
 export default {
   data() {
     return {
-      type: '1',
-      typeName: '收入',
-      amount: '',
-      remark: '',
-      date: moment(new Date()).format('YYYY-MM-DD'),
+      type: "IN",
+      typeName: "收入",
+      amount: "",
+      remark: "",
+      today: today,
+      date: today,
       showApp: false,
-      regPrice: new RegExp('[0-9\\.]')
+      regPrice: new RegExp("[0-9\\.]")
     };
   },
   mounted() {
@@ -77,10 +80,10 @@ export default {
   },
   methods: {
     handleTypeChange() {
-      if (this.type === '1') {
-        this.typeName = '支出';
+      if (this.type === "OUT") {
+        this.typeName = "支出";
       } else {
-        this.typeName = '收入';
+        this.typeName = "收入";
       }
     },
     handlKeyDownPrice(e) {
@@ -91,7 +94,7 @@ export default {
     handleSave() {
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
       if (!reg.test(this.amount)) {
-        openToast('金额不能为空，最多保留两位小数');
+        openToast("金额不能为空，最多保留两位小数");
         return;
       }
 
@@ -101,14 +104,39 @@ export default {
           {
             type: this.type,
             amount: this.amount,
-            remark: this.remark
+            remark: this.remark,
+            date: this.date
           },
           {
             headers: {
-              userId: localStorage.getItem('userId')
+              userId: localStorage.getItem("userId")
             }
           }
         );
+      });
+
+      const dialog = weui.dialog({
+        content: "操作成功",
+        buttons: [
+          {
+            label: "查看账单",
+            type: "default",
+            onClick: () => {
+              window.location.href = "./xxx.html";
+            }
+          },
+          {
+            label: "继续添加",
+            type: "primary",
+            onClick: () => {
+              this.type = "IN";
+              this.date = this.today;
+              this.amount = "";
+              this.remark = "";
+              dialog.hide();
+            }
+          }
+        ]
       });
     }
   }
