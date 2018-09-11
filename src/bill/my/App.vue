@@ -38,7 +38,6 @@
 import 'babel-polyfill';
 import axios from 'axios';
 import moment from 'moment';
-// import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc } from '../../common/js/common';
