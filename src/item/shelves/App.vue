@@ -2,9 +2,9 @@
   <div class="weui-panel" v-if="showApp">
     <div class="weui-panel__hd">我的货架</div>
     <div class="page__bd page__bd_spacing" style="padding: 0 .8rem;">
-      <a href="./product_list.html" class="weui-btn weui-btn_primary">查看我的货架</a>
-      <a :href="'http://api.k780.com:88/?app=qr.get&data=http://' + webHost + '/item/list?userId=' + userId + '&level=L&size=6'" class="weui-btn weui-btn_primary">店铺二维码</a>
-      <a href="./upload_product.html" class="weui-btn weui-btn_primary">添加商品</a>
+      <a :href="`./list.html?userId=${userId}`" class="weui-btn weui-btn_primary">查看我的货架</a>
+      <a :href="`https://sapi.k780.com/?app=qr.get&data=${webHost}/item/list.html?userId=${userId}&level=L&size=6`" class="weui-btn weui-btn_primary">店铺二维码</a>
+      <a href="./submit.html" class="weui-btn weui-btn_primary">添加商品</a>
     </div>
     <div class="weui-panel__hd">商品管理</div>
     <div class="weui-cell" v-for="item in products" :key="item.id">
@@ -72,7 +72,7 @@ export default {
       });
     },
     handleEdit(id) {
-      window.location.href = `./product_edit.html?pId=${id}`;
+      window.location.href = `./edit.html?pId=${id}`;
     },
     handleDelete(id) {
       weui.confirm('您确实要删除改商品？', () => {

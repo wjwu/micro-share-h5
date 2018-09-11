@@ -170,7 +170,7 @@ export default {
             userId: localStorage.getItem('userId')
           }
         });
-        window.location.href = './group_submit_success.html';
+        window.location.href = './success.html';
       });
     }
   }

@@ -28,7 +28,7 @@ export const auth = () => {
               !response.data.phone &&
               window.location.pathname.indexOf('bind_phone.html') < 0
             ) {
-              window.location.href = `./bind_phone.html?redirect=${
+              window.location.href = `./bind/phone.html?redirect=${
                 config.webHost
               }${window.location.pathname}`;
             } else {

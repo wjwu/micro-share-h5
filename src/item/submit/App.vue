@@ -100,7 +100,8 @@ export default {
         sellPrice: '',
         originalPrice: '',
         count: '',
-        description: ''
+        description: '',
+        type: 'NORMAL'
       },
       token: '',
       uploading: false,
@@ -230,10 +231,10 @@ export default {
           content: '操作成功',
           buttons: [
             {
-              label: '查看货架',
+              label: '货架管理',
               type: 'default',
               onClick: () => {
-                window.location.href = './my_shelves.html';
+                window.location.href = './shelves.html';
               }
             },
             {

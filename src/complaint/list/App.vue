@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     handleClick(id) {
-      window.location.href = `./complaint_detail.html?compsId=${id}`;
+      window.location.href = `./detail.html?compsId=${id}`;
     }
   },
   filters: {

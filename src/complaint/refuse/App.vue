@@ -76,7 +76,7 @@ export default {
               label: '确定',
               type: 'primary',
               onClick: () => {
-                window.location.href = `./complaint_detail.html?compsId=${compsId}`;
+                window.location.href = `./detail.html?compsId=${compsId}`;
               }
             }
           ]

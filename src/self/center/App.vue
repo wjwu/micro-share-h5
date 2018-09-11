@@ -12,8 +12,8 @@
     </div>
     <div class="bd">
       <div class="my">
-        <div @click="handleJump('./group.html')">我的机器人</div>
-        <div @click="handleJump('./group.html')">
+        <div @click="handleJump('')">我的机器人</div>
+        <div @click="handleJump('')">
           我的微信群
         </div>
       </div>

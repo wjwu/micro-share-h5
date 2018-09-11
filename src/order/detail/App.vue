@@ -142,7 +142,7 @@
       <a v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`./evaluate.html?orderId=${order.matchedOrder.id}`">去评价</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" class="weui-btn weui-btn_default" :href="`./complaint.html?orderId=${order.originalOrder.id}`">去投诉</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
-      <a class="weui-btn weui-btn_default" href="./match_list.html">返回</a>
+      <a class="weui-btn weui-btn_default" href="./list.html">返回</a>
     </div>
   </div>
 </template>
@@ -186,7 +186,7 @@ export default {
     handlePay() {
       tryFunc(async () => {
         await axios.post(`${config.apiHost}/pay/${this.orderId}/fortest`);
-        window.location.href = './pay_success.html';
+        window.location.href = './pay/success.html';
       });
     }
   },

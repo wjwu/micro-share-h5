@@ -71,7 +71,7 @@ export default {
               label: '确定',
               type: 'primary',
               onClick: function() {
-                window.location.href = `./match_detail.html?orderId=${orderId}`;
+                window.location.href = `../../match/detail.html?orderId=${orderId}`;
               }
             }
           ]

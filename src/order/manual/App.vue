@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="./match_list.html">返回</a>
+      <a class="weui-btn weui-btn_primary" href="./list.html">返回</a>
     </div>
   </div>
 </template>

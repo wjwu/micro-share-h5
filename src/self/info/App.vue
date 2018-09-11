@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_default" href="./self_center.html">返回</a>
+      <a class="weui-btn weui-btn_default" href="./center.html">返回</a>
     </div>
   </div>
 </template>

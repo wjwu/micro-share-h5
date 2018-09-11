@@ -20,7 +20,7 @@
         <div class="weui-cell__bd">
           <input class="weui-input" type="date" v-model="date">
         </div>
-        <div class="weui-cell__bd" v-if="date === today">
+        <div class="weui-cell__fd" v-if="date === today">
           <span class="weui-badge" style="margin-left: 5px;">今天</span>
         </div>
       </div>
