@@ -15,7 +15,20 @@
         <span>￥{{product.sellPrice}} </span>
       </p>
     </div>
-    <div class="round_tit flex"><dl class="flex"><dt><img src="./assets/img/yes.svg" alt=""></dt> <dd>厂家直营</dd></dl> <dl class="flex"><dt><img src="./assets/img/yes.svg" alt=""></dt> <dd>诚信销售</dd></dl> <dl class="flex"><dt><img src="./assets/img/yes.svg" alt=""></dt> <dd>品质保证</dd></dl></div>
+    <div class="round_tit flex">
+      <dl class="flex">
+        <dt><img src="./assets/img/yes.svg" alt=""></dt>
+        <dd>厂家直营</dd>
+      </dl>
+      <dl class="flex">
+        <dt><img src="./assets/img/yes.svg" alt=""></dt>
+        <dd>诚信销售</dd>
+      </dl>
+      <dl class="flex">
+        <dt><img src="./assets/img/yes.svg" alt=""></dt>
+        <dd>品质保证</dd>
+      </dl>
+    </div>
     <div class="product-detail">
       {{product.description}}
     </div>
@@ -28,18 +41,18 @@
 </template>
 
 <script>
-import "babel-polyfill";
-import axios from "axios";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { tryFunc, openToast, getQueryString } from "../../common/js/common";
+import 'babel-polyfill';
+import axios from 'axios';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
+import { tryFunc, openToast, getQueryString } from '../../common/js/common';
 
 export default {
   data() {
     return {
-      pId: getQueryString("pId"),
-      userId: "",
-      wechat: "",
+      pId: getQueryString('pId'),
+      userId: '',
+      wechat: '',
       product: null,
       showApp: false
     };
@@ -49,34 +62,38 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.pId) {
-        openToast("商品编号无效");
+        openToast('商品编号无效');
         return;
       }
       const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`);
-      data.images = data.imgUrl.split(",");
+      data.images = data.imgUrl.split(',');
       this.product = data;
       this.$nextTick(() => {
-        const swiper = new window.Swiper(".swiper-container", {
-          direction: "horizontal",
+        const swiper = new window.Swiper('.swiper-container', {
+          direction: 'horizontal',
           autoplay: {
             delay: 2000
           },
           speed: 1000,
           loop: true,
           pagination: {
-            el: ".swiper-pagination"
+            el: '.swiper-pagination'
           }
         });
+        console.log(swiper);
       });
     });
 
     tryFunc(async () => {
-      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}/shopInfo`);
+      const { data } = await axios.get(
+        `${config.apiHost}/item/${this.pId}/shopInfo`
+      );
       this.userId = data.userId;
       this.wechat = data.wechat;
     });
-  },methods: {
-    showWechat(){
+  },
+  methods: {
+    showWechat() {
       openToast('请联系卖家微信：' + this.wechat);
     }
   }
@@ -85,7 +102,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .swiper-container {
   height: 23.4375rem;
@@ -198,8 +215,8 @@ body {
   }
 }
 
-.product-detail{
-  padding:1rem;
+.product-detail {
+  padding: 1rem;
 }
 </style>
 
