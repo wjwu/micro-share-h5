@@ -9,32 +9,17 @@
       <div class="swiper-pagination"></div>
     </div>
     <div class="top_title">
-      <p class="tit_name">{{product.name}}</p>
+      <p class="tit_name">商品名称：{{product.name}}</p>
       <p class="smalltit_name">{{product.description}}</p>
       <p class="tit_money">
-        <span>￥{{product.sellPrice}} </span>
+        <span>单价：￥{{product.sellPrice}} </span>
       </p>
-    </div>
-    <div class="round_tit flex">
-      <dl class="flex">
-        <dt><img src="./assets/img/yes.svg" alt=""></dt>
-        <dd>厂家直营</dd>
-      </dl>
-      <dl class="flex">
-        <dt><img src="./assets/img/yes.svg" alt=""></dt>
-        <dd>诚信销售</dd>
-      </dl>
-      <dl class="flex">
-        <dt><img src="./assets/img/yes.svg" alt=""></dt>
-        <dd>品质保证</dd>
-      </dl>
     </div>
     <div class="product-detail">
       {{product.description}}
     </div>
     <div class="buy-wrap">
       <a :href="'./list.html?userId=' + userId" class="buy-tohome"></a>
-      <a @click="showWechat" class="buy-concat"></a>
       <div class="buy" @click="buy">立即购买</div>
     </div>
   </div>
@@ -52,7 +37,6 @@ export default {
     return {
       pId: getQueryString('pId'),
       userId: '',
-      wechat: '',
       product: null,
       showApp: false,
       buyed: false
@@ -90,13 +74,9 @@ export default {
         `${config.apiHost}/item/${this.pId}/shopInfo`
       );
       this.userId = data.userId;
-      this.wechat = data.wechat;
     });
   },
   methods: {
-    showWechat() {
-      openToast('请联系卖家微信：' + this.wechat);
-    },
     async buy() {
       let name = localStorage.getItem('name');
       if (!name) {
@@ -201,41 +181,8 @@ body {
   background-size: 23px;
 }
 
-.buy-concat {
-  position: relative;
-  width: 55px;
-  height: 48px;
-  float: left;
-  display: block;
-  background-image: url(./assets/img/concat.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 23px;
-  border-left: solid 1px #eaeaea;
-}
-
 .flex {
   display: flex;
-}
-
-.round_tit {
-  padding: 12px;
-  background: #fafafa;
-  border-bottom: 8px solid #f5f5f5;
-
-  dl {
-    font-size: 12px;
-    color: #999999;
-    align-items: center;
-    -webkit-align-items: center;
-    margin-right: 15px;
-
-    dd {
-      margin-left: 5px;
-      font-size: 12px;
-      color: #999999;
-    }
-  }
 }
 
 .product-detail {
