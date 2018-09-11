@@ -15,24 +15,31 @@
         <span>￥{{product.sellPrice}} </span>
       </p>
     </div>
+    <div class="round_tit flex"><dl class="flex"><dt><img src="./assets/img/yes.svg" alt=""></dt> <dd>厂家直营</dd></dl> <dl class="flex"><dt><img src="./assets/img/yes.svg" alt=""></dt> <dd>诚信销售</dd></dl> <dl class="flex"><dt><img src="./assets/img/yes.svg" alt=""></dt> <dd>品质保证</dd></dl></div>
+    <div class="product-detail">
+      {{product.description}}
+    </div>
     <div class="buy-wrap">
-      <!-- <a href="javaScript:void(0)" class="buy-tohome tBor borderTop"></a> -->
+      <a :href="'./list.html?userId=' + userId" class="buy-tohome"></a>
+      <a @click="showWechat" class="buy-concat"></a>
       <div class="buy">立即购买</div>
     </div>
   </div>
 </template>
 
 <script>
-import 'babel-polyfill';
-import axios from 'axios';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast, getQueryString } from '../../common/js/common';
+import "babel-polyfill";
+import axios from "axios";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
+import { tryFunc, openToast, getQueryString } from "../../common/js/common";
 
 export default {
   data() {
     return {
-      pId: getQueryString('pId'),
+      pId: getQueryString("pId"),
+      userId: "",
+      wechat: "",
       product: null,
       showApp: false
     };
@@ -42,38 +49,43 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.pId) {
-        openToast('商品编号无效');
+        openToast("商品编号无效");
         return;
       }
-      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
-      data.images = data.imgUrl.split(',');
+      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`);
+      data.images = data.imgUrl.split(",");
       this.product = data;
       this.$nextTick(() => {
-        const swiper = new window.Swiper('.swiper-container', {
-          direction: 'horizontal',
+        const swiper = new window.Swiper(".swiper-container", {
+          direction: "horizontal",
           autoplay: {
             delay: 2000
           },
           speed: 1000,
           loop: true,
           pagination: {
-            el: '.swiper-pagination'
+            el: ".swiper-pagination"
           }
         });
-        console.log(swiper);
       });
     });
+
+    tryFunc(async () => {
+      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}/shopInfo`);
+      this.userId = data.userId;
+      this.wechat = data.wechat;
+    });
+  },methods: {
+    showWechat(){
+      openToast('请联系卖家微信：' + this.wechat);
+    }
   }
 };
 </script>
 
 <style lang="scss">
 body {
-  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .swiper-container {
   height: 23.4375rem;
@@ -94,7 +106,7 @@ body {
 
 .top_title {
   background: #fff;
-  padding: 1.125rem .75rem;
+  padding: 1.125rem 0.75rem;
   .tit_name {
     font-size: 1rem;
     color: #333;
@@ -102,11 +114,11 @@ body {
   }
 
   .smalltit_name {
-    font-size: .75rem;
+    font-size: 0.75rem;
     color: #999999;
     letter-spacing: 0;
     line-height: 1.125rem;
-    margin: .375rem 0;
+    margin: 0.375rem 0;
   }
 
   .tit_money {
@@ -124,6 +136,7 @@ body {
   height: 3rem;
   background: #fff;
   z-index: 2;
+  display: flex;
 
   .buy {
     font-size: 1rem;
@@ -132,7 +145,61 @@ body {
     line-height: 3rem;
     text-align: center;
     transition: 0.2s ease-out;
+    flex: 1;
   }
+}
+
+.buy-tohome {
+  position: relative;
+  width: 55px;
+  height: 48px;
+  float: left;
+  display: block;
+  background-image: url(./assets/img/home.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 23px;
+}
+
+.buy-concat {
+  position: relative;
+  width: 55px;
+  height: 48px;
+  float: left;
+  display: block;
+  background-image: url(./assets/img/concat.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 23px;
+  border-left: solid 1px #eaeaea;
+}
+
+.flex {
+  display: flex;
+}
+
+.round_tit {
+  padding: 12px;
+  background: #fafafa;
+  border-bottom: 8px solid #f5f5f5;
+
+  dl {
+    font-size: 12px;
+    color: #999999;
+    align-items: center;
+    -webkit-align-items: center;
+    margin-right: 15px;
+
+    dd {
+      margin-left: 5px;
+      font-size: 12px;
+      color: #999999;
+    }
+  }
+}
+
+.product-detail{
+  padding:1rem;
 }
 </style>
 

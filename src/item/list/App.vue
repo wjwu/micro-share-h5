@@ -7,7 +7,7 @@
     </div>
     <ul class="product" v-if="products.length >= 1">
       <li v-for="item in products" :key="item.id">
-        <a :href="`./product_detail.html?pId=${item.id}`">
+        <a :href="`./detail.html?pId=${item.id}`">
           <img :src="item.imgUrl" />
           <span class="weui-badge badge" v-if="item.type === 'GROUP'">团</span>
           <h3>{{item.name}}</h3>
