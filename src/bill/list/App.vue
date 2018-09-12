@@ -69,8 +69,7 @@ export default {
         }`,
         {
           headers: {
-            //userId: localStorage.getItem("userId")
-            userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+            userId: localStorage.getItem("userId")
           }
         }
       );
