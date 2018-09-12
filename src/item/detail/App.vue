@@ -3,7 +3,7 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(img,i) in product.images" :key="i">
-          <img :src="img +'?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/5ZWG5Ly06YOo6JC9/font/5b6u6L2v6ZuF6buR/fontsize/440/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/20/dy/20|imageslim'" />
+          <img :src="img +'?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
         </div>
       </div>
       <div class="swiper-pagination"></div>
