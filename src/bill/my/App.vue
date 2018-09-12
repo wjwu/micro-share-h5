@@ -1,6 +1,6 @@
 <template>
   <div v-if="showApp">
-    <div class="weui-cells__title">查询条件</div>
+    <div class="weui-cells__title">提示：系统只保留3个月信息，请查询3个月之内信息</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSearch">查询</a>
+      <a class="weui-btn weui-btn_primary" :href="'./list.html?from=' + from + '&to=' + to">查询</a>
     </div>
   </div>
 </template>
@@ -53,20 +53,6 @@ export default {
     });
   },
   methods: {
-    handleSearch() {
-      tryFunc(async () => {
-        const { data } = await axios.get(`${config.apiHost}/account`, {
-          params: {
-            endDate: this.to,
-            startDate: this.from
-          },
-          headers: {
-            userId: localStorage.getItem("userId")
-          }
-        });
-        this.data = data;
-      });
-    }
   }
 };
 </script>
