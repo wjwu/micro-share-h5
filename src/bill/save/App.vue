@@ -3,23 +3,29 @@
     <div class="weui-cells__title">保存账单</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">商品名称</label></div>
+        <div class="weui-cell__hd">
+          <label class="weui-label">商品名称</label>
+        </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" v-model="itemName" placeholder="请输入商品名称">
+          <input class="weui-input" type="text" v-model="itemName" placeholder="请输入商品名称">
         </div>
       </div>
       <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">购买数量</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="number" v-model="number" placeholder="请输入购买数量">
-            </div>
+        <div class="weui-cell__hd">
+          <label class="weui-label">购买数量</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" v-model="number" placeholder="请输入购买数量">
+        </div>
       </div>
       <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">客户名称</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" v-model="userName" placeholder="请输入客户名称">
-            </div>
+        <div class="weui-cell__hd">
+          <label class="weui-label">客户名称</label>
         </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" v-model="userName" placeholder="请输入客户名称">
+        </div>
+      </div>
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label for="" class="weui-label">购买日期</label>
@@ -29,20 +35,24 @@
         </div>
       </div>
       <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">支付金额</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="number" v-model="amount" placeholder="请输入需要支付的金额">
-            </div>
+        <div class="weui-cell__hd">
+          <label class="weui-label">支付金额</label>
         </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">是否完成支付</label></div>
-            <div class="weui-cell__bd">
-                <select class="weui-select" v-model="pay">
-                    <option value="true" selected>是</option>
-                    <option value="false">否</option>
-                </select>
-            </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" v-model="amount" placeholder="请输入需要支付的金额">
         </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">是否完成支付</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" v-model="pay">
+            <option value="true" selected>是</option>
+            <option value="false">否</option>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="weui-cells__title">备注</div>
     <div class="weui-cells weui-cells_form">
@@ -61,28 +71,28 @@
   </div>
 </template>
 <script>
-import "babel-polyfill";
-import axios from "axios";
-import moment from "moment";
-import weui from "weui.js";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { tryFunc, openToast, openTips } from "../../common/js/common";
+import 'babel-polyfill';
+import axios from 'axios';
+import moment from 'moment';
+import weui from 'weui.js';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
+import { tryFunc, openTips } from '../../common/js/common';
 
-const today = moment(new Date()).format("YYYY-MM-DD");
+const today = moment(new Date()).format('YYYY-MM-DD');
 
 export default {
   data() {
     return {
-      itemName: "",
-      number: "",
-      userName: "",
-      amount: "",
+      itemName: '',
+      number: '',
+      userName: '',
+      amount: '',
       pay: true,
-      remark: "",
+      remark: '',
       date: today,
       showApp: false,
-      regPrice: new RegExp("[0-9\\.]")
+      regPrice: new RegExp('[0-9\\.]')
     };
   },
   mounted() {
@@ -99,20 +109,20 @@ export default {
     },
     handleSave() {
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
-      if(!this.itemName){
+      if (!this.itemName) {
         openTips('请输入商品名称');
         return;
       }
-      if(!this.number){
-        openTips("请输入数量");
+      if (!this.number) {
+        openTips('请输入数量');
         return;
       }
-      if(!this.userName){
-        openTips("请输入客户姓名");
+      if (!this.userName) {
+        openTips('请输入客户姓名');
         return;
       }
       if (!reg.test(this.amount)) {
-        openTips("金额不能为空，最多保留两位小数");
+        openTips('金额不能为空，最多保留两位小数');
         return;
       }
 
@@ -131,26 +141,26 @@ export default {
           },
           {
             headers: {
-              userId: localStorage.getItem("userId")
+              userId: localStorage.getItem('userId')
             }
           }
         );
       });
 
-      const dialog = weui.dialog({
-        content: "保存成功",
+      weui.dialog({
+        content: '保存成功',
         buttons: [
           {
-            label: "确定",
-            type: "default",
+            label: '确定',
+            type: 'primary',
             onClick: () => {
-              this.itemName= "";
-              this.number= "";
-              this.userName= "";
-              this.amount= "";
-              this.pay= true;
-              this.remark= "";
-              this.date= today;
+              this.itemName = '';
+              this.number = '';
+              this.userName = '';
+              this.amount = '';
+              this.pay = true;
+              this.remark = '';
+              this.date = today;
             }
           }
         ]

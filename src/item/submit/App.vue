@@ -71,7 +71,7 @@ export default {
       product: {
         name: '',
         sellPrice: '',
-        description: '',
+        description: ''
       },
       token: '',
       uploading: false,

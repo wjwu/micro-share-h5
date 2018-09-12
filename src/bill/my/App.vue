@@ -26,20 +26,18 @@
 </template>
 
 <script>
-import "babel-polyfill";
-import axios from "axios";
-import moment from "moment";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { tryFunc } from "../../common/js/common";
+import 'babel-polyfill';
+import moment from 'moment';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
 
 export default {
   data() {
     return {
       showApp: false,
-      to: moment(new Date()).format("YYYY-MM-DD"),
+      to: moment(new Date()).format('YYYY-MM-DD'),
       from: moment(new Date().getTime() - 30 * 24 * 3600 * 1000).format(
-        "YYYY-MM-DD"
+        'YYYY-MM-DD'
       )
     };
   },
@@ -47,13 +45,9 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      this.$nextTick(() => {
-        this.handleSearch();
-      });
     });
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 
