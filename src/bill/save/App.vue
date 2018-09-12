@@ -2,74 +2,87 @@
   <div v-if="showApp">
     <div class="weui-cells__title">保存账单</div>
     <div class="weui-cells weui-cells_form">
-      <div class="weui-cell weui-cell_select weui-cell_select-after">
-        <div class="weui-cell__hd">
-          <label for="" class="weui-label">账单类型</label>
-        </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">商品名称</label></div>
         <div class="weui-cell__bd">
-          <select class="weui-select" v-model="type" @change="handleTypeChange">
-            <option value="IN" selected="selected">收入</option>
-            <option value="OUT">支出</option>
-          </select>
+            <input class="weui-input" type="text" v-model="itemName" placeholder="请输入商品名称">
         </div>
       </div>
       <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">购买数量</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" v-model="number" placeholder="请输入购买数量">
+            </div>
+      </div>
+      <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">客户名称</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="userName" placeholder="请输入客户名称">
+            </div>
+        </div>
+      <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label for="" class="weui-label">{{typeName}}日期</label>
+          <label for="" class="weui-label">购买日期</label>
         </div>
         <div class="weui-cell__bd">
           <input class="weui-input" type="date" v-model="date">
         </div>
-        <div class="weui-cell__fd" v-if="date === today">
-          <span class="weui-badge" style="margin-left: 5px;">今天</span>
-        </div>
       </div>
       <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">{{typeName}}金额</label>
+            <div class="weui-cell__hd"><label class="weui-label">支付金额</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" v-model="amount" placeholder="请输入需要支付的金额">
+            </div>
         </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" v-model="amount" type="text" placeholder="请输入账单金额" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">是否完成支付</label></div>
+            <div class="weui-cell__bd">
+                <select class="weui-select" v-model="pay">
+                    <option value="true" selected>是</option>
+                    <option value="false">否</option>
+                </select>
+            </div>
         </div>
-      </div>
     </div>
     <div class="weui-cells__title">备注</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea v-model="remark" class="weui-textarea" placeholder="请输入备注信息（可选）" rows="3"></textarea>
+          <textarea v-model="remark" class="weui-textarea" placeholder="可备注客户地址、联系方式等（可选）" rows="3"></textarea>
           <div class="weui-textarea-counter">
             <span>{{remark.length}}</span>/200</div>
         </div>
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存{{typeName}}账单</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存账单</a>
+      <a class="weui-btn weui-btn_warn" href="./my.html">账目查询</a>
     </div>
   </div>
 </template>
 <script>
-import 'babel-polyfill';
-import axios from 'axios';
-import moment from 'moment';
-import weui from 'weui.js';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast } from '../../common/js/common';
+import "babel-polyfill";
+import axios from "axios";
+import moment from "moment";
+import weui from "weui.js";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
+import { tryFunc, openToast, openTips } from "../../common/js/common";
 
-const today = moment(new Date()).format('YYYY-MM-DD');
+const today = moment(new Date()).format("YYYY-MM-DD");
 
 export default {
   data() {
     return {
-      type: 'IN',
-      typeName: '收入',
-      amount: '',
-      remark: '',
-      today: today,
+      itemName: "",
+      number: "",
+      userName: "",
+      amount: "",
+      pay: true,
+      remark: "",
       date: today,
       showApp: false,
-      regPrice: new RegExp('[0-9\\.]')
+      regPrice: new RegExp("[0-9\\.]")
     };
   },
   mounted() {
@@ -79,13 +92,6 @@ export default {
     });
   },
   methods: {
-    handleTypeChange() {
-      if (this.type === 'OUT') {
-        this.typeName = '支出';
-      } else {
-        this.typeName = '收入';
-      }
-    },
     handlKeyDownPrice(e) {
       if (!this.regPrice.test(e.data)) {
         e.preventDefault();
@@ -93,8 +99,20 @@ export default {
     },
     handleSave() {
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
+      if(!this.itemName){
+        openTips('请输入商品名称');
+        return;
+      }
+      if(!this.number){
+        openTips("请输入数量");
+        return;
+      }
+      if(!this.userName){
+        openTips("请输入客户姓名");
+        return;
+      }
       if (!reg.test(this.amount)) {
-        openToast('金额不能为空，最多保留两位小数');
+        openTips("金额不能为空，最多保留两位小数");
         return;
       }
 
@@ -105,35 +123,34 @@ export default {
             type: this.type,
             amount: this.amount,
             remark: this.remark,
-            date: this.date
+            date: this.date,
+            itemName: this.itemName,
+            userName: this.userName,
+            number: this.number,
+            pay: this.pay
           },
           {
             headers: {
-              userId: localStorage.getItem('userId')
+              userId: localStorage.getItem("userId")
             }
           }
         );
       });
 
       const dialog = weui.dialog({
-        content: '操作成功',
+        content: "保存成功",
         buttons: [
           {
-            label: '查看账单',
-            type: 'default',
+            label: "确定",
+            type: "default",
             onClick: () => {
-              window.location.href = './my.html';
-            }
-          },
-          {
-            label: '继续添加',
-            type: 'primary',
-            onClick: () => {
-              this.type = 'IN';
-              this.date = this.today;
-              this.amount = '';
-              this.remark = '';
-              dialog.hide();
+              this.itemName= "";
+              this.number= "";
+              this.userName= "";
+              this.amount= "";
+              this.pay= true;
+              this.remark= "";
+              this.date= today;
             }
           }
         ]

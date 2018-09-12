@@ -15,6 +15,10 @@ export const checkPhone = phone => {
   return regPhone.test(phone);
 };
 
+export const openTips = message => {
+  weui.topTips(message);
+};
+
 export const openToast = message => {
   weui.alert(message);
 };
