@@ -9,7 +9,7 @@
     <div class="weui-panel__hd">商品管理</div>
     <div class="weui-cell" v-for="item in products" :key="item.id">
       <div class="weui-cell__hd" style="position: relative;">
-        <img :src="item.imgUrl" />
+        <img :src="item.imgUrl + '?imageView2/1/w/100/h/100/interlace/1/q/75'" />
         <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;" v-if="item.type === 'GROUP'">团</span>
       </div>
       <div class="weui-cell__bd">

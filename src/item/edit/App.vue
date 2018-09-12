@@ -11,17 +11,6 @@
         </div>
       </div>
       <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">类型</label>
-        </div>
-        <div class="weui-cell__bd">
-          <select class="weui-select" v-model="product.type">
-            <option value="NORMAL" selected>普通</option>
-            <option value="GROUP">团购</option>
-          </select>
-        </div>
-      </div>
-      <div class="weui-cell">
         <div class="weui-cell__bd">
           <div class="weui-uploader">
             <div class="weui-uploader__hd">
@@ -48,22 +37,6 @@
         </div>
         <div class="weui-cell__bd">
           <input class="weui-input" v-model="product.sellPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="请输入商品价格">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">成本</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.originalPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="成本价（可选）">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">库存</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.count" type="number" pattern="[0-9]*" @textInput="handlKeyDownStock($event)" placeholder="库存数量">
         </div>
       </div>
     </div>
@@ -214,14 +187,6 @@ export default {
         openToast('商品价格不能为空，最多保留两位小数');
         return;
       }
-      if (this.product.originalPrice && !reg.test(this.product.originalPrice)) {
-        openToast('成本价格格式不正确，最多保留两位小数');
-        return;
-      }
-      if (!this.product.count.toString()) {
-        openToast('请输入商品库存');
-        return;
-      }
       tryFunc(async () => {
         await axios.put(
           `${config.apiHost}/item/${this.pId}`,
@@ -233,8 +198,7 @@ export default {
           },
           {
             headers: {
-              // userId: localStorage.getItem('userId')
-              userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
+              userId: localStorage.getItem('userId')
             }
           }
         );

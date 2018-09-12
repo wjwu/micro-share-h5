@@ -3,7 +3,7 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(img,i) in product.images" :key="i">
-          <img :src="img" />
+          <img :src="img +'?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/5ZWG5Ly06YOo6JC9/font/5b6u6L2v6ZuF6buR/fontsize/440/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/20/dy/20|imageslim'" />
         </div>
       </div>
       <div class="swiper-pagination"></div>
@@ -26,17 +26,17 @@
 </template>
 
 <script>
-import 'babel-polyfill';
-import axios from 'axios';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast, getQueryString } from '../../common/js/common';
+import "babel-polyfill";
+import axios from "axios";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
+import { tryFunc, openToast, getQueryString } from "../../common/js/common";
 
 export default {
   data() {
     return {
-      pId: getQueryString('pId'),
-      userId: '',
+      pId: getQueryString("pId"),
+      userId: "",
       product: null,
       showApp: false,
       buyed: false
@@ -47,22 +47,22 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.pId) {
-        openToast('商品编号无效');
+        openToast("商品编号无效");
         return;
       }
       const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`);
-      data.images = data.imgUrl.split(',');
+      data.images = data.imgUrl.split(",");
       this.product = data;
       this.$nextTick(() => {
-        const swiper = new window.Swiper('.swiper-container', {
-          direction: 'horizontal',
+        const swiper = new window.Swiper(".swiper-container", {
+          direction: "horizontal",
           autoplay: {
             delay: 2000
           },
           speed: 1000,
           loop: true,
           pagination: {
-            el: '.swiper-pagination'
+            el: ".swiper-pagination"
           }
         });
         console.log(swiper);
@@ -78,14 +78,14 @@ export default {
   },
   methods: {
     async buy() {
-      let name = localStorage.getItem('name');
+      let name = localStorage.getItem("name");
       if (!name) {
-        name = prompt('请正确输入您的联系方式或微信号', '');
+        name = prompt("请正确输入您的联系方式或微信号", "");
         if (!name) {
-          openToast('请输入正确的联系方式或微信号');
+          openToast("请输入正确的联系方式或微信号");
           return;
         }
-        localStorage.setItem('name', name);
+        localStorage.setItem("name", name);
       }
       if (!this.buyed) {
         this.buyed = true;
@@ -94,7 +94,7 @@ export default {
             `${config.apiHost}/item/${this.pId}/buy?name=${name}`
           );
           openToast(
-            '购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!'
+            "购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!"
           );
         });
       }
@@ -105,7 +105,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .swiper-container {
   height: 23.4375rem;
