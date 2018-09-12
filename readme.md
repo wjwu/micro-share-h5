@@ -23,3 +23,9 @@
 21. self_center：个人中心
 22. self_info：个人资料
 23. upload_product：上传商品
+
+
+##### 完成后再优化不影响主流程的功能
+todo-list:
+- 支持多张图片上传 image.file[0]
+- 用七牛sdk把横着的图片转过来
