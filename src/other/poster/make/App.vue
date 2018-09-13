@@ -26,7 +26,7 @@
         <div class="weui-cell__bd">
           <select v-model="selectedQr" class="weui-select">
             <option value="" v-if="qrImgs.length > 0">请选择二维码</option>
-            <option v-for="(qr,i) in qrImgs" :key="i" :value="qr.img">{{qr.name}}</option>
+            <option v-for="(qr,i) in qrImgs" :key="i" :value="qr.img + '?imageView2/2/w/200/h/200/q/75|imageslim'">{{qr.name}}</option>
           </select>
         </div>
       </div>
