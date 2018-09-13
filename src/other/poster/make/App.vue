@@ -82,10 +82,6 @@ export default {
         }
       });
       this.qrImgs = data;
-
-      this.$nextTick(() => {
-        this.initCanvas();
-      });
     });
   },
   methods: {
@@ -102,6 +98,7 @@ export default {
         openToast('请选择二维码');
         return;
       }
+      this.initCanvas();
       this.make();
     },
     initCanvas() {
@@ -146,7 +143,7 @@ export default {
       );
       const titlesParams = fileName.split('.')[0].split('+');
       for (let i = 0; i < titlesParams.length; i++) {
-        let point = titlesParams[0].split(',');
+        let point = titlesParams[i].split(',');
         // 设置用户文本的大小字体等属性
         this.ctx.font = 'small-caps bold ' + point[1] + 'px 微软雅黑';
         // 设置用户文本填充颜色
@@ -165,6 +162,7 @@ export default {
       let canvas = document.getElementById('main');
       let imageData = canvas.toDataURL('image/png');
       this.$el.querySelector('#template').src = imageData;
+      openToast('生成成功，请长按图片保存到手机');
     }
   }
 };

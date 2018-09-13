@@ -13,7 +13,7 @@ const config = merge(baseConfig, {
   output: {
     path: dist,
     filename: '[name].[hash:8].js',
-    publicPath: '../'
+    publicPath: '/'
   },
   plugins: [
     new UglifyJsPlugin({
