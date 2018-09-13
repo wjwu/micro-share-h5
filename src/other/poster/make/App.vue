@@ -2,7 +2,7 @@
   <div v-if="showApp">
     <div class="weui-cells__title">生成海报</div>
     <div class="weui-cells weui-cells_form">
-      <img :src="template" id='template'>
+      <img :src="source" id='template'>
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label class="weui-label">主标题</label>
@@ -37,13 +37,14 @@
     <!--画布-->
     <canvas id="main" height="500px" width="900px" style="display:none;"></canvas>
     <!--二维码-->
-    <img id="qrcode" style="display:none;" :src="selectedQr" />
+    <img id="qrcode" :src="selectedQr" />
   </div>
 </template>
 
 <script>
 import 'babel-polyfill';
 import axios from 'axios';
+import weui from 'weui.js';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
 import { tryFunc, openToast, getQueryString } from '../../../common/js/common';
@@ -64,6 +65,7 @@ export default {
   data() {
     return {
       showApp: false,
+      source: getQueryString('s'),
       template: getQueryString('t'),
       qrImgs: [],
       title: '',
@@ -98,8 +100,12 @@ export default {
         openToast('请选择二维码');
         return;
       }
+      const loading = weui.loading('数据加载中');
       this.initCanvas();
-      this.make();
+      setTimeout(() => {
+        this.make(loading);
+      }, 500);
+      // this.make();
     },
     initCanvas() {
       // 获取画布对象
@@ -111,7 +117,7 @@ export default {
       mainCtx.clearRect(0, 0, 1000, 1000);
       // 获取图片的实际路径
       let starImg = new Image();
-      starImg.src = this.$el.querySelector('#template').attributes['src'].value;
+      starImg.src = this.template;
       starImg.setAttribute('crossOrigin', 'Anonymous');
 
       // 合成
@@ -126,18 +132,22 @@ export default {
 
       // 合成
       let qrcodeSize = maxWidth / 8;
+      console.log(`maxWidth:${maxWidth},maxHeight:${maxHeight},qrcodeSize:${qrcodeSize}`);
       qrcode.onload = function() {
+        console.log('onload');
         // 先把图片绘制在这里
         mainCtx.drawImage(
           qrcode,
-          maxWidth - qrcodeSize - maxWidth * 0.1,
-          maxHeight - qrcodeSize - maxHeight * 0.1,
+          0,
+          0,
+          // maxWidth - qrcodeSize - maxWidth * 0.1,
+          // maxHeight - qrcodeSize - maxHeight * 0.1,
           qrcodeSize,
           qrcodeSize
         );
       };
     },
-    make() {
+    make(loading) {
       let fileName = this.template.substring(
         this.template.lastIndexOf('/') + 1
       );
@@ -162,6 +172,7 @@ export default {
       let canvas = document.getElementById('main');
       let imageData = canvas.toDataURL('image/png');
       this.$el.querySelector('#template').src = imageData;
+      loading.hide();
       openToast('生成成功，请长按图片保存到手机');
     }
   }
