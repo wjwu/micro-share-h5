@@ -8,7 +8,7 @@
           <label class="weui-label">条码位置</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="请输入条码名">
+          <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名">
         </div>
       </div>
       <div class="page__bd">
@@ -25,7 +25,7 @@
             <div class="weui-uploader">
               <div class="weui-uploader__hd">
                 <p class="weui-uploader__title">图片（最大4MB）</p>
-                <div class="weui-uploader__info">{{images.length}}/5</div>
+                <div class="weui-uploader__info">{{images.length}}/1</div>
               </div>
               <div class="weui-uploader__bd">
                 <ul class="weui-uploader__files" id="uploaderFiles">
@@ -34,7 +34,7 @@
                     <div class="weui-uploader__file-content">{{percent}}%</div>
                   </li>
                 </ul>
-                <div v-if="images.length !== 5" class="weui-uploader__input-box">
+                <div v-if="images.length !== 1" class="weui-uploader__input-box">
                   <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="">
                 </div>
               </div>
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">提交</a>
     </div>
   </div>
 </template>
@@ -62,6 +62,7 @@ export default {
   data() {
     return {
       showApp: false,
+      name: '',
       token: '',
       uploading: false,
       percent: 0,
@@ -138,7 +139,22 @@ export default {
     },
     handleSave() {
       tryFunc(async () => {
-        await axios.post(`${config.apiHost}`);
+        await axios.post(
+          `${config.apiHost}/user/qrcode`,
+          {
+            name: this.name,
+            img: this.images.map(item => `${this.imageHost}/${item}`).join(',')
+          },
+          {
+            headers: {
+              userId: localStorage.getItem('userId')
+            }
+          }
+        );
+        weui.alert('操作成功', () => {
+          this.name = '';
+          this.images = [];
+        });
       });
     }
   }
