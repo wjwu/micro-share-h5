@@ -53,6 +53,7 @@ export default {
       const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`);
       data.images = data.imgUrl.split(',');
       this.product = data;
+      window.document.title = this.product.name;
       this.$nextTick(() => {
         const swiper = new window.Swiper('.swiper-container', {
           direction: 'horizontal',

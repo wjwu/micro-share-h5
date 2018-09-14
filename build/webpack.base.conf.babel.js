@@ -8,15 +8,17 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const src = path.join(__dirname, '..', 'src');
 
-// const entryDirs = glob.sync('src/**/index.js').map(item => {
-//   const firstIdx = item.indexOf('/');
-//   const lastIdx = item.lastIndexOf('/');
-//   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
-// });
+const entryDirs = glob.sync('src/**/index.js').map(item => {
+  const firstIdx = item.indexOf('/');
+  const lastIdx = item.lastIndexOf('/');
+  return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
+});
 
-const entryDirs = [
-  'other/poster/make'
-];
+// const entryDirs = [
+//   // 'other/poster/make',
+//   // 'other/poster/template'
+//   'home'
+// ];
 
 const entry = {};
 const htmlPlugins = [];
