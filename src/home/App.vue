@@ -164,7 +164,7 @@
         </div>
         <div class="footer">
           <p>成都鹅卵石信息科技有限公司</p>
-          <p> Copyright © 2014 沪ICP备10011451号-26</p>
+          <p> Copyright © 2019 蜀ICP备18026087号</p>
         </div>
       </div>
     </section>
