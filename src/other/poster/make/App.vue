@@ -106,10 +106,14 @@ export default {
     },
     async make() {
       const loading = weui.loading('数据加载中');
-      const context = await this.createCanvas(this.template);
-      this.drawQrCode(context, this.canvasMaxWidth, this.canvasMaxHeight);
-      this.drawTitle(context, this.template, this.title, this.subTitle);
-      this.convertToImage(loading);
+      try {
+        const context = await this.createCanvas(this.template);
+        this.drawQrCode(context, this.canvasMaxWidth, this.canvasMaxHeight);
+        this.drawTitle(context, this.template, this.title, this.subTitle);
+        this.convertToImage(loading);
+      } catch (e) {
+        alert(JSON.stringify(e));
+      }
     },
     createCanvas(templateUrl) {
       let canvas = document.getElementById('main');
