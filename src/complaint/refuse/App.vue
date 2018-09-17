@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
 import weui from 'weui.js';
 import config from '../../common/js/config';

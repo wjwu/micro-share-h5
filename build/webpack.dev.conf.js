@@ -1,13 +1,12 @@
-import path from 'path';
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.base.conf.babel';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-// import CopyWebpackPlugin from 'copy-webpack-plugin';
+var path = require('path');
+var webpack = require('webpack');
+var merge = require('webpack-merge');
+var baseConfig = require('./webpack.base.conf');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const dist = path.join(__dirname, '..', 'dist');
 
-export default merge(baseConfig, {
+module.exports = merge(baseConfig, {
   output: {
     path: dist,
     filename: '[name].js',
@@ -15,7 +14,7 @@ export default merge(baseConfig, {
   },
   devtool: 'source-map',
   plugins: [
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: '[name].css',
       allChunks: true
     }),

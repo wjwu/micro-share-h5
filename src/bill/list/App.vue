@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';

@@ -26,8 +26,7 @@
 </template>
 
 <script>
-import 'babel-polyfill';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
 
@@ -35,10 +34,8 @@ export default {
   data() {
     return {
       showApp: false,
-      to: moment(new Date()).format('YYYY-MM-DD'),
-      from: moment(new Date().getTime() - 30 * 24 * 3600 * 1000).format(
-        'YYYY-MM-DD'
-      )
+      to: format(new Date(), 'YYYY-MM-DD'),
+      from: format(new Date().getTime() - 30 * 24 * 3600 * 1000, 'YYYY-MM-DD')
     };
   },
   mounted() {

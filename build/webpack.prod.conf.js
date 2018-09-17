@@ -1,15 +1,14 @@
-import path from 'path';
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.base.conf.babel';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-// import CopyWebpackPlugin from 'copy-webpack-plugin';
+var path = require('path');
+var webpack = require('webpack');
+var merge = require('webpack-merge');
+var baseConfig = require('./webpack.base.conf');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const dist = path.join(__dirname, '..', 'dist');
+var dist = path.join(__dirname, '..', 'dist');
 
-const config = merge(baseConfig, {
+module.exports = merge(baseConfig, {
   output: {
     path: dist,
     filename: '[name].[hash:8].js',
@@ -17,14 +16,14 @@ const config = merge(baseConfig, {
   },
   plugins: [
     new UglifyJsPlugin({
-      uglifyOptions: {}
+      parallel: true
     }),
     new CleanWebpackPlugin('./dist', {
       root: path.join(__dirname, '..'),
       verbose: true,
       dry: false
     }),
-    new ExtractTextPlugin('[name].[hash:8].css'),
+    new MiniCssExtractPlugin('[name].[hash:8].css'),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
@@ -40,5 +39,3 @@ const config = merge(baseConfig, {
     axios: 'axios'
   }
 });
-
-export default config;

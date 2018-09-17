@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';

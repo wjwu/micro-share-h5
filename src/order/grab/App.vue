@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
@@ -105,15 +104,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-// .weui-badge {
-//   margin-right: 5px;
-//   padding: 0.3rem 0.4rem;
-
-//   i {
-//     margin-left: 5px;
-//   }
-// }
-</style>
-

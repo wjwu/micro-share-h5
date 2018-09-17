@@ -71,15 +71,14 @@
   </div>
 </template>
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
-import moment from 'moment';
+import { format } from 'date-fns';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openTips } from '../../common/js/common';
 
-const today = moment(new Date()).format('YYYY-MM-DD');
+const today = format(new Date(), 'YYYY-MM-DD');
 
 export default {
   data() {

@@ -67,9 +67,8 @@
   </div>
 </template>
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, getQueryString } from '../../common/js/common';
@@ -89,7 +88,7 @@ export default {
       this.showApp = true;
       const { data } = await axios.get(`${config.apiHost}/account/${this.pid}`);
       this.bill = data;
-      this.bill.date = moment(data.date).format('YYYY-MM-DD');
+      this.bill.date = format(data.date, 'YYYY-MM-DD');
       this.pay = data.pay ? '已支付' : '待支付';
     });
   },

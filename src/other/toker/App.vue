@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import 'babel-polyfill';
 import * as qiniu from 'qiniu-js';
 import axios from 'axios';
 import weui from 'weui.js';

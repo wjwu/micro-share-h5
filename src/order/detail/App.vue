@@ -148,9 +148,8 @@
 </template>
 
 <script>
-import 'babel-polyfill';
 import axios from 'axios';
-import moment from 'moment';
+import { format } from 'date-fns';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
@@ -213,7 +212,7 @@ export default {
       }
     },
     time: val => {
-      return moment(val).format('YYYY-MM-DD HH:mm:ss');
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };

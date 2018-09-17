@@ -1,28 +1,26 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import glob from 'glob';
-import HtmlWebpackExternalsPlugin from 'html-webpack-externals-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+var path = require('path');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var glob = require('glob');
+var HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const src = path.join(__dirname, '..', 'src');
+var src = path.join(__dirname, '..', 'src');
 
-const entryDirs = glob.sync('src/**/index.js').map(item => {
-  const firstIdx = item.indexOf('/');
-  const lastIdx = item.lastIndexOf('/');
+var entryDirs = glob.sync('src/**/index.js').map(item => {
+  var firstIdx = item.indexOf('/');
+  var lastIdx = item.lastIndexOf('/');
   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
 });
 
-// const entryDirs = [
-//   // 'other/poster/make',
-//   // 'other/poster/template'
-//   'home'
+// var entryDirs = [
+//   'bill/detail',
 // ];
 
-const entry = {};
-const htmlPlugins = [];
-const htmlExternals = [];
+var entry = {};
+var htmlPlugins = [];
+var htmlExternals = [];
 
 if (process.env.NODE_ENV !== 'dev') {
   htmlExternals.push({
@@ -38,7 +36,7 @@ if (process.env.NODE_ENV !== 'dev') {
 }
 
 entryDirs.forEach(item => {
-  const entryName = item;
+  var entryName = item;
   entry[entryName] = `./src/${item}/index.js`;
 
   htmlPlugins.push(
@@ -52,7 +50,7 @@ entryDirs.forEach(item => {
 });
 
 const plugins = [
-  new webpack.NoEmitOnErrorsPlugin(),
+  new VueLoaderPlugin(),
   new CopyWebpackPlugin([{ from: './src/index.html', to: './index.html' }]),
   ...htmlPlugins
 ];
@@ -66,38 +64,37 @@ if (htmlExternals.length > 0) {
   );
 }
 
-const extractCss = ExtractTextPlugin.extract({
-  use: [
-    {
-      loader: 'css-loader',
-      options: {
-        minimize: true
-      }
-    },
-    {
-      loader: 'postcss-loader'
+var extractCss = [
+  'vue-style-loader',
+  MiniCssExtractPlugin.loader,
+  {
+    loader: 'css-loader',
+    options: {
+      minimize: true
     }
-  ]
-});
+  },
+  {
+    loader: 'postcss-loader'
+  }
+];
 
-const extractSass = ExtractTextPlugin.extract({
-  use: [
-    {
-      loader: 'css-loader',
-      options: {
-        minimize: true
-      }
-    },
-    {
-      loader: 'sass-loader'
-    },
-    {
-      loader: 'postcss-loader'
+var extractSass = [
+  'vue-style-loader',
+  MiniCssExtractPlugin.loader,
+  {
+    loader: 'css-loader',
+    options: {
+      minimize: true
     }
-  ]
-});
-
-export default {
+  },
+  {
+    loader: 'sass-loader'
+  },
+  {
+    loader: 'postcss-loader'
+  }
+];
+module.exports = {
   entry,
   module: {
     rules: [

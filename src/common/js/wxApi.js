@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import config from './config';
 import axios from 'axios';
 
