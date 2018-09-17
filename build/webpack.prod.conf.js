@@ -16,7 +16,14 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new UglifyJsPlugin({
-      parallel: true
+      cache: true,
+      parallel: true,
+      sourceMap: false,
+      uglifyOptions: {
+        compress: {
+          unused: false
+        }
+      }
     }),
     new CleanWebpackPlugin('./dist', {
       root: path.join(__dirname, '..'),
