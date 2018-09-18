@@ -2,6 +2,7 @@
   <div class="main">
     <section class="page-one">
       <div class="banner"></div>
+      <div class="menu" @click="handleMenuClick"></div>
       <div class="content">
         <h5>公告</h5>
         <ul>
@@ -172,7 +173,41 @@
 </template>
 
 <script>
-export default {};
+import weui from 'weui.js';
+export default {
+  methods: {
+    handleMenuClick() {
+      weui.actionSheet(
+        [
+          {
+            label: '关于我们',
+            onClick: function() {
+              window.location.href = '/about.html';
+            }
+          },
+          {
+            label: '联系我们',
+            onClick: function() {
+              window.location.href = '/contact.html';
+            }
+          },
+          {
+            label: '招揽英才',
+            onClick: function() {
+              window.location.href = '/job.html';
+            }
+          }
+        ],
+        [
+          {
+            label: '取消',
+            onClick: function() {}
+          }
+        ]
+      );
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -180,12 +215,21 @@ body {
   background-color: #fff;
 }
 .page-one {
+  position: relative;
   .banner {
     width: 100%;
     height: 13.4375rem;
     background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 0.5rem /
         8.625rem 3rem,
       url('./assets/images/banner-a@2x.png') no-repeat 50% / cover;
+  }
+  .menu {
+    width: 2.125rem;
+    height: 1.625rem;
+    position: absolute;
+    right: 1.375rem;
+    top: 1.3125rem;
+    background: url('./assets/images/menu@2x.png') no-repeat 50% / cover;
   }
   .content {
     h5 {
