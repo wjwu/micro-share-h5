@@ -13,6 +13,40 @@ module.exports = merge(baseConfig, {
     publicPath: '/'
   },
   devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.(gif|png|jpg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/images/[name].[hash:8].[ext]'
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng: {
+              //   enabled: true,
+              // },
+              pngquant: {
+                quality: '65-90',
+                speed: 1
+              },
+              gifsicle: {
+                interlaced: false
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',

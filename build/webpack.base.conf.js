@@ -14,15 +14,11 @@ var entryDirs = glob.sync('src/**/index.js').map(item => {
   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
 });
 
-// var entryDirs = [
-//   'bill/detail',
-// ];
-
 var entry = {};
 var htmlPlugins = [];
 var htmlExternals = [];
 
-if (process.env.NODE_ENV !== 'dev') {
+if (process.env.NODE_ENV !== 'development') {
   htmlExternals.push({
     module: 'vue',
     entry: 'https://cdn.bootcss.com/vue/2.5.13/vue.runtime.min.js',
@@ -63,37 +59,6 @@ if (htmlExternals.length > 0) {
     })
   );
 }
-
-var extractCss = [
-  'vue-style-loader',
-  MiniCssExtractPlugin.loader,
-  {
-    loader: 'css-loader',
-    options: {
-      minimize: true
-    }
-  },
-  {
-    loader: 'postcss-loader'
-  }
-];
-
-var extractSass = [
-  'vue-style-loader',
-  MiniCssExtractPlugin.loader,
-  {
-    loader: 'css-loader',
-    options: {
-      minimize: true
-    }
-  },
-  {
-    loader: 'sass-loader'
-  },
-  {
-    loader: 'postcss-loader'
-  }
-];
 module.exports = {
   entry,
   module: {
@@ -118,39 +83,30 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: extractCss
+        use: [
+          'vue-style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
       },
       {
         test: /\.scss$/,
-        use: extractSass
-      },
-      {
-        test: /\.(gif|png|jpg)$/,
         use: [
+          'vue-style-loader',
+          MiniCssExtractPlugin.loader,
           {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/images/[name].[hash:8].[ext]'
-            }
+            loader: 'css-loader'
           },
           {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              // optipng: {
-              //   enabled: true,
-              // },
-              pngquant: {
-                quality: '65-90',
-                speed: 1
-              },
-              gifsicle: {
-                interlaced: false
-              }
-            }
+            loader: 'sass-loader'
+          },
+          {
+            loader: 'postcss-loader'
           }
         ]
       },
@@ -163,7 +119,7 @@ module.exports = {
       }
     ]
   },
-  plugins: plugins,
+  plugins,
   resolve: {
     extensions: ['.js', '.vue']
   }

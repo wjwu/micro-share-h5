@@ -4,10 +4,10 @@
   "description": "micro-share-h5",
   "author": "wjwu",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --port 8081 --inline --progress --config build/webpack.dev.conf.js",
-    "dev-host": "webpack-dev-server --mode development --public --host 192.168.0.108 --port 8082 --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --port 8081 --inline --progress --config build/webpack.dev.conf.js",
+    "dev-host": "cross-env NODE_ENV=development webpack-dev-server --mode development --public --host 192.168.0.108 --port 8082 --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "webpack --config build/webpack.prod.conf.js --mode production --profile --progress --colors --display-error-details"
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js --mode production --profile --progress --colors --display-error-details"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -44,6 +44,7 @@
     "image-webpack-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.7.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
