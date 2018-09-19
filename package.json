@@ -5,7 +5,7 @@
   "author": "wjwu",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --port 8081 --inline --progress --config build/webpack.dev.conf.js",
-    "dev-host": "cross-env NODE_ENV=development webpack-dev-server --mode development --public --host 192.168.200.75 --port 8082 --inline --progress --config build/webpack.dev.conf.js",
+    "dev-host": "cross-env NODE_ENV=development webpack-dev-server --mode development --public --host 127.0.0.1 --port 8082 --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js --mode production --profile --progress --colors --display-error-details"
   },

@@ -14,7 +14,7 @@ var entryDirs = glob.sync('src/**/index.js').map(item => {
   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
 });
 
-// var entryDirs = ['buy'];
+// var entryDirs = ['qa', 'buy'];
 
 var entry = {};
 var htmlPlugins = [];

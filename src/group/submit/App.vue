@@ -52,9 +52,9 @@
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3" @input="handleDescChange"></textarea>
+          <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3"></textarea>
           <div class="weui-textarea-counter">
-            <span>{{descLength}}</span>/200</div>
+            <span>{{description.length}}</span>/200</div>
         </div>
       </div>
     </div>
@@ -80,7 +80,6 @@ export default {
       name: '',
       number: '0',
       description: '',
-      descLength: 0,
       address: '',
       latitude: '',
       longitude: '',
@@ -113,13 +112,9 @@ export default {
       const { data } = await axios.get(`${config.apiHost}/user/myRoom`, {
         headers: {
           userId: localStorage.getItem('userId')
-          // userId: 'f6217fc2-7bae-4972-87d5-563f02fdd9e4'
         }
       });
       this.groups = data;
-    },
-    handleDescChange() {
-      this.descLength = this.description.length;
     },
     handleChange() {
       if (this.selectedGroupId) {

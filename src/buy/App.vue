@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="showApp">
     <div class="top">
-      <img src="./assets/images/user@2x.png"/>
+      <img src="./assets/images/user@2x.png" />
       <div class="intro">
         <span>运行规则</span>
         <span>匹配指南</span>
@@ -45,11 +45,21 @@
 </template>
 
 <script>
+import { auth } from '../common/js/auth';
+import { tryFunc } from '../common/js/common';
+
 export default {
   data() {
     return {
-      selectedTab: 't1'
+      selectedTab: 't1',
+      showApp: false
     };
+  },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+    });
   },
   methods: {
     handleChangeTab(tab) {
@@ -64,7 +74,7 @@ html {
   min-height: 100%;
   position: relative;
 }
-body{
+body {
   position: absolute;
   top: 0;
   left: 0;

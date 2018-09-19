@@ -1,10 +1,18 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1>绑定手机</h1>
-      <div class="sub">为了您的信息安全，请绑定手机</div>
+      <h1>成员注册</h1>
+      <div class="sub">为了您的信息安全，请关联信息</div>
     </div>
     <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">昵称</label>
+        </div>
+        <div class="weui-cell__bd">
+          {{nick}}
+        </div>
+      </div>
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label class="weui-label">手机号</label>
@@ -49,6 +57,7 @@ export default {
     return {
       phone: '',
       captcha: '',
+      nick: localStorage.getItem('userName'),
       showApp: false,
       sending: false,
       time: 60
