@@ -63,7 +63,6 @@ export default {
     tryFunc(async () => {
       await auth();
       if (checkPhone()) {
-        debugger;
         this.showApp = true;
       }
     });
