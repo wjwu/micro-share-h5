@@ -23,25 +23,6 @@ module.exports = merge(baseConfig, {
             options: {
               name: 'assets/images/[name].[hash:8].[ext]'
             }
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              // optipng: {
-              //   enabled: true,
-              // },
-              pngquant: {
-                quality: '65-90',
-                speed: 1
-              },
-              gifsicle: {
-                interlaced: false
-              }
-            }
           }
         ]
       }
