@@ -12,7 +12,7 @@
         <span :class="{'active':selectedTab === 't1'}" @click="handleChangeTab('t1')">商伴匹配</span>
         <span :class="{'active':selectedTab === 't2'}" @click="handleChangeTab('t2')">部落管家</span>
       </div>
-      <div v-if="selectedTab ==='t1'">
+      <div class="tip" v-if="selectedTab ==='t1'">
         <div class="intro">
           <p>温馨提示:</p>
           <p>1.商伴匹配服务对象主要是能提供真实、合法经营产品或服务的社区实体商家、小微商家。</p>
@@ -23,8 +23,12 @@
           <h4>匹配流程</h4>
           <img src="./assets/images/page1.png" />
         </div>
+        <div class="footer">
+          <button @click="handleJump('/group/submit.html')">参与商伴匹配</button>
+          <button>在线客服</button>
+        </div>
       </div>
-      <div v-else>
+      <div class="tip" v-else>
         <div class="intro">
           <p>温馨提示:</p>
           <p>1.商伴匹配服务对象主要是能提供真实、合法经营产品或服务的社区实体商家、小微商家。</p>
@@ -35,11 +39,11 @@
           <h4>购买流程</h4>
           <img src="./assets/images/page2.png" />
         </div>
+        <div class="footer">
+          <button>购买管家</button>
+          <button>在线客服</button>
+        </div>
       </div>
-    </div>
-    <div class="footer">
-      <button>购买管家</button>
-      <button>在线客服</button>
     </div>
   </div>
 </template>
@@ -64,6 +68,9 @@ export default {
   methods: {
     handleChangeTab(tab) {
       this.selectedTab = tab;
+    },
+    handleJump(url) {
+      window.location.href = url;
     }
   }
 };
@@ -114,8 +121,10 @@ body {
   }
 
   .content {
-    margin-top: 0.9375rem;
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    margin-top: 0.9375rem;
     background-color: #fff;
 
     .tab {
@@ -141,6 +150,12 @@ body {
       }
     }
 
+    .tip {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
     .intro {
       padding: 1.25rem 0.9375rem;
       background-color: #f5f9fe;
@@ -149,6 +164,7 @@ body {
     }
 
     .flow {
+      flex: 1;
       text-align: center;
       padding-bottom: 1.875rem;
 
