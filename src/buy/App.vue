@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { auth } from '../common/js/auth';
+import { auth, checkPhone } from '../common/js/auth';
 import { tryFunc } from '../common/js/common';
 
 export default {
@@ -62,7 +62,10 @@ export default {
   mounted() {
     tryFunc(async () => {
       await auth();
-      this.showApp = true;
+      if (checkPhone()) {
+        debugger;
+        this.showApp = true;
+      }
     });
   },
   methods: {

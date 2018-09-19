@@ -25,17 +25,7 @@ export const auth = () => {
             .then(response => {
               localStorage.setItem('userId', response.data.id);
               localStorage.setItem('userName', response.data.userName);
-              if (
-                !response.data.phone &&
-                window.location.pathname.indexOf('bind/phone.html') < 0
-              ) {
-                window.location.href = `/bind/phone.html?redirect=${
-                  config.webHost
-                }${window.location.pathname}`;
-              } else {
-                localStorage.setItem('phone', response.data.phone);
-              }
-
+              localStorage.setItem('phone', response.data.phone);
               resolve();
             })
             .catch(e => {
@@ -47,4 +37,17 @@ export const auth = () => {
       }
     });
   }
+};
+
+export const checkPhone = () => {
+  const phone = localStorage.getItem('phone');
+  if (!phone && window.location.pathname.indexOf('bind/phone.html') < 0) {
+    setTimeout(() => {
+      window.location.href = `/bind/phone.html?redirect=${config.webHost}${
+        window.location.pathname
+      }`;
+    }, 10);
+    return false;
+  }
+  return true;
 };
