@@ -58,9 +58,9 @@
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea v-model="remark" class="weui-textarea" placeholder="可备注客户地址、联系方式等（可选）" rows="3"></textarea>
+          <textarea v-model="remark" class="weui-textarea" placeholder="可备注客户地址、联系方式等（可选）" rows="2"></textarea>
           <div class="weui-textarea-counter">
-            <span>{{remark.length}}</span>/200</div>
+            <span>{{remark.length}}</span>/50</div>
         </div>
       </div>
     </div>
