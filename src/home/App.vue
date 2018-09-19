@@ -23,7 +23,7 @@
             <a href="">详情</a>
           </li>
         </ul>
-        <button>进入部落</button>
+        <button @click="handleJump('/buy.html')">登录部落</button>
       </div>
     </section>
     <section class="page-two">
@@ -176,6 +176,9 @@
 import weui from 'weui.js';
 export default {
   methods: {
+    handleJump(url) {
+      window.location.href = url;
+    },
     handleMenuClick() {
       weui.actionSheet(
         [
