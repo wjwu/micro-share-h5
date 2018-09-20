@@ -37,7 +37,7 @@
         </div>
         <div class="footer">
           <button @click="handleJump('/group/submit.html')">参与商伴匹配</button>
-          <button>在线客服</button>
+          <button @click="handleJump('/qa.html')">在线客服</button>
         </div>
       </div>
       <div class="tip" v-else>
@@ -54,7 +54,7 @@
         </div>
         <div class="footer">
           <button>购买管家</button>
-          <button>在线客服</button>
+          <button @click="handleJump('/qa.html')">在线客服</button>
         </div>
       </div>
     </div>
