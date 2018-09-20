@@ -54,11 +54,16 @@
     </div>
     <div class="weui-cells__title">请选择需要群发的群组和群</div>
     <div class="weui-cells weui-cells_form">
-        <div class="weui-cell weui-cell_switch" v-for="room in rooms" :key="room.id">
-            <div class="weui-cell__bd">{{room.name}}</div>
-            <div class="weui-cell__ft">
-                <input class="weui-switch" type="checkbox">
-            </div>
+        <div class="weui-cells weui-cells_checkbox" v-for="room in rooms" :key="room.id">
+            <label class="weui-cell weui-check__label" for="s11">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>{{room.name}}</p>
+                </div>
+            </label>
         </div>
         <div class="weui-cell" v-if="!rooms || rooms.length === 0">暂无可用群</div>
     </div>
