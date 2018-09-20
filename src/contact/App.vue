@@ -99,7 +99,6 @@ body,
     padding: 0 1rem;
     line-height: 1.5rem;
     font-size: 0.875rem;
-    letter-spacing: 2px;
     color: #999;
   }
 }
