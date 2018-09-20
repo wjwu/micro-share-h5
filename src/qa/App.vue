@@ -1,48 +1,112 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="showApp">
     <ul>
-      <li class="service">
-        <div class="name">xxx客服</div>
+      <li :class="record.type" v-for="record in records" :key="record.id">
+        <div class="name">智能客服</div>
         <div class="content">
           <i class="arrow out"></i>
           <i class="arrow in"></i>
-          <div class="text">
-            <p>
-              <a href="javascript:;">你好好啊你好好啊你好好啊你好好啊啊</a>
-            </p>
-            <p>
-              <a href="javascript:;">你好好啊你好好啊你好好啊你好好好啊</a>
-            </p>
-            <p>
-              <a href="javascript:;">33333你好好啊你好好啊你33333</a>
-            </p>
-            <p>
-              <a href="javascript:;">33333你好好啊你好好啊你33333</a>
-            </p>
-            <p>
-              <a href="javascript:;">33333你好好啊你好好啊你33333</a>
-            </p>
+          <div class="text" v-if="record.type==='service'">
+            <div v-if="record.data.length !== 1">
+              <p v-for="(item,i) in record.data" :key="item.id">
+                <a href="javascript:;" @click="handleClick(item)">{{`${i+1}. ${item.title}`}}</a>
+              </p>
+            </div>
+            <div v-else>
+              <p v-for="(item,i) in record.data" :key="i">
+                <span v-if="item.title">{{item.title}}</span>
+                <img v-else :src="item.imgUrl" />
+              </p>
+            </div>
+          </div>
+          <div class="text" v-else>
+            <p v-for="(item,i) in record.data" :key="i">{{item.title}}</p>
           </div>
         </div>
-        <div class="time">2018-08-08 19:56:44</div>
-      </li>
-      <li class="customer">
-        <div class="name">王老五</div>
-        <div class="content">
-          <i class="arrow out"></i>
-          <i class="arrow in"></i>
-          <div class="text">
-            33333你好好啊你好好啊你33333
-          </div>
-        </div>
-        <div class="time">2018-08-08 19:56:44</div>
+        <div class="time">{{record.time}}</div>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+import config from '../common/js/config';
+import { auth } from '../common/js/auth';
+import { format } from 'date-fns';
+import { tryFunc } from '../common/js/common';
+
+export default {
+  data() {
+    return {
+      showApp: false,
+      userName: localStorage.getItem('userName'),
+      records: [],
+      questions: [],
+      answers: []
+    };
+  },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+      await this.getQuestions(0);
+    });
+  },
+  methods: {
+    async getQuestions(parentId) {
+      const { data } = await axios.get(`${config.apiHost}/help`, {
+        params: {
+          parentId
+        },
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      this.records.push({
+        type: 'service',
+        time: format(new Date(), 'YYYY-MM-DD HH:mm:ss'),
+        data
+      });
+    },
+    async getAnswers(id) {
+      const { data } = await axios.get(`${config.apiHost}/help/${id}`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      if (data.type === 'PARENT') {
+        this.getQuestions(data.id);
+      } else {
+        const item = {};
+        if (data.content) {
+          item.title = data.content;
+        } else {
+          item.imgUrl = data.imgUrl;
+        }
+        this.records.push({
+          type: 'service',
+          time: format(new Date(), 'YYYY-MM-DD HH:mm:ss'),
+          data: [item]
+        });
+      }
+    },
+    handleClick(item) {
+      this.records.push({
+        type: 'customer',
+        time: format(new Date(), 'YYYY-MM-DD HH:mm:ss'),
+        data: [
+          {
+            title: item.title
+          }
+        ]
+      });
+      tryFunc(async () => {
+        await this.getAnswers(item.id);
+      });
+    }
+  }
+};
 </script>
 
 
@@ -57,19 +121,19 @@ body {
     padding: 1rem;
 
     li {
-      margin: 1rem 0;
+      margin-bottom: 1rem;
     }
   }
 
   .service {
     .name {
-      padding-left: 4.25rem;
+      padding-left: 0rem;
       color: #ccc;
     }
 
     .content {
       position: relative;
-      min-height: 3.75rem;
+      min-height: 3.125rem;
       padding-left: 4.25rem;
       background: url('./assets/images/head.png') no-repeat 0 0/3.125rem;
 
@@ -96,7 +160,7 @@ body {
       }
 
       .text {
-        margin: 0.5rem 0;
+        display: inline-block;
         background-color: #fff;
         padding: 0.3rem 0.5rem;
         border: 1px solid #e6e6e6;
@@ -107,11 +171,16 @@ body {
         p {
           line-height: 1.2rem;
         }
+
+        img {
+          width: 100%;
+        }
       }
     }
   }
 
   .time {
+    margin-top: 1rem;
     font-size: 0.75rem;
     color: #ccc;
     text-align: center;
@@ -119,13 +188,14 @@ body {
 
   .customer {
     .name {
+      padding-right: 0.3rem;
       text-align: right;
       color: #ccc;
     }
 
     .content {
       position: relative;
-      min-height: 3.75rem;
+      min-height: 3.125rem;
       padding-right: 4.25rem;
       background: url('./assets/images/head.png') no-repeat right 0/3.125rem;
       text-align: right;
@@ -138,7 +208,7 @@ body {
       }
       .out {
         border-top: 5px solid transparent;
-        border-left: 10px solid #e6e6e6;
+        border-left: 10px solid #afe56e;
         border-bottom: 5px solid transparent;
         right: 58px;
         top: 17px;
@@ -146,7 +216,7 @@ body {
 
       .in {
         border-top: 5px solid transparent;
-        border-left: 10px solid #fff;
+        border-left: 10px solid #afe56e;
         border-bottom: 5px solid transparent;
         right: 61px;
         top: 17px;
@@ -155,9 +225,9 @@ body {
       .text {
         display: inline-block;
         margin: 0.5rem 0;
-        background-color: #fff;
+        background-color: #afe56e;
         padding: 0.3rem 0.5rem;
-        border: 1px solid #e6e6e6;
+        border: 1px solid #afe56e;
         border-radius: 5px;
         a {
           color: #295af3;

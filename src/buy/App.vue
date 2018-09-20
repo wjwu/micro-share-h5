@@ -2,13 +2,21 @@
   <div class="main" v-if="showApp">
     <div class="top">
       <a href="./self/center.html"><img src="./assets/images/user@2x.png" /></a>
-      <div class="intro"  v-if="selectedTab ==='t1'">
-        <span><a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a></span>
-        <span><a style="color:#3e88ee;"  href="javascript:alert('暂未提供文档');">匹配指南</a></span>
+      <div class="intro" v-if="selectedTab ==='t1'">
+        <span>
+          <a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a>
+        </span>
+        <span>
+          <a style="color:#3e88ee;" href="javascript:alert('暂未提供文档');">匹配指南</a>
+        </span>
       </div>
-      <div class="intro"  v-if="selectedTab ==='t2'">
-        <span><a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a></span>
-        <span><a style="color:#3e88ee;"  href="javascript:alert('暂未提供文档');">管家指南</a></span>
+      <div class="intro" v-if="selectedTab ==='t2'">
+        <span>
+          <a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a>
+        </span>
+        <span>
+          <a style="color:#3e88ee;" href="javascript:alert('暂未提供文档');">管家指南</a>
+        </span>
       </div>
     </div>
     <div class="content">
@@ -54,13 +62,13 @@
 </template>
 
 <script>
-import { auth, checkPhone } from "../common/js/auth";
-import { tryFunc } from "../common/js/common";
+import { auth, checkPhone } from '../common/js/auth';
+import { tryFunc } from '../common/js/common';
 
 export default {
   data() {
     return {
-      selectedTab: "t1",
+      selectedTab: 't1',
       showApp: false
     };
   },
