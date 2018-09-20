@@ -5,6 +5,7 @@
         <div v-if="record.type === 'service'" class="name">智能客服</div>
         <div v-else class="name">{{userName}}</div>
         <div class="content">
+          <div v-if="record.type === 'customer'" class="head-mask"></div>
           <i class="arrow out"></i>
           <i class="arrow in"></i>
           <div class="text" v-if="record.type==='service'">
@@ -109,11 +110,12 @@ export default {
       tryFunc(async () => {
         await this.getAnswers(item);
         this.$nextTick(() => {
-          this.$el.querySelector(
-            '.customer .content'
-          ).style.background = `url("${
-            this.headPhoto
-          }") no-repeat right 0/3.125rem`;
+          const heads = document.querySelectorAll('.customer .content');
+          for (let head of heads) {
+            head.style.background = `url("${
+              this.headPhoto
+            }") no-repeat right 0/3.125rem`;
+          }
         });
         setTimeout(() => {
           window.scrollTo(0, document.documentElement.offsetHeight);
@@ -220,8 +222,17 @@ body {
       position: relative;
       min-height: 3.125rem;
       padding-right: 4.25rem;
-      background: url('./assets/images/user@2x.png') no-repeat right 0/3.125rem;
+      // background: url('./assets/images/user@2x.png') no-repeat right 0/3.125rem;
       text-align: right;
+
+      .head-mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 3.125rem;
+        height: 3.125rem;
+        background: url('./assets/images/head-mask.png') no-repeat right 0/3.125rem;
+      }
 
       .arrow {
         position: absolute;
