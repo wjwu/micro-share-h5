@@ -3,12 +3,12 @@ import { getQueryString } from './common';
 import config from './config';
 
 export const auth = () => {
-  if (process.env['NODE_ENV'] === 'development') {
-    return new Promise((resolve, reject) => {
-      localStorage.setItem('userId', 'f6217fc2-7bae-4972-87d5-563f02fdd9e4');
-      resolve();
-    });
-  } else {
+  // if (process.env['NODE_ENV'] === 'development') {
+  //   return new Promise((resolve, reject) => {
+  //     localStorage.setItem('userId', 'f6217fc2-7bae-4972-87d5-563f02fdd9e4');
+  //     resolve();
+  //   });
+  // } else {
     return new Promise((resolve, reject) => {
       const userId = localStorage.getItem('userId');
       if (!userId) {
@@ -36,12 +36,12 @@ export const auth = () => {
         resolve();
       }
     });
-  }
+  //}
 };
 
 export const checkPhone = () => {
   const phone = localStorage.getItem('phone');
-  if (!phone && window.location.pathname.indexOf('bind/phone.html') < 0) {
+  if ((phone === 'null' || !phone) && window.location.pathname.indexOf('bind/phone.html') < 0) {
     setTimeout(() => {
       window.location.href = `/bind/phone.html?redirect=${config.webHost}${
         window.location.pathname

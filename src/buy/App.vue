@@ -1,10 +1,14 @@
 <template>
   <div class="main" v-if="showApp">
     <div class="top">
-      <img src="./assets/images/user@2x.png" />
-      <div class="intro">
-        <span>运行规则</span>
-        <span>匹配指南</span>
+      <a href="./self/center.html"><img src="./assets/images/user@2x.png" /></a>
+      <div class="intro"  v-if="selectedTab ==='t1'">
+        <span><a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a></span>
+        <span><a style="color:#3e88ee;"  href="javascript:alert('暂未提供文档');">匹配指南</a></span>
+      </div>
+      <div class="intro"  v-if="selectedTab ==='t2'">
+        <span><a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a></span>
+        <span><a style="color:#3e88ee;"  href="javascript:alert('暂未提供文档');">管家指南</a></span>
       </div>
     </div>
     <div class="content">
@@ -31,9 +35,10 @@
       <div class="tip" v-else>
         <div class="intro">
           <p>温馨提示:</p>
-          <p>1.商伴匹配服务对象主要是能提供真实、合法经营产品或服务的社区实体商家、小微商家。</p>
-          <p>2.分享源群不得涉及黄/毒/赌/传销/涉政/股票/区块链等非法群，违规账户进入部落黑名单；拒绝僵尸/广告/死群参与分享，违规账户信用降级。</p>
-          <p>3.只能提交属于群主自己群，分享群数量为N&lt;=5个，每单个群分享次数N&lt;=8次。</p>
+          <p>1.管家可独立于商伴匹配，单独购买独立使用。</p>
+          <p>2.管家不得用于发送涉及黄/毒/赌/传销/涉政/股票/区块链等非法以及其他虚假、夸大的信息、广告。</p>
+          <p>3.发现违规，部落有权立即收回管家使用权，购买费用不予退还，账户信用降级，并计入诚信记录。</p>
+          <p>4.单个账户可购买1（店长模块）+N（基础模块群），N&lt;=8。</p>
         </div>
         <div class="flow">
           <h4>购买流程</h4>
@@ -49,13 +54,13 @@
 </template>
 
 <script>
-import { auth, checkPhone } from '../common/js/auth';
-import { tryFunc } from '../common/js/common';
+import { auth, checkPhone } from "../common/js/auth";
+import { tryFunc } from "../common/js/common";
 
 export default {
   data() {
     return {
-      selectedTab: 't1',
+      selectedTab: "t1",
       showApp: false
     };
   },

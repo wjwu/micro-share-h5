@@ -7,19 +7,19 @@
         <h5>公告</h5>
         <ul>
           <li>
-            <p>公告标题公告标题公告标题</p>
+            <p>上线促销活动、购买优惠多多!</p>
             <a href="">详情</a>
           </li>
           <li>
-            <p>公告标题公告标题公告标题</p>
+            <p>网站上线公告!</p>
             <a href="">详情</a>
           </li>
           <li>
-            <p>公告标题公告标题公告标题</p>
+            <p>会员细则及免责声明!</p>
             <a href="">详情</a>
           </li>
           <li>
-            <p>公告标题公告标题公告标题</p>
+            <p>网站遵守守则!</p>
             <a href="">详情</a>
           </li>
         </ul>
@@ -33,10 +33,10 @@
           <li>
             <div class="top">
               <img src="./assets/images/quality@2x.png" />
-              <p>谨审核/高质量</p>
+              <p>严审核/高质量</p>
             </div>
             <div class="bottom img-a">
-              <p>智能管家对源群资料真实性，行业，活跃度等进行智能审核，保证分享源群高质量。</p>
+              <p>智能&人工对分享源群申请资料真实性、活跃度等进行多维度进行审核（确保分享源群高质量）</p>
             </div>
           </li>
           <li>
@@ -45,7 +45,7 @@
               <p>严信用/倡诚信</p>
             </div>
             <div class="bottom img-b">
-              <p>商伴评价与微信群质量评价机制结合，排除不遵守规则者（永久黑名单：倡扬诚信互动。</p>
+              <p>过程关键节点严格信用管理机制，商伴与源群评价机制结合（导向诚信互助，剔除短视投机）</p>
             </div>
           </li>
           <li>
@@ -54,34 +54,34 @@
               <p>分行业/详地域</p>
             </div>
             <div class="bottom img-c">
-              <p>数十大行业与细分行业供您选择，可实现在您店铺周边300m-500km分范围供您匹配选择。</p>
+              <p>数十类大行业与细分行业，可实现以您店铺为中心半径500M-5KM范围内商伴选择（总能寻到适合您的商伴）</p>
             </div>
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/Robot@2x.png" />
-              <p>强大智能管家支撑</p>
+              <img src="./assets/images/Under-line@2x.png" />
+              <p>线下抱团联合</p>
             </div>
             <div class="bottom img-d">
-              <p>除提供日常管理功能外，还将帮助您实现与众多商伴资源连接成一张共享网络。</p>
+              <p>社区同行与异业、实体与网络，在物流配送/设备资源/特色产品上实现联合互补（全力节省成本，扩大销售）</p>
             </div>
           </li>
           <li class="m-b-0">
             <div class="top">
               <img src="./assets/images/On-line@2x.png" />
-              <p>分行业/详地域</p>
+              <p>线上共建共拓</p>
             </div>
             <div class="bottom img-c">
-              <p>数十大行业与细分行业供您选择，可实现在您店铺周边300m-500km分范围供您匹配选择。</p>
+              <p>商伴线上互助、共建社群圈，提升客户圈子归属和信任感，建立只属于商伴间享用的永久流量池（合力用心经营好社区商伴圈子，足用亦）</p>
             </div>
           </li>
           <li class="m-b-0">
             <div class="top">
-              <img src="./assets/images/Under-line@2x.png" />
-              <p>强大智能管家支撑</p>
+              <img src="./assets/images/Robot@2x.png" />
+              <p>智能管家支撑</p>
             </div>
             <div class="bottom img-d">
-              <p>除提供日常管理功能外，还将帮助您实现与众多商伴资源连接成一张共享网络。</p>
+              <p>除提供日常社群管理与店铺辅助经营功能外，还将帮助您与商伴资源链接成一张共享网络（可建立由数万户家庭组成的社区商伴圈资源）</p>
             </div>
           </li>
         </ul>
@@ -94,28 +94,10 @@
           <li>
             <div class="top">
               <img src="./assets/images/manage@2x.png" />
-              <p>日常管理</p>
+              <p>社群日常管理</p>
             </div>
             <div class="bottom img-e">
-              <p>群欢迎语/群规自动发送广告屏蔽/广告党进行自动管理与剔除；对入群胡乱拉人者。</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/drainage@2x.png" />
-              <p>引流拓客</p>
-            </div>
-            <div class="bottom img-f">
-              <p>新品/特价/货架海报中可自动植入您个人微信号/微信群二维码，在商伴微信群以及其他。</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/Order@2x.png" />
-              <p>订单自动抓取</p>
-            </div>
-            <div class="bottom img-g">
-              <p>不管是在您的群，还是在您商伴的群，只要有您的意向订单和咨询智能管家将第一时间。</p>
+              <p>入群欢迎语/群规发送/定时消息发送/一键群发/商伴互联共享（日常管理与群发互联共享）</p>
             </div>
           </li>
           <li>
@@ -123,26 +105,44 @@
               <img src="./assets/images/product@2x.png" />
               <p>产品宣传展示</p>
             </div>
+            <div class="bottom img-f">
+              <p>专属新品鉴赏/本周特价/店铺货架海报可灵活简洁编辑，植入您个人微信号/微信群二维码/小程序（还可镌刻您的店铺信章，加成您的信用背书）</p>
+            </div>
+          </li>
+          <li>
+            <div class="top">
+              <img src="./assets/images/drainage@2x.png" />              
+              <p>线上引流拓客</p>
+            </div>
+            <div class="bottom img-g">
+              <p>植入您商品信息的海报可在众多商伴群以及其他渠道发送，将喜欢您产品的潜在客户吸引过来（定向引流，获客准确度高）</p>
+            </div>
+          </li>
+          <li>
+            <div class="top">
+                            <img src="./assets/images/Order@2x.png" />
+              <p>订单自动抓取</p>
+            </div>
             <div class="bottom img-h">
-              <p>您的新品鉴赏/近日特价啊/商铺货架都可以在商伴众多微信群进行推广展示。</p>
+              <p>不管是在您的群还是商伴群，只要有客户意向订单出现，管家将第一时间上报给您（将您眼睛从手机中解脱出来）</p>
             </div>
           </li>
           <li class="m-b-0">
             <div class="top">
               <img src="./assets/images/bill@2x.png" />
-              <p>电子账簿/库存管理</p>
+              <p>在线电子帐薄</p>
             </div>
             <div class="bottom img-g" style="padding:1.25rem 0.6875rem 0 0.6875rem">
-              <p>简洁高效的电子账簿和库存管理功能与客户订单形成联动，对每天收入/库存和利润了如指掌。</p>
+              <p>简洁高效的电子帐薄管理工具，与产品订单信息形成联动（让您对每天收入/库存了如指掌）</p>
             </div>
           </li>
           <li class="m-b-0">
             <div class="top">
               <img src="./assets/images/link@2x.png" />
-              <p>链接商伴，互补共赢</p>
+              <p>链接商伴、互补共赢</p>
             </div>
             <div class="bottom img-h">
-              <p>智能管家强大的互联共享功能，会完美将您和众多商伴资源实现互联共享。</p>
+              <p>强大的互联共享功能，完美将您和众多商伴资源实现互联、互助、互享（仅几个管家即可实现和商伴数十个群的分享管理）</p>
             </div>
           </li>
         </ul>
@@ -158,13 +158,13 @@
               <p>也是对愿遵循诚信经营成员的服务理念。</p>
             </li>
             <li>
-              <p>强大的研发团队和运营团队提供技术支</p>
-              <p>撑和创造新价值的能力。</p>
+              <p>优秀的研发和运营团队，具备为您提供</p>
+              <p>有力的技术支撑和持续创造新价值的能力</p>
             </li>
           </ul>
         </div>
         <div class="footer">
-          <p>成都鹅卵石信息科技有限公司</p>
+          <p>成都鹅卵石信息技术有限公司</p>
           <p> Copyright © 2019 蜀ICP备18026087号</p>
         </div>
       </div>
@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import weui from 'weui.js';
+import weui from "weui.js";
 export default {
   methods: {
     handleJump(url) {
@@ -183,27 +183,27 @@ export default {
       weui.actionSheet(
         [
           {
-            label: '关于我们',
+            label: "关于我们",
             onClick: function() {
-              window.location.href = '/about.html';
+              window.location.href = "/about.html";
             }
           },
           {
-            label: '联系我们',
+            label: "联系我们",
             onClick: function() {
-              window.location.href = '/contact.html';
+              window.location.href = "/contact.html";
             }
           },
           {
-            label: '招揽英才',
+            label: "招揽英才",
             onClick: function() {
-              window.location.href = '/job.html';
+              window.location.href = "/job.html";
             }
           }
         ],
         [
           {
-            label: '取消',
+            label: "取消",
             onClick: function() {}
           }
         ]
@@ -222,9 +222,9 @@ body {
   .banner {
     width: 100%;
     height: 13.4375rem;
-    background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 0.5rem /
+    background: url("./assets/images/logo@2x.png") no-repeat 0.875rem 0.5rem /
         8.625rem 3rem,
-      url('./assets/images/banner-a@2x.png') no-repeat 50% / cover;
+      url("./assets/images/banner-a@2x.png") no-repeat 50% / cover;
   }
   .menu {
     width: 2.125rem;
@@ -232,7 +232,7 @@ body {
     position: absolute;
     right: 1.375rem;
     top: 1.3125rem;
-    background: url('./assets/images/menu@2x.png') no-repeat 50% / cover;
+    background: url("./assets/images/menu@2x.png") no-repeat 50% / cover;
   }
   .content {
     h5 {
@@ -241,7 +241,7 @@ body {
       line-height: 1;
       letter-spacing: 1px;
       color: #1492df;
-      background: url('./assets/images/notice@2x.png') no-repeat 1rem 1.1875rem /
+      background: url("./assets/images/notice@2x.png") no-repeat 1rem 1.1875rem /
         1rem 0.875rem;
     }
 
@@ -257,7 +257,7 @@ body {
       border-bottom: 1px solid #ccc;
 
       &::before {
-        content: '';
+        content: "";
         margin-right: 0.75rem;
         height: 100%;
         width: 0.25rem;
@@ -280,7 +280,7 @@ body {
         align-items: center;
         padding-right: 1.1875rem;
         color: #1492df;
-        background: url('./assets/images/details@2x.png') no-repeat right
+        background: url("./assets/images/details@2x.png") no-repeat right
           center/1.125rem;
       }
     }
@@ -302,7 +302,7 @@ body {
 }
 .page-two {
   .banner {
-    background: url('./assets/images/banner-b@2x.png') no-repeat 50% / cover;
+    background: url("./assets/images/banner-b@2x.png") no-repeat 50% / cover;
   }
 }
 .page-three {
@@ -311,7 +311,7 @@ body {
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
   .banner {
-    background: url('./assets/images/banner-c@2x.png') no-repeat 0% / cover;
+    background: url("./assets/images/banner-c@2x.png") no-repeat 0% / cover;
   }
 }
 
@@ -368,28 +368,28 @@ body {
     }
 
     .img-a {
-      background: url('./assets/images/img-a@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-a@2x.png") no-repeat 50% / cover;
     }
     .img-b {
-      background: url('./assets/images/img-b@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-b@2x.png") no-repeat 50% / cover;
     }
     .img-c {
-      background: url('./assets/images/img-c@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-c@2x.png") no-repeat 50% / cover;
     }
     .img-d {
-      background: url('./assets/images/img-d@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-d@2x.png") no-repeat 50% / cover;
     }
     .img-e {
-      background: url('./assets/images/img-e@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-e@2x.png") no-repeat 50% / cover;
     }
     .img-f {
-      background: url('./assets/images/img-f@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-f@2x.png") no-repeat 50% / cover;
     }
     .img-g {
-      background: url('./assets/images/img-g@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-g@2x.png") no-repeat 50% / cover;
     }
     .img-h {
-      background: url('./assets/images/img-h@2x.png') no-repeat 50% / cover;
+      background: url("./assets/images/img-h@2x.png") no-repeat 50% / cover;
     }
   }
 }
@@ -406,7 +406,7 @@ body {
     padding-top: 9.9375rem;
     width: 100%;
     height: 22.875rem;
-    background: url('./assets/images/bj@2x.png') no-repeat 50% 0% / cover;
+    background: url("./assets/images/bj@2x.png") no-repeat 50% 0% / cover;
 
     h1 {
       font-size: 2.1875rem;
@@ -422,7 +422,7 @@ body {
 
     li {
       margin-bottom: 0.8125rem;
-      background: url('./assets/images/icon-1@2x.png') no-repeat 0 center/2rem;
+      background: url("./assets/images/icon-1@2x.png") no-repeat 0 center/2rem;
       p {
         padding-left: 2.5rem;
         font-size: 0.8125rem;
@@ -432,7 +432,7 @@ body {
     }
 
     li + li {
-      background: url('./assets/images/icon-2@2x.png') no-repeat 0 center/2rem;
+      background: url("./assets/images/icon-2@2x.png") no-repeat 0 center/2rem;
     }
   }
 
