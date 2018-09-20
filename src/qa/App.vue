@@ -16,7 +16,7 @@
             <div v-else>
               <p v-for="(item,i) in record.data" :key="i">
                 <span v-if="item.title">{{item.title}}</span>
-                <img v-if="item.imgUrl" :src="item.imgUrl" @click="handleImgClick(item.imgUrl)"/>
+                <img v-if="item.imgUrl" :src="item.imgUrl" @click="handleImgClick(item.imgUrl)" />
               </p>
             </div>
           </div>
@@ -43,9 +43,11 @@ export default {
     return {
       showApp: false,
       userName: localStorage.getItem('userName'),
-      records: [],
-      questions: [],
-      answers: []
+      headPhoto: localStorage.getItem('headPhoto'),
+      // userName: '佳哇儿',
+      // headPhoto:
+      //   'http://thirdwx.qlogo.cn/mmopen/OU2rqvx645tApw6HTRnxM4I1wBWZEmypWP8FkWykrPdWv9TQozeic8BiasEtvlRRdqSN1DqJaXQ9yx4nRkiaQSWsVBlRJUoeKyR/132',
+      records: []
     };
   },
   mounted() {
@@ -106,15 +108,20 @@ export default {
       });
       tryFunc(async () => {
         await this.getAnswers(item);
+        this.$nextTick(() => {
+          this.$el.querySelector(
+            '.customer .content'
+          ).style.background = `url("${
+            this.headPhoto
+          }") no-repeat right 0/3.125rem`;
+        });
         setTimeout(() => {
           window.scrollTo(0, document.documentElement.offsetHeight);
         }, 50);
       });
     },
     handleImgClick(url) {
-      const gallery = weui.gallery(url, {
-      });
-      console.log(gallery);
+      weui.gallery(url, {});
     }
   }
 };
@@ -122,7 +129,7 @@ export default {
 
 
 <style lang="scss">
-.weui-gallery__opr{
+.weui-gallery__opr {
   display: none;
 }
 
