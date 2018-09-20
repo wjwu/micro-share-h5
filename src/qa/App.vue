@@ -2,7 +2,8 @@
   <div class="main" v-if="showApp">
     <ul>
       <li :class="record.type" v-for="record in records" :key="record.id">
-        <div class="name">智能客服</div>
+        <div v-if="record.type === 'service'" class="name">智能客服</div>
+        <div v-else class="name">{{userName}}</div>
         <div class="content">
           <i class="arrow out"></i>
           <i class="arrow in"></i>
@@ -15,7 +16,7 @@
             <div v-else>
               <p v-for="(item,i) in record.data" :key="i">
                 <span v-if="item.title">{{item.title}}</span>
-                <img v-else :src="item.imgUrl" />
+                <img v-if="item.imgUrl" :src="item.imgUrl" @click="handleImgClick(item.imgUrl)"/>
               </p>
             </div>
           </div>
@@ -32,6 +33,7 @@
 <script>
 import axios from 'axios';
 import config from '../common/js/config';
+import weui from 'weui.js';
 import { auth } from '../common/js/auth';
 import { format } from 'date-fns';
 import { tryFunc } from '../common/js/common';
@@ -69,25 +71,26 @@ export default {
         data
       });
     },
-    async getAnswers(id) {
-      const { data } = await axios.get(`${config.apiHost}/help/${id}`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
-      if (data.type === 'PARENT') {
-        this.getQuestions(data.id);
+    async getAnswers(item) {
+      if (item.type === 'PARENT') {
+        this.getQuestions(item.id);
       } else {
-        const item = {};
+        const { data } = await axios.get(`${config.apiHost}/help/${item.id}`, {
+          headers: {
+            userId: localStorage.getItem('userId')
+          }
+        });
+        const dataItem = {};
         if (data.content) {
-          item.title = data.content;
-        } else {
-          item.imgUrl = data.imgUrl;
+          dataItem.title = data.content;
+        }
+        if (data.imgUrl) {
+          dataItem.imgUrl = data.imgUrl;
         }
         this.records.push({
           type: 'service',
           time: format(new Date(), 'YYYY-MM-DD HH:mm:ss'),
-          data: [item]
+          data: [dataItem]
         });
       }
     },
@@ -102,8 +105,16 @@ export default {
         ]
       });
       tryFunc(async () => {
-        await this.getAnswers(item.id);
+        await this.getAnswers(item);
+        setTimeout(() => {
+          window.scrollTo(0, document.documentElement.offsetHeight);
+        }, 50);
       });
+    },
+    handleImgClick(url) {
+      const gallery = weui.gallery(url, {
+      });
+      console.log(gallery);
     }
   }
 };
@@ -111,6 +122,10 @@ export default {
 
 
 <style lang="scss">
+.weui-gallery__opr{
+  display: none;
+}
+
 body {
   background-color: #f6f6f6;
 }
@@ -169,7 +184,8 @@ body {
           color: #295af3;
         }
         p {
-          line-height: 1.2rem;
+          color: #444;
+          line-height: 1.4rem;
         }
 
         img {
@@ -197,7 +213,7 @@ body {
       position: relative;
       min-height: 3.125rem;
       padding-right: 4.25rem;
-      background: url('./assets/images/head.png') no-repeat right 0/3.125rem;
+      background: url('./assets/images/user@2x.png') no-repeat right 0/3.125rem;
       text-align: right;
 
       .arrow {
@@ -233,7 +249,8 @@ body {
           color: #295af3;
         }
         p {
-          line-height: 1.2rem;
+          color: #444;
+          line-height: 1.4rem;
         }
       }
     }

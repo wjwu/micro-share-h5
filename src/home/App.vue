@@ -111,7 +111,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/drainage@2x.png" />              
+              <img src="./assets/images/drainage@2x.png" />
               <p>线上引流拓客</p>
             </div>
             <div class="bottom img-g">
@@ -120,7 +120,7 @@
           </li>
           <li>
             <div class="top">
-                            <img src="./assets/images/Order@2x.png" />
+              <img src="./assets/images/Order@2x.png" />
               <p>订单自动抓取</p>
             </div>
             <div class="bottom img-h">
@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import weui from "weui.js";
+import weui from 'weui.js';
 export default {
   methods: {
     handleJump(url) {
@@ -183,27 +183,27 @@ export default {
       weui.actionSheet(
         [
           {
-            label: "关于我们",
+            label: '关于我们',
             onClick: function() {
-              window.location.href = "/about.html";
+              window.location.href = '/about.html';
             }
           },
           {
-            label: "联系我们",
+            label: '联系我们',
             onClick: function() {
-              window.location.href = "/contact.html";
+              window.location.href = '/contact.html';
             }
           },
           {
-            label: "招揽英才",
+            label: '招揽英才',
             onClick: function() {
-              window.location.href = "/job.html";
+              window.location.href = '/job.html';
             }
           }
         ],
         [
           {
-            label: "取消",
+            label: '取消',
             onClick: function() {}
           }
         ]
@@ -222,9 +222,9 @@ body {
   .banner {
     width: 100%;
     height: 13.4375rem;
-    background: url("./assets/images/logo@2x.png") no-repeat 0.875rem 0.5rem /
+    background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 0.5rem /
         8.625rem 3rem,
-      url("./assets/images/banner-a@2x.png") no-repeat 50% / cover;
+      url('./assets/images/banner-a@2x.png') no-repeat 50% / cover;
   }
   .menu {
     width: 2.125rem;
@@ -232,7 +232,7 @@ body {
     position: absolute;
     right: 1.375rem;
     top: 1.3125rem;
-    background: url("./assets/images/menu@2x.png") no-repeat 50% / cover;
+    background: url('./assets/images/menu@2x.png') no-repeat 50% / cover;
   }
   .content {
     h5 {
@@ -241,7 +241,7 @@ body {
       line-height: 1;
       letter-spacing: 1px;
       color: #1492df;
-      background: url("./assets/images/notice@2x.png") no-repeat 1rem 1.1875rem /
+      background: url('./assets/images/notice@2x.png') no-repeat 1rem 1.1875rem /
         1rem 0.875rem;
     }
 
@@ -257,7 +257,7 @@ body {
       border-bottom: 1px solid #ccc;
 
       &::before {
-        content: "";
+        content: '';
         margin-right: 0.75rem;
         height: 100%;
         width: 0.25rem;
@@ -280,7 +280,7 @@ body {
         align-items: center;
         padding-right: 1.1875rem;
         color: #1492df;
-        background: url("./assets/images/details@2x.png") no-repeat right
+        background: url('./assets/images/details@2x.png') no-repeat right
           center/1.125rem;
       }
     }
@@ -302,7 +302,7 @@ body {
 }
 .page-two {
   .banner {
-    background: url("./assets/images/banner-b@2x.png") no-repeat 50% / cover;
+    background: url('./assets/images/banner-b@2x.png') no-repeat 50% / cover;
   }
 }
 .page-three {
@@ -311,7 +311,7 @@ body {
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
   .banner {
-    background: url("./assets/images/banner-c@2x.png") no-repeat 0% / cover;
+    background: url('./assets/images/banner-c@2x.png') no-repeat 0% / cover;
   }
 }
 
@@ -368,28 +368,28 @@ body {
     }
 
     .img-a {
-      background: url("./assets/images/img-a@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-a@2x.png') no-repeat 50% / cover;
     }
     .img-b {
-      background: url("./assets/images/img-b@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-b@2x.png') no-repeat 50% / cover;
     }
     .img-c {
-      background: url("./assets/images/img-c@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-c@2x.png') no-repeat 50% / cover;
     }
     .img-d {
-      background: url("./assets/images/img-d@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-d@2x.png') no-repeat 50% / cover;
     }
     .img-e {
-      background: url("./assets/images/img-e@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-e@2x.png') no-repeat 50% / cover;
     }
     .img-f {
-      background: url("./assets/images/img-f@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-f@2x.png') no-repeat 50% / cover;
     }
     .img-g {
-      background: url("./assets/images/img-g@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-g@2x.png') no-repeat 50% / cover;
     }
     .img-h {
-      background: url("./assets/images/img-h@2x.png") no-repeat 50% / cover;
+      background: url('./assets/images/img-h@2x.png') no-repeat 50% / cover;
     }
   }
 }
@@ -406,7 +406,7 @@ body {
     padding-top: 9.9375rem;
     width: 100%;
     height: 22.875rem;
-    background: url("./assets/images/bj@2x.png") no-repeat 50% 0% / cover;
+    background: url('./assets/images/bj@2x.png') no-repeat 50% 0% / cover;
 
     h1 {
       font-size: 2.1875rem;
@@ -422,7 +422,7 @@ body {
 
     li {
       margin-bottom: 0.8125rem;
-      background: url("./assets/images/icon-1@2x.png") no-repeat 0 center/2rem;
+      background: url('./assets/images/icon-1@2x.png') no-repeat 0 center/2rem;
       p {
         padding-left: 2.5rem;
         font-size: 0.8125rem;
@@ -432,7 +432,7 @@ body {
     }
 
     li + li {
-      background: url("./assets/images/icon-2@2x.png") no-repeat 0 center/2rem;
+      background: url('./assets/images/icon-2@2x.png') no-repeat 0 center/2rem;
     }
   }
 

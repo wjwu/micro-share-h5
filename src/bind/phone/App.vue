@@ -35,7 +35,9 @@
       </div>
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <span style="font-size: .9rem;">注册代表你已同意<a style="color:#3cc51f;" href="/用户协议.docx">「商伴部落用户协议」</a></span>
+          <span style="font-size: .9rem;">注册代表你已同意
+            <a style="color:#3cc51f;" href="/用户协议.docx">「商伴部落用户协议」</a>
+          </span>
         </div>
       </div>
     </div>
@@ -46,23 +48,23 @@
 </template>
 
 <script>
-import axios from "axios";
-import weui from "weui.js";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
+import axios from 'axios';
+import weui from 'weui.js';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
 import {
   openToast,
   tryFunc,
   checkPhone,
   getQueryString
-} from "../../common/js/common";
+} from '../../common/js/common';
 
 export default {
   data() {
     return {
-      phone: "",
-      captcha: "",
-      nick: localStorage.getItem("userName"),
+      phone: '',
+      captcha: '',
+      nick: localStorage.getItem('userName'),
       showApp: false,
       sending: false,
       time: 60
@@ -77,16 +79,16 @@ export default {
   methods: {
     handleSave() {
       if (!this.phone) {
-        openToast("请输入手机号");
+        openToast('请输入手机号');
         return;
       }
       if (!this.captcha) {
-        openToast("请输入验证码");
+        openToast('请输入验证码');
         return;
       }
 
       if (!checkPhone(this.phone)) {
-        openToast("手机号码格式不正确");
+        openToast('手机号码格式不正确');
         return;
       }
 
@@ -99,19 +101,19 @@ export default {
           },
           {
             headers: {
-              userId: localStorage.getItem("userId")
+              userId: localStorage.getItem('userId')
             }
           }
         );
-        localStorage.setItem("phone", this.phone);
+        localStorage.setItem('phone', this.phone);
         weui.dialog({
-          content: "绑定手机成功，点击确定返回前一个页面",
+          content: '绑定手机成功，点击确定返回前一个页面',
           buttons: [
             {
-              label: "确定",
-              type: "primary",
+              label: '确定',
+              type: 'primary',
               onClick: function() {
-                window.location.href = getQueryString("redirect");
+                window.location.href = getQueryString('redirect');
               }
             }
           ]
@@ -120,11 +122,11 @@ export default {
     },
     handleSend() {
       if (!this.phone) {
-        openToast("请输入手机号");
+        openToast('请输入手机号');
         return;
       }
       if (!checkPhone(this.phone)) {
-        openToast("手机号码格式不正确");
+        openToast('手机号码格式不正确');
         return;
       }
 
@@ -132,10 +134,10 @@ export default {
         await axios.get(`${config.apiHost}/captcha`, {
           params: {
             phone: this.phone,
-            type: "BIND"
+            type: 'BIND'
           },
           headers: {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem('userId')
           }
         });
         const timer = setInterval(() => {
@@ -148,7 +150,7 @@ export default {
             this.time = this.time - 1;
           }
         }, 1000);
-        openToast("验证码已发送");
+        openToast('验证码已发送');
       });
     }
   }
