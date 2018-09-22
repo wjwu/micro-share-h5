@@ -27,7 +27,7 @@
     </div>
     <div v-else>
       <div class="weui-cells__title">请设置订单抓取关键词(最多15个)</div>
-      <div class="weui-cells weui-cells_form">
+      <!-- <div class="weui-cells weui-cells_form">
         <div v-if="keywords.length > 0">
           <div class="weui-cell" v-for="(item,i) in keywords" :key="i">
             <div class="weui-cell__bd">{{item}}</div>
@@ -40,14 +40,29 @@
         <div class="weui-loadmore weui-loadmore_line" v-else>
           <span class="weui-loadmore__tips">暂无数据</span>
         </div>
+      </div> -->
+      <div class="weui-tab__panel">
+        <div class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd" v-if="keywords.length > 0">
+            <div class="weui-media-box weui-media-box_appmsg" v-for="(item,i) in keywords" :key="i">
+              <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">{{item}}</h4>
+              </div>
+              <div class="weui-media-box__fd">
+                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="handleEdit(i)">修改</a>
+                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" @click="handleRemove(i)">删除</a>
+              </div>
+            </div>
+          </div>
+          <div class="weui-panel__bd" v-else>
+            <div class="weui-loadmore weui-loadmore_line">
+              <span class="weui-loadmore__tips">暂无数据</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="weui-cells__title">添加/修改</div>
       <div class="weui-cells weui-cells_form">
-        <!-- <p>
-          <span v-for="(item,i) in keywords" :key="i" class="weui-badge">{{item}}
-            <i class="fa fa-remove" @click="handleRemove(i)"></i>
-          </span>
-        </p> -->
         <div class="weui-cell">
           <div class="weui-cell__hd">
             <label class="weui-label">关键词</label>
@@ -124,9 +139,14 @@ export default {
       }
       if (this.btnText === '修改') {
         this.keywords[this.selectedIdx] = this.keyword;
-        this.btnText = '添加';
+        if (this.keywords.length < 15) {
+          this.btnText = '添加';
+        }
       } else {
         this.keywords.push(this.keyword);
+        if (this.keywords.length >= 15) {
+          this.btnText = '修改';
+        }
       }
       this.keyword = '';
     },
