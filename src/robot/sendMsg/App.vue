@@ -3,6 +3,14 @@
     <div class="weui-cells__title">今日还剩
       <b style="color:red;">{{times}}</b> 次群发消息</div>
     <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">名称</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" placeholder="请输入名称">
+        </div>
+      </div>
       <div class="weui-cell weui-cell_select weui-cell_select-after">
         <div class="weui-cell__hd">
           <label class="weui-label">消息类型</label>
@@ -164,7 +172,7 @@
 
 <script>
 import * as qiniu from 'qiniu-js';
-// import axios from 'axios';
+import axios from 'axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
@@ -190,31 +198,21 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      // let { data } = await axios.get(`${config.apiHost}/token`, {
-      //   headers: {
-      //     userId: localStorage.getItem('userId')
-      //   }
-      // });
-      // this.token = data.uptoken;
-      // data = await axios.get(`${config.apiHost}/user/myRoom`, {
-      //   headers: {
-      //     userId: localStorage.getItem('userId')
-      //   }
-      // });
-      // if (!data || data.length === 0) {
-      //   this.disabled = true;
-      // }
-      // this.rooms = data;
-      // this.rooms = [
-      //   {
-      //     id: 1,
-      //     name: '111111'
-      //   },
-      //   {
-      //     id: 2,
-      //     name: '222222'
-      //   }
-      // ];
+      let response = await axios.get(`${config.apiHost}/token`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      this.token = response.data.uptoken;
+      response = await axios.get(`${config.apiHost}/user/myRoom`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      if (!response.data || response.data.length === 0) {
+        this.disabled = true;
+      }
+      this.rooms = response.data;
       this.times = localStorage.getItem('sendMsgTimes');
       if (!this.times) {
         this.times = 5;
