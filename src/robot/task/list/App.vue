@@ -49,24 +49,27 @@
             <span class="weui-loadmore__tips">暂无数据</span>
           </div>
         </div>
+        <div class="page__bd page__bd_spacing" >
+            <a href="./sendMsg.html" class="weui-btn weui-btn_primary">新增任务</a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import weui from 'weui.js';
-import { format } from 'date-fns';
-import { auth } from '../../../common/js/auth';
-import config from '../../../common/js/config';
-import { tryFunc } from '../../../common/js/common';
+import axios from "axios";
+import weui from "weui.js";
+import { format } from "date-fns";
+import { auth } from "../../../common/js/auth";
+import config from "../../../common/js/config";
+import { tryFunc } from "../../../common/js/common";
 
 export default {
   data() {
     return {
       showApp: false,
-      selectedTab: 'task',
+      selectedTab: "task",
       tasks: [],
       histories: []
     };
@@ -78,7 +81,7 @@ export default {
       await this.getTasks();
       let response = await axios.get(`${config.apiHost}/user/task/history`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       this.histories = response.data;
@@ -88,7 +91,7 @@ export default {
     async getTasks() {
       let response = await axios.get(`${config.apiHost}/user/task`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       this.tasks = response.data;
@@ -97,11 +100,11 @@ export default {
       this.selectedTab = tab;
     },
     handleDelete(id) {
-      weui.confirm('您确实要删除该任务？', () => {
+      weui.confirm("您确实要删除该任务？", () => {
         tryFunc(async () => {
           await axios.delete(`${config.apiHost}/user/task/${id}`, {
             headers: {
-              userId: localStorage.getItem('userId')
+              userId: localStorage.getItem("userId")
             }
           });
           await this.getTasks();
@@ -113,29 +116,29 @@ export default {
     sendDayNum(val) {
       switch (val) {
         case -1:
-          return '不重复发送';
+          return "不重复发送";
         case 0:
-          return '每天发送';
+          return "每天发送";
         case 1:
-          return '每周一发送';
+          return "每周一发送";
         case 2:
-          return '每周二发送';
+          return "每周二发送";
         case 3:
-          return '每周三发送';
+          return "每周三发送";
         case 4:
-          return '每周四发送';
+          return "每周四发送";
         case 5:
-          return '每周五发送';
+          return "每周五发送";
         case 6:
-          return '每周六发送';
+          return "每周六发送";
         case 7:
-          return '每周日发送';
+          return "每周日发送";
         default:
-          return '';
+          return "";
       }
     },
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };

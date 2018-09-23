@@ -343,18 +343,36 @@ export default {
             }
           }
         );
-        weui.alert('操作成功', () => {
-          this.rooms.forEach(item => (item.checked = false));
-          this.images = [];
-          this.messageType = 'TEXT';
-          this.roomIds = [];
-          this.roomNames = [];
-          this.selectedDay = 0;
-          this.time = format(new Date(), 'HH:mm');
-          this.sendType = 'NOW';
-          this.content = '';
-          this.title = '';
+        const dialog = weui.dialog({
+          content: "操作成功",
+          buttons: [
+            {
+              label: "任务管理",
+              type: "default",
+              onClick: () => {
+                window.location.href = "./task.html";
+              }
+            },
+            {
+              label: "继续添加",
+              type: "primary",
+              onClick: () => {
+                this.rooms.forEach(item => (item.checked = false));
+                this.images = [];
+                this.messageType = "TEXT";
+                this.roomIds = [];
+                this.roomNames = [];
+                this.selectedDay = 0;
+                this.time = format(new Date(), "HH:mm");
+                this.sendType = "NOW";
+                this.content = "";
+                this.title = "";
+                dialog.hide();
+              }
+            }
+          ]
         });
+
       });
     }
   }
