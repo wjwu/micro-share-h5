@@ -1,7 +1,6 @@
 <template>
   <div class="main" v-if="showApp">
-    <div class="weui-cells__title">今日还剩
-      <b style="color:red;">{{times}}</b> 次群发消息</div>
+    <div class="weui-cells__title">请设置您的群发任务</div>
     <div class="weui-cells">
       <div class="weui-cell">
         <div class="weui-cell__hd">
@@ -191,7 +190,6 @@ export default {
   data() {
     return {
       showApp: false,
-      times: null,
       title: '',
       content: '',
       messageType: 'TEXT',
@@ -230,11 +228,6 @@ export default {
         room.checked = false;
       }
       this.rooms = response.data;
-      this.times = localStorage.getItem('sendMsgTimes');
-      if (!this.times) {
-        this.times = 5;
-        localStorage.setItem('sendMsgTimes', 5);
-      }
     });
   },
   methods: {
