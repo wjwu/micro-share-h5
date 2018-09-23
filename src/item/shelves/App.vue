@@ -74,7 +74,7 @@ export default {
       window.location.href = `./edit.html?pId=${id}`;
     },
     handleDelete(id) {
-      weui.confirm('您确实要删除改商品？', () => {
+      weui.confirm('您确实要删除该商品？', () => {
         tryFunc(async () => {
           await axios.delete(`${config.apiHost}/item/${id}`);
           await this.getProducts();

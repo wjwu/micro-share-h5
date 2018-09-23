@@ -50,7 +50,7 @@
     <div class="weui-cells weui-cells_form" v-if="messageType === 'TEXT'">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <textarea v-model="content" class="weui-textarea" placeholder="请输入群发消息内容" rows="3"></textarea>
+          <textarea v-model="content" class="weui-textarea" maxlength="200" placeholder="请输入群发消息内容" rows="3"></textarea>
           <div class="weui-textarea-counter">
             <span>{{content.length}}</span>/200</div>
         </div>
@@ -183,9 +183,9 @@ import * as qiniu from 'qiniu-js';
 import axios from 'axios';
 import weui from 'weui.js';
 import { format } from 'date-fns';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast } from '../../common/js/common';
+import { auth } from '../../../common/js/auth';
+import config from '../../../common/js/config';
+import { tryFunc, openToast } from '../../../common/js/common';
 
 export default {
   data() {
