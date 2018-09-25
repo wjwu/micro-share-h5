@@ -37,7 +37,7 @@
                 </div>
                 <p class="weui-grid__label">引流拓客</p>
             </a>
-            <a href="javascript:alert('开发中');" class="weui-grid">
+            <a href="../robot/grab.html" class="weui-grid">
                 <div class="weui-grid__icon">
                     <img src="./assets/images/robot.png" alt="">
                 </div>
@@ -52,13 +52,13 @@
             </label>
         </div>
         <div class="weui-grids content">
-            <a href="javascript:;" class="weui-grid">
+            <a href="../robot/task/list.html" class="weui-grid">
                 <div class="weui-grid__icon">
                     <img src="./assets/images/msg.png" alt="">
                 </div>
                 <p class="weui-grid__label">一件群发</p>
             </a>
-            <a href="javascript:;" class="weui-grid">
+            <a href="../robot/share.html" class="weui-grid">
                 <div class="weui-grid__icon">
                     <img src="./assets/images/hand.png" alt="">
                 </div>

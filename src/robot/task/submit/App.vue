@@ -216,7 +216,7 @@ export default {
         }
       });
       this.token = response.data.uptoken;
-      response = await axios.get(`${config.apiHost}/user/myRoom`, {
+      response = await axios.get(`${config.apiHost}/user/myAllRoom`, {
         headers: {
           userId: localStorage.getItem('userId')
         }
@@ -322,7 +322,7 @@ export default {
               .map(item => `${config.imageHost}/${item}`)
               .join(','),
             msgType: this.messageType,
-            roomIds: checkedRoom.map(item => item.id).join(','),
+            roomIds: checkedRoom.map(item => item.wechatId).join(','),
             roomNames: checkedRoom.map(item => item.name).join(','),
             sendDayNum: this.selectedDay,
             sendTime: this.time,
@@ -343,7 +343,7 @@ export default {
               label: "任务管理",
               type: "default",
               onClick: () => {
-                window.location.href = "./task.html";
+                window.location.href = "./list.html";
               }
             },
             {

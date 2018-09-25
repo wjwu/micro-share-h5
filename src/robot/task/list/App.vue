@@ -29,6 +29,9 @@
             <span class="weui-loadmore__tips">暂无数据</span>
           </div>
         </div>
+        <div class="page__bd page__bd_spacing" >
+            <a href="./submit.html" class="weui-btn weui-btn_primary">新增任务</a>
+        </div>
       </div>
     </div>
     <div class="weui-tab__panel" v-if="selectedTab==='history'">
@@ -48,9 +51,6 @@
           <div class="weui-loadmore weui-loadmore_line">
             <span class="weui-loadmore__tips">暂无数据</span>
           </div>
-        </div>
-        <div class="page__bd page__bd_spacing" >
-            <a href="./sendMsg.html" class="weui-btn weui-btn_primary">新增任务</a>
         </div>
       </div>
     </div>
