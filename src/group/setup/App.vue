@@ -31,40 +31,27 @@
       </div>
     </div>
     <div v-else>
-      <div class="weui-cells__title">请设置订单抓取关键词(最多15个)</div>
-      <div class="weui-tab__panel">
-        <div class="weui-panel weui-panel_access">
-          <div class="weui-panel__bd" v-if="keywords.length > 0">
-            <div class="weui-media-box weui-media-box_appmsg" v-for="(item,i) in keywords" :key="i">
-              <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title">{{item}}</h4>
-              </div>
-              <div class="weui-media-box__fd">
-                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="handleEdit(i)">修改</a>
-                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" @click="handleRemove(i)">删除</a>
-              </div>
-            </div>
-          </div>
-          <div class="weui-panel__bd" v-else>
-            <div class="weui-loadmore weui-loadmore_line">
-              <span class="weui-loadmore__tips">暂无数据</span>
-            </div>
+      <div class="weui-cells__title">入群欢迎内容</div>
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <textarea v-model="welcomeText" class="weui-textarea" placeholder="请输入内容" rows="3" maxlength="200"></textarea>
+            <div class="weui-textarea-counter">
+              <span>{{welcomeText.length}}</span>/200</div>
           </div>
         </div>
       </div>
-      <div class="weui-cells__title">添加/修改</div>
+      <div class="weui-cells__title">群规</div>
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
-          <div class="weui-cell__hd">
-            <label class="weui-label">关键词</label>
-          </div>
           <div class="weui-cell__bd">
-            <input v-model="keyword" class="weui-input" type="text" placeholder="请输入关键词" maxlength="20">
+            <textarea v-model="ruleText" class="weui-textarea" placeholder="请输入内容" rows="3" maxlength="200"></textarea>
+            <div class="weui-textarea-counter">
+              <span>{{ruleText.length}}</span>/200</div>
           </div>
         </div>
       </div>
       <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleAdd">{{btnText}}</a>
         <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存</a>
       </div>
     </div>
@@ -73,9 +60,9 @@
 
 <script>
 import axios from 'axios';
-import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast } from '../../common/js/common';
+import config from '../../common/js/config';
+import { openToast, tryFunc } from '../../common/js/common';
 
 export default {
   data() {
@@ -83,11 +70,9 @@ export default {
       showApp: false,
       myGroups: [],
       orderGroups: [],
-      keywords: [],
-      keyword: '',
-      selectedIdx: null,
       selectedRoomId: '',
-      btnText: '添加'
+      welcomeText: '',
+      ruleText: ''
     };
   },
   mounted() {
@@ -111,7 +96,7 @@ export default {
   methods: {
     handleClick(id) {
       tryFunc(async () => {
-        const { data } = await axios.get(`${config.apiHost}/user/keyword`, {
+        const { data } = await axios.get(`${config.apiHost}/robot/room/info`, {
           params: {
             roomId: id
           },
@@ -123,44 +108,13 @@ export default {
         this.selectedRoomId = id;
       });
     },
-    handleAdd() {
-      if (!this.keyword) {
-        openToast('请输入关键词');
-        return;
-      }
-      if (this.btnText === '修改') {
-        this.keywords[this.selectedIdx] = this.keyword;
-        if (this.keywords.length < 15) {
-          this.btnText = '添加';
-        }
-      } else {
-        this.keywords.push(this.keyword);
-        if (this.keywords.length >= 15) {
-          this.btnText = '修改';
-        }
-      }
-      this.keyword = '';
-    },
-    handleRemove(idx) {
-      this.keywords.splice(idx, 1);
-    },
-    handleEdit(idx) {
-      this.selectedIdx = idx;
-      this.keyword = this.keywords[idx];
-      this.btnText = '修改';
-    },
     handleSave() {
       tryFunc(async () => {
-        await axios.put(
-          `${config.apiHost}/user/keyword`,
+        await axios.post(
+          `${config.apiHost}`,
+          {},
           {
-            keyword: this.keywords.join(','),
-            roomId: this.selectedRoomId
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
+            headers: localStorage.getItem('userId')
           }
         );
         openToast('操作成功');
@@ -181,12 +135,6 @@ export default {
     .weui-loadmore__tips {
       background-color: #f8f8f8 !important;
     }
-  }
-}
-
-.weui-cell__fd {
-  .weui-btn + .weui-btn {
-    margin-top: 0;
   }
 }
 </style>
