@@ -8,7 +8,7 @@
             <div class="weui-cell__bd">
               <p>{{item.name}}</p>
             </div>
-            <div class="weui-cell__ft">设置抓取关键字</div>
+            <div class="weui-cell__ft">设置欢迎/群规</div>
           </a>
         </div>
       </div>
@@ -22,7 +22,7 @@
             <div class="weui-cell__bd">
               <p>{{item.name}}</p>
             </div>
-            <div class="weui-cell__ft">设置抓取关键字</div>
+            <div class="weui-cell__ft">设置欢迎/群规</div>
           </a>
         </div>
       </div>
@@ -104,17 +104,26 @@ export default {
             userId: localStorage.getItem('userId')
           }
         });
-        this.keywords = data.keyword.split(',');
+        if (data) {
+          this.welcomeText = data.welcome;
+          this.ruleText = data.rule;
+        }
         this.selectedRoomId = id;
       });
     },
     handleSave() {
       tryFunc(async () => {
         await axios.post(
-          `${config.apiHost}`,
-          {},
+          `${config.apiHost}/robot/room/info`,
           {
-            headers: localStorage.getItem('userId')
+            welcome: this.welcomeText,
+            rule: this.ruleText,
+            roomId: this.selectedRoomId
+          },
+          {
+            headers: {
+              userId: localStorage.getItem('userId')
+            }
           }
         );
         openToast('操作成功');
@@ -126,7 +135,7 @@ export default {
 
 <style lang="scss">
 .group {
-  .weui-cells{
+  .weui-cells {
     margin-top: 0;
   }
   .weui-loadmore_line {
