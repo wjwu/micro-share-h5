@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">绑定</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <div v-if="showApp">
-        <span class="user_center"><img height="100%" width="100%" src="./assets/images/user.png" alt=""></span>
-        <span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span>
+        <a href="../self/center.html"><span class="user_center"><img height="100%" width="100%" src="./assets/images/user.png" alt=""></span></a>
+        <a href="../qa.html"><span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span></a>
         <div class="page__hd top">
             <h1 class="page__title">我的店长</h1>
             <p class="page__desc">我的店长 √<br />基础模块 x1</p>
@@ -63,6 +63,12 @@
                     <img src="./assets/images/hand.png" alt="">
                 </div>
                 <p class="weui-grid__label">商伴共享</p>
+            </a>
+            <a href="../group/setup.html" class="weui-grid">
+                <div class="weui-grid__icon">
+                    <img src="./assets/images/newuser.png" alt="">
+                </div>
+                <p class="weui-grid__label">欢迎&群规</p>
             </a>
             <a href="javascript:;" class="weui-grid">
                 <div class="weui-grid__icon">

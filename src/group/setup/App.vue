@@ -4,7 +4,7 @@
       <div class="weui-cells__title">我的群列表</div>
       <div v-if="myGroups.length > 0">
         <div class="weui-cells" v-for="item in myGroups" :key="item.id">
-          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.id)">
+          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.wechatId)">
             <div class="weui-cell__bd">
               <p>{{item.name}}</p>
             </div>
@@ -18,7 +18,7 @@
       <div class="weui-cells__title">商伴的群列表</div>
       <div v-if="orderGroups.length > 0">
         <div class="weui-cells" v-for="item in orderGroups" :key="item.id">
-          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.id)">
+          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.wechatId)">
             <div class="weui-cell__bd">
               <p>{{item.name}}</p>
             </div>
@@ -94,11 +94,11 @@ export default {
     });
   },
   methods: {
-    handleClick(id) {
+    handleClick(roomId) {
       tryFunc(async () => {
         const { data } = await axios.get(`${config.apiHost}/robot/room/info`, {
           params: {
-            roomId: id
+            roomId: roomId
           },
           headers: {
             userId: localStorage.getItem('userId')
@@ -108,7 +108,7 @@ export default {
           this.welcomeText = data.welcome;
           this.ruleText = data.rule;
         }
-        this.selectedRoomId = id;
+        this.selectedRoomId = roomId;
       });
     },
     handleSave() {

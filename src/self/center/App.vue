@@ -12,25 +12,25 @@
     </div>
     <div class="bd">
       <div class="my">
-        <div @click="handleJump('')">我的机器人</div>
-        <div @click="handleJump('')">
-          我的微信群
+        <div @click="handleJump('../vip/shopper.html')">我的管家</div>
+        <div @click="handleJump('../group/enter.html')">
+          我的商伴
         </div>
       </div>
       <ul class="menu">
         <li class="menu-info">
-          <a href="./self/info.html">个人资料</a>
+          <a href="./info.html">个人资料</a>
         </li>
         <li class="menu-partner">
-          <a href="./order/list.html">我的商伴</a>
+          <a href="#">我的消费记录</a>
         </li>
-        <li class="menu-poster">宣传海报</li>
-        <li class="menu-shelves">商品货架</li>
-        <li class="menu-books">电子账簿</li>
+        <li class="menu-poster"><a href="../message.html">我的消息</a></li>
+        <li class="menu-shelves"><a href="../feedback.html">我的建议</a></li>
+        <li class="menu-books"><a href="../order/list.html">举报与投诉</a></li>
       </ul>
       <ul class="menu">
-        <li class="menu-setup">系统设置</li>
-        <li class="menu-service" @click="handleClick">联系客服</li>
+        <!-- <li class="menu-setup">系统设置</li> -->
+        <li class="menu-service" @click="handleJump('../qa.html')">联系客服</li>
       </ul>
     </div>
   </div>
