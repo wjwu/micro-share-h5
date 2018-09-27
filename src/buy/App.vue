@@ -203,12 +203,14 @@ body {
       font-size: 1rem;
       color: #fff;
       background-color: #3e88ee;
+      font-weight: 900;
       border: none;
       outline: none;
     }
 
     button + button {
-      background-color: #90bbf6;
+      color: black;
+      background: #FFC000 url(./assets/images/phone.png) no-repeat;
     }
   }
 }
