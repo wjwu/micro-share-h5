@@ -35,7 +35,7 @@
                   </li>
                 </ul>
                 <div v-if="images.length !== 1" class="weui-uploader__input-box">
-                  <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                  <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="multiple">
                 </div>
               </div>
             </div>
@@ -87,14 +87,18 @@ export default {
         openToast('上传Token无效，请刷新页面重试');
         return;
       }
-      let file = e.target.files[0];
-      if (!file) {
-        return;
+      for (let file of e.target.files) {
+        if (!file) {
+          continue;
+        }
+        if (file.size > 1024 * 1024 * 4) {
+          openToast(`图片${file.name}大小超过4MB，无法上传`);
+        } else {
+          this.upload(file);
+        }
       }
-      if (file.size > 1024 * 1024 * 4) {
-        openToast('图片大小最大不超过4MB');
-        return;
-      }
+    },
+    upload(file) {
       const observable = qiniu.upload(
         file,
         null,
