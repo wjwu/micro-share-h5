@@ -19,13 +19,13 @@
             </div>
             <p class="weui-grid__label">群组列表</p>
         </a>
-        <a href="../order/list.html" class="weui-grid">
+        <a href="/order/list/all.html" class="weui-grid">
             <div class="weui-grid__icon">
                 <img src="./assets/images/match.png" alt="">
             </div>
             <p class="weui-grid__label">匹配进展</p>
         </a>
-        <a href="../order/list.html" class="weui-grid">
+        <a href="/order/list/evaluate.html" class="weui-grid">
             <div class="weui-grid__icon">
                 <img src="./assets/images/comment.png" alt="">
             </div>
