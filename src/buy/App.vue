@@ -113,7 +113,7 @@ body {
   .top {
     height: 5.625rem;
     padding: 0.9375rem;
-    background-color: #06B04F;
+    background-color: #06b04f;
 
     img {
       width: 3.6875rem;
@@ -210,7 +210,8 @@ body {
 
     button + button {
       color: black;
-      background: #FFC000 url(./assets/images/phone.png) no-repeat;
+      background: url(./assets/images/phone.png) no-repeat 2.7rem center/1rem;
+      background-color: #ffc000;
     }
   }
 }
