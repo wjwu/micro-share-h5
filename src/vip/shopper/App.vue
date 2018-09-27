@@ -3,8 +3,8 @@
         <a href="../self/center.html"><span class="user_center"><img height="100%" width="100%" src="./assets/images/user.png" alt=""></span></a>
         <a href="../qa.html"><span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span></a>
         <div class="page__hd top">
-            <h1 class="page__title">我的店长</h1>
-            <p class="page__desc">我的店长 √<br />基础模块 x1</p>
+            <h1 class="page__title">我的管家</h1>
+            <p class="page__desc">店长模块 √<br />基础模块 x1</p>
         </div>
         <div class="weui-grids content">
             <a href="../../other/poster/template_new.html" class="weui-grid">
