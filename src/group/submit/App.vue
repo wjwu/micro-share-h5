@@ -35,58 +35,58 @@
         <div class="weui-cell__bd">
           <input type="text" unselectable="on" onfocus="this.blur()" v-model="number" class="weui-input" readonly>
         </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            位置
-          </label>
         </div>
-        <div class="weui-cell__bd location">
-          <i class="fa fa-map-marker" aria-hidden="true"></i>
-          <textarea v-model="address" class="weui-textarea" rows="2" readonly></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title">描述</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3"></textarea>
-          <div class="weui-textarea-counter">
-            <span>{{description.length}}</span>/200</div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label">
+              位置
+            </label>
+          </div>
+          <div class="weui-cell__bd location">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <textarea v-model="address" class="weui-textarea" rows="2" readonly></textarea>
+          </div>
         </div>
       </div>
+      <div class="weui-cells__title">描述</div>
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3"></textarea>
+            <div class="weui-textarea-counter">
+              <span>{{description.length}}</span>/200</div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary" :class="{'weui-btn_disabled':(groups && groups.length === 0 )}" href="javascript:;" @click="handleSave">提交</a>
+      </div>
     </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" :class="{'weui-btn_disabled':(groups && groups.length === 0 )}" href="javascript:;" @click="handleSave">提交</a>
-    </div>
-  </div>
 </template>
 
 <script>
-import axios from "axios";
-import { auth, checkPhone } from "../../common/js/auth";
-import wxApi from "../../common/js/wxApi";
-import weui from "weui.js";
-import config from "../../common/js/config";
-import industries from "../../common/js/industries";
-import { getAddress } from "../../common/js/map";
-import { openToast, tryFunc } from "../../common/js/common";
+import axios from 'axios';
+import { auth, checkPhone } from '../../common/js/auth';
+import wxApi from '../../common/js/wxApi';
+import weui from 'weui.js';
+import config from '../../common/js/config';
+import industries from '../../common/js/industries';
+import { getAddress } from '../../common/js/map';
+import { openToast, tryFunc } from '../../common/js/common';
 
 export default {
   data() {
     return {
       showApp: false,
-      name: "",
-      number: "0",
-      description: "",
-      address: "",
-      latitude: "",
-      longitude: "",
-      selectedGroupId: "",
-      selectedIndustryId: "",
-      wechatId: "",
+      name: '',
+      number: '0',
+      description: '',
+      address: '',
+      latitude: '',
+      longitude: '',
+      selectedGroupId: '',
+      selectedIndustryId: '',
+      wechatId: '',
       groups: [],
       industries
     };
@@ -99,26 +99,26 @@ export default {
       }
       await this.getGroups();
       if (this.groups && this.groups.length > 0) {
-        await wxApi.config(["getLocation"]);
+        await wxApi.config(['getLocation']);
         const location = await wxApi.getLocation();
         const result = await getAddress(location.latitude, location.longitude);
         this.address = result.address;
         this.latitude = result.latitude;
         this.longitude = result.longitude;
       } else {
-        const dialog = weui.dialog({
-          content: "抱歉，没发现可用群！<br />点击【确定】去添加机器人",
+        weui.dialog({
+          content: '抱歉，没发现可用群！<br />点击【确定】去添加机器人',
           buttons: [
             {
-              label: "确定",
-              type: "primary",
+              label: '确定',
+              type: 'primary',
               onClick: () => {
-                location.href = "/robot.html";
+                location.href = '/robot.html';
               }
             },
             {
-              label: "取消",
-              type: "default",
+              label: '取消',
+              type: 'default',
               onClick: () => {}
             }
           ]
@@ -130,7 +130,7 @@ export default {
     async getGroups() {
       const { data } = await axios.get(`${config.apiHost}/user/myRoom`, {
         headers: {
-          userId: localStorage.getItem("userId")
+          userId: localStorage.getItem('userId')
         }
       });
       this.groups = data;
@@ -146,7 +146,7 @@ export default {
           }
         }
       } else {
-        this.number = "0";
+        this.number = '0';
       }
     },
     handleSave() {
@@ -155,15 +155,15 @@ export default {
       }
 
       if (!this.selectedGroupId) {
-        openToast("请选择微信群");
+        openToast('请选择微信群');
         return;
       }
       if (!this.selectedIndustryId) {
-        openToast("请选择微信群行业");
+        openToast('请选择微信群行业');
         return;
       }
       if (!this.latitude || !this.latitude) {
-        openToast("请先定位位置");
+        openToast('请先定位位置');
         return;
       }
 
@@ -180,10 +180,10 @@ export default {
         };
         await axios.post(`${config.apiHost}/group`, request, {
           headers: {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem('userId')
           }
         });
-        window.location.href = "./success.html";
+        window.location.href = './success.html';
       });
     }
   }

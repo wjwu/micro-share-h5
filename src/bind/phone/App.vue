@@ -20,60 +20,60 @@
         <div class="weui-cell__bd">
           <input v-model="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号">
         </div>
-      </div>
-      <div class="weui-cell weui-cell_vcode">
-        <div class="weui-cell__hd">
-          <label class="weui-label">验证码</label>
         </div>
-        <div class="weui-cell__bd">
-          <input v-model="captcha" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码">
+        <div class="weui-cell weui-cell_vcode">
+          <div class="weui-cell__hd">
+            <label class="weui-label">验证码</label>
+          </div>
+          <div class="weui-cell__bd">
+            <input v-model="captcha" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码">
         </div>
-        <div class="weui-cell__ft">
-          <span v-if="sending" class="time">{{time}}s重新获取</span>
-          <button v-else class="weui-vcode-btn" @click="handleSend">获取验证码</button>
-        </div>
-      </div>
-   
-        <div class="weui-cells weui-cells_checkbox" style="margin-top: 0px;">
-          <label class="weui-cell weui-check__label" for="s11">
-                <div class="weui-cell__hd">
-                    <input type="checkbox" name="checkbox1" id="s11" checked="checked">
+            <div class="weui-cell__ft">
+              <span v-if="sending" class="time">{{time}}s重新获取</span>
+              <button v-else class="weui-vcode-btn" @click="handleSend">获取验证码</button>
+            </div>
+          </div>
+
+          <div class="weui-cells weui-cells_checkbox" style="margin-top: 0px;">
+            <label class="weui-cell weui-check__label" for="s11">
+              <div class="weui-cell__hd">
+                <input type="checkbox" name="checkbox1" id="s11" checked="checked">
                 </div>
                 <div class="weui-cell__bd">
-                    <p style="font-size: .5rem;">
-                      我已阅读并同意
-                      <a style="color:#3cc51f;" href="/service.html">「商伴部落使用协议」</a>
-                      <a style="color:#3cc51f;" href="/rule.html">「运行&信用规则」</a>
-                    </p>
+                  <p style="font-size: .5rem;">
+                    我已阅读并同意
+                    <a style="color:#3cc51f;" href="/service.html">「商伴部落使用协议」</a>
+                    <a style="color:#3cc51f;" href="/rule.html">「运行&信用规则」</a>
+                  </p>
                 </div>
             </label>
-        </div>
+          </div>
 
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
-    </div>
-  </div>
+        </div>
+        <div class="weui-btn-area">
+          <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
+        </div>
+      </div>
 </template>
 
 <script>
-import axios from "axios";
-import weui from "weui.js";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
+import axios from 'axios';
+import weui from 'weui.js';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
 import {
   openToast,
   tryFunc,
   checkPhone,
   getQueryString
-} from "../../common/js/common";
+} from '../../common/js/common';
 
 export default {
   data() {
     return {
-      phone: "",
-      captcha: "",
-      nick: localStorage.getItem("userName"),
+      phone: '',
+      captcha: '',
+      nick: localStorage.getItem('userName'),
       showApp: false,
       sending: false,
       time: 60
@@ -88,16 +88,16 @@ export default {
   methods: {
     handleSave() {
       if (!this.phone) {
-        openToast("请输入手机号");
+        openToast('请输入手机号');
         return;
       }
       if (!this.captcha) {
-        openToast("请输入验证码");
+        openToast('请输入验证码');
         return;
       }
 
       if (!checkPhone(this.phone)) {
-        openToast("手机号码格式不正确");
+        openToast('手机号码格式不正确');
         return;
       }
 
@@ -110,19 +110,19 @@ export default {
           },
           {
             headers: {
-              userId: localStorage.getItem("userId")
+              userId: localStorage.getItem('userId')
             }
           }
         );
-        localStorage.setItem("phone", this.phone);
+        localStorage.setItem('phone', this.phone);
         weui.dialog({
-          content: "绑定手机成功，点击确定返回前一个页面",
+          content: '绑定手机成功，点击确定返回前一个页面',
           buttons: [
             {
-              label: "确定",
-              type: "primary",
+              label: '确定',
+              type: 'primary',
               onClick: function() {
-                window.location.href = getQueryString("redirect");
+                window.location.href = getQueryString('redirect');
               }
             }
           ]
@@ -131,11 +131,11 @@ export default {
     },
     handleSend() {
       if (!this.phone) {
-        openToast("请输入手机号");
+        openToast('请输入手机号');
         return;
       }
       if (!checkPhone(this.phone)) {
-        openToast("手机号码格式不正确");
+        openToast('手机号码格式不正确');
         return;
       }
 
@@ -143,10 +143,10 @@ export default {
         await axios.get(`${config.apiHost}/captcha`, {
           params: {
             phone: this.phone,
-            type: "BIND"
+            type: 'BIND'
           },
           headers: {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem('userId')
           }
         });
         const timer = setInterval(() => {
@@ -159,7 +159,7 @@ export default {
             this.time = this.time - 1;
           }
         }, 1000);
-        openToast("验证码已发送");
+        openToast('验证码已发送');
       });
     }
   }

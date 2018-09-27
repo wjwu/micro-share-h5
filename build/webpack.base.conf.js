@@ -51,7 +51,7 @@ entryDirs.forEach(item => {
   );
 });
 
-const plugins = [
+var plugins = [
   new VueLoaderPlugin(),
   new CopyWebpackPlugin([
     { from: './src/service.html', to: './service.html' },
@@ -74,13 +74,13 @@ module.exports = {
   module: {
     rules: [
       {
-        // enforce: 'pre',
-        // test: /\.(js|vue)$/,
-        // loader: 'eslint-loader',
-        // include: src,
-        // options: {
-        //   formatter: require('eslint-friendly-formatter')
-        // }
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        include: src,
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
       },
       {
         test: /\.vue$/,
