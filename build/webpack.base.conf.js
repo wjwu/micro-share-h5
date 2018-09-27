@@ -55,7 +55,8 @@ const plugins = [
   new VueLoaderPlugin(),
   new CopyWebpackPlugin([
     { from: './src/service.html', to: './service.html' },
-    { from: './src/rule.html', to: './rule.html' }
+    { from: './src/rule.html', to: './rule.html' },
+    { from: './src/robot.html', to: './robot.html' }
   ]),
   ...htmlPlugins
 ];
