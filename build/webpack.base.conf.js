@@ -14,7 +14,11 @@ var entryDirs = glob.sync('src/**/index.js').map(item => {
   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
 });
 
-// var entryDirs = ['qa', 'buy'];
+// var entryDirs = [
+//   'order/list/all',
+//   'order/list/complaint',
+//   'order/list/evaluate'
+// ];
 
 var entry = {};
 var htmlPlugins = [];
@@ -49,7 +53,11 @@ entryDirs.forEach(item => {
 
 const plugins = [
   new VueLoaderPlugin(),
-  new CopyWebpackPlugin([{ from: './src/index.html', to: './index.html' },{ from: './src/service.html', to: './service.html' },{ from: './src/rule.html', to: './rule.html' }]),
+  new CopyWebpackPlugin([
+    { from: './src/index.html', to: './index.html' },
+    { from: './src/service.html', to: './service.html' },
+    { from: './src/rule.html', to: './rule.html' }
+  ]),
   ...htmlPlugins
 ];
 

@@ -27,9 +27,9 @@
               <p class="weui-media-box__desc">{{item.createTime | time}} | {{item.status | status}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a v-if="item.status === 'MATCH_FAILED'" :href="`./manual.html?orderId=${item.id}&name=${encodeURIComponent(item.groupName)}`" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
-              <a :href="`./detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
-              <a v-if="item.status === 'DONE'" :href="`./evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
+              <a v-if="item.status === 'MATCH_FAILED'" :href="`/order/manual.html?orderId=${item.id}&name=${encodeURIComponent(item.groupName)}`" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
+              <a :href="`/order/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a v-if="item.status === 'DONE'" :href="`/order/evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a :href="`./detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a :href="`/order/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a :href="`./detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a :href="`/order/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -74,8 +74,8 @@
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a :href="`./detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
-              <a :href="`./evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
+              <a :href="`/order/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a :href="`/order/evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
             </div>
           </div>
         </div>
@@ -96,9 +96,9 @@
 <script>
 import axios from 'axios';
 import { format } from 'date-fns';
-import config from '../../common/js/config';
-import { auth } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
+import config from '../../../common/js/config';
+import { auth } from '../../../common/js/auth';
+import { tryFunc } from '../../../common/js/common';
 
 export default {
   data() {
