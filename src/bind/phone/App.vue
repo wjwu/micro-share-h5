@@ -1,8 +1,8 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1>成员注册</h1>
-      <div class="sub">为了您的信息安全，请关联信息</div>
+      <h1><img style="width:3rem;margin-left:1rem;" src="http://static.fangzhoubuluo.com/logo.png" /><span style="float:left;">成员注册</span></h1>
+      <div class="sub">开启找寻社区商伴，抱团联合经营之旅</div>
     </div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -33,13 +33,22 @@
           <button v-else class="weui-vcode-btn" @click="handleSend">获取验证码</button>
         </div>
       </div>
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <span style="font-size: .9rem;">注册代表你已同意
-            <a style="color:#3cc51f;" href="/用户协议.docx">「商伴部落用户协议」</a>
-          </span>
+   
+        <div class="weui-cells weui-cells_checkbox" style="margin-top: 0px;">
+          <label class="weui-cell weui-check__label" for="s11">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" id="s11" checked="checked">
+                </div>
+                <div class="weui-cell__bd">
+                    <p style="font-size: .5rem;">
+                      我已阅读并同意
+                      <a style="color:#3cc51f;" href="/service.html">「商伴部落使用协议」</a>
+                      <a style="color:#3cc51f;" href="/rule.html">「运行&信用规则」</a>
+                    </p>
+                </div>
+            </label>
         </div>
-      </div>
+
     </div>
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
@@ -48,23 +57,23 @@
 </template>
 
 <script>
-import axios from 'axios';
-import weui from 'weui.js';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
+import axios from "axios";
+import weui from "weui.js";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
 import {
   openToast,
   tryFunc,
   checkPhone,
   getQueryString
-} from '../../common/js/common';
+} from "../../common/js/common";
 
 export default {
   data() {
     return {
-      phone: '',
-      captcha: '',
-      nick: localStorage.getItem('userName'),
+      phone: "",
+      captcha: "",
+      nick: localStorage.getItem("userName"),
       showApp: false,
       sending: false,
       time: 60
@@ -79,16 +88,16 @@ export default {
   methods: {
     handleSave() {
       if (!this.phone) {
-        openToast('请输入手机号');
+        openToast("请输入手机号");
         return;
       }
       if (!this.captcha) {
-        openToast('请输入验证码');
+        openToast("请输入验证码");
         return;
       }
 
       if (!checkPhone(this.phone)) {
-        openToast('手机号码格式不正确');
+        openToast("手机号码格式不正确");
         return;
       }
 
@@ -101,19 +110,19 @@ export default {
           },
           {
             headers: {
-              userId: localStorage.getItem('userId')
+              userId: localStorage.getItem("userId")
             }
           }
         );
-        localStorage.setItem('phone', this.phone);
+        localStorage.setItem("phone", this.phone);
         weui.dialog({
-          content: '绑定手机成功，点击确定返回前一个页面',
+          content: "绑定手机成功，点击确定返回前一个页面",
           buttons: [
             {
-              label: '确定',
-              type: 'primary',
+              label: "确定",
+              type: "primary",
               onClick: function() {
-                window.location.href = getQueryString('redirect');
+                window.location.href = getQueryString("redirect");
               }
             }
           ]
@@ -122,11 +131,11 @@ export default {
     },
     handleSend() {
       if (!this.phone) {
-        openToast('请输入手机号');
+        openToast("请输入手机号");
         return;
       }
       if (!checkPhone(this.phone)) {
-        openToast('手机号码格式不正确');
+        openToast("手机号码格式不正确");
         return;
       }
 
@@ -134,10 +143,10 @@ export default {
         await axios.get(`${config.apiHost}/captcha`, {
           params: {
             phone: this.phone,
-            type: 'BIND'
+            type: "BIND"
           },
           headers: {
-            userId: localStorage.getItem('userId')
+            userId: localStorage.getItem("userId")
           }
         });
         const timer = setInterval(() => {
@@ -150,7 +159,7 @@ export default {
             this.time = this.time - 1;
           }
         }, 1000);
-        openToast('验证码已发送');
+        openToast("验证码已发送");
       });
     }
   }

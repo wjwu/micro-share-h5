@@ -49,7 +49,7 @@ entryDirs.forEach(item => {
 
 const plugins = [
   new VueLoaderPlugin(),
-  new CopyWebpackPlugin([{ from: './src/index.html', to: './index.html' }]),
+  new CopyWebpackPlugin([{ from: './src/index.html', to: './index.html' },{ from: './src/service.html', to: './service.html' },{ from: './src/rule.html', to: './rule.html' }]),
   ...htmlPlugins
 ];
 
@@ -66,13 +66,13 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        include: src,
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
+        // enforce: 'pre',
+        // test: /\.(js|vue)$/,
+        // loader: 'eslint-loader',
+        // include: src,
+        // options: {
+        //   formatter: require('eslint-friendly-formatter')
+        // }
       },
       {
         test: /\.vue$/,

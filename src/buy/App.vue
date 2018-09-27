@@ -4,18 +4,18 @@
       <a href="./self/center.html"><img src="./assets/images/user@2x.png" /></a>
       <div class="intro" v-if="selectedTab ==='t1'">
         <span>
-          <a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a>
+          <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
         </span>
         <span>
-          <a style="color:#3e88ee;" href="javascript:alert('暂未提供文档');">匹配指南</a>
+          <a style="color: white;font-weight: 900;" href="javascript:alert('暂未提供文档');">匹配指南</a>
         </span>
       </div>
       <div class="intro" v-if="selectedTab ==='t2'">
         <span>
-          <a style="color:#3e88ee;" href="/运行规则.docx">运行规则</a>
+          <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
         </span>
         <span>
-          <a style="color:#3e88ee;" href="javascript:alert('暂未提供文档');">管家指南</a>
+          <a style="color: white;font-weight: 900;" href="javascript:alert('暂未提供文档');">管家指南</a>
         </span>
       </div>
     </div>
@@ -113,7 +113,7 @@ body {
   .top {
     height: 5.625rem;
     padding: 0.9375rem;
-    background-color: #fff;
+    background-color: #06B04F;
 
     img {
       width: 3.6875rem;
@@ -139,7 +139,6 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: 0.9375rem;
     background-color: #fff;
 
     .tab {

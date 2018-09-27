@@ -28,7 +28,7 @@
           <div class="weui-uploader">
             <div class="weui-uploader__hd">
               <p class="weui-uploader__title">图片（最大4MB）</p>
-              <div class="weui-uploader__info">{{images.length}}/4</div>
+              <div class="weui-uploader__info">{{images.length}}/2</div>
             </div>
             <div class="weui-uploader__bd">
               <ul class="weui-uploader__files" id="uploaderFiles">
@@ -37,7 +37,7 @@
                   <div class="weui-uploader__file-content">{{percent}}%</div>
                 </li>
               </ul>
-              <div v-if="images.length !== 4" class="weui-uploader__input-box">
+              <div v-if="images.length !== 2" class="weui-uploader__input-box">
                 <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="multiple">
               </div>
             </div>
