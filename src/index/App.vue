@@ -287,7 +287,7 @@ body {
 
     button {
       display: block;
-      margin: 2.625rem auto 3.125rem;
+      margin: 1.625rem auto 2.125rem;
       width: 15rem;
       height: 3.4375rem;
       color: #fff;
