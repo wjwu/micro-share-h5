@@ -19,8 +19,12 @@ export const openTips = message => {
   weui.topTips(message);
 };
 
-export const openToast = message => {
-  weui.alert(message);
+export const openToast = (message, callback = null) => {
+  if (callback) {
+    weui.alert(message, callback);
+  } else {
+    weui.alert(message);
+  }
 };
 
 export const tryFunc = async func => {
