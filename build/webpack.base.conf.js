@@ -51,7 +51,6 @@ var plugins = [
   new VueLoaderPlugin(),
   new CopyWebpackPlugin([
     { from: './src/service.html', to: './service.html' },
-    { from: './src/rule.html', to: './rule.html' },
     { from: './src/robot.html', to: './robot.html' }
   ]),
   ...htmlPlugins
@@ -70,13 +69,13 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        include: src,
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
+        // enforce: 'pre',
+        // test: /\.(js|vue)$/,
+        // loader: 'eslint-loader',
+        // include: src,
+        // options: {
+        //   formatter: require('eslint-friendly-formatter')
+        // }
       },
       {
         test: /\.vue$/,

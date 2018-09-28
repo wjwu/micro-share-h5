@@ -27,7 +27,8 @@ export default {
 .back {
   position: fixed;
   left: 1rem;
-  bottom: 3.5rem;
+  bottom: 1.5rem;
+  z-index: 10000;
   width: 3rem;
   height: 3rem;
   background: url('./assets/images/back.png') no-repeat 50%/2rem;

@@ -34,7 +34,7 @@ export default {
           {
             label: '首页',
             onClick: function() {
-              window.location.href = '/home.html';
+              window.location.href = '/';
             }
           },
           {
