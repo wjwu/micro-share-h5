@@ -64,6 +64,7 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_default" href="javascript:history.go(-1);">返回列表</a>
     </div>
+    <back></back>
   </div>
 </template>
 <script>
@@ -72,8 +73,12 @@ import { format } from 'date-fns';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, getQueryString } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       pid: getQueryString('id'),

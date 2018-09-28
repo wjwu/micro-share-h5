@@ -55,6 +55,7 @@
         <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存</a>
       </div>
     </div>
+    <back></back>
   </div>
 </template>
 
@@ -63,8 +64,12 @@ import axios from 'axios';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { openToast, tryFunc } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       showApp: false,

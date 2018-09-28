@@ -44,18 +44,25 @@
       <p>待遇：</p>
       <p>实习期：3000-4000元/月。转正后社保购买，发放通信&交通&就餐补助，生日/法定节日礼品，季度绩效奖金，年底双薪，会有灵活加班安排。</p>
       <br/>
-      <p>招聘简历发送邮箱地址：<a href="javascript:;">COM.NET@SOHU.COM</a>，请标题备注：应聘+岗位名称。</p>
+      <p>招聘简历发送邮箱地址：
+        <a href="javascript:;">COM.NET@SOHU.COM</a>，请标题备注：应聘+岗位名称。</p>
     </div>
     <div class="footer">
       <p>成都鹅卵石信息技术有限公司</p>
       <p> Copyright © 2019 蜀ICP备18026087号</p>
     </div>
+    <back></back>
   </div>
 </template>
 
 <script>
 import weui from 'weui.js';
+import Back from '../common/components/Back';
+
 export default {
+  components: {
+    Back
+  },
   methods: {
     handleJump(url) {
       window.location.href = url;

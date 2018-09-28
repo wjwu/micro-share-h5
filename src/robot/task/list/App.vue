@@ -54,6 +54,7 @@
         </div>
       </div>
     </div>
+    <back></back>
   </div>
 </template>
 
@@ -64,8 +65,12 @@ import { format } from 'date-fns';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
 import { tryFunc } from '../../../common/js/common';
+import Back from '../../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       showApp: false,

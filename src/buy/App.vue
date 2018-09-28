@@ -58,14 +58,20 @@
         </div>
       </div>
     </div>
+    <back></back>
   </div>
 </template>
 
 <script>
-import { auth, checkPhone } from '../common/js/auth';
+import { auth } from '../common/js/auth';
+// import { auth, checkPhone } from '../common/js/auth';
 import { tryFunc } from '../common/js/common';
+import Back from '../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       selectedTab: 't1',
@@ -75,9 +81,9 @@ export default {
   mounted() {
     tryFunc(async () => {
       await auth();
-      if (checkPhone()) {
-        this.showApp = true;
-      }
+      // if (checkPhone()) {
+      this.showApp = true;
+      // }
     });
   },
   methods: {

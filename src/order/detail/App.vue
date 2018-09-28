@@ -144,6 +144,7 @@
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
       <a class="weui-btn weui-btn_default" href="javascript:history.back()">返回</a>
     </div>
+    <back></back>
   </div>
 </template>
 
@@ -153,8 +154,12 @@ import { format } from 'date-fns';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       orderId: getQueryString('orderId'),

@@ -68,6 +68,7 @@
       <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存账单</a>
       <a class="weui-btn weui-btn_warn" href="./my.html">账目查询</a>
     </div>
+    <back></back>
   </div>
 </template>
 <script>
@@ -77,10 +78,14 @@ import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openTips } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 const today = format(new Date(), 'YYYY-MM-DD');
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       itemName: '',

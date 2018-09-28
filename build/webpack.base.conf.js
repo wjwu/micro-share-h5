@@ -14,11 +14,7 @@ var entryDirs = glob.sync('src/**/index.js').map(item => {
   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
 });
 
-// var entryDirs = [
-//   'order/list/all',
-//   'order/list/complaint',
-//   'order/list/evaluate'
-// ];
+// var entryDirs = ['buy', 'qa'];
 
 var entry = {};
 var htmlPlugins = [];

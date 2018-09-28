@@ -33,6 +33,7 @@
         <li class="menu-service" @click="handleJump('/qa.html')">联系客服</li>
       </ul>
     </div>
+    <back></back>
   </div>
 </template>
 
@@ -42,8 +43,12 @@ import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc } from '../../common/js/common';
 import weui from 'weui.js';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       showApp: false,

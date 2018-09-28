@@ -35,33 +35,34 @@
         <div class="weui-cell__bd">
           <input type="text" unselectable="on" onfocus="this.blur()" v-model="number" class="weui-input" readonly>
         </div>
-        </div>
-        <div class="weui-cell">
-          <div class="weui-cell__hd">
-            <label class="weui-label">
-              位置
-            </label>
-          </div>
-          <div class="weui-cell__bd location">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <textarea v-model="address" class="weui-textarea" rows="2" readonly></textarea>
-          </div>
-        </div>
       </div>
-      <div class="weui-cells__title">描述</div>
-      <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-          <div class="weui-cell__bd">
-            <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3"></textarea>
-            <div class="weui-textarea-counter">
-              <span>{{description.length}}</span>/200</div>
-          </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            位置
+          </label>
         </div>
-      </div>
-      <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" :class="{'weui-btn_disabled':(groups && groups.length === 0 )}" href="javascript:;" @click="handleSave">提交</a>
+        <div class="weui-cell__bd location">
+          <i class="fa fa-map-marker" aria-hidden="true"></i>
+          <textarea v-model="address" class="weui-textarea" rows="2" readonly></textarea>
+        </div>
       </div>
     </div>
+    <div class="weui-cells__title">描述</div>
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea v-model="description" maxlength="200" class="weui-textarea" placeholder="请输入描述" rows="3"></textarea>
+          <div class="weui-textarea-counter">
+            <span>{{description.length}}</span>/200</div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-btn-area">
+      <a class="weui-btn weui-btn_primary" :class="{'weui-btn_disabled':(groups && groups.length === 0 )}" href="javascript:;" @click="handleSave">提交</a>
+    </div>
+    <back></back>
+  </div>
 </template>
 
 <script>
@@ -73,8 +74,12 @@ import config from '../../common/js/config';
 import industries from '../../common/js/industries';
 import { getAddress } from '../../common/js/map';
 import { openToast, tryFunc } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       showApp: false,

@@ -22,6 +22,7 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" :href="'./list.html?from=' + from + '&to=' + to">查询</a>
     </div>
+    <back></back>
   </div>
 </template>
 
@@ -29,8 +30,12 @@
 import { format } from 'date-fns';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       showApp: false,

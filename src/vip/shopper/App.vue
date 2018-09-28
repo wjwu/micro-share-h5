@@ -1,7 +1,11 @@
 <template>
     <div v-if="showApp">
-        <a href="../self/center.html"><span class="user_center"><img height="100%" width="100%" src="./assets/images/user.png" alt=""></span></a>
-        <a href="../qa.html"><span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span></a>
+        <a href="../self/center.html">
+            <span class="user_center"><img height="100%" width="100%" src="./assets/images/user.png" alt=""></span>
+        </a>
+        <a href="../qa.html">
+            <span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span>
+        </a>
         <div class="page__hd top">
             <h1 class="page__title">我的管家</h1>
             <p class="page__desc">店长模块 √<br />基础模块 x1</p>
@@ -77,6 +81,7 @@
                 <p class="weui-grid__label">更多功能</p>
             </a>
         </div>
+        <back></back>
     </div>
 </template>
 
@@ -84,8 +89,12 @@
 // import { auth } from '../../common/js/auth';
 // import config from '../../common/js/config';
 // import { tryFunc } from '../../common/js/common';
+import Back from '../../common/components/Back';
 
 export default {
+  components: {
+    Back
+  },
   data() {
     return {
       showApp: true
