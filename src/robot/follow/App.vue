@@ -162,7 +162,9 @@ export default {
             }
           }
         );
-        openToast('操作成功');
+        openToast('操作成功', () => {
+          window.location.reload();
+        });
       });
     }
   }

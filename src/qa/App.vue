@@ -40,6 +40,7 @@ import { auth } from '../common/js/auth';
 import { format } from 'date-fns';
 import { tryFunc } from '../common/js/common';
 import Back from '../common/components/Back';
+import '../common/js/share';
 
 export default {
   components: {
@@ -62,7 +63,6 @@ export default {
       this.showApp = true;
       await this.getQuestions(0);
     });
-    // alert(window.navigator.userAgent);
   },
   methods: {
     async getQuestions(parentId) {
