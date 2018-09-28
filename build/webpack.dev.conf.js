@@ -3,13 +3,7 @@ var webpack = require('webpack');
 var merge = require('webpack-merge');
 var baseConfig = require('./webpack.base.conf');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var os = require('os');
-var IPv4;
-for (var i = 0; i < os.networkInterfaces().en0.length; i++) {
-  if (os.networkInterfaces().en0[i].family === 'IPv4') {
-    IPv4 = os.networkInterfaces().en0[i].address;
-  }
-}
+var ip = require('ip');
 
 const dist = path.join(__dirname, '..', 'dist');
 
@@ -52,6 +46,6 @@ module.exports = merge(baseConfig, {
   ],
   devServer: {
     disableHostCheck: true,
-    host: IPv4
+    host: ip.address()
   }
 });
