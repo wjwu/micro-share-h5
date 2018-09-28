@@ -55,8 +55,6 @@ entryDirs.forEach(item => {
 var plugins = [
   new VueLoaderPlugin(),
   new CopyWebpackPlugin([
-    { from: './src/service.html', to: './service.html' },
-    { from: './src/robot.html', to: './robot.html' }
   ]),
   ...htmlPlugins
 ];

@@ -119,7 +119,7 @@ export default {
               label: '确定',
               type: 'primary',
               onClick: () => {
-                location.href = '/robot.html';
+                location.href = '/qrcode.html';
               }
             },
             {
