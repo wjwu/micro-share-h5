@@ -129,7 +129,7 @@ export default {
         );
         localStorage.setItem('phone', this.phone);
         weui.dialog({
-          content: '绑定手机成功，点击确定返回前一个页面',
+          content: '恭喜您注册成为部落成员，请点击确定返回',
           buttons: [
             {
               label: '确定',
