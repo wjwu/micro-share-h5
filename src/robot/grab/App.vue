@@ -73,12 +73,12 @@
 </template>
 
 <script>
-import axios from "axios";
-import config from "../../common/js/config";
-import { auth } from "../../common/js/auth";
-import { tryFunc, openToast } from "../../common/js/common";
-import Back from "../../common/components/Back";
-import "../../common/js/share";
+import axios from 'axios';
+import config from '../../common/js/config';
+import { auth } from '../../common/js/auth';
+import { tryFunc, openToast } from '../../common/js/common';
+import Back from '../../common/components/Back';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -90,10 +90,10 @@ export default {
       myGroups: [],
       orderGroups: [],
       keywords: [],
-      keyword: "",
+      keyword: '',
       selectedIdx: null,
-      selectedRoomId: "",
-      btnText: "添加"
+      selectedRoomId: '',
+      btnText: '添加'
     };
   },
   mounted() {
@@ -102,11 +102,11 @@ export default {
       this.showApp = true;
       const { data } = await axios.get(`${config.apiHost}/user/myAllRoom`, {
         headers: {
-          userId: localStorage.getItem("userId")
+          userId: localStorage.getItem('userId')
         }
       });
       for (let item of data) {
-        if (item.type === "NORMAL") {
+        if (item.type === 'NORMAL') {
           this.myGroups.push(item);
         } else {
           this.orderGroups.push(item);
@@ -122,44 +122,44 @@ export default {
             roomId: id
           },
           headers: {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem('userId')
           }
         });
         var keyword = data.keyword;
         if (keyword) {
-          this.keywords = keyword.split(",");
+          this.keywords = keyword.split(',');
         }
         this.selectedRoomId = id;
       });
     },
     handleAdd() {
       if (!this.keyword) {
-        openToast("请输入关键词");
+        openToast('请输入关键词');
         return;
       }
-      if (this.btnText === "修改") {
+      if (this.btnText === '修改') {
         const idx = this.keywords.findIndex(this.keyword.trim());
         if (idx !== this.selectedIdx && idx >= 0) {
-          openToast("关键词已存在");
+          openToast('关键词已存在');
           return;
         } else {
           this.keywords[this.selectedIdx] = this.keyword.trim();
           if (this.keywords.length < 15) {
-            this.btnText = "添加";
+            this.btnText = '添加';
           }
         }
       } else {
         if (this.keywords.indexOf(this.keyword.trim()) >= 0) {
-          openToast("关键词已存在，请勿重复添加");
+          openToast('关键词已存在，请勿重复添加');
           return;
         } else {
           this.keywords.push(this.keyword.trim());
           if (this.keywords.length >= 15) {
-            this.btnText = "修改";
+            this.btnText = '修改';
           }
         }
       }
-      this.keyword = "";
+      this.keyword = '';
     },
     handleRemove(idx) {
       this.keywords.splice(idx, 1);
@@ -167,23 +167,23 @@ export default {
     handleEdit(idx) {
       this.selectedIdx = idx;
       this.keyword = this.keywords[idx];
-      this.btnText = "修改";
+      this.btnText = '修改';
     },
     handleSave() {
       tryFunc(async () => {
         await axios.put(
           `${config.apiHost}/user/keyword`,
           {
-            keyword: this.keywords.join(","),
+            keyword: this.keywords.join(','),
             roomId: this.selectedRoomId
           },
           {
             headers: {
-              userId: localStorage.getItem("userId")
+              userId: localStorage.getItem('userId')
             }
           }
         );
-        openToast("操作成功");
+        openToast('操作成功');
       });
     }
   }
