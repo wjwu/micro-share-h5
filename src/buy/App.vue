@@ -1,7 +1,9 @@
 <template>
   <div class="main" v-if="showApp">
     <div class="top">
-      <a href="./self/center.html"><img src="./assets/images/user@2x.png" /></a>
+      <a href="./self/center.html">
+        <img id="head" :src="headPhoto" />
+      </a>
       <div class="intro" v-if="selectedTab ==='t1'">
         <span>
           <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
@@ -63,10 +65,10 @@
 </template>
 
 <script>
-import { auth } from '../common/js/auth';
-// import { auth, checkPhone } from '../common/js/auth';
+import { auth, checkPhone } from '../common/js/auth';
 import { tryFunc } from '../common/js/common';
 import Back from '../common/components/Back';
+import defaultHeadPhone from './assets/images/user@2x.png';
 
 export default {
   components: {
@@ -75,15 +77,16 @@ export default {
   data() {
     return {
       selectedTab: 't1',
-      showApp: false
+      showApp: false,
+      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
-      // if (checkPhone()) {
-      this.showApp = true;
-      // }
+      if (checkPhone()) {
+        this.showApp = true;
+      }
     });
   },
   methods: {
@@ -124,6 +127,7 @@ body {
     img {
       width: 3.6875rem;
       height: 3.6875rem;
+      border-radius: 50%;
     }
 
     .intro {

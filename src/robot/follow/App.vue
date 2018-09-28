@@ -31,7 +31,7 @@
       </div>
     </div>
     <div v-else>
-      <div class="weui-cells__title">请设置关注的成员(最多3个)</div>
+      <div class="weui-cells__title">每个群限关注3人</div>
       <div class="weui-cells weui-cells_checkbox" v-if="members.length > 0">
         <label class="weui-cell weui-check__label" :for="member.wechatId" v-for="member in members" :key="member.id">
           <div class="weui-cell__hd">
@@ -112,7 +112,6 @@ export default {
           members.forEach(member => {
             member.checked = false;
           });
-          this.members = members;
           let { data: follows } = await axios.get(
             `${config.apiHost}/user/myFollows`,
             {
@@ -124,25 +123,33 @@ export default {
               }
             }
           );
-          if (follows && follows.length > 0) {
-            debugger;
+          if (follows) {
+            follows = follows.split(',');
+            for (let follow of follows) {
+              for (let member of members) {
+                if (follow === member.wechatId) {
+                  member.checked = true;
+                }
+              }
+            }
           }
+          this.members = members;
         }
         this.selectedRoomId = id;
       });
     },
     handleMemberClick(e) {
       let count = this.members.filter(member => member.checked).length;
-      if (count >= 3) {
+      if (count >= 3 && e.target.checked) {
         e.preventDefault();
       }
     },
     handleSave() {
       const checkedMembers = this.members.filter(member => member.checked);
-      if (checkedMembers.length === 0) {
-        openToast('请选择需要关注的成员');
-        return;
-      }
+      // if (checkedMembers.length === 0) {
+      //   openToast('请选择需要关注的成员');
+      //   return;
+      // }
       tryFunc(async () => {
         await axios.post(
           `${config.apiHost}/user/myFollows`,

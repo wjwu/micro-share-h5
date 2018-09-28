@@ -1,8 +1,9 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1><img style="width:3rem;margin-left:1rem;" src="http://static.fangzhoubuluo.com/logo.png" />
-        <span style="float:left;">成员注册</span>
+      <h1>
+        <img src="http://static.fangzhoubuluo.com/logo.png" />
+        <span>成员注册</span>
       </h1>
       <div class="sub">开启找寻社区商伴，抱团联合经营之旅</div>
     </div>
@@ -179,6 +180,19 @@ export default {
 </script>
 
 <style lang="scss">
+h1 {
+  display: flex;
+  height: 3rem;
+  align-items: center;
+
+  img {
+    width: 3rem;
+  }
+
+  span{
+    margin-left:.5rem;
+  }
+}
 .time {
   display: inline-block;
   height: 45px;
