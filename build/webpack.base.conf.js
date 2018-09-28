@@ -31,6 +31,11 @@ if (process.env.NODE_ENV !== 'development') {
     entry: 'https://cdn.bootcss.com/axios/0.17.1/axios.min.js',
     global: 'axios'
   });
+} else {
+  htmlExternals.push({
+    module: 'wx',
+    entry: 'http://res.wx.qq.com/open/js/jweixin-1.2.0.js'
+  });
 }
 
 entryDirs.forEach(item => {

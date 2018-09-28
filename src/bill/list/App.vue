@@ -56,6 +56,7 @@ import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
 import Back from '../../common/components/Back';
+import '../../common/js/share';
 
 export default {
   components: {

@@ -69,6 +69,7 @@ import { auth, checkPhone } from '../common/js/auth';
 import { tryFunc } from '../common/js/common';
 import Back from '../common/components/Back';
 import defaultHeadPhone from './assets/images/user@2x.png';
+import '../common/js/share';
 
 export default {
   components: {

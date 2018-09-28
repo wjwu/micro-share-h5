@@ -50,6 +50,7 @@
 <script>
 import Back from '../../common/components/Back';
 import defaultHeadPhone from './assets/images/user.png';
+import '../../common/js/share';
 
 export default {
   components: {

@@ -79,6 +79,7 @@ import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openTips } from '../../common/js/common';
 import Back from '../../common/components/Back';
+import '../../common/js/share';
 
 const today = format(new Date(), 'YYYY-MM-DD');
 

@@ -75,6 +75,7 @@ import industries from '../../common/js/industries';
 import { getAddress } from '../../common/js/map';
 import { openToast, tryFunc } from '../../common/js/common';
 import Back from '../../common/components/Back';
+import '../../common/js/share';
 
 export default {
   components: {

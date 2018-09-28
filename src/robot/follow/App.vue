@@ -62,6 +62,7 @@ import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openToast } from '../../common/js/common';
 import Back from '../../common/components/Back';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -172,8 +173,17 @@ export default {
 </script>
 
 <style lang="scss">
-.weui-loadmore__tips {
-  background-color: #f8f8f8 !important;
+.group {
+  .weui-cells{
+    margin-top: 0;
+  }
+  .weui-loadmore_line {
+    margin-top: 1.5rem;
+
+    .weui-loadmore__tips {
+      background-color: #f8f8f8 !important;
+    }
+  }
 }
 </style>
 
