@@ -123,11 +123,10 @@ export default {
               }
             }
           );
-          if (follows) {
-            follows = follows.split(',');
+          if (follows && follows.length > 0) {
             for (let follow of follows) {
               for (let member of members) {
-                if (follow === member.wechatId) {
+                if (follow.wechatId === member.wechatId) {
                   member.checked = true;
                 }
               }
@@ -154,7 +153,7 @@ export default {
         await axios.post(
           `${config.apiHost}/user/myFollows`,
           {
-            follows: checkedMembers.map(m => m.wechatId).join(','),
+            follows: checkedMembers.map(m => m.wechatId),
             roomId: this.selectedRoomId
           },
           {
