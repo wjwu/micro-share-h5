@@ -135,14 +135,25 @@ export default {
         return;
       }
       if (this.btnText === '修改') {
-        this.keywords[this.selectedIdx] = this.keyword;
-        if (this.keywords.length < 15) {
-          this.btnText = '添加';
+        const idx = this.keywords.findIndex(this.keyword.trim());
+        if (idx !== this.selectedIdx && idx >= 0) {
+          openToast('关键词已存在');
+          return;
+        } else {
+          this.keywords[this.selectedIdx] = this.keyword.trim();
+          if (this.keywords.length < 15) {
+            this.btnText = '添加';
+          }
         }
       } else {
-        this.keywords.push(this.keyword);
-        if (this.keywords.length >= 15) {
-          this.btnText = '修改';
+        if (this.keywords.indexOf(this.keyword.trim()) >= 0) {
+          openToast('关键词已存在，请勿重复添加');
+          return;
+        } else {
+          this.keywords.push(this.keyword.trim());
+          if (this.keywords.length >= 15) {
+            this.btnText = '修改';
+          }
         }
       }
       this.keyword = '';
@@ -178,7 +189,7 @@ export default {
 
 <style lang="scss">
 .group {
-  .weui-cells{
+  .weui-cells {
     margin-top: 0;
   }
   .weui-loadmore_line {
