@@ -26,7 +26,7 @@ export const auth = () => {
             localStorage.setItem('userId', response.data.id);
             localStorage.setItem('userName', response.data.userName);
             localStorage.setItem('phone', response.data.phone);
-            localStorage.setItem('headPhoto', response.data.phone);
+            localStorage.setItem('headPhoto', response.data.headPhoto);
             resolve();
           })
           .catch(e => {
