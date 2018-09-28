@@ -1,7 +1,9 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1><img style="width:3rem;margin-left:1rem;" src="http://static.fangzhoubuluo.com/logo.png" /><span style="float:left;">成员注册</span></h1>
+      <h1><img style="width:3rem;margin-left:1rem;" src="http://static.fangzhoubuluo.com/logo.png" />
+        <span style="float:left;">成员注册</span>
+      </h1>
       <div class="sub">开启找寻社区商伴，抱团联合经营之旅</div>
     </div>
     <div class="weui-cells weui-cells_form">
@@ -20,40 +22,40 @@
         <div class="weui-cell__bd">
           <input v-model="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号">
         </div>
+      </div>
+      <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+          <label class="weui-label">验证码</label>
         </div>
-        <div class="weui-cell weui-cell_vcode">
-          <div class="weui-cell__hd">
-            <label class="weui-label">验证码</label>
-          </div>
-          <div class="weui-cell__bd">
-            <input v-model="captcha" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码">
+        <div class="weui-cell__bd">
+          <input v-model="captcha" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码">
         </div>
-            <div class="weui-cell__ft">
-              <span v-if="sending" class="time">{{time}}s重新获取</span>
-              <button v-else class="weui-vcode-btn" @click="handleSend">获取验证码</button>
-            </div>
-          </div>
-
-          <div class="weui-cells weui-cells_checkbox" style="margin-top: 0px;">
-            <label class="weui-cell weui-check__label" for="s11">
-              <div class="weui-cell__hd">
-                <input type="checkbox" name="checkbox1" id="s11" checked="checked">
-                </div>
-                <div class="weui-cell__bd">
-                  <p style="font-size: .5rem;">
-                    我已阅读并同意
-                    <a style="color:#3cc51f;" href="/service.html">「商伴部落使用协议」</a>
-                    <a style="color:#3cc51f;" href="/rule.html">「运行&信用规则」</a>
-                  </p>
-                </div>
-            </label>
-          </div>
-
-        </div>
-        <div class="weui-btn-area">
-          <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
+        <div class="weui-cell__ft">
+          <span v-if="sending" class="time">{{time}}s重新获取</span>
+          <button v-else class="weui-vcode-btn" @click="handleSend">获取验证码</button>
         </div>
       </div>
+
+      <div class="weui-cells weui-cells_checkbox" style="margin-top: 0px;">
+        <label class="weui-cell weui-check__label" for="s11">
+          <div class="weui-cell__hd">
+            <input type="checkbox" id="s11" v-model="protocolChecked">
+          </div>
+          <div class="weui-cell__bd">
+            <p style="font-size: .5rem;">
+              我已阅读并同意
+              <a style="color:#3cc51f;" href="/service.html">「商伴部落使用协议」</a>
+              <a style="color:#3cc51f;" href="/rule.html">「运行&信用规则」</a>
+            </p>
+          </div>
+        </label>
+      </div>
+
+    </div>
+    <div class="weui-btn-area">
+      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -76,6 +78,7 @@ export default {
       nick: localStorage.getItem('userName'),
       showApp: false,
       sending: false,
+      protocolChecked: false,
       time: 60
     };
   },
@@ -87,6 +90,10 @@ export default {
   },
   methods: {
     handleSave() {
+      if (!this.protocolChecked) {
+        openToast('请勾选使用协议');
+        return;
+      }
       if (!this.phone) {
         openToast('请输入手机号');
         return;
