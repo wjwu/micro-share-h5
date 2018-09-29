@@ -124,8 +124,8 @@ export default {
 .user_center {
   float: left;
   margin-left: 0.7rem;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.7rem;
+  height: 1.7rem;
 
   img{
     height: 100%;
@@ -141,8 +141,8 @@ export default {
 .help {
   float: right;
   margin-right: 0.7rem;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .help > img {

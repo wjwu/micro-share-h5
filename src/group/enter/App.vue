@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import Back from '../../common/components/Back';
-import defaultHeadPhone from './assets/images/user.png';
-import '../../common/js/share';
+import Back from "../../common/components/Back";
+import defaultHeadPhone from "./assets/images/user.png";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       showApp: true,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
+      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone
     };
   },
   mounted() {},
@@ -82,10 +82,10 @@ export default {
 .user_center {
   float: left;
   margin-left: 0.7rem;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.7rem;
+  height: 1.7rem;
 
-  img{
+  img {
     height: 100%;
     width: 100%;
     border-radius: 50%;
@@ -96,12 +96,11 @@ export default {
   margin-top: 0.5rem;
 }
 
-
 .help {
   float: right;
   margin-right: 0.7rem;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .help > img {
