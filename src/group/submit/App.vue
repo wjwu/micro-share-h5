@@ -71,7 +71,7 @@
         <label class="weui-label">范围</label>
       </div>
       <div class="weui-cell__hd">
-        <select class="weui-select">
+        <select v-model="selectedRadius" class="weui-select">
           <option value="500" selected="selected">500米</option>
           <option value="1000">1000米</option>
           <option value="1500">1500米</option>
@@ -116,7 +116,8 @@ export default {
       selectedIndustryId: "",
       wechatId: "",
       groups: [],
-      industries
+      industries,
+      selectedRadius: 500
     };
   },
   mounted() {
@@ -209,7 +210,8 @@ export default {
           latitude: this.latitude.toString(),
           longitude: this.longitude.toString(),
           desc: this.description,
-          wechatId: this.wechatId
+          wechatId: this.wechatId,
+          matchRange: this.selectedRadius
         };
         await axios.post(`${config.apiHost}/group`, request, {
           headers: {
