@@ -2,7 +2,13 @@
   <div v-if="showApp">
     <div class="title">
       <h1>提交群申请</h1>
-      <div class="sub">注意：提交资料后机器人将会入驻群并审核</div>
+      <div class="sub-content">
+        <div class="sub">提醒：</div>
+        <div class="subs">
+          <div class="sub">您提交资料后，机器人将入群核实资料真实性；</div>
+          <div class="sub">请详细描述您经营的产品或服务，避免和商伴具体产品装车；</div>
+        </div>
+      </div>
     </div>
     <div class="weui-cells__title">基本信息</div>
     <div class="weui-cells weui-cells_form">
@@ -33,7 +39,7 @@
           <label class="weui-label">人数</label>
         </div>
         <div class="weui-cell__bd">
-          <input type="text" unselectable="on" onfocus="this.blur()" v-model="number" class="weui-input" readonly>
+          {{number}}
         </div>
       </div>
       <div class="weui-cell">
@@ -48,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="weui-cells__title">描述</div>
+    <div class="weui-cells__title">产品或服务具体描述</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__bd">
@@ -160,6 +166,11 @@ export default {
         return;
       }
 
+      if (Number(this.number) <= 200) {
+        openToast('群人数需要大于200人才能参与商伴匹配');
+        return;
+      }
+
       if (!this.selectedGroupId) {
         openToast('请选择微信群');
         return;
@@ -203,6 +214,17 @@ export default {
 
   i {
     margin-right: 5px;
+  }
+}
+
+.sub-content {
+  display: flex;
+  .sub {
+    font-size: 0.75rem !important;
+    margin-top: 0 !important;
+  }
+  .subs {
+    flex: 1;
   }
 }
 </style>
