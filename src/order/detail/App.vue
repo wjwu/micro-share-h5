@@ -22,7 +22,7 @@
           <span>{{order.originalOrder.createTime | time}}</span>
         </div>
       </div>
-      <div class="weui-cell" v-if="order.originalOrder !== 'MATCH_ONGOING'">
+      <div class="weui-cell" v-if="order.originalOrder.status !== 'MATCH_ONGOING'">
         <div class="weui-cell__hd">
           <label class="weui-label">
             价格
@@ -83,7 +83,20 @@
         </div>
       </div>
     </div>
-    <div class="weui-cells__title">商伴信息</div>
+    <div class="weui-cells__title" v-if="order.originalOrder.status == 'MATCH_ONGOING'">条件信息</div>
+    <div class="weui-cells weui-cells_form" v-if="order.originalOrder.status == 'MATCH_ONGOING'">
+       <div class="weui-cell">
+         <div class="weui-cell__hd">
+           <label class="weui-label">
+          匹配范围
+        </label>
+         </div>
+          <div class="weui-cell__bd">
+          <span>{{order.originalOrder.matchRange}}米</span>
+        </div>
+       </div>
+    </div>
+    <div class="weui-cells__title" v-if="order.matchedOrder">商伴信息</div>
     <div class="weui-cells weui-cells_form" v-if="order.matchedOrder">
       <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
         <div class="weui-cell__hd">
@@ -192,13 +205,13 @@
 </template>
 
 <script>
-import axios from 'axios';
-import format from 'date-fns/format';
-import config from '../../common/js/config';
-import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
-import Back from '../../common/components/Back';
-import '../../common/js/share';
+import axios from "axios";
+import format from "date-fns/format";
+import config from "../../common/js/config";
+import { auth } from "../../common/js/auth";
+import { openToast, tryFunc, getQueryString } from "../../common/js/common";
+import Back from "../../common/components/Back";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -206,7 +219,7 @@ export default {
   },
   data() {
     return {
-      orderId: getQueryString('orderId'),
+      orderId: getQueryString("orderId"),
       order: {},
       showApp: false,
       showMsgs: false
@@ -217,19 +230,19 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.orderId) {
-        openToast('订单编号无效');
+        openToast("订单编号无效");
         return;
       }
       const { data } = await axios.get(
         `${config.apiHost}/order/${this.orderId}`,
         {
           headers: {
-            userId: localStorage.getItem('userId')
+            userId: localStorage.getItem("userId")
           }
         }
       );
       if (!data) {
-        openToast('订单编号无效');
+        openToast("订单编号无效");
       } else {
         this.order = data;
       }
@@ -239,7 +252,7 @@ export default {
     handlePay() {
       tryFunc(async () => {
         await axios.post(`${config.apiHost}/pay/${this.orderId}/fortest`);
-        window.location.href = './pay/success.html';
+        window.location.href = "./pay/success.html";
       });
     },
     handleDisagree() {
@@ -249,11 +262,11 @@ export default {
           {},
           {
             headers: {
-              userId: localStorage.getItem('userId')
+              userId: localStorage.getItem("userId")
             }
           }
         );
-        openToast('【匹配失败】您已拒绝支付，系统重新匹配中', () => {
+        openToast("【匹配失败】您已拒绝支付，系统重新匹配中", () => {
           window.location.reload();
         });
       });
@@ -269,32 +282,32 @@ export default {
       } else if (groupCount >= 400 && groupCount <= 500) {
         return 10;
       } else {
-        return 'Unknown';
+        return "Unknown";
       }
     },
     status: val => {
-      if (val === 'MATCH_ONGOING') {
-        return '匹配中';
-      } else if (val === 'MATCH_SUCCESS') {
-        return '匹配成功';
-      } else if (val === 'MATCH_FAILED') {
-        return '匹配失败';
-      } else if (val === 'PAID') {
-        return '已支付';
-      } else if (val === 'DONE') {
-        return '完成';
-      } else if (val === 'COMMENT') {
-        return '已评价';
-      } else if (val === 'REPORTED') {
-        return '被投诉';
-      } else if (val === 'REPORTED_DISAVOW') {
-        return '被投诉—不承认';
+      if (val === "MATCH_ONGOING") {
+        return "匹配中";
+      } else if (val === "MATCH_SUCCESS") {
+        return "匹配成功";
+      } else if (val === "MATCH_FAILED") {
+        return "匹配失败";
+      } else if (val === "PAID") {
+        return "已支付";
+      } else if (val === "DONE") {
+        return "完成";
+      } else if (val === "COMMENT") {
+        return "已评价";
+      } else if (val === "REPORTED") {
+        return "被投诉";
+      } else if (val === "REPORTED_DISAVOW") {
+        return "被投诉—不承认";
       } else {
-        return '';
+        return "";
       }
     },
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };
