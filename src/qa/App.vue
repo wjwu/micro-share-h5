@@ -16,7 +16,7 @@
             </div>
             <div v-else>
               <p v-for="(item,i) in record.data" :key="i">
-                <span v-if="item.title">{{item.title}}</span>
+                <span v-if="item.title" v-html="item.title"></span>
                 <img v-if="item.imgUrl" :src="item.imgUrl" @click="handleImgClick(item.imgUrl)" />
               </p>
             </div>
@@ -40,6 +40,7 @@ import { auth } from '../common/js/auth';
 import format from 'date-fns/format';
 import { tryFunc } from '../common/js/common';
 import Back from '../common/components/Back';
+import '../common/js/share';
 
 export default {
   components: {

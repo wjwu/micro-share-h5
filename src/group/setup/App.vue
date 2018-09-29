@@ -15,20 +15,6 @@
       <div v-else class="weui-loadmore weui-loadmore_line">
         <span class="weui-loadmore__tips">暂无数据</span>
       </div>
-      <div class="weui-cells__title">商伴的群列表</div>
-      <div v-if="orderGroups.length > 0">
-        <div class="weui-cells" v-for="item in orderGroups" :key="item.id">
-          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.wechatId)">
-            <div class="weui-cell__bd">
-              <p>{{item.name}}</p>
-            </div>
-            <div class="weui-cell__ft">设置欢迎/群规</div>
-          </a>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
     </div>
     <div v-else>
       <div class="weui-cells__title">入群欢迎内容</div>
