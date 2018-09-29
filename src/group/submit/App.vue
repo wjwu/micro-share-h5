@@ -166,7 +166,7 @@ export default {
         return;
       }
 
-      if (Number(this.number) <= 200) {
+      if (Number(this.number) < 200) {
         openToast('群人数需要大于200人才能参与商伴匹配');
         return;
       }

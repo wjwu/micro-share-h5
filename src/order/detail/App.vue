@@ -22,7 +22,7 @@
           <span>{{order.originalOrder.createTime | time}}</span>
         </div>
       </div>
-      <div class="weui-cell">
+      <div class="weui-cell" v-if="order.originalOrder !== 'MATCH_ONGOING'">
         <div class="weui-cell__hd">
           <label class="weui-label">
             价格
@@ -30,6 +30,16 @@
         </div>
         <div class="weui-cell__bd">
           <span>{{order.originalOrder.price}}</span>
+        </div>
+      </div>
+      <div class="weui-cell" v-else>
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            服务费
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{order.originalOrder.groupMemberCount | price}}</span>
         </div>
       </div>
       <div class="weui-cell">
@@ -196,6 +206,18 @@ export default {
     }
   },
   filters: {
+    price: val => {
+      const groupCount = Number(val);
+      if (groupCount >= 200 && groupCount < 300) {
+        return 5;
+      } else if (groupCount >= 300 && groupCount < 400) {
+        return 8;
+      } else if (groupCount >= 400 && groupCount <= 500) {
+        return 10;
+      } else {
+        return 'Unknown';
+      }
+    },
     status: val => {
       if (val === 'MATCH_ONGOING') {
         return '匹配中';
