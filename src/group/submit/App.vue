@@ -1,7 +1,7 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1>提交群申请</h1>
+      <h1>提交源群申请</h1>
       <div class="sub-content">
         <div class="sub">提醒：</div>
         <div class="subs">

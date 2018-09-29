@@ -1,7 +1,7 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1>评价订单</h1>
+      <h1>商伴评价</h1>
     </div>
     <div class="weui-cells__title">评分</div>
     <star-rate :value="0" type="star1" :on-change="handleScoreChange" />
