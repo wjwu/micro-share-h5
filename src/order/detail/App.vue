@@ -137,12 +137,55 @@
           <span>{{order.matchedOrder.industry}}</span>
         </div>
       </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            群位置
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{order.matchOrderExtInfo.location}}</span>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            产品描述
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{order.matchOrderExtInfo.description}}</span>
+        </div>
+      </div>
+      <div class="weui-cell weui-cell_switch">
+        <div class="weui-cell__bd">点击查看群审核材料</div>
+        <div class="weui-cell__ft">
+          <input class="weui-switch" type="checkbox" v-model="showMsgs">
+        </div>
+      </div>
+      <div class="weui-cell" v-if="showMsgs">
+        <div class="weui-cell__bd">
+          <ul class="msgs">
+            <li v-for="msg in order.matchOrderExtInfo.msgList" :key="msg.id">
+              <div class="msg">
+                <div class="sender">{{msg.senderName}}</div>
+                <div class="content">
+                  <i class="arrow out"></i>
+                  <i class="arrow in"></i>
+                  <span>{{msg.name}}</span>
+                </div>
+              </div>
+              <p class="time">{{msg.createTime | time}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="weui-btn-area">
-      <a v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`./evaluate.html?orderId=${order.matchedOrder.id}`">去评价</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" class="weui-btn weui-btn_default" :href="`./complaint.html?orderId=${order.originalOrder.id}`">去投诉</a>
+      <a v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`/order/evaluate.html?orderId=${order.matchedOrder.id}`">去评价</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" class="weui-btn weui-btn_warn" :href="`/complaint/submit.html?orderId=${order.originalOrder.id}`">去投诉</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">同意匹配并支付</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">不同意匹配</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_warn" href="javascript:;" @click="handleDisagree">不同意匹配</a>
     </div>
     <back></back>
   </div>
@@ -165,7 +208,8 @@ export default {
     return {
       orderId: getQueryString('orderId'),
       order: {},
-      showApp: false
+      showApp: false,
+      showMsgs: false
     };
   },
   mounted() {
@@ -184,7 +228,11 @@ export default {
           }
         }
       );
-      this.order = data;
+      if (!data) {
+        openToast('订单编号无效');
+      } else {
+        this.order = data;
+      }
     });
   },
   methods: {
@@ -192,6 +240,22 @@ export default {
       tryFunc(async () => {
         await axios.post(`${config.apiHost}/pay/${this.orderId}/fortest`);
         window.location.href = './pay/success.html';
+      });
+    },
+    handleDisagree() {
+      tryFunc(async () => {
+        await axios.post(
+          `${config.apiHost}/order/${this.orderId}/refuse`,
+          {},
+          {
+            headers: {
+              userId: localStorage.getItem('userId')
+            }
+          }
+        );
+        openToast('【匹配失败】您已拒绝支付，系统重新匹配中', () => {
+          window.location.reload();
+        });
       });
     }
   },
@@ -235,4 +299,64 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.msgs {
+  font-size: 0.875rem;
+  background-color: #f8f8f8;
+  color: #444;
+
+  .msg {
+    display: flex;
+  }
+
+  li {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+
+  .sender {
+    color: #ccc;
+    flex-shrink: 0;
+  }
+
+  .content {
+    position: relative;
+    margin-left: 1rem;
+    background-color: #fff;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+  }
+
+  .arrow {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+  }
+  .out {
+    border-top: 5px solid transparent;
+    border-right: 10px solid #e6e6e6;
+    border-bottom: 5px solid transparent;
+    left: -11px;
+    top: 5px;
+  }
+
+  .in {
+    border-top: 5px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 5px solid transparent;
+    left: -9px;
+    top: 5px;
+  }
+
+  .time {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #ccc;
+  }
+}
+</style>
+
 
