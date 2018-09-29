@@ -22,6 +22,10 @@ var htmlExternals = [];
 
 if (process.env.NODE_ENV !== 'development') {
   htmlExternals.push({
+    module: 'wx',
+    entry: 'http://res.wx.qq.com/open/js/jweixin-1.2.0.js'
+  });
+  htmlExternals.push({
     module: 'vue',
     entry: 'https://cdn.bootcss.com/vue/2.5.13/vue.runtime.min.js',
     global: 'Vue'
@@ -30,11 +34,6 @@ if (process.env.NODE_ENV !== 'development') {
     module: 'axios',
     entry: 'https://cdn.bootcss.com/axios/0.17.1/axios.min.js',
     global: 'axios'
-  });
-} else {
-  htmlExternals.push({
-    module: 'wx',
-    entry: 'http://res.wx.qq.com/open/js/jweixin-1.2.0.js'
   });
 }
 
@@ -71,13 +70,13 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        include: src,
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
+        // enforce: 'pre',
+        // test: /\.(js|vue)$/,
+        // loader: 'eslint-loader',
+        // include: src,
+        // options: {
+        //   formatter: require('eslint-friendly-formatter')
+        // }
       },
       {
         test: /\.vue$/,
