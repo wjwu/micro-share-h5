@@ -2,7 +2,7 @@
   <div v-if="showApp">
     <div class="weui-panel weui-panel_access">
       <div class="weui-panel__hd">我的投诉</div>
-      <div class="weui-panel__bd" v-if="comps.length > 1">
+      <div class="weui-panel__bd" v-if="comps.length > 0">
         <div class="weui-media-box weui-media-box_text" v-for="item in comps" :key="item.id" @click="handleClick(item.id)">
           <h4 class="weui-media-box__title">{{item.status | status}}</h4>
           <p class="weui-media-box__desc">{{item.content}}</p>
@@ -13,14 +13,8 @@
           </ul>
         </div>
       </div>
-      <div class="weui-panel__bd" v-else>
-        <div class="weui-media-box weui-media-box_appmsg">
-          <div class="weui-media-box__bd">
-            <div class="weui-loadmore weui-loadmore_line">
-              <span class="weui-loadmore__tips">暂无数据</span>
-            </div>
-          </div>
-        </div>
+      <div class="weui-loadmore weui-loadmore_line" v-else>
+        <span class="weui-loadmore__tips">暂无数据</span>
       </div>
     </div>
     <back></back>

@@ -105,7 +105,12 @@ export default {
         openToast('上传Token无效，请刷新页面重试');
         return;
       }
-      for (let file of e.target.files) {
+      let files = Array.prototype.slice.call(
+        e.target.files,
+        0,
+        5 - this.images.length
+      );
+      for (let file of files) {
         if (!file) {
           continue;
         }

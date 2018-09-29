@@ -9,7 +9,7 @@
           </label>
         </div>
         <div class="weui-cell__bd">
-          <span>{{comps.orderId}}</span>
+          <span>{{comps.orderNo}}</span>
         </div>
       </div>
       <div class="weui-cell">
@@ -30,6 +30,16 @@
         </div>
         <div class="weui-cell__bd">
           <span>{{comps.status | status}}</span>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">
+            投诉类型
+          </label>
+        </div>
+        <div class="weui-cell__bd">
+          <span>{{comps.type | type}}</span>
         </div>
       </div>
       <div class="weui-cell">
@@ -69,9 +79,22 @@
         </div>
       </div>
     </div>
+    <div class="weui-cells__title">证据照片</div>
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <div class="weui-uploader">
+            <div class="weui-uploader__bd">
+              <ul class="weui-uploader__files">
+                <li v-for="(image,i) in comps.imgs" :key="i" class="weui-uploader__file" :style="`background-image:url('${image}')`"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="weui-btn-area">
-      <a v-if="userId === comps.toId" class="weui-btn weui-btn_primary" href="javascript:;" @click="handleClick('confirm')">承认投诉</a>
-      <a v-if="userId === comps.toId" class="weui-btn weui-btn_warn" href="javascript:;" @click="handleClick('refuse')">拒绝投诉</a>
+      <a v-if="comps.status==='REPORTED' && userId === comps.toId" class="weui-btn weui-btn_primary" :href="`/complaint/solve.html?compsId=${compsId}`">处理</a>
     </div>
     <back></back>
   </div>
@@ -80,7 +103,6 @@
 <script>
 import axios from 'axios';
 import format from 'date-fns/format';
-import weui from 'weui.js';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
@@ -112,7 +134,7 @@ export default {
         openToast('投诉编号无效');
         return;
       }
-      const { data } = await axios.get(
+      let { data } = await axios.get(
         `${config.apiHost}/user/report/${this.compsId}`,
         {
           headers: {
@@ -120,40 +142,19 @@ export default {
           }
         }
       );
+      data.imgs = data.imgs.split(',');
       this.comps = data;
-    },
-    handleClick(action) {
-      const _this = this;
-      if (action === 'confirm') {
-        weui.confirm('确定承认投诉', () => {
-          tryFunc(async () => {
-            const request = {
-              flag: true,
-              reason: ''
-            };
-            await axios.post(
-              `${config.apiHost}/order/report/${this.compsId}/confirm`,
-              request,
-              {
-                headers: {
-                  userId: localStorage.getItem('userId')
-                }
-              }
-            );
-            weui.toast('操作成功', {
-              duration: 1000,
-              callback: async () => {
-                await _this.getComps();
-              }
-            });
-          });
-        });
-      } else {
-        window.location.href = `./refuse.html?compsId=${this.compsId}`;
-      }
     }
   },
   filters: {
+    type: val => {
+      if (val === 'RESOURCE_ILLEGAL') {
+        return '对方源群涉嫌非法';
+      } else if (val === 'ACT_ILLEGAL') {
+        return '对方行为涉嫌非法';
+      }
+      return '';
+    },
     status: val => {
       if (val === 'REPORTED') {
         return '投诉';

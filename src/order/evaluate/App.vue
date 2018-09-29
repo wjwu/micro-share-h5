@@ -125,7 +125,7 @@ export default {
       tryFunc(async () => {
         const request = {
           content: this.content,
-          score: this.total / 2
+          score: this.total
         };
         await axios.post(`${config.apiHost}/comment/${orderId}`, request, {
           headers: {

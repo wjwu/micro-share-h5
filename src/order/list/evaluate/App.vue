@@ -105,7 +105,7 @@ export default {
   flex-direction: column;
 }
 .weui-loadmore_line .weui-loadmore__tips {
-  background-color: transparent;
+  background-color: #f8f8f8;
 }
 </style>
 

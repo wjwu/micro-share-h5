@@ -35,7 +35,7 @@
                   </li>
                 </ul>
                 <div v-if="images.length !== 1" class="weui-uploader__input-box">
-                  <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="multiple">
+                  <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*">
                 </div>
               </div>
             </div>
