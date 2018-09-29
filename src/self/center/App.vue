@@ -6,7 +6,7 @@
         <div class="name">{{user.userName}}</div>
         <div class="tag">
           <span class="vip" v-if="user.vipDto">VIP</span>
-          <span class="credit">{{user.creditScore}}分</span>
+          <span class="credit" @click="handleJump('/self/credit.html')">{{user.creditScore}}分</span>
         </div>
       </div>
     </div>

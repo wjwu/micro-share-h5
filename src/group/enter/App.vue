@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import Back from "../../common/components/Back";
-import defaultHeadPhone from "./assets/images/user.png";
-import "../../common/js/share";
+import Back from '../../common/components/Back';
+import defaultHeadPhone from './assets/images/user.png';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       showApp: true,
-      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone
+      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
     };
   },
   mounted() {},
