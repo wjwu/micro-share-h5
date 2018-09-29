@@ -37,10 +37,9 @@ import axios from 'axios';
 import config from '../common/js/config';
 import weui from 'weui.js';
 import { auth } from '../common/js/auth';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import { tryFunc } from '../common/js/common';
 import Back from '../common/components/Back';
-import '../common/js/share';
 
 export default {
   components: {

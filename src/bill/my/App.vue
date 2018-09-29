@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
 import Back from '../../common/components/Back';

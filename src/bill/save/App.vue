@@ -73,7 +73,7 @@
 </template>
 <script>
 import axios from 'axios';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
