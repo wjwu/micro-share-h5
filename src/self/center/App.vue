@@ -22,7 +22,7 @@
           <a href="./info.html">个人资料</a>
         </li>
         <li class="menu-partner">
-          <a href="#">我的消费记录</a>
+          <a href="#">我的消费</a>
         </li>
         <li class="menu-poster"><a href="/message.html">我的消息</a></li>
         <li class="menu-shelves"><a href="/feedback.html">我的建议</a></li>

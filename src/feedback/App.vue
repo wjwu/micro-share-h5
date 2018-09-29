@@ -20,9 +20,9 @@
         </div>
         <div class="weui-cell__bd">
           <select class="weui-select" v-model="type">
-            <option value="OPTIMIZATION">平台运营优化建议</option>
-            <option value="PROBLEM">平台存在问题</option>
-            <option value="REQUIREMENT">平台新增需求建</option>
+            <option value="OPTIMIZATION">部落运营优化建议</option>
+            <option value="REQUIREMENT">部落新增需求建议</option>
+            <option value="PROBLEM">部落存在问题反馈</option>
           </select>
         </div>
       </div>
@@ -176,7 +176,7 @@ export default {
             }
           }
         );
-        weui.alert('操作成功', () => {
+        weui.alert('我们已经收到您的建议，谢谢您！', () => {
           this.content = '';
           this.type = 'OPTIMIZATION';
           this.images = [];

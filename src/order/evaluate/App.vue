@@ -1,7 +1,7 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1>订单评价</h1>
+      <h1>商伴评价</h1>
       <div class="sub-content">
         <div class="sub">提醒：</div>
         <div class="subs">

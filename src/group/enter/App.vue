@@ -9,7 +9,7 @@
     </a>
     <div class="page__hd top">
       <h1 class="page__title">我的商伴</h1>
-      <p class="page__desc">请允许获取地理位置以便更好的匹配到附近的商伴<br />商伴模块其他说明xxxx</p>
+      <p class="page__desc">请允许获取地理位置以便更好的匹配到附近的商伴<br />建议您关注并置顶公众号，以方便您即时收取与处理相关进展</p>
     </div>
     <div class="weui-grids content">
       <a href="./submit.html" class="weui-grid">

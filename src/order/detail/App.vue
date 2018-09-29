@@ -151,7 +151,7 @@
     <div class="weui-btn-area">
       <a v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`./evaluate.html?orderId=${order.matchedOrder.id}`">去评价</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" class="weui-btn weui-btn_default" :href="`./complaint.html?orderId=${order.originalOrder.id}`">去投诉</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">去支付</a>
+      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">同意匹配并支付</a>
       <a class="weui-btn weui-btn_default" href="javascript:history.back()">返回</a>
     </div>
     <back></back>
