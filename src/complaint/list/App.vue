@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import axios from 'axios';
-import format from 'date-fns/format';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc } from '../../common/js/common';
-import Back from '../../common/components/Back';
-import '../../common/js/share';
+import axios from "axios";
+import format from "date-fns/format";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
+import { tryFunc } from "../../common/js/common";
+import Back from "../../common/components/Back";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -46,7 +46,7 @@ export default {
       this.showApp = true;
       const { data } = await axios.get(`${config.apiHost}/user/report`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       this.comps = data;
@@ -59,18 +59,22 @@ export default {
   },
   filters: {
     status: val => {
-      if (val === 'REPORTED') {
-        return '投诉';
-      } else if (val === 'REPORTED_DISAVOW') {
-        return '投诉不承认';
-      } else if (val === 'SUCCESS') {
-        return '投诉处理成功';
+      if (val === "REPORTED") {
+        return "投诉";
+      } else if (val === "REPORTED_DISAVOW") {
+        return "投诉不承认";
+      } else if (val === "SUCCESS") {
+        return "投诉处理成功";
+      } else if (val === "CUSTOMER_AGREE") {
+        return "客服处理同意";
+      } else if (val === "CUSTOMER_REFUSE") {
+        return "客服处理拒绝";
       } else {
-        return '';
+        return "";
       }
     },
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };
