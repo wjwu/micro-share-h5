@@ -2,14 +2,14 @@
   <div v-if="showApp">
     <a href="../self/center.html">
       <span class="user_center">
-      <img height="100%" width="100%" :src="headPhoto"></span>
+        <img height="100%" width="100%" :src="headPhoto"></span>
     </a>
     <a href="../qa.html">
       <span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span>
     </a>
     <div class="page__hd top">
       <h1 class="page__title">我的管家</h1>
-      <p class="page__desc">店长模块 √<br />基础模块 x1</p>
+      <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
     <div class="weui-grids content">
       <a href="../../other/poster/template_new.html" class="weui-grid">
@@ -47,6 +47,12 @@
           <img src="./assets/images/robot.png" alt="">
         </div>
         <p class="weui-grid__label">订单抓取</p>
+      </a>
+      <a href="../robot/follow.html" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="./assets/images/follow.png" alt="">
+        </div>
+        <p class="weui-grid__label">关注人</p>
       </a>
     </div>
     <div class="weui-cells weui-cells_form">
@@ -127,7 +133,7 @@ export default {
   width: 1.7rem;
   height: 1.7rem;
 
-  img{
+  img {
     height: 100%;
     width: 100%;
     border-radius: 50%;
