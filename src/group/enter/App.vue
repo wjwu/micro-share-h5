@@ -38,6 +38,12 @@
       </a>
       <a href="javascript:;" class="weui-grid">
         <div class="weui-grid__icon">
+          <img src="./assets/images/manage.png" alt="">
+        </div>
+        <p class="weui-grid__label">商伴管理</p>
+      </a>
+      <a href="javascript:;" class="weui-grid">
+        <div class="weui-grid__icon">
           <img src="./assets/images/more.png" alt="">
         </div>
         <p class="weui-grid__label">更多功能</p>

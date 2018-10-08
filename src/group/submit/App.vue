@@ -5,8 +5,10 @@
       <div class="sub-content">
         <div class="sub">提醒：</div>
         <div class="subs">
-          <div class="sub">您提交资料后，机器人将入群核实资料真实性；</div>
-          <div class="sub">请详细描述您经营的产品或服务，避免和商伴具体产品装车；</div>
+          <div class="sub">您提交群资料后，机器人将入群核实资料真实性；</div>
+          <div class="sub">请详细描述您经营的产品或服务，避免和商伴经营产品产生冲突；</div>
+          <div class="sub">只能提交属于您自己的群，并且群人数>=200人；</div>
+          <div class="sub">范围：以您当前地址为原点，范围半径内匹配；</div>
         </div>
       </div>
     </div>
@@ -72,10 +74,10 @@
       </div>
       <div class="weui-cell__hd">
         <select v-model="selectedRadius" class="weui-select">
-          <option value="500" selected="selected">500米</option>
-          <option value="1000">1000米</option>
-          <option value="1500">1500米</option>
-          <option value="2000">2000米</option>
+          <option value="500" selected="selected">1000米</option>
+          <option value="1000">2000米</option>
+          <option value="1500">3000米</option>
+          <option value="2000">5000米</option>
         </select>
       </div>
       </div>

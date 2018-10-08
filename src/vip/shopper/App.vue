@@ -9,7 +9,7 @@
     </a>
     <div class="page__hd top">
       <h1 class="page__title">我的管家</h1>
-      <p class="page__desc">店长模块 √<br />基础模块 x1</p>
+      <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
     <div class="weui-grids content">
       <a href="../../other/poster/template_new.html" class="weui-grid">
@@ -47,6 +47,12 @@
           <img src="./assets/images/robot.png" alt="">
         </div>
         <p class="weui-grid__label">订单抓取</p>
+      </a>
+      <a href="../robot/follow.html" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="./assets/images/follow.png" alt="">
+        </div>
+        <p class="weui-grid__label">关注人</p>
       </a>
     </div>
     <div class="weui-cells weui-cells_form">
@@ -90,9 +96,9 @@
 // import { auth } from '../../common/js/auth';
 // import config from '../../common/js/config';
 // import { tryFunc } from '../../common/js/common';
-import Back from '../../common/components/Back';
-import defaultHeadPhone from './assets/images/user.png';
-import '../../common/js/share';
+import Back from "../../common/components/Back";
+import defaultHeadPhone from "./assets/images/user.png";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -101,7 +107,7 @@ export default {
   data() {
     return {
       showApp: true,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
+      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone
     };
   },
   mounted() {},
@@ -127,7 +133,7 @@ export default {
   width: 1.7rem;
   height: 1.7rem;
 
-  img{
+  img {
     height: 100%;
     width: 100%;
     border-radius: 50%;
