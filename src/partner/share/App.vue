@@ -38,7 +38,7 @@
 <script>
 import axios from 'axios';
 // import weui from 'weui.js';
-import VueQr from '../../common/lib/vue-qr';
+import VueQr from '../../common/lib/vue-qr/main';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
