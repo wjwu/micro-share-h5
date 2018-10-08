@@ -32,25 +32,17 @@
     </div>
     <div v-else>
       <div class="weui-cells__title">请设置订单抓取关键词(最多15个)</div>
-      <div class="weui-tab__panel">
-        <div class="weui-panel weui-panel_access">
-          <div class="weui-panel__bd" v-if="keywords.length > 0">
-            <div class="weui-media-box weui-media-box_appmsg" v-for="(item,i) in keywords" :key="i">
-              <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title">{{item}}</h4>
-              </div>
-              <div class="weui-media-box__fd">
-                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="handleEdit(i)">修改</a>
-                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" @click="handleRemove(i)">删除</a>
-              </div>
-            </div>
-          </div>
-          <div class="weui-panel__bd" v-else>
-            <div class="weui-loadmore weui-loadmore_line">
-              <span class="weui-loadmore__tips">暂无数据</span>
-            </div>
+      <div class="weui-cells" v-if="keywords.length > 0">
+        <div class="weui-cell" v-for="(item,i) in keywords" :key="i">
+          <div class="weui-cell__bd">{{item}}</div>
+          <div class="weui-cell__fd">
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="handleEdit(i)">修改</a>
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" @click="handleRemove(i)">删除</a>
           </div>
         </div>
+      </div>
+      <div v-else class="weui-loadmore weui-loadmore_line">
+        <span class="weui-loadmore__tips">暂无数据</span>
       </div>
       <div class="weui-cells__title">添加/修改</div>
       <div class="weui-cells weui-cells_form">
@@ -195,16 +187,18 @@ export default {
   .weui-cells {
     margin-top: 0;
   }
-  .weui-loadmore_line {
-    margin-top: 1.5rem;
+}
+.weui-loadmore_line {
+  margin-top: 1.5rem;
 
-    .weui-loadmore__tips {
-      background-color: #f8f8f8 !important;
-    }
+  .weui-loadmore__tips {
+    background-color: #f8f8f8 !important;
   }
 }
 
 .weui-cell__fd {
+  line-height: 0;
+
   .weui-btn + .weui-btn {
     margin-top: 0;
   }

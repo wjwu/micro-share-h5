@@ -1,1 +1,2 @@
 src/common/js/common.js
+src/common/lib/**/*.js

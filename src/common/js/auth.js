@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getQueryString } from './common';
+import { getQueryString, openToast } from './common';
 import config from './config';
 
 export const auth = () => {
@@ -30,7 +30,14 @@ export const auth = () => {
             resolve();
           })
           .catch(e => {
-            reject(e);
+            let msg = e;
+            if (e.response && e.response.data) {
+              msg = e.response.data.message;
+            }
+            openToast(msg, () => {
+              window.location.href = '/';
+            });
+            // reject(e);
           });
       }
     } else {
