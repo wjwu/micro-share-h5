@@ -14,8 +14,6 @@ var entryDirs = glob.sync('src/**/index.js').map(item => {
   return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
 });
 
-// var entryDirs = ['buy', 'qa'];
-
 var entry = {};
 var htmlPlugins = [];
 var htmlExternals = [];
@@ -70,13 +68,13 @@ module.exports = {
   module: {
     rules: [
       {
-        // enforce: 'pre',
-        // test: /\.(js|vue)$/,
-        // loader: 'eslint-loader',
-        // include: src,
-        // options: {
-        //   formatter: require('eslint-friendly-formatter')
-        // }
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        include: src,
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
       },
       {
         test: /\.vue$/,

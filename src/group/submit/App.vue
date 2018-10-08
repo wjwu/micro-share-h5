@@ -67,17 +67,17 @@
     <div class="weui-cells__title">请选择商伴条件</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell weui-cell_select weui-cell_select-after">
-      <div class="weui-cell__hd">
-        <label class="weui-label">范围</label>
-      </div>
-      <div class="weui-cell__hd">
-        <select v-model="selectedRadius" class="weui-select">
-          <option value="500" selected="selected">500米</option>
-          <option value="1000">1000米</option>
-          <option value="1500">1500米</option>
-          <option value="2000">2000米</option>
-        </select>
-      </div>
+        <div class="weui-cell__hd">
+          <label class="weui-label">范围</label>
+        </div>
+        <div class="weui-cell__hd">
+          <select v-model="selectedRadius" class="weui-select">
+            <option value="500" selected="selected">500米</option>
+            <option value="1000">1000米</option>
+            <option value="1500">1500米</option>
+            <option value="2000">2000米</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="weui-btn-area">
@@ -88,16 +88,16 @@
 </template>
 
 <script>
-import axios from "axios";
-import { auth, checkPhone } from "../../common/js/auth";
-import wxApi from "../../common/js/wxApi";
-import weui from "weui.js";
-import config from "../../common/js/config";
-import industries from "../../common/js/industries";
-import { getAddress } from "../../common/js/map";
-import { openToast, tryFunc } from "../../common/js/common";
-import Back from "../../common/components/Back";
-import "../../common/js/share";
+import axios from 'axios';
+import { auth, checkPhone } from '../../common/js/auth';
+import wxApi from '../../common/js/wxApi';
+import weui from 'weui.js';
+import config from '../../common/js/config';
+import industries from '../../common/js/industries';
+import { getAddress } from '../../common/js/map';
+import { openToast, tryFunc } from '../../common/js/common';
+import Back from '../../common/components/Back';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -106,15 +106,15 @@ export default {
   data() {
     return {
       showApp: false,
-      name: "",
-      number: "0",
-      description: "",
-      address: "",
-      latitude: "",
-      longitude: "",
-      selectedGroupId: "",
-      selectedIndustryId: "",
-      wechatId: "",
+      name: '',
+      number: '0',
+      description: '',
+      address: '',
+      latitude: '',
+      longitude: '',
+      selectedGroupId: '',
+      selectedIndustryId: '',
+      wechatId: '',
       groups: [],
       industries,
       selectedRadius: 500
@@ -128,7 +128,7 @@ export default {
       }
       await this.getGroups();
       if (this.groups && this.groups.length > 0) {
-        await wxApi.config(["getLocation"]);
+        await wxApi.config(['getLocation']);
         const location = await wxApi.getLocation();
         const result = await getAddress(location.latitude, location.longitude);
         this.address = result.address;
@@ -136,18 +136,18 @@ export default {
         this.longitude = result.longitude;
       } else {
         weui.dialog({
-          content: "抱歉，没发现可用群！<br />点击【确定】去添加机器人",
+          content: '抱歉，没发现可用群！<br />点击【确定】去添加机器人',
           buttons: [
             {
-              label: "确定",
-              type: "primary",
+              label: '确定',
+              type: 'primary',
               onClick: () => {
-                location.href = "/qrcode.html";
+                location.href = '/qrcode.html';
               }
             },
             {
-              label: "取消",
-              type: "default",
+              label: '取消',
+              type: 'default',
               onClick: () => {}
             }
           ]
@@ -159,7 +159,7 @@ export default {
     async getGroups() {
       const { data } = await axios.get(`${config.apiHost}/user/myRoom`, {
         headers: {
-          userId: localStorage.getItem("userId")
+          userId: localStorage.getItem('userId')
         }
       });
       this.groups = data;
@@ -175,7 +175,7 @@ export default {
           }
         }
       } else {
-        this.number = "0";
+        this.number = '0';
       }
     },
     handleSave() {
@@ -184,20 +184,20 @@ export default {
       }
 
       if (Number(this.number) < 200) {
-        openToast("群人数需要大于200人才能参与商伴匹配");
+        openToast('群人数需要大于200人才能参与商伴匹配');
         return;
       }
 
       if (!this.selectedGroupId) {
-        openToast("请选择微信群");
+        openToast('请选择微信群');
         return;
       }
       if (!this.selectedIndustryId) {
-        openToast("请选择微信群行业");
+        openToast('请选择微信群行业');
         return;
       }
       if (!this.latitude || !this.latitude) {
-        openToast("请先定位位置");
+        openToast('请先定位位置');
         return;
       }
 
@@ -215,10 +215,10 @@ export default {
         };
         await axios.post(`${config.apiHost}/group`, request, {
           headers: {
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem('userId')
           }
         });
-        window.location.href = "./success.html";
+        window.location.href = './success.html';
       });
     }
   }
