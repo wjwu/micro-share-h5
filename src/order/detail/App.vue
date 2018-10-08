@@ -244,7 +244,8 @@ export default {
     });
   },
   methods: {
-    handlePay() {
+    async handlePay() {
+      let payInfo;
       tryFunc(async () => {
         const { data } = await axios.get(`${config.apiHost}/pay/wechat`, {
           headers: {
@@ -254,10 +255,14 @@ export default {
             orderId: this.orderId
           }
         });
-        const payInfo = data;
-        await wxPay(payInfo);
-        window.location.href = './pay/success.html';
+        payInfo = data;
       });
+      try {
+        await wxPay(payInfo);
+        window.location.href = '/order/pay/success.html';
+      } catch (e) {
+        window.location.href = '/order/pay/fail.html';
+      }
     },
     handleDisagree() {
       tryFunc(async () => {
