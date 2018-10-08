@@ -41,3 +41,30 @@ export const tryFunc = async func => {
     }
   }
 };
+
+export const wxPay = payInfo => {
+  return new Promise((resolve, reject) => {
+    const onBridgeReady = () => {
+      window.WeixinJSBridge.invoke('getBrandWCPayRequest', payInfo, function(
+        res
+      ) {
+        if (res.err_msg === 'get_brand_wcpay_request:ok') {
+          resolve();
+        } else {
+          // reject(res.err_msg);
+          openToast('支付失败，请稍后重试');
+        }
+      });
+    };
+    if (typeof WeixinJSBridge === 'undefined') {
+      if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+      } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+      }
+    } else {
+      onBridgeReady();
+    }
+  });
+};
