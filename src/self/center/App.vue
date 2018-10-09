@@ -20,10 +20,10 @@
         </div>
         <ul class="menu">
           <li class="menu-info">
-            <a href="./info.html">个人资料</a>
+            <a href="/self/info.html">个人资料</a>
           </li>
           <li class="menu-partner">
-            <a href="#">我的消费</a>
+            <a href="/self/consume.html">我的消费</a>
           </li>
           <li class="menu-poster"><a href="/message.html">我的消息</a></li>
           <li class="menu-shelves"><a href="/feedback.html">我的建议</a></li>
