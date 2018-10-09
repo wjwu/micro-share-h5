@@ -1,55 +1,207 @@
 <template>
   <bar v-if="showApp">
-    <div class="main">
-      <div class="content">
-        <div class="tip">
-          <div class="intro">
-            <p>提醒:</p>
-            <p>1.购买支付成功后，账户管家购买功能自动开通。</p>
-            <p>2.个人账户管家管理功能开通，并提供人工客服服务。</p>
+    <div class="content">
+      <div class="intro">
+        <p>提醒:</p>
+        <p>1.购买支付成功后，账户管家购买功能自动开通。</p>
+        <p>2.个人账户管家管理功能开通，并提供人工客服服务。</p>
+      </div>
+      <h4>产品报价</h4>
+      <div class="price">
+        <!-- <table>
+          <colgroup width="33.333%"></colgroup>
+          <colgroup width="33.333%"></colgroup>
+          <colgroup width="33.333%"></colgroup>
+          <thead>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table> -->
+        <img src="./assets/images/pay.png" />
+      </div>
+      <h4>产品购买</h4>
+      <div class="weui-cells__title">店长模块版</div>
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <div class="weui-cell__hd">
+            <label class="weui-label">购买数量</label>
           </div>
-          <div class="flow">
-            <h4>产品报价</h4>
-            <img src="./assets/images/pay.png" />
+          <div class="weui-cell__bd">
+            <select class="weui-select" v-model="shoperAmount">
+              <option value="">请选择</option>
+              <option value="1">1</option>
+            </select>
           </div>
-          <div class="footer">
-            <button>确定并支付</button>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <div class="weui-cell__hd">
+            <label class="weui-label">购买时长</label>
+          </div>
+          <div class="weui-cell__bd">
+            <select class="weui-select" v-model="shoperLong">
+              <option value="">请选择</option>
+              <option value="1">1个月</option>
+              <option value="3">3个月</option>
+              <option value="6">6个月</option>
+              <option value="12">12个月</option>
+            </select>
+          </div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label">价格</label>
+          </div>
+          <div class="weui-cell__bd t-r">
+            ￥{{shoperTotal}}
           </div>
         </div>
       </div>
+      <div class="weui-cells__title">基础功能版</div>
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <div class="weui-cell__hd">
+            <label class="weui-label">购买数量</label>
+          </div>
+          <div class="weui-cell__bd">
+            <select class="weui-select" v-model="baseAmount">
+              <option value="">请选择</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <div class="weui-cell__hd">
+            <label class="weui-label">购买时长</label>
+          </div>
+          <div class="weui-cell__bd">
+            <select class="weui-select" v-model="baseLong">
+              <option value="">请选择</option>
+              <option value="1">1个月</option>
+              <option value="3">3个月</option>
+              <option value="6">6个月</option>
+              <option value="12">12个月</option>
+            </select>
+          </div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label">价格</label>
+          </div>
+          <div class="weui-cell__bd t-r">
+            ￥{{baseTotal}}
+          </div>
+        </div>
+      </div>
+      <div class="weui-cells">
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label">总价合计</label>
+          </div>
+          <div class="weui-cell__bd t-r">
+            ￥{{shoperTotal + baseTotal}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <button :class="{'btn-disabled':total===0}" @click="handlePay">确定并支付</button>
     </div>
   </bar>
 </template>
 
 <script>
+import axios from 'axios';
+import config from '../common/js/config';
 import { auth, checkPhone } from '../common/js/auth';
-import { tryFunc } from '../common/js/common';
+import { tryFunc, wxPay } from '../common/js/common';
 import Bar from '../common/components/Bar';
-import defaultHeadPhone from './assets/images/user@2x.png';
 import '../common/js/share';
 
 export default {
   components: {
     Bar
   },
+  computed: {
+    shoperTotal() {
+      return Number(this.shoperAmount) * Number(this.shoperLong) * 99;
+    },
+    baseTotal() {
+      return Number(this.baseAmount) * Number(this.baseLong) * 15;
+    },
+    total() {
+      return this.shoperTotal + this.baseTotal;
+    }
+  },
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
+      shoperAmount: '',
+      shoperLong: '',
+      baseAmount: '',
+      baseLong: ''
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
-      this.showApp = true;
       if (checkPhone()) {
         this.showApp = true;
       }
     });
   },
   methods: {
-    handleJump(url) {
-      window.location.href = url;
+    async handlePay() {
+      if (this.total === 0) {
+        return;
+      }
+      let payInfo;
+      tryFunc(async () => {
+        let response = await axios.post(
+          `${config.apiHost}/vipOrder`,
+          {
+            baseVipMonth: this.baseLong,
+            baseVipSize: this.baseAmount,
+            advVipMonth: this.shoperLong
+          },
+          {
+            headers: {
+              userId: localStorage.getItem('userId')
+            }
+          }
+        );
+        response = await axios.get(`${config.apiHost}/pay/wechat`, {
+          headers: {
+            userId: localStorage.getItem('userId')
+          },
+          params: {
+            orderId: response.data.id
+          }
+        });
+        payInfo = response.data;
+      });
+      try {
+        await wxPay(payInfo);
+        window.location.href = '/pay/success.html';
+      } catch (e) {
+        window.location.href = 'pay/fail.html';
+      }
     }
   }
 };
@@ -70,117 +222,79 @@ body {
 .weui-tab__panel {
   padding-bottom: 100px;
 }
-.main {
+
+.t-r {
+  text-align: right;
+}
+
+.content {
   min-height: 100%;
   color: #666666;
-  display: flex;
-  flex-direction: column;
-  background-color: #f5f5f5;
+  background-color: #fff;
 
-  .top {
-    height: 5.625rem;
-    padding: 0.9375rem;
-    background-color: #06b04f;
+  h4 {
+    padding: 1.25rem 0;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.125rem;
+    text-align: center;
+  }
+
+  .intro {
+    padding: 1.25rem 0.9375rem;
+    background-color: #f5f9fe;
+    font-size: 0.875rem;
+    line-height: 1.3125rem;
+  }
+
+  .price {
+    text-align: center;
 
     img {
-      width: 3.6875rem;
-      height: 3.6875rem;
-      border-radius: 50%;
-    }
-
-    .intro {
-      height: 100%;
-      display: flex;
-      font-size: 1.3rem;
-      color: #3e88ee;
-      align-items: center;
-
-      a {
-        margin:0 auto;
-      }
+      width: 21.5rem;
     }
   }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background-color: #fff;
-
-    .tab {
-      height: 3.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      span {
-        margin: 0 1.125rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.125rem;
-        height: 100%;
-        width: 5.25rem;
-        border-bottom: 0.1875rem solid transparent;
-      }
-
-      .active {
-        color: #3e88ee;
-        border-bottom: 0.1875rem solid #3e88ee;
-      }
-    }
-
-    .tip {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .intro {
-      padding: 1.25rem 0.9375rem;
-      background-color: #f5f9fe;
-      font-size: 0.875rem;
-      line-height: 1.3125rem;
-    }
-
-    .flow {
-      flex: 1;
-      text-align: center;
-
-      h4 {
-        padding: 1.25rem 0;
-        font-size: 1rem;
-        color: #333;
-        line-height: 1.125rem;
-      }
-      img {
-        width: 21.5rem;
-      }
-    }
-  }
-
-  .footer {
-    position: fixed;
+  /*.calculate {
     width: 100%;
-    bottom: 50px;
-    height: 50px;
-    display: flex;
+    padding: 0 .5rem;
 
-    button {
-      flex: 1;
-      font-size: 1rem;
-      color: #fff;
+    thead {
       background-color: #3e88ee;
-      font-weight: 900;
-      border: none;
-      outline: none;
+      color: #fff;
     }
 
-    button + button {
-      color: black;
-      background: url(./assets/images/phone.png) no-repeat 2.7rem center/1rem;
-      background-color: #ffc000;
+    tbody {
+      background-color: #f4f4f4;
     }
+
+    td {
+      padding: 4px 0;
+      text-align: center;
+    }
+  }*/
+}
+
+.footer {
+  position: fixed;
+  width: 100%;
+  bottom: 50px;
+  height: 50px;
+  display: flex;
+  z-index: 500;
+
+  button {
+    flex: 1;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #3e88ee;
+    font-weight: 900;
+    border: none;
+    outline: none;
+  }
+
+  .btn-disabled {
+    background-color: #86b6f9;
   }
 }
 </style>
