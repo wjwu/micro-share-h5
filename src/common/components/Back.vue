@@ -10,10 +10,10 @@ export default {
     };
   },
   mounted() {
-    const agent = window.navigator.userAgent.split(' ');
-    if (agent.indexOf('Android') > 0 && !!document.referrer) {
-      this.isShow = true;
-    }
+    // const agent = window.navigator.userAgent.split(' ');
+    // if (agent.indexOf('Android') > 0 && !!document.referrer) {
+    //   this.isShow = true;
+    // }
   },
   methods: {
     handleClick() {

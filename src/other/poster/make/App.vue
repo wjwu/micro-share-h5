@@ -35,9 +35,9 @@
       <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">提交</a>
     </div>
     <!--画布-->
-    <canvas id="main" :height="canvasMaxHeight" :width="canvasMaxWidth" style="display:none;"></canvas>
+    <canvas id="main" :height="canvasMaxHeight" :width="canvasMaxWidth" style="display:none"></canvas>
     <!--二维码-->
-    <img id="qrcode" :src="selectedQr" style="display:none;" />
+    <img id="qrcode" :src="selectedQr" style="display:none"/>
     <back></back>
   </div>
 </template>
@@ -115,8 +115,11 @@ export default {
         const context = await this.createCanvas(this.template);
         this.drawQrCode(context, this.canvasMaxWidth, this.canvasMaxHeight);
         this.drawTitle(context, this.template, this.title, this.subTitle);
-        this.convertToImage(loading);
+        setTimeout(() => {
+          this.convertToImage(loading);
+        }, 500);
       } catch (e) {
+        console.error(e);
         alert(JSON.stringify(e));
       }
     },
@@ -126,8 +129,8 @@ export default {
       context.clearRect(0, 0, 1000, 1000);
 
       let tmpImg = new Image();
-      tmpImg.src = templateUrl;
       tmpImg.setAttribute('crossOrigin', 'Anonymous');
+      tmpImg.src = templateUrl;
 
       return new Promise((resolve, reject) => {
         if (tmpImg.complete) {
@@ -143,8 +146,8 @@ export default {
     },
     drawQrCode(context, maxWidth, maxHeight) {
       let qrcode = new Image();
-      qrcode.src = document.getElementById('qrcode').src;
       qrcode.setAttribute('crossOrigin', 'Anonymous');
+      qrcode.src = document.getElementById('qrcode').src;
 
       let qrcodeSize = maxWidth / 8;
       const doDraw = () => {
