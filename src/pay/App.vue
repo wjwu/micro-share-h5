@@ -198,9 +198,9 @@ export default {
       });
       try {
         await wxPay(payInfo);
-        window.location.href = '/pay/success.html';
+        window.location.href = '/success.html';
       } catch (e) {
-        window.location.href = 'pay/fail.html';
+        window.location.href = '/fail.html';
       }
     }
   }

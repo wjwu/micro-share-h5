@@ -56,7 +56,7 @@
             <img src="./assets/images/page2.png" />
           </div>
           <div class="footer">
-            <button>购买管家</button>
+            <button @click="handleJump('/pay.html')">购买管家</button>
             <button @click="handleJump('/qa.html')">在线客服</button>
           </div>
         </div>
