@@ -36,7 +36,7 @@
         </div>
         <p class="weui-grid__label">商伴评价</p>
       </a>
-      <a href="javascript:;" class="weui-grid">
+      <a href="/partner/list.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/manage.png" alt="">
         </div>
