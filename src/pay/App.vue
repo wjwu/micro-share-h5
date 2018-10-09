@@ -34,17 +34,6 @@
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell weui-cell_select weui-cell_select-after">
           <div class="weui-cell__hd">
-            <label class="weui-label">购买数量</label>
-          </div>
-          <div class="weui-cell__bd">
-            <select class="weui-select" v-model="shoperAmount">
-              <option value="">请选择</option>
-              <option value="1">1</option>
-            </select>
-          </div>
-        </div>
-        <div class="weui-cell weui-cell_select weui-cell_select-after">
-          <div class="weui-cell__hd">
             <label class="weui-label">购买时长</label>
           </div>
           <div class="weui-cell__bd">
@@ -140,7 +129,7 @@ export default {
   },
   computed: {
     shoperTotal() {
-      return Number(this.shoperAmount) * Number(this.shoperLong) * 99;
+      return Number(this.shoperLong) * 99;
     },
     baseTotal() {
       return Number(this.baseAmount) * Number(this.baseLong) * 15;
@@ -152,7 +141,6 @@ export default {
   data() {
     return {
       showApp: false,
-      shoperAmount: '',
       shoperLong: '',
       baseAmount: '',
       baseLong: ''
@@ -167,14 +155,13 @@ export default {
     });
   },
   methods: {
-    async handlePay() {
+    handlePay() {
       if (this.total === 0) {
         return;
       }
-      let payInfo;
       tryFunc(async () => {
         let response = await axios.post(
-          `${config.apiHost}/vipOrder`,
+          `${config.apiHost}/vip/order`,
           {
             baseVipMonth: this.baseLong,
             baseVipSize: this.baseAmount,
@@ -194,14 +181,13 @@ export default {
             orderId: response.data.id
           }
         });
-        payInfo = response.data;
+        try {
+          await wxPay(response.data);
+          window.location.href = '/success.html';
+        } catch (e) {
+          window.location.href = '/fail.html';
+        }
       });
-      try {
-        await wxPay(payInfo);
-        window.location.href = '/success.html';
-      } catch (e) {
-        window.location.href = '/fail.html';
-      }
     }
   }
 };

@@ -51,8 +51,7 @@ export const wxPay = payInfo => {
         if (res.err_msg === 'get_brand_wcpay_request:ok') {
           resolve();
         } else {
-          reject('支付失败，请稍后重试');
-          // openToast('支付失败，请稍后重试');
+          reject(res);
         }
       });
     };

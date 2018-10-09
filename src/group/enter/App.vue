@@ -1,24 +1,26 @@
 <template>
   <bar v-if="showApp" :active-index="2">
-    <a href="../self/center.html">
-      <span class="user_center">
-        <img height="100%" width="100%" :src="headPhoto" alt=""></span>
-    </a>
-    <a href="../qa.html">
-      <span class="help"><img height="100%" width="100%" src="./assets/images/help.png" alt=""></span>
-    </a>
     <div class="page__hd top">
+      <div class="top-info">
+        <a href="/self/center.html" class="user_center">
+          <img :src="headPhoto">
+        </a>
+        <span class="expire-time">有效期至：{{expireTime | time}}</span>
+        <a href="/qa.html" class="help">
+          <img src="./assets/images/help.png">
+        </a>
+      </div>
       <h1 class="page__title">我的商伴</h1>
       <p class="page__desc">请允许获取地理位置以便更好的匹配到附近的商伴<br />建议您关注并置顶公众号，以方便您即时收取与处理相关进展</p>
     </div>
     <div class="weui-grids content">
-      <a href="./submit.html" class="weui-grid">
+      <a href="/group/submit.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/circle.png" alt="">
         </div>
         <p class="weui-grid__label">提交群</p>
       </a>
-      <a href="./audits.html" class="weui-grid">
+      <a href="/group/audits.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/list.png" alt="">
         </div>
@@ -53,6 +55,9 @@
 </template>
 
 <script>
+import format from 'date-fns/format';
+import { auth, checkIsMember } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
 import Bar from '../../common/components/Bar';
 import defaultHeadPhone from './assets/images/user.png';
 import '../../common/js/share';
@@ -63,21 +68,43 @@ export default {
   },
   data() {
     return {
-      showApp: true,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
+      showApp: false,
+      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
+      expireTime: ''
     };
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.expireTime = await checkIsMember();
+      this.showApp = true;
+    });
+  },
+  filters: {
+    time: val => {
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
+    }
+  }
 };
 </script>
 
 
 <style lang="scss">
 .top {
+  position: relative;
   padding: 2rem;
   background-color: #06b04f;
   color: white;
+}
+
+.top-info {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding: 0.5rem 0.7rem 0 0.7rem;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .content {
@@ -85,30 +112,24 @@ export default {
 }
 
 .user_center {
-  float: left;
-  margin-left: 0.7rem;
-  width: 1.7rem;
-  height: 1.7rem;
-
   img {
-    height: 100%;
-    width: 100%;
+    width: 1.7rem;
+    height: 1.7rem;
     border-radius: 50%;
   }
 }
 
-.user_center > img {
-  margin-top: 0.5rem;
+.expire-time {
+  margin-left: .5rem;
+  flex: 1;
+  color: #fff;
+  font-size: 12px;
 }
 
 .help {
-  float: right;
-  margin-right: 0.7rem;
-  width: 2rem;
-  height: 2rem;
-}
-
-.help > img {
-  padding-top: 0.5rem;
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
 }
 </style>
