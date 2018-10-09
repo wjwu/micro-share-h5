@@ -69,7 +69,7 @@
         </div>
         <p class="weui-grid__label">一键群发</p>
       </a>
-      <a href="../robot/share.html" class="weui-grid">
+      <a href="../partner/share.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/hand.png" alt="">
         </div>

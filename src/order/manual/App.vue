@@ -12,10 +12,10 @@
         </div>
         <div class="weui-cell__bd">
           <select v-model="selectedRadius" class="weui-select" @change="handleChange">
-            <option value="500" selected="selected">500</option>
-            <option value="1000">1000</option>
-            <option value="1500">1500</option>
+            <option value="1000" selected="selected">1000</option>
             <option value="2000">2000</option>
+            <option value="3000">3000</option>
+            <option value="5000">5000</option>
           </select>
         </div>
       </div>
