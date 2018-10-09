@@ -10,7 +10,7 @@
     </div>
     <div class="weui-msg__opr-area">
       <p class="weui-btn-area">
-        <a href="/index.html" class="weui-btn weui-btn_default">返回首页</a>
+        <a href="javascript:history.go(-1)" class="weui-btn weui-btn_default">返回订单</a>
       </p>
     </div>
     <back></back>

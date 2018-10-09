@@ -199,7 +199,12 @@ import axios from 'axios';
 import format from 'date-fns/format';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import {
+  openToast,
+  tryFunc,
+  getQueryString,
+  wxPay
+} from '../../common/js/common';
 import Back from '../../common/components/Back';
 import '../../common/js/share';
 
@@ -239,11 +244,25 @@ export default {
     });
   },
   methods: {
-    handlePay() {
+    async handlePay() {
+      let payInfo;
       tryFunc(async () => {
-        await axios.post(`${config.apiHost}/pay/${this.orderId}/fortest`);
-        window.location.href = './pay/success.html';
+        const { data } = await axios.get(`${config.apiHost}/pay/wechat`, {
+          headers: {
+            userId: localStorage.getItem('userId')
+          },
+          params: {
+            orderId: this.orderId
+          }
+        });
+        payInfo = data;
       });
+      try {
+        await wxPay(payInfo);
+        window.location.href = '/order/pay/success.html';
+      } catch (e) {
+        window.location.href = '/order/pay/fail.html';
+      }
     },
     handleDisagree() {
       tryFunc(async () => {

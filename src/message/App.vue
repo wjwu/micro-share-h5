@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showApp">
+  <bar v-if="showApp" :active-index="4">
     <div class="weui-panel weui-panel_access">
       <div class="weui-panel__hd">我的消息</div>
       <div class="weui-panel__bd" v-if="msgs.length > 0 ">
@@ -27,8 +27,7 @@
         </div>
       </div>
     </div>
-    <back></back>
-  </div>
+  </bar>
 </template>
 
 <script>
@@ -37,12 +36,12 @@ import format from 'date-fns/format';
 import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc } from '../common/js/common';
-import Back from '../common/components/Back';
+import Bar from '../common/components/Bar';
 import '../common/js/share';
 
 export default {
   components: {
-    Back
+    Bar
   },
   data() {
     return {

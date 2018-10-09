@@ -25,13 +25,11 @@ if (process.env.NODE_ENV !== 'development') {
   });
   htmlExternals.push({
     module: 'vue',
-    entry: 'https://cdn.bootcss.com/vue/2.5.13/vue.runtime.min.js',
-    global: 'Vue'
+    entry: 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'
   });
   htmlExternals.push({
     module: 'axios',
-    entry: 'https://cdn.bootcss.com/axios/0.17.1/axios.min.js',
-    global: 'axios'
+    entry: 'https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js'
   });
 }
 

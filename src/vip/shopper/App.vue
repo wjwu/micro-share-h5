@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showApp">
+  <bar v-if="showApp" :active-index="3">
     <a href="../self/center.html">
       <span class="user_center">
         <img height="100%" width="100%" :src="headPhoto"></span>
@@ -88,21 +88,20 @@
         <p class="weui-grid__label">更多功能</p>
       </a>
     </div>
-    <back></back>
-  </div>
+  </bar>
 </template>
 
 <script>
 // import { auth } from '../../common/js/auth';
 // import config from '../../common/js/config';
 // import { tryFunc } from '../../common/js/common';
-import Back from '../../common/components/Back';
+import Bar from '../../common/components/Bar';
 import defaultHeadPhone from './assets/images/user.png';
 import '../../common/js/share';
 
 export default {
   components: {
-    Back
+    Bar
   },
   data() {
     return {
