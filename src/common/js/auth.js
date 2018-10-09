@@ -5,7 +5,7 @@ import config from './config';
 export const auth = () => {
   // if (process.env['NODE_ENV'] === 'development') {
   //   return new Promise((resolve, reject) => {
-  //     localStorage.setItem('userId', 'f6217fc2-7bae-4972-87d5-563f02fdd9e4');
+  //     localStorage.setItem('userId', '1f1cd878-6629-45be-9abc-aaf976dbae44');
   //     resolve();
   //   });
   // } else {

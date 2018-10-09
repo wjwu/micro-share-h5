@@ -65,15 +65,15 @@ module.exports = {
   entry,
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.(js|vue)$/,
-      //   loader: 'eslint-loader',
-      //   include: src,
-      //   options: {
-      //     formatter: require('eslint-friendly-formatter')
-      //   }
-      // },
+      {
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        include: src,
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader'
