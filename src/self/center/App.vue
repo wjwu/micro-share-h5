@@ -1,40 +1,41 @@
 <template>
-  <div class="main" v-if="showApp">
-    <div class="hd">
-      <div class="avatar"></div>
-      <div class="info">
-        <div class="name">{{user.userName}}</div>
-        <div class="tag">
-          <span class="vip" v-if="user.vipDto">VIP</span>
-          <span class="credit" @click="handleJump('/self/credit.html')">{{user.creditScore}}分</span>
+  <bar v-if="showApp" :active-index="5">
+    <div class="main">
+      <div class="hd">
+        <div class="avatar"></div>
+        <div class="info">
+          <div class="name">{{user.userName}}</div>
+          <div class="tag">
+            <span class="vip" v-if="user.vipDto">VIP</span>
+            <span class="credit" @click="handleJump('/self/credit.html')">{{user.creditScore}}分</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="bd">
-      <div class="my">
-        <div @click="handleJump('/vip/shopper.html')">我的管家</div>
-        <div @click="handleJump('/group/enter.html')">
-          我的商伴
+      <div class="bd">
+        <div class="my">
+          <div @click="handleJump('/vip/shopper.html')">我的管家</div>
+          <div @click="handleJump('/group/enter.html')">
+            我的商伴
+          </div>
         </div>
+        <ul class="menu">
+          <li class="menu-info">
+            <a href="./info.html">个人资料</a>
+          </li>
+          <li class="menu-partner">
+            <a href="#">我的消费</a>
+          </li>
+          <li class="menu-poster"><a href="/message.html">我的消息</a></li>
+          <li class="menu-shelves"><a href="/feedback.html">我的建议</a></li>
+          <li class="menu-books"><a href="/order/list/complaint.html">举报与投诉</a></li>
+        </ul>
+        <ul class="menu">
+          <!-- <li class="menu-setup">系统设置</li> -->
+          <li class="menu-service" @click="handleJump('/qa.html')">联系客服</li>
+        </ul>
       </div>
-      <ul class="menu">
-        <li class="menu-info">
-          <a href="./info.html">个人资料</a>
-        </li>
-        <li class="menu-partner">
-          <a href="#">我的消费</a>
-        </li>
-        <li class="menu-poster"><a href="/message.html">我的消息</a></li>
-        <li class="menu-shelves"><a href="/feedback.html">我的建议</a></li>
-        <li class="menu-books"><a href="/order/list/complaint.html">举报与投诉</a></li>
-      </ul>
-      <ul class="menu">
-        <!-- <li class="menu-setup">系统设置</li> -->
-        <li class="menu-service" @click="handleJump('/qa.html')">联系客服</li>
-      </ul>
     </div>
-    <back></back>
-  </div>
+  </bar>
 </template>
 
 <script>
@@ -43,12 +44,12 @@ import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc } from '../../common/js/common';
 import weui from 'weui.js';
-import Back from '../../common/components/Back';
+import Bar from '../../common/components/Bar';
 import '../../common/js/share';
 
 export default {
   components: {
-    Back
+    Bar
   },
   data() {
     return {
