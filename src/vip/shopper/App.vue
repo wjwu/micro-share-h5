@@ -11,13 +11,13 @@
       <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
     <div class="weui-grids content">
-      <a href="../../other/poster/template_new.html" class="weui-grid">
+      <a href="javascript:;" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/new.png" alt="">
         </div>
         <p class="weui-grid__label">新品鉴赏</p>
       </a>
-      <a href="../../other/poster/template_hot.html" class="weui-grid">
+      <a href="javascript:;" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/vip.png" alt="">
         </div>
@@ -52,6 +52,12 @@
           <img src="./assets/images/follow.png" alt="">
         </div>
         <p class="weui-grid__label">关注人</p>
+      </a>
+      <a href="/other/poster/template_hot.html" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="./assets/images/banner.png" alt="">
+        </div>
+        <p class="weui-grid__label">海报生成</p>
       </a>
     </div>
     <div class="weui-cells weui-cells_form">
@@ -93,13 +99,13 @@
 </template>
 
 <script>
-import format from 'date-fns/format';
-import weui from 'weui.js';
-import { auth, checkIsMember } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
-import Bar from '../../common/components/Bar';
-import defaultHeadPhone from './assets/images/user.png';
-import '../../common/js/share';
+import format from "date-fns/format";
+import weui from "weui.js";
+import { auth, checkIsMember } from "../../common/js/auth";
+import { tryFunc } from "../../common/js/common";
+import Bar from "../../common/components/Bar";
+import defaultHeadPhone from "./assets/images/user.png";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -108,7 +114,7 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
+      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone,
       vipInfo: null
     };
   },
@@ -122,16 +128,16 @@ export default {
   methods: {
     handleClickMask() {
       weui.confirm(
-        '购买店长版VIP即可使用管家工具，是否前往购买页面购买？',
+        "购买店长版VIP即可使用管家工具，是否前往购买页面购买？",
         () => {
-          window.location.href = '/pay.html';
+          window.location.href = "/pay.html";
         }
       );
     }
   },
   filters: {
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };
