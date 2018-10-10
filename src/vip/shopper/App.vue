@@ -2,9 +2,6 @@
   <bar v-if="showApp" :active-index="3">
     <div class="page__hd top">
       <div class="top-info">
-        <a href="/self/center.html" class="user_center">
-          <img :src="headPhoto">
-        </a>
         <span class="expire-time">有效期至：{{expireTime | time}}</span>
         <a href="/qa.html" class="help">
           <img src="./assets/images/help.png">
@@ -159,7 +156,7 @@ export default {
 }
 
 .expire-time {
-  margin-left: .5rem;
+  margin-left: 1.25rem;
   flex: 1;
   color: #fff;
   font-size: 12px;
