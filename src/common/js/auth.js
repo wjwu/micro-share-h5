@@ -63,7 +63,7 @@ export const checkPhone = () => {
   return true;
 };
 
-export const checkIsMember = (vip = false) => {
+export const checkIsMember = () => {
   return new Promise((resolve, reject) => {
     axios
       .get(`${config.apiHost}/user/vip`, {
@@ -72,23 +72,30 @@ export const checkIsMember = (vip = false) => {
         }
       })
       .then(response => {
-        if (vip) {
-          if (!response.data.advVipExpire) {
-            openToast('您的店长版VIP未开通或已过期 ，点击确定去购买', () => {
-              window.location.href = '/pay.html';
-            });
-          } else {
-            resolve(response.data.advVipExpire);
-          }
+        if (!response.data.advVipExpire && !response.data.baseVipExpire) {
+          openToast('您的VIP未开通或已过期 ，点击确定去购买', () => {
+            window.location.href = '/pay.html';
+          });
         } else {
-          if (!response.data.baseVipExpire) {
-            openToast('您的基础版VIP未开通或已过期 ，点击确定去购买', () => {
-              window.location.href = '/pay.html';
-            });
-          } else {
-            resolve(response.data.baseVipExpire);
-          }
+          resolve(response.data);
         }
+        // if (vip) {
+        //   if (!response.data.advVipExpire) {
+        //     openToast('您的店长版VIP未开通或已过期 ，点击确定去购买', () => {
+        //       window.location.href = '/pay.html';
+        //     });
+        //   } else {
+        //     resolve(response.data.advVipExpire);
+        //   }
+        // } else {
+        //   if (!response.data.baseVipExpire) {
+        //     openToast('您的基础版VIP未开通或已过期 ，点击确定去购买', () => {
+        //       window.location.href = '/pay.html';
+        //     });
+        //   } else {
+        //     resolve(response.data.baseVipExpire);
+        //   }
+        // }
       })
       .catch(e => {
         reject(e);

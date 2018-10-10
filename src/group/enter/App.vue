@@ -2,7 +2,6 @@
   <bar v-if="showApp" :active-index="2">
     <div class="page__hd top">
       <div class="top-info">
-        <span class="expire-time">有效期至：{{expireTime | time}}</span>
         <a href="/qa.html" class="help">
           <img src="./assets/images/help.png">
         </a>
@@ -53,7 +52,7 @@
 
 <script>
 import format from 'date-fns/format';
-import { auth, checkIsMember } from '../../common/js/auth';
+import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
 import Bar from '../../common/components/Bar';
 import defaultHeadPhone from './assets/images/user.png';
@@ -73,7 +72,6 @@ export default {
   mounted() {
     tryFunc(async () => {
       await auth();
-      this.expireTime = await checkIsMember();
       this.showApp = true;
     });
   },
@@ -96,7 +94,7 @@ export default {
 
 .top-info {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
   position: absolute;
   padding: 0.5rem 0.7rem 0 0.7rem;
   top: 0;
@@ -106,21 +104,6 @@ export default {
 
 .content {
   background-color: white;
-}
-
-.user_center {
-  img {
-    width: 1.7rem;
-    height: 1.7rem;
-    border-radius: 50%;
-  }
-}
-
-.expire-time {
-  margin-left: 1.25rem;
-  flex: 1;
-  color: #fff;
-  font-size: 12px;
 }
 
 .help {

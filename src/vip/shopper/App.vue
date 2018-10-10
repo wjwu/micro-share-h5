@@ -1,13 +1,13 @@
 <template>
   <bar v-if="showApp" :active-index="3">
+    <a href="/qa.html" class="help">
+      <img src="./assets/images/help.png">
+    </a>
     <div class="page__hd top">
       <div class="top-info">
-        <span class="expire-time">有效期至：{{expireTime | time}}</span>
-        <a href="/qa.html" class="help">
-          <img src="./assets/images/help.png">
-        </a>
+        <h1 class="page__title">我的管家</h1>
+        <span class="expire-time">有效期至：{{vipInfo.baseVipExpire | time}}</span>
       </div>
-      <h1 class="page__title">我的管家</h1>
       <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
     <div class="weui-grids content">
@@ -55,11 +55,12 @@
       </a>
     </div>
     <div class="weui-cells weui-cells_form">
-      <label class="weui-cell">
+      <div class="weui-cell">
         <div class="weui-cell__bd">
           <p>管家工具</p>
+          <small>有效期至：{{vipInfo.advVipExpire | time}}</small>
         </div>
-      </label>
+      </div>
     </div>
     <div class="weui-grids content">
       <a href="../robot/task/list.html" class="weui-grid">
@@ -107,13 +108,13 @@ export default {
     return {
       showApp: false,
       headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
-      expireTime: ''
+      vipInfo: null
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
-      this.expireTime = await checkIsMember(true);
+      this.vipInfo = await checkIsMember();
       this.showApp = true;
     });
   },
@@ -127,6 +128,16 @@ export default {
 
 
 <style lang="scss">
+.weui-cell__bd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  small {
+    font-size: 12px;
+    color: #d9d9d9;
+  }
+}
 .top {
   padding: 2rem;
   background-color: #06b04f;
@@ -135,34 +146,25 @@ export default {
 
 .top-info {
   display: flex;
-  align-items: center;
-  position: absolute;
-  padding: 0.5rem 0.7rem 0 0.7rem;
-  top: 0;
-  left: 0;
-  right: 0;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 .content {
   background-color: white;
 }
 
-.user_center {
-  img {
-    width: 1.7rem;
-    height: 1.7rem;
-    border-radius: 50%;
-  }
-}
-
 .expire-time {
-  margin-left: 1.25rem;
-  flex: 1;
   color: #fff;
   font-size: 12px;
 }
 
 .help {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.7rem;
+  line-height: 1;
+
   img {
     width: 2rem;
     height: 2rem;
