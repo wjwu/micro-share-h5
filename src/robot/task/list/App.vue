@@ -29,7 +29,7 @@
             <span class="weui-loadmore__tips">暂无数据</span>
           </div>
         </div>
-        <div class="page__bd page__bd_spacing">
+        <div class="weui-btn-area">
           <a href="./submit.html" class="weui-btn weui-btn_primary">新增任务</a>
         </div>
       </div>

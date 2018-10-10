@@ -18,6 +18,7 @@
           <select class="weui-select" v-model="messageType">
             <option selected="selected" value="TEXT">文本</option>
             <option value="IMG">图片</option>
+            <option value="CARD">分享卡片</option>
           </select>
         </div>
       </div>
@@ -55,6 +56,7 @@
         </div>
       </div>
     </div>
+    <div class="weui-cells__title" v-if="messageType === 'CARD'">由于分享卡片消息的特殊性，请直接将分享卡片消息发送给机器人，机器人将自动为您立即转发到设置的群组中。</div>
     <div class="weui-cells__title">请选择需要群发的群组和群</div>
     <div class="weui-cells weui-cells_checkbox">
       <label class="weui-cell weui-check__label" :for="room.id" v-for="room in rooms" :key="room.id">
@@ -75,7 +77,7 @@
           <label class="weui-label">发送类型</label>
         </div>
         <div class="weui-cell__bd">
-          <select class="weui-select" v-model="sendType">
+          <select class="weui-select" v-model="sendType" :disabled="messageType === 'CARD'">
             <option selected="selected" value="NOW">立即发送</option>
             <option value="TASK">定时发送</option>
           </select>
@@ -212,6 +214,13 @@ export default {
       imageHost: config.imageHost
     };
   },
+  watch: {
+    messageType(val) {
+      if (val === 'CARD') {
+        this.sendType = 'NOW';
+      }
+    }
+  },
   mounted() {
     tryFunc(async () => {
       await auth();
@@ -308,16 +317,12 @@ export default {
         openToast('请输入标题');
         return;
       }
-      if (this.messageType === 'TEXT') {
-        if (!this.content) {
-          openToast('请输入标题');
-          return;
-        }
-      } else {
-        if (this.images.length === 0) {
-          openToast('请至少上传一张图片');
-          return;
-        }
+      if (this.messageType === 'TEXT' && !this.content) {
+        openToast('请输入消息内容');
+        return;
+      } else if (this.messageType === 'IMG' && this.images.length === 0) {
+        openToast('请至少上传一张图片');
+        return;
       }
       const checkedRoom = this.rooms.filter(item => item.checked);
       if (checkedRoom.length === 0) {
@@ -325,7 +330,10 @@ export default {
         return;
       }
 
-      if (!this.time) {
+      if (
+        (this.messageType === 'TEXT' || this.messageType === 'IMG') &&
+        !this.time
+      ) {
         openToast('请输入发送时间');
         return;
       }
