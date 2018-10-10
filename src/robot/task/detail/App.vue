@@ -14,7 +14,7 @@
           <label class="weui-label">消息类型</label>
         </div>
         <div class="weui-cell__bd">
-          {{task.msgType==='TEXT'?'文本':'图片'}}
+          {{task.msgType | msgType}}
         </div>
       </div>
     </div>
@@ -47,8 +47,8 @@
     <div class="weui-cells__title">发送群组</div>
     <div class="weui-cells">
       <div class="weui-cell" v-for="(room,i) in task.roomNames" :key="i">
-        <div class="weui-cell__hd">
-          <label class="weui-label">{{room}}</label>
+        <div class="weui-cell__bd">
+          {{room}}
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="./list.html">返回</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:history.go(-1)">返回</a>
     </div>
     <back></back>
   </div>
@@ -100,7 +100,9 @@ export default {
         }
       );
       data.roomNames = data.roomNames.split(',');
-      data.images = data.img.split(',');
+      if (data.img) {
+        data.images = data.img.split(',');
+      }
       this.task = data;
     });
   },
@@ -128,6 +130,16 @@ export default {
         default:
           return '';
       }
+    },
+    msgType(val) {
+      if (val === 'TEXT') {
+        return '文本';
+      } else if (val === 'IMG') {
+        return '图片';
+      } else if (val === 'CARD') {
+        return '分享卡片';
+      }
+      return '';
     }
   }
 };
