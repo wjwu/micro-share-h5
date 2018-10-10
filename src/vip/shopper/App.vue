@@ -58,24 +58,25 @@
       <div class="weui-cell">
         <div class="weui-cell__bd">
           <p>管家工具</p>
-          <small>有效期至：{{vipInfo.advVipExpire | time}}</small>
+          <small v-if="vipInfo.advVipFlag">有效期至：{{vipInfo.advVipExpire | time}}</small>
         </div>
       </div>
     </div>
     <div class="weui-grids content">
-      <a href="../robot/task/list.html" class="weui-grid">
+      <div class="mask" v-if="!vipInfo.advVipFlag" @click="handleClickMask"></div>
+      <a href="/robot/task/list.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/msg.png" alt="">
         </div>
         <p class="weui-grid__label">一键群发</p>
       </a>
-      <a href="../partner/share.html" class="weui-grid">
+      <a href="/partner/share.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/hand.png" alt="">
         </div>
         <p class="weui-grid__label">商伴共享</p>
       </a>
-      <a href="../group/setup.html" class="weui-grid">
+      <a href="/group/setup.html" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/newuser.png" alt="">
         </div>
@@ -93,8 +94,8 @@
 
 <script>
 import format from 'date-fns/format';
+import weui from 'weui.js';
 import { auth, checkIsMember } from '../../common/js/auth';
-// import config from '../../common/js/config';
 import { tryFunc } from '../../common/js/common';
 import Bar from '../../common/components/Bar';
 import defaultHeadPhone from './assets/images/user.png';
@@ -117,6 +118,16 @@ export default {
       this.vipInfo = await checkIsMember();
       this.showApp = true;
     });
+  },
+  methods: {
+    handleClickMask() {
+      weui.confirm(
+        '购买店长版VIP即可使用管家工具，是否前往购买页面购买？',
+        () => {
+          window.location.href = '/pay.html';
+        }
+      );
+    }
   },
   filters: {
     time: val => {
@@ -151,7 +162,18 @@ export default {
 }
 
 .content {
+  position: relative;
   background-color: white;
+}
+
+.mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 99;
 }
 
 .expire-time {
