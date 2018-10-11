@@ -30,7 +30,7 @@
         <img src="./assets/images/pay.png" />
       </div>
       <h4>产品购买</h4>
-      <div class="weui-cells__title">店长模块版</div>
+      <div class="weui-cells__title"><b>店长模块版</b></div>
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell weui-cell_select weui-cell_select-after">
           <div class="weui-cell__hd">
@@ -55,7 +55,7 @@
           </div>
         </div>
       </div>
-      <div class="weui-cells__title">基础功能版</div>
+      <div class="weui-cells__title"><b>基础功能版</b></div>
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell weui-cell_select weui-cell_select-after">
           <div class="weui-cell__hd">
