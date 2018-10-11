@@ -72,13 +72,13 @@ export const checkIsMember = () => {
         }
       })
       .then(response => {
-        if (!response.data.advVipExpire && !response.data.baseVipExpire) {
-          openToast('您的VIP未开通或已过期 ，点击确定去购买', () => {
-            window.location.href = '/pay.html';
-          });
-        } else {
-          resolve(response.data);
-        }
+        // if (!response.data.advVipExpire && !response.data.baseVipExpire) {
+        //   openToast('您的VIP未开通或已过期 ，点击确定去购买', () => {
+        //     window.location.href = '/pay.html';
+        //   });
+        // } else {
+        resolve(response.data);
+        // }
         // if (vip) {
         //   if (!response.data.advVipExpire) {
         //     openToast('您的店长版VIP未开通或已过期 ，点击确定去购买', () => {
