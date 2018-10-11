@@ -6,14 +6,6 @@
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label class="weui-label">条码名称</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名称" maxlength="20">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
           <label class="weui-label">店铺名称</label>
         </div>
         <div class="weui-cell__bd">
@@ -26,6 +18,14 @@
         </div>
         <div class="weui-cell__bd">
           <input v-model="shopAddress" class="weui-input" type="text" placeholder="请输入店铺地址" maxlength="20">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">条码名称</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名称" maxlength="20">
         </div>
       </div>
       <div class="page__bd">
@@ -77,14 +77,14 @@
 </template>
 
 <script>
-import * as qiniu from 'qiniu-js';
-import axios from 'axios';
-import weui from 'weui.js';
-import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast } from '../../common/js/common';
-import Back from '../../common/components/Back';
-import '../../common/js/share';
+import * as qiniu from "qiniu-js";
+import axios from "axios";
+import weui from "weui.js";
+import { auth } from "../../common/js/auth";
+import config from "../../common/js/config";
+import { tryFunc, openToast } from "../../common/js/common";
+import Back from "../../common/components/Back";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -93,11 +93,11 @@ export default {
   data() {
     return {
       showApp: false,
-      name: '',
-      shopName: '',
-      shopAddress: '',
-      shopDesc: '',
-      token: '',
+      name: "",
+      shopName: "",
+      shopAddress: "",
+      shopDesc: "",
+      token: "",
       uploading: false,
       percent: 0,
       images: [],
@@ -110,13 +110,13 @@ export default {
       this.showApp = true;
       let response = await axios.get(`${config.apiHost}/token`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       this.token = response.data.uptoken;
       response = await axios.get(`${config.apiHost}/user/shopInfo`, {
         headers: {
-          userId: localStorage.getItem('userId')
+          userId: localStorage.getItem("userId")
         }
       });
       if (response.data) {
@@ -126,7 +126,7 @@ export default {
         this.shopDesc = response.data.description;
         let src = response.data.src;
         if (src) {
-          this.images = [src.substr(src.lastIndexOf('/') + 1)];
+          this.images = [src.substr(src.lastIndexOf("/") + 1)];
         }
       }
     });
@@ -134,7 +134,7 @@ export default {
   methods: {
     async handleImgChange(e) {
       if (!this.token) {
-        openToast('上传Token无效，请刷新页面重试');
+        openToast("上传Token无效，请刷新页面重试");
         return;
       }
       for (let file of e.target.files) {
@@ -154,7 +154,7 @@ export default {
         null,
         this.token,
         {
-          mimeType: ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
+          mimeType: ["image/png", "image/jpeg", "image/jpg", "image/gif"]
         },
         {
           useCdnDomain: false,
@@ -183,7 +183,7 @@ export default {
       const _this = this;
       const gallery = weui.gallery(`${this.imageHost}/${hash}`, {
         onDelete: function() {
-          if (confirm('确定删除该图片？')) {
+          if (confirm("确定删除该图片？")) {
             _this.images.splice(idx, 1);
           }
           gallery.hide(function() {});
@@ -192,11 +192,11 @@ export default {
     },
     handleSave() {
       if (this.images.length !== 0 && !this.name) {
-        openToast('请输入条码名称');
+        openToast("请输入条码名称");
         return;
       }
       if (!this.shopName) {
-        openToast('请输入店铺名称');
+        openToast("请输入店铺名称");
         return;
       }
       tryFunc(async () => {
@@ -207,15 +207,15 @@ export default {
             description: this.shopDesc,
             name: this.shopName,
             qrTitle: this.name,
-            src: this.images.map(item => `${this.imageHost}/${item}`).join(',')
+            src: this.images.map(item => `${this.imageHost}/${item}`).join(",")
           },
           {
             headers: {
-              userId: localStorage.getItem('userId')
+              userId: localStorage.getItem("userId")
             }
           }
         );
-        weui.alert('操作成功', () => {
+        weui.alert("操作成功", () => {
           // this.name = '';
           // this.shopName = '';
           // this.shopAddress = '';
