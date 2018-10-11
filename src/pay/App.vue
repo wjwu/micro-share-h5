@@ -131,9 +131,9 @@ export default {
     shoperTotal() {
       const long = Number(this.shoperLong);
       if (long === 6) {
-        return long * 99 * 0.95;
+        return Math.floor(long * 99 * 0.95);
       } else if (long === 12) {
-        return long * 99 * 0.9;
+        return Math.floor(long * 99 * 0.9);
       }
       return long * 99;
     },
@@ -141,9 +141,9 @@ export default {
       const long = Number(this.baseLong);
       const amount = Number(this.baseAmount);
       if (long === 6) {
-        return amount * long * 15 * 0.95;
+        return Math.floor(amount * long * 15 * 0.95);
       } else if (long === 12) {
-        return amount * long * 15 * 0.9;
+        return Math.floor(amount * long * 15 * 0.9);
       }
       return amount * long * 15;
     },
@@ -178,7 +178,8 @@ export default {
           {
             baseVipMonth: this.baseLong,
             baseVipSize: this.baseAmount,
-            advVipMonth: this.shoperLong
+            advVipMonth: this.shoperLong,
+            price: this.total
           },
           {
             headers: {
