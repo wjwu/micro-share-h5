@@ -129,10 +129,23 @@ export default {
   },
   computed: {
     shoperTotal() {
-      return Number(this.shoperLong) * 99;
+      const long = Number(this.shoperLong);
+      if (long === 6) {
+        return long * 99 * 0.95;
+      } else if (long === 12) {
+        return long * 99 * 0.9;
+      }
+      return long * 99;
     },
     baseTotal() {
-      return Number(this.baseAmount) * Number(this.baseLong) * 15;
+      const long = Number(this.baseLong);
+      const amount = Number(this.baseAmount);
+      if (long === 6) {
+        return amount * long * 15 * 0.95;
+      } else if (long === 12) {
+        return amount * long * 15 * 0.9;
+      }
+      return amount * long * 15;
     },
     total() {
       return this.shoperTotal + this.baseTotal;
