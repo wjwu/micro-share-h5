@@ -1,6 +1,6 @@
 <template>
   <div class="weui-panel" v-if="showApp">
-    <div class="weui-panel__hd">我的货架（分享本页即可把货架首页发送给朋友及朋友圈）</div>
+    <div class="weui-panel__hd">我的货架（<b>分享本页即可把货架首页发送给朋友及朋友圈</b>）</div>
     <div class="page__bd page__bd_spacing" style="padding: 0 .8rem;">
       <a href="./submit.html" class="weui-btn weui-btn_primary">添加商品</a>
       <a :href="`./list.html?userId=${userId}`" class="weui-btn weui-btn_primary">查看货架</a>
