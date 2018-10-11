@@ -35,7 +35,7 @@ export const auth = () => {
               msg = e.response.data.message;
             }
             openToast(msg, () => {
-              WeixinJSBridge.call("closeWindow");
+              window.WeixinJSBridge.call('closeWindow');
             });
             // reject(e);
           });
