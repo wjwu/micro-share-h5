@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       showApp: false,
-      partnerId: getQueryString('pId')
+      partnerId: getQueryString('pid')
     };
   },
   mounted() {
