@@ -6,7 +6,7 @@
     <div class="page__hd top">
       <div class="top-info">
         <h1 class="page__title">我的管家</h1>
-        <span class="expire-time" v-if="vipInfo.baseVipFlag">有效期至：{{vipInfo.baseVipExpire | time}}</span>
+        <span class="expire-time" v-if="vipInfo.advVipFlag">有效期至：{{vipInfo.advVipExpire | time}}</span>
       </div>
       <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
@@ -64,7 +64,7 @@
       <div class="weui-cell">
         <div class="weui-cell__bd">
           <p>管家工具</p>
-          <small v-if="vipInfo.advVipFlag">有效期至：{{vipInfo.advVipExpire | time}}</small>
+          <small v-if="vipInfo.baseVipFlag">有效期至：{{vipInfo.baseVipExpire | time}}</small>
         </div>
       </div>
     </div>
@@ -98,13 +98,13 @@
 </template>
 
 <script>
-import format from "date-fns/format";
-import weui from "weui.js";
-import { auth, checkIsMember } from "../../common/js/auth";
-import { tryFunc } from "../../common/js/common";
-import Bar from "../../common/components/Bar";
-import defaultHeadPhone from "./assets/images/user.png";
-import "../../common/js/share";
+import format from 'date-fns/format';
+import weui from 'weui.js';
+import { auth, checkIsMember } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import Bar from '../../common/components/Bar';
+import defaultHeadPhone from './assets/images/user.png';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -113,7 +113,7 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone,
+      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
       vipInfo: {}
     };
   },
@@ -127,8 +127,8 @@ export default {
   methods: {
     handleJumpShopper(url) {
       if (!this.vipInfo.advVipFlag) {
-        weui.confirm("您尚未购买店长版VIP功能，是否前往购买页面购买？", () => {
-          window.location.href = "/pay.html";
+        weui.confirm('您尚未购买店长版VIP功能，是否前往购买页面购买？', () => {
+          window.location.href = '/pay.html';
         });
       } else {
         window.location.href = url;
@@ -136,8 +136,8 @@ export default {
     },
     handleJumpBase(url) {
       if (!this.vipInfo.baseVipFlag) {
-        weui.confirm("您尚未购买基础版VIP功能，是否前往购买页面购买？", () => {
-          window.location.href = "/pay.html";
+        weui.confirm('您尚未购买基础版VIP功能，是否前往购买页面购买？', () => {
+          window.location.href = '/pay.html';
         });
       } else {
         window.location.href = url;
@@ -146,7 +146,7 @@ export default {
   },
   filters: {
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };
