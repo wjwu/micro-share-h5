@@ -1,14 +1,31 @@
 <template>
   <div v-if="showApp">
-    <div class="weui-cells__title">引流拓客（请上传您的各种二维码，请保持正方形）</div>
-    <div class="weui-cells__title">条码将用来填充海报联系方式</div>
+    <div class="weui-cells__title">我的二维码：请导入您的微信号和微信群二维码，以便后续制作海报时统一导入使用。（请保持正方形）</div>
+    <div class="weui-cells__title">我的店铺名称：请输入您的不超过6个字的店铺名称，以便在后续制作海报/货架时制作店铺水印信章使用。</div>
+    <div class="weui-cells__title">我的店铺地址：请输入您的店铺地址信息，以便在海报中使用（由于空间限制，请简化填写地址信息）。</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label class="weui-label">条码位置</label>
+          <label class="weui-label">条码名称</label>
         </div>
         <div class="weui-cell__bd">
-          <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名">
+          <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名称" maxlength="20">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">店铺名称</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input v-model="shopName" class="weui-input" type="text" placeholder="请输入店铺名称" maxlength="6">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">店铺地址</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input v-model="shopAddress" class="weui-input" type="text" placeholder="请输入店铺地址" maxlength="20">
         </div>
       </div>
       <div class="page__bd">
@@ -24,7 +41,7 @@
           <div class="weui-cell__bd">
             <div class="weui-uploader">
               <div class="weui-uploader__hd">
-                <p class="weui-uploader__title">图片（最大4MB）</p>
+                <p class="weui-uploader__title">二维码（最大4MB）</p>
                 <div class="weui-uploader__info">{{images.length}}/1</div>
               </div>
               <div class="weui-uploader__bd">
@@ -40,6 +57,15 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells__title">店铺描述</div>
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea v-model="shopDesc" class="weui-textarea" placeholder="请输入店铺描述" rows="3" maxlength="100"></textarea>
+          <div class="weui-textarea-counter"><span>{{shopDesc.length}}</span>/100</div>
         </div>
       </div>
     </div>
@@ -68,6 +94,9 @@ export default {
     return {
       showApp: false,
       name: '',
+      shopName: '',
+      shopAddress: '',
+      shopDesc: '',
       token: '',
       uploading: false,
       percent: 0,
@@ -79,12 +108,27 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/token`, {
+      let response = await axios.get(`${config.apiHost}/token`, {
         headers: {
           userId: localStorage.getItem('userId')
         }
       });
-      this.token = data.uptoken;
+      this.token = response.data.uptoken;
+      response = await axios.get(`${config.apiHost}/user/shopInfo`, {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
+      if (response.data) {
+        this.name = response.data.qrTitle;
+        this.shopName = response.data.name;
+        this.shopAddress = response.data.address;
+        this.shopDesc = response.data.description;
+        let src = response.data.src;
+        if (src) {
+          this.images = [src.substr(src.lastIndexOf('/') + 1)];
+        }
+      }
     });
   },
   methods: {
@@ -147,12 +191,23 @@ export default {
       });
     },
     handleSave() {
+      if (this.images.length !== 0 && !this.name) {
+        openToast('请输入条码名称');
+        return;
+      }
+      if (!this.shopName) {
+        openToast('请输入店铺名称');
+        return;
+      }
       tryFunc(async () => {
         await axios.post(
-          `${config.apiHost}/user/qrcode`,
+          `${config.apiHost}/user/shopInfo`,
           {
-            name: this.name,
-            img: this.images.map(item => `${this.imageHost}/${item}`).join(',')
+            address: this.shopAddress,
+            description: this.shopDesc,
+            name: this.shopName,
+            qrTitle: this.name,
+            src: this.images.map(item => `${this.imageHost}/${item}`).join(',')
           },
           {
             headers: {
@@ -161,8 +216,11 @@ export default {
           }
         );
         weui.alert('操作成功', () => {
-          this.name = '';
-          this.images = [];
+          // this.name = '';
+          // this.shopName = '';
+          // this.shopAddress = '';
+          // this.shopDesc = '';
+          // this.images = [];
         });
       });
     }
