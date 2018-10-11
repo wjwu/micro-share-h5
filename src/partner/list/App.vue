@@ -83,7 +83,7 @@ export default {
             userId: localStorage.getItem('userId')
           }
         });
-        await this.load();
+        window.location.reload();
       });
     }
   }

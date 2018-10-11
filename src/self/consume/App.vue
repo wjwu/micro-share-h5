@@ -5,7 +5,7 @@
       <div class="weui-panel__bd" v-if="consumes.length > 0 ">
         <div class="weui-media-box weui-media-box_text" v-for="item in consumes" :key="item.id">
           <a :href="item.link">
-            <h4 class="weui-media-box__title">{{item.price}}</h4>
+            <h4 class="weui-media-box__title">￥{{item.price}}元</h4>
             <p class="weui-media-box__desc">{{item.title}}</p>
             <ul class="weui-media-box__info">
               <li class="weui-media-box__info__meta">{{item.createTime | time}}</li>
