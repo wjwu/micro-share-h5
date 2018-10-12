@@ -50,9 +50,9 @@ export default {
         openToast('商品编号无效');
         return;
       }
-      const { data } = await axios.get(`/item/${this.pId}`);
-      data.images = data.imgUrl.split(',');
-      this.product = data;
+      let response = await axios.get(`/item/${this.pId}`);
+      response.data.images = response.data.imgUrl.split(',');
+      this.product = response.data;
       window.document.title = this.product.name;
       this.$nextTick(() => {
         const swiper = new window.Swiper('.swiper-container', {
@@ -68,16 +68,11 @@ export default {
         });
         console.log(swiper);
       });
+      response = await axios.get(`/item/${this.pId}/shopInfo`);
+      this.userId = response.data.userId;
     });
 
-    tryFunc(async () => {
-      const { data } = await axios.get(`/item/${this.pId}/shopInfo`);
-      this.userId = data.userId;
-    });
-
-    tryFunc(async () => {
-      await this.shareFunc();
-    });
+    this.shareFunc();
   },
   methods: {
     async shareFunc() {
