@@ -87,6 +87,7 @@ export default {
       await auth();
       this.showApp = true;
       const { data } = await axios.get('/user/myAllRoom');
+      this.myGroups = [{}, {}];
       for (let item of data) {
         if (item.type === 'NORMAL') {
           this.myGroups.push(item);

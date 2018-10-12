@@ -56,6 +56,7 @@ export default {
       SPECIAL,
       NEW,
       productType: getQueryString('t'),
+      productNo: getQueryString('no'),
       product: {
         name: '',
         sellPrice: '',
@@ -112,7 +113,7 @@ export default {
           });
         } else if (this.productType === NEW) {
           await axios.post('/shop/newItem', {
-            itemId: data
+            [`itemId${this.productNo}`]: data
           });
         }
         const dialog = weui.dialog({

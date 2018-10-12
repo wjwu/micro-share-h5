@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存特价信息</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存商品描述</a>
       <a class="weui-btn weui-btn_primary" :href="`/item/submit.html?t=${SPECIAL}`">设置特价商品</a>
     </div>
   </div>

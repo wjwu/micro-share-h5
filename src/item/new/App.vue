@@ -3,15 +3,40 @@
     <div class="title">
       <h1>新品鉴赏</h1>
     </div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
+    <div class="weui-cells">
+      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=1`">
         <div class="weui-cell__hd">
-          <label class="weui-label">商品名称</label>
+          <label class="weui-label">1号商品</label>
         </div>
         <div class="weui-cell__bd">
-          {{itemName}}
+          {{itemName1}}
         </div>
-      </div>
+        <div class="weui-cell__ft">
+          设置
+        </div>
+      </a>
+      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=2`">
+        <div class="weui-cell__hd">
+          <label class="weui-label">2号商品</label>
+        </div>
+        <div class="weui-cell__bd">
+          {{itemName2}}
+        </div>
+        <div class="weui-cell__ft">
+          设置
+        </div>
+      </a>
+      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=3`">
+        <div class="weui-cell__hd">
+          <label class="weui-label">3号商品</label>
+        </div>
+        <div class="weui-cell__bd">
+          {{itemName3}}
+        </div>
+        <div class="weui-cell__ft">
+          设置
+        </div>
+      </a>
     </div>
     <div class="weui-cells__title">商品描述</div>
     <div class="weui-cells weui-cells_form">
@@ -24,8 +49,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存新品信息</a>
-      <a class="weui-btn weui-btn_primary" :href="`/item/submit.html?t=${NEW}`">设置特价商品</a>
+      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存商品描述</a>
     </div>
   </div>
 </template>
@@ -42,7 +66,9 @@ export default {
     return {
       NEW,
       showApp: false,
-      itemName: '',
+      itemName1: '',
+      itemName2: '',
+      itemName3: '',
       description: ''
     };
   },
@@ -51,7 +77,9 @@ export default {
       await auth();
       this.showApp = true;
       const { data } = await axios.get('/shop/newItem');
-      this.itemName = data.itemName;
+      this.itemName1 = data.itemName1;
+      this.itemName2 = data.itemName2;
+      this.itemName3 = data.itemName3;
       this.description = data.description;
     });
   },
@@ -62,7 +90,7 @@ export default {
         return;
       }
       tryFunc(async () => {
-        await axios.post('/shop/special', {
+        await axios.post('/shop/newItem', {
           description: this.description
         });
         openToast('操作成功');
