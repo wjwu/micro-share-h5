@@ -47,9 +47,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import weui from 'weui.js';
-import config from '../../common/js/config';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
@@ -87,15 +86,7 @@ export default {
           flag: this.flag,
           reason: this.content
         };
-        await axios.post(
-          `${config.apiHost}/order/report/${compsId}/confirm`,
-          request,
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post(`/order/report/${compsId}/confirm`, request);
         weui.dialog({
           content: '提交成功，点击确定返回',
           buttons: [

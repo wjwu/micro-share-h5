@@ -67,10 +67,9 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import { tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
 
@@ -87,12 +86,11 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/account/${this.pid}`);
+      const { data } = await axios.get(`/account/${this.pid}`);
       this.bill = data;
       this.bill.date = format(data.date, 'YYYY-MM-DD');
       this.pay = data.pay ? '已支付' : '待支付';
     });
-  },
-  methods: {}
+  }
 };
 </script>

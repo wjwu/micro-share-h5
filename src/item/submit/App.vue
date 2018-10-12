@@ -7,16 +7,16 @@
           <label class="weui-label">名称</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="请输入商品名(不超过50字)" maxlength="50" v-model="product.name">
+          <input class="weui-input" type="text" placeholder="请输入商品名(不超过15字)" maxlength="15" v-model="product.name">
         </div>
       </div>
       <image-upload title="商品图片" :token="token" :max="5" v-model="images" multiple></image-upload>
       <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label class="weui-label">价格</label>
+          <label class="weui-label">{{productType===SPECIAL?'特价':'价格'}}</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.sellPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="请输入商品价格">
+          <input class="weui-input" v-model="product.sellPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" :placeholder="`请输入商品${productType===SPECIAL?'特价':'价格'}`">
         </div>
       </div>
     </div>
@@ -37,13 +37,15 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
-import { tryFunc, openToast } from '../../common/js/common';
+import { tryFunc, openToast, getQueryString } from '../../common/js/common';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
+
+const SPECIAL = 'special';
+const NEW = 'new';
 
 export default {
   components: {
@@ -51,6 +53,9 @@ export default {
   },
   data() {
     return {
+      SPECIAL,
+      NEW,
+      productType: getQueryString('t'),
       product: {
         name: '',
         sellPrice: '',
@@ -58,20 +63,15 @@ export default {
       },
       token: '',
       images: [],
-      imageHost: config.imageHost,
       regPrice: new RegExp('[0-9\\.]'),
       showApp: false
     };
   },
-  created() {
+  mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/token`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/token');
       this.token = data.uptoken;
     });
   },
@@ -102,20 +102,19 @@ export default {
       }
       const _this = this;
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/item`,
-          {
-            ...this.product,
-            imgUrl: this.images
-              .map(item => `${this.imageHost}/${item}`)
-              .join(',')
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        const { data } = await axios.post('/item', {
+          ...this.product,
+          imgUrl: this.images.map(item => `${this.imageHost}/${item}`).join(',')
+        });
+        if (this.productType === SPECIAL) {
+          await axios.post('/shop/special', {
+            itemId: data
+          });
+        } else if (this.productType === NEW) {
+          await axios.post('/shop/newItem', {
+            itemId: data
+          });
+        }
         const dialog = weui.dialog({
           content: '操作成功',
           buttons: [

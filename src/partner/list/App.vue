@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
-import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
 import '../../common/js/share';
@@ -53,11 +52,7 @@ export default {
   },
   methods: {
     async load() {
-      const { data } = await axios.get(`${config.apiHost}/user/myAllRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
         if (item.type === 'NORMAL') {
           this.myGroups.push(item);
@@ -73,11 +68,7 @@ export default {
     },
     doDelete(id) {
       tryFunc(async () => {
-        await axios.delete(`${config.apiHost}/user/room/${id}`, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        });
+        await axios.delete(`/user/room/${id}`);
         window.location.reload();
       });
     }

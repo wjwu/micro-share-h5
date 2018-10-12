@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../../common/js/axios';
 import weui from 'weui.js';
 import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
@@ -80,21 +80,13 @@ export default {
       await auth();
       this.showApp = true;
       await this.getTasks();
-      let response = await axios.get(`${config.apiHost}/user/task/history`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      let response = await axios.get('/user/task/history');
       this.histories = response.data;
     });
   },
   methods: {
     async getTasks() {
-      let response = await axios.get(`${config.apiHost}/user/task`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      let response = await axios.get(`${config.apiHost}/user/task`);
       this.tasks = response.data;
     },
     handleTabClick(tab) {
@@ -103,11 +95,7 @@ export default {
     handleDelete(id) {
       weui.confirm('您确实要删除该任务？', () => {
         tryFunc(async () => {
-          await axios.delete(`${config.apiHost}/user/task/${id}`, {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          });
+          await axios.delete(`${config.apiHost}/user/task/${id}`);
           await this.getTasks();
         });
       });

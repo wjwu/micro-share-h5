@@ -89,11 +89,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+import weui from 'weui.js';
+import axios from '../../common/js/axios';
 import { auth, checkPhone } from '../../common/js/auth';
 import wxApi from '../../common/js/wxApi';
-import weui from 'weui.js';
-import config from '../../common/js/config';
 import industries from '../../common/js/industries';
 import { getAddress } from '../../common/js/map';
 import { openToast, tryFunc } from '../../common/js/common';
@@ -154,11 +153,7 @@ export default {
   },
   methods: {
     async getGroups() {
-      const { data } = await axios.get(`${config.apiHost}/user/myRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/myRoom');
       this.groups = data;
     },
     handleChange() {
@@ -210,11 +205,7 @@ export default {
           wechatId: this.wechatId,
           matchRange: this.selectedRadius
         };
-        await axios.post(`${config.apiHost}/group`, request, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        });
+        await axios.post('/group', request);
         window.location.href = './success.html';
       });
     }

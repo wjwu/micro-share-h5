@@ -36,9 +36,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
-import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
@@ -66,13 +65,10 @@ export default {
   },
   methods: {
     async getList() {
-      const { data } = await axios.get(`${config.apiHost}/order/manual`, {
+      const { data } = await axios.get('/order/manual', {
         params: {
           orderId: this.orderId,
           radius: this.selectedRadius
-        },
-        headers: {
-          userId: localStorage.getItem('userId')
         }
       });
       this.orders = data;
@@ -106,18 +102,10 @@ export default {
     },
     handleManual(id) {
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/order/manual`,
-          {
-            matchedOrderId: id,
-            originalOrderId: this.orderId
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post('/order/manual', {
+          matchedOrderId: id,
+          originalOrderId: this.orderId
+        });
         window.location.href = `./match_detail?orderId=${this.orderId}`;
       });
     }

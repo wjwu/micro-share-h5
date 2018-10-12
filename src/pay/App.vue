@@ -116,8 +116,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../common/js/config';
+import axios from '../common/js/axios';
 import { auth, checkPhone } from '../common/js/auth';
 import { tryFunc, wxPay } from '../common/js/common';
 import Bar from '../common/components/Bar';
@@ -173,24 +172,13 @@ export default {
         return;
       }
       tryFunc(async () => {
-        let response = await axios.post(
-          `${config.apiHost}/vip/order`,
-          {
-            baseVipMonth: this.baseLong,
-            baseVipSize: this.baseAmount,
-            advVipMonth: this.shoperLong,
-            price: this.total
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
-        response = await axios.get(`${config.apiHost}/pay/wechat`, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          },
+        let response = await axios.post('/vip/order', {
+          baseVipMonth: this.baseLong,
+          baseVipSize: this.baseAmount,
+          advVipMonth: this.shoperLong,
+          price: this.total
+        });
+        response = await axios.get('/pay/wechat', {
           params: {
             orderId: response.data.id
           }

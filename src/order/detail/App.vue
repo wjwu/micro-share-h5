@@ -194,9 +194,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import format from 'date-fns/format';
-import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import {
   openToast,
@@ -223,14 +222,7 @@ export default {
         openToast('订单编号无效');
         return;
       }
-      const { data } = await axios.get(
-        `${config.apiHost}/order/${this.orderId}`,
-        {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        }
-      );
+      const { data } = await axios.get(`/order/${this.orderId}`);
       if (!data) {
         openToast('订单编号无效');
       } else {
@@ -241,10 +233,7 @@ export default {
   methods: {
     async handlePay() {
       tryFunc(async () => {
-        const { data } = await axios.get(`${config.apiHost}/pay/wechat`, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          },
+        const { data } = await axios.get('/pay/wechat', {
           params: {
             orderId: this.orderId
           }
@@ -259,15 +248,7 @@ export default {
     },
     handleDisagree() {
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/order/${this.orderId}/refuse`,
-          {},
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post(`/order/${this.orderId}/refuse`);
         openToast('【匹配失败】您已拒绝支付，系统重新匹配中', () => {
           window.location.reload();
         });

@@ -71,11 +71,10 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import { tryFunc, openTips } from '../../common/js/common';
 import '../../common/js/share';
 
@@ -127,24 +126,16 @@ export default {
       }
 
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/account`,
-          {
-            type: this.type,
-            amount: this.amount,
-            remark: this.remark,
-            date: this.date,
-            itemName: this.itemName,
-            userName: this.userName,
-            number: this.number,
-            pay: this.pay
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post('/account', {
+          type: this.type,
+          amount: this.amount,
+          remark: this.remark,
+          date: this.date,
+          itemName: this.itemName,
+          userName: this.userName,
+          number: this.number,
+          pay: this.pay
+        });
       });
 
       weui.dialog({

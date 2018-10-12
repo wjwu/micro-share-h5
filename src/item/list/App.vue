@@ -28,9 +28,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import { tryFunc, getQueryString } from '../../common/js/common';
 
 export default {
@@ -44,7 +43,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/item/owner`, {
+      const { data } = await axios.get('/item/owner', {
         params: {
           userId: getQueryString('userId')
         }

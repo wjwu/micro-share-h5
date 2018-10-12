@@ -64,8 +64,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import weui from 'weui.js';
+import axios from '../../common/js/axios';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
@@ -97,20 +97,9 @@ export default {
       if (!this.orderId) {
         openToast('订单Id无效');
       } else {
-        let response = await axios.get(`${config.apiHost}/token`, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        });
+        let response = await axios.get('/token');
         this.token = response.data.uptoken;
-        response = await axios.get(
-          `${config.apiHost}/order/${this.orderId}/report`,
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        response = await axios.get(`/order/${this.orderId}/report`);
         if (!response.data) {
           openToast('订单Id无效');
         } else {
@@ -144,15 +133,7 @@ export default {
           imgs: this.images.map(item => `${this.imageHost}/${item}`).join(','),
           type: this.type
         };
-        await axios.post(
-          `${config.apiHost}/order/${this.orderId}/report`,
-          request,
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post(`/order/${this.orderId}/report`, request);
         weui.dialog({
           content: '投诉成功，点击确定返回',
           buttons: [

@@ -4,8 +4,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../../common/js/config';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, getQueryString, openToast } from '../../common/js/common';
 import '../../common/js/share';
@@ -25,11 +24,7 @@ export default {
         openToast('商伴Id无效');
         return;
       }
-      await axios.post(`${config.apiHost}/user/room/${this.partnerId}`, null, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      await axios.post(`/user/room/${this.partnerId}`);
       window.location.href = '/partner/success.html';
     });
   }

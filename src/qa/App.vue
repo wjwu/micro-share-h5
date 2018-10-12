@@ -32,8 +32,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../common/js/config';
+import axios from '../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../common/js/auth';
 import format from 'date-fns/format';
@@ -61,12 +60,9 @@ export default {
   },
   methods: {
     async getQuestions(parentId) {
-      const { data } = await axios.get(`${config.apiHost}/help`, {
+      const { data } = await axios.get('/help', {
         params: {
           parentId
-        },
-        headers: {
-          userId: localStorage.getItem('userId')
         }
       });
       this.records.push({
@@ -79,11 +75,7 @@ export default {
       if (item.type === 'PARENT') {
         this.getQuestions(item.id);
       } else {
-        const { data } = await axios.get(`${config.apiHost}/help/${item.id}`, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        });
+        const { data } = await axios.get(`/help/${item.id}`);
         const dataItem = {};
         if (data.content) {
           dataItem.title = data.content;

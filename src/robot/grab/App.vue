@@ -64,8 +64,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../../common/js/config';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openToast } from '../../common/js/common';
 import '../../common/js/share';
@@ -87,11 +86,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/user/myAllRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
         if (item.type === 'NORMAL') {
           this.myGroups.push(item);
@@ -104,12 +99,9 @@ export default {
   methods: {
     handleClick(id) {
       tryFunc(async () => {
-        const { data } = await axios.get(`${config.apiHost}/user/keyword`, {
+        const { data } = await axios.get('/user/keyword', {
           params: {
             roomId: id
-          },
-          headers: {
-            userId: localStorage.getItem('userId')
           }
         });
         var keyword = data.keyword;
@@ -158,18 +150,10 @@ export default {
     },
     handleSave() {
       tryFunc(async () => {
-        await axios.put(
-          `${config.apiHost}/user/keyword`,
-          {
-            keyword: this.keywords.join(','),
-            roomId: this.selectedRoomId
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.put('/user/keyword', {
+          keyword: this.keywords.join(','),
+          roomId: this.selectedRoomId
+        });
         openToast('操作成功');
       });
     }

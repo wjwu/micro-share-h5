@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
@@ -61,11 +61,7 @@ export default {
   methods: {
     async checkShopInfo() {
       var userId = localStorage.getItem('userId');
-      const { data } = await axios.get(`${config.apiHost}/user/shopInfo`, {
-        headers: {
-          userId: userId
-        }
-      });
+      const { data } = await axios.get('/user/shopInfo');
       if (!data) {
         openToast('请先设置店铺标题，点击确定前往', () => {
           window.location.href = '/other/toker.html';
@@ -101,11 +97,7 @@ export default {
       );
     },
     async getProducts() {
-      const { data } = await axios.get(`${config.apiHost}/item`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/item');
       this.products = data.map(item => {
         return {
           ...item,
@@ -119,7 +111,7 @@ export default {
     handleDelete(id) {
       weui.confirm('您确实要删除该商品？', () => {
         tryFunc(async () => {
-          await axios.delete(`${config.apiHost}/item/${id}`);
+          await axios.delete(`/item/${id}`);
           await this.getProducts();
         });
       });

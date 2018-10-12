@@ -100,9 +100,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import format from 'date-fns/format';
-import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
@@ -129,14 +128,7 @@ export default {
         openToast('投诉编号无效');
         return;
       }
-      let { data } = await axios.get(
-        `${config.apiHost}/user/report/${this.compsId}`,
-        {
-          headers: {
-            userId: this.userId
-          }
-        }
-      );
+      let { data } = await axios.get(`/user/report/${this.compsId}`);
       data.imgs = data.imgs.split(',');
       this.comps = data;
     }

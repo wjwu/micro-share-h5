@@ -56,8 +56,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../../common/js/config';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openToast } from '../../common/js/common';
 import '../../common/js/share';
@@ -76,11 +75,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/user/myAllRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
         if (item.type === 'NORMAL') {
           this.myGroups.push(item);
@@ -93,32 +88,20 @@ export default {
   methods: {
     handleClick(id) {
       tryFunc(async () => {
-        let { data: members } = await axios.get(
-          `${config.apiHost}/user/myAllRoom/member`,
-          {
-            params: {
-              roomId: id
-            },
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
+        let { data: members } = await axios.get('/user/myAllRoom/member', {
+          params: {
+            roomId: id
           }
-        );
+        });
         if (members && members.length > 0) {
           members.forEach(member => {
             member.checked = false;
           });
-          let { data: follows } = await axios.get(
-            `${config.apiHost}/user/myFollows`,
-            {
-              params: {
-                roomId: id
-              },
-              headers: {
-                userId: localStorage.getItem('userId')
-              }
+          let { data: follows } = await axios.get('/user/myFollows', {
+            params: {
+              roomId: id
             }
-          );
+          });
           if (follows && follows.length > 0) {
             for (let follow of follows) {
               for (let member of members) {
@@ -146,18 +129,10 @@ export default {
       //   return;
       // }
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/user/myFollows`,
-          {
-            follows: checkedMembers.map(m => m.wechatId),
-            roomId: this.selectedRoomId
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post('/user/myFollows', {
+          follows: checkedMembers.map(m => m.wechatId),
+          roomId: this.selectedRoomId
+        });
         openToast('操作成功', () => {
           window.location.reload();
         });
@@ -169,7 +144,7 @@ export default {
 
 <style lang="scss">
 .group {
-  .weui-cells{
+  .weui-cells {
     margin-top: 0;
   }
   .weui-loadmore_line {

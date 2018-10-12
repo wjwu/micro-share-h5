@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
@@ -50,7 +50,7 @@ export default {
         openToast('商品编号无效');
         return;
       }
-      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`);
+      const { data } = await axios.get(`/item/${this.pId}`);
       data.images = data.imgUrl.split(',');
       this.product = data;
       window.document.title = this.product.name;
@@ -71,9 +71,7 @@ export default {
     });
 
     tryFunc(async () => {
-      const { data } = await axios.get(
-        `${config.apiHost}/item/${this.pId}/shopInfo`
-      );
+      const { data } = await axios.get(`/item/${this.pId}/shopInfo`);
       this.userId = data.userId;
     });
 
@@ -122,9 +120,7 @@ export default {
       if (!this.buyed) {
         this.buyed = true;
         tryFunc(async () => {
-          await axios.get(
-            `${config.apiHost}/item/${this.pId}/buy?name=${name}`
-          );
+          await axios.get(`/item/${this.pId}/buy?name=${name}`);
           openToast(
             '购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!'
           );

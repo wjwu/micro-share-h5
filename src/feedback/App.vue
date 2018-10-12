@@ -37,8 +37,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import weui from 'weui.js';
+import axios from '../common/js/axios';
 import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc, openToast } from '../common/js/common';
@@ -63,11 +62,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      let response = await axios.get(`${config.apiHost}/token`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      let response = await axios.get('/token');
       this.token = response.data.uptoken;
     });
   },
@@ -79,22 +74,14 @@ export default {
       }
 
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/feedback`,
-          {
-            type: this.type,
-            content: this.content,
-            imgUrl: this.images
-              .map(item => `${config.imageHost}/${item}`)
-              .join(',')
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
-        weui.alert('我们已经收到您的建议，谢谢您！', () => {
+        await axios.post('/feedback', {
+          type: this.type,
+          content: this.content,
+          imgUrl: this.images
+            .map(item => `${config.imageHost}/${item}`)
+            .join(',')
+        });
+        openToast('我们已经收到您的建议，谢谢您！', () => {
           this.content = '';
           this.type = 'OPTIMIZATION';
           this.images = [];

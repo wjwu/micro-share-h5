@@ -18,10 +18,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import weui from 'weui.js';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import { openToast, tryFunc } from '../../common/js/common';
 import '../../common/js/share';
 
@@ -46,17 +45,9 @@ export default {
       }
 
       tryFunc(async () => {
-        await axios.put(
-          `${config.apiHost}/user/safe/wechat`,
-          {
-            wechat: this.wechat
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.put('/user/safe/wechat', {
+          wechat: this.wechat
+        });
         weui.dialog({
           content: '绑定手机成功，点击确定返回前一个页面',
           buttons: [

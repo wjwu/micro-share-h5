@@ -60,10 +60,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import weui from 'weui.js';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import {
   openToast,
   tryFunc,
@@ -111,18 +110,10 @@ export default {
       }
 
       tryFunc(async () => {
-        await axios.put(
-          `${config.apiHost}/user/safe/phone`,
-          {
-            phone: this.phone,
-            captcha: this.captcha
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.put('/user/safe/phone', {
+          phone: this.phone,
+          captcha: this.captcha
+        });
         localStorage.setItem('phone', this.phone);
         weui.dialog({
           content: '恭喜您注册成为部落成员，请点击确定返回',
@@ -149,13 +140,10 @@ export default {
       }
 
       tryFunc(async () => {
-        await axios.get(`${config.apiHost}/captcha`, {
+        await axios.get('/captcha', {
           params: {
             phone: this.phone,
             type: 'BIND'
-          },
-          headers: {
-            userId: localStorage.getItem('userId')
           }
         });
         const timer = setInterval(() => {
@@ -185,8 +173,8 @@ h1 {
     width: 3rem;
   }
 
-  span{
-    margin-left:.5rem;
+  span {
+    margin-left: 0.5rem;
   }
 }
 .time {

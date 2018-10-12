@@ -44,8 +44,7 @@ export default {
       await auth();
       this.showApp = true;
     });
-  },
-  methods: {}
+  }
 };
 </script>
 

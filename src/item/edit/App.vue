@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import weui from 'weui.js';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
@@ -64,11 +64,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/token`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/token');
       this.token = data.uptoken;
     });
   },
@@ -78,11 +74,7 @@ export default {
         openToast('商品编号无效');
         return;
       }
-      const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get(`/item/${this.pId}`);
       this.product = data;
       this.images = data.imgUrl
         .split(',')

@@ -27,9 +27,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../../common/js/axios';
 import format from 'date-fns/format';
-import config from '../../../common/js/config';
 import { auth } from '../../../common/js/auth';
 import { tryFunc } from '../../../common/js/common';
 import '../../../common/js/share';
@@ -45,14 +44,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(
-        `${config.apiHost}/order/status/waitReport`,
-        {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        }
-      );
+      const { data } = await axios.get('/order/status/waitReport');
       this.list = data;
     });
   },

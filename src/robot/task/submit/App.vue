@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../../common/js/axios';
 import weui from 'weui.js';
 import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
@@ -201,17 +201,9 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      let response = await axios.get(`${config.apiHost}/token`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      let response = await axios.get('/token');
       this.token = response.data.uptoken;
-      response = await axios.get(`${config.apiHost}/user/myAllRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      response = await axios.get('/user/myAllRoom');
       if (!response.data || response.data.length === 0) {
         this.disabled = true;
       }
@@ -251,27 +243,17 @@ export default {
         return;
       }
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/user/task`,
-          {
-            img: this.images
-              .map(item => `${config.imageHost}/${item}`)
-              .join(','),
-            msgType: this.messageType,
-            roomIds: checkedRoom.map(item => item.wechatId).join(','),
-            roomNames: checkedRoom.map(item => item.name).join(','),
-            sendDayNum: this.selectedDay,
-            sendTime: this.time,
-            taskType: this.sendType,
-            text: this.content,
-            title: this.title
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post('/user/task', {
+          img: this.images.map(item => `${config.imageHost}/${item}`).join(','),
+          msgType: this.messageType,
+          roomIds: checkedRoom.map(item => item.wechatId).join(','),
+          roomNames: checkedRoom.map(item => item.name).join(','),
+          sendDayNum: this.selectedDay,
+          sendTime: this.time,
+          taskType: this.sendType,
+          text: this.content,
+          title: this.title
+        });
         const dialog = weui.dialog({
           content: '操作成功',
           buttons: [

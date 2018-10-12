@@ -75,10 +75,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import StarRate from 'vue-cute-rate';
-import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { openToast, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
@@ -124,11 +123,7 @@ export default {
           content: this.content,
           score: this.total
         };
-        await axios.post(`${config.apiHost}/comment/${orderId}`, request, {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        });
+        await axios.post(`/comment/${orderId}`, request);
         weui.dialog({
           content: '评价成功，点击确定返回',
           buttons: [

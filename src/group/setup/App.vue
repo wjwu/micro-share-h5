@@ -45,9 +45,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import { openToast, tryFunc } from '../../common/js/common';
 import '../../common/js/share';
 
@@ -66,11 +65,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/user/myAllRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
         if (item.type === 'NORMAL') {
           this.myGroups.push(item);
@@ -83,12 +78,9 @@ export default {
   methods: {
     handleClick(roomId) {
       tryFunc(async () => {
-        const { data } = await axios.get(`${config.apiHost}/robot/room/info`, {
+        const { data } = await axios.get('/robot/room/info', {
           params: {
             roomId: roomId
-          },
-          headers: {
-            userId: localStorage.getItem('userId')
           }
         });
         if (data) {
@@ -100,19 +92,11 @@ export default {
     },
     handleSave() {
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/robot/room/info`,
-          {
-            welcome: this.welcomeText,
-            rule: this.ruleText,
-            roomId: this.selectedRoomId
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post('/robot/room/info', {
+          welcome: this.welcomeText,
+          rule: this.ruleText,
+          roomId: this.selectedRoomId
+        });
         openToast('操作成功');
       });
     }

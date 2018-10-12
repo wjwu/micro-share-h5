@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import VueQr from '../../common/lib/vue-qr/main';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
@@ -59,11 +59,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/user/myAllRoom`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
         if (item.type === 'NORMAL') {
           this.myGroups.push(item);
@@ -76,7 +72,6 @@ export default {
   methods: {
     handleClick(id) {
       this.shareUrl = `${config.webHost}/partner/add.html?pid=${id}`;
-      // this.shareUrl = `http://192.168.200.75:8082/partner/add.html?pId=${id}`;
       this.showMask = true;
     },
     handleMaskClick(e) {

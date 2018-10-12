@@ -50,8 +50,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../../common/js/config';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
@@ -76,14 +75,7 @@ export default {
         return;
       }
       const { data } = await axios.get(
-        `${config.apiHost}/account/query?startDate=${this.from}&endDate=${
-          this.to
-        }`,
-        {
-          headers: {
-            userId: localStorage.getItem('userId')
-          }
-        }
+        `/account/query?startDate=${this.from}&endDate=${this.to}`
       );
       if (!data) {
         openToast('暂无数据!');

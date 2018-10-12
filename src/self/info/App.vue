@@ -50,9 +50,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import config from '../../common/js/config';
 import { tryFunc } from '../../common/js/common';
 import '../../common/js/share';
 
@@ -67,11 +66,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`${config.apiHost}/user/info`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      const { data } = await axios.get('/user/info');
       this.user = data;
     });
   }

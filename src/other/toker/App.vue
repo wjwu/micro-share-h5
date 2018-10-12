@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
@@ -76,17 +76,9 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      let response = await axios.get(`${config.apiHost}/token`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      let response = await axios.get('/token');
       this.token = response.data.uptoken;
-      response = await axios.get(`${config.apiHost}/user/shopInfo`, {
-        headers: {
-          userId: localStorage.getItem('userId')
-        }
-      });
+      response = await axios.get('/user/shopInfo');
       if (response.data) {
         this.name = response.data.qrTitle;
         this.shopName = response.data.name;
@@ -114,22 +106,14 @@ export default {
         return;
       }
       tryFunc(async () => {
-        await axios.post(
-          `${config.apiHost}/user/shopInfo`,
-          {
-            address: this.shopAddress,
-            description: this.shopDesc,
-            name: this.shopName,
-            qrTitle: this.name,
-            src: this.images.map(item => `${this.imageHost}/${item}`).join(','),
-            logo: this.logos.map(item => `${this.imageHost}/${item}`).join(',')
-          },
-          {
-            headers: {
-              userId: localStorage.getItem('userId')
-            }
-          }
-        );
+        await axios.post('/user/shopInfo', {
+          address: this.shopAddress,
+          description: this.shopDesc,
+          name: this.shopName,
+          qrTitle: this.name,
+          src: this.images.map(item => `${this.imageHost}/${item}`).join(','),
+          logo: this.logos.map(item => `${this.imageHost}/${item}`).join(',')
+        });
         weui.alert('操作成功', () => {
           // this.name = '';
           // this.shopName = '';
