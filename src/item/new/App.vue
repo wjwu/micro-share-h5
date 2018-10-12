@@ -4,6 +4,14 @@
       <h1>新品鉴赏</h1>
     </div>
     <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">对外展示名</label>
+        </div>
+        <div class="weui-cell__bd">
+          <b>新品鉴赏（欢迎品鉴）</b>
+        </div>
+      </div>
       <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=1`">
         <div class="weui-cell__hd">
           <label class="weui-label">1号商品</label>

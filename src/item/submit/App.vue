@@ -43,6 +43,7 @@ import { auth } from '../../common/js/auth';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
+import config from "../../common/js/config";
 
 const SPECIAL = 'special';
 const NEW = 'new';
@@ -65,7 +66,8 @@ export default {
       token: '',
       images: [],
       regPrice: new RegExp('[0-9\\.]'),
-      showApp: false
+      showApp: false,
+      imageHost: config.imageHost
     };
   },
   mounted() {

@@ -22,13 +22,13 @@
         </div>
         <p class="weui-grid__label">店铺货架</p>
       </a>
-      <a href="javascript:;" class="weui-grid">
+      <a href="javascript:;" @click="handleJumpShopper('/item/new.html')" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/new.png" alt="">
         </div>
         <p class="weui-grid__label">新品鉴赏</p>
       </a>
-      <a href="javascript:;" class="weui-grid">
+      <a href="javascript:;"  @click="handleJumpShopper('/item/special.html')" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/vip.png" alt="">
         </div>
