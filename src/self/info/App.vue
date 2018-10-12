@@ -46,7 +46,6 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_default" href="./center.html">返回</a>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -55,13 +54,9 @@ import axios from 'axios';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       showApp: false,

@@ -43,7 +43,6 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">提交</a>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -53,13 +52,11 @@ import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openToast } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
 
 export default {
   components: {
-    Back,
     ImageUpload
   },
   data() {

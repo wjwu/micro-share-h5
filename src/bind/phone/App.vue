@@ -56,7 +56,6 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">注册</a>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -71,13 +70,9 @@ import {
   checkPhone,
   getQueryString
 } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       phone: '',

@@ -23,7 +23,6 @@
     <div class="weui-loadmore weui-loadmore_line" v-else>
       <span class="weui-loadmore__tips">暂无数据</span>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -33,13 +32,9 @@ import format from 'date-fns/format';
 import config from '../../../common/js/config';
 import { auth } from '../../../common/js/auth';
 import { tryFunc } from '../../../common/js/common';
-import Back from '../../../common/components/Back';
 import '../../../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       list: [],

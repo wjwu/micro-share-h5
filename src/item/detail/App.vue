@@ -22,7 +22,6 @@
       <a :href="'./list.html?userId=' + userId" class="buy-tohome"></a>
       <div class="buy" @click="buy">立即购买</div>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -31,13 +30,9 @@ import axios from 'axios';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import wxApi from '../../common/js/wxApi';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       pId: getQueryString('pId'),

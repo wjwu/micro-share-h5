@@ -176,7 +176,6 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" :disabled="disabled" href="javascript:;" @click="handleSubmit">发送</a>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -188,13 +187,9 @@ import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
 import { tryFunc, openToast } from '../../../common/js/common';
-import Back from '../../../common/components/Back';
 import '../../../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       showApp: false,

@@ -31,23 +31,19 @@
       <p>请长按二维码转发</p>
       <vue-qr :text="shareUrl" :size="200" :margin="10"></vue-qr>
     </div>
-    <back></back>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-// import weui from 'weui.js';
 import VueQr from '../../common/lib/vue-qr/main';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
   components: {
-    Back,
     VueQr
   },
   data() {

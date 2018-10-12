@@ -13,18 +13,13 @@
         <a href="/index.html" class="weui-btn weui-btn_default">返回首页</a>
       </p>
     </div>
-    <back></back>
   </div>
 </template>
 
 <script>
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
-  components: {
-    Back
-  }
 };
 </script>
 

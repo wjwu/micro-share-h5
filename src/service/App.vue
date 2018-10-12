@@ -47,18 +47,13 @@
     <br /> 7.2 违约处理<br /> 部落可依据相应规则对您执行冻结账户、终止提供服务、扣违约金等处理措施。
     <br /> 八、 协议的变更<br /> 部落可根据国家法律法规变化及维护社群秩序、保护成员权益需要修改本协议、补充协议。并将变更后的协议、补充协议，通过合适途径通知您。如您对变更协议不同意，可以在变更协议生效前停止使用部落服务；如您在变更协议后，继续使用部落提供的服务，则视为您同意已生效的变更协议。
     <br />
-    <back></back>
   </div>
 </template>
 
 <script>
-import Back from '../common/components/Back';
 import '../common/js/share';
 
 export default {
-  components: {
-    Back
-  }
 };
 </script>
 

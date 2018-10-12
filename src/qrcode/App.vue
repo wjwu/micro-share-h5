@@ -7,18 +7,13 @@
         <div class="weui-gallery__opr" style="line-height:1.5;padding-bottom: 4rem;font-weight:900;">没发现您有自己的微信群，请长按识别二维码添加机器人。并将机器人拉入您的群中。
         </div>
     </div>
-    <back></back>
   </div>
 </template>
 
 <script>
-import Back from '../common/components/Back';
 import '../common/js/share';
 
 export default {
-  components: {
-    Back
-  }
 };
 </script>
 

@@ -169,19 +169,14 @@
         </div>
       </div>
     </section>
-    <back></back>
   </div>
 </template>
 
 <script>
 import weui from 'weui.js';
-import Back from '../common/components/Back';
 import '../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   methods: {
     handleJump(url) {
       window.location.href = url;

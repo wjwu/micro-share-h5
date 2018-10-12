@@ -13,18 +13,13 @@
         <a href="/partner/list.html" class="weui-btn weui-btn_default">查看我的商伴</a>
       </p>
     </div>
-    <back></back>
   </div>
 </template>
 
 <script>
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
-  components: {
-    Back
-  }
 };
 </script>
 

@@ -51,19 +51,14 @@
       <p>成都鹅卵石信息技术有限公司</p>
       <p> Copyright © 2019 蜀ICP备18026087号</p>
     </div>
-    <back></back>
   </div>
 </template>
 
 <script>
 import weui from 'weui.js';
-import Back from '../common/components/Back';
 import '../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   methods: {
     handleJump(url) {
       window.location.href = url;

@@ -190,7 +190,6 @@
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">同意匹配并支付</a>
       <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_warn" href="javascript:;" @click="handleDisagree">不同意匹配</a>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -205,13 +204,9 @@ import {
   getQueryString,
   wxPay
 } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       orderId: getQueryString('orderId'),

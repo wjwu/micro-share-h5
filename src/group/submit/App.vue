@@ -85,7 +85,6 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" :class="{'weui-btn_disabled':(groups && groups.length === 0 )}" href="javascript:;" @click="handleSave">提交</a>
     </div>
-    <back></back>
   </div>
 </template>
 
@@ -98,13 +97,9 @@ import config from '../../common/js/config';
 import industries from '../../common/js/industries';
 import { getAddress } from '../../common/js/map';
 import { openToast, tryFunc } from '../../common/js/common';
-import Back from '../../common/components/Back';
 import '../../common/js/share';
 
 export default {
-  components: {
-    Back
-  },
   data() {
     return {
       showApp: false,

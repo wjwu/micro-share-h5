@@ -13,18 +13,13 @@
         <a href="javascript:history.go(-1)" class="weui-btn weui-btn_default">查看订单</a>
       </p>
     </div>
-    <back></back>
   </div>
 </template>
 
 <script>
-import Back from '../../../common/components/Back';
 import '../../../common/js/share';
 
 export default {
-  components: {
-    Back
-  }
 };
 </script>
 
