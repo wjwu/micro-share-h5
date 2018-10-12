@@ -28,37 +28,8 @@
           <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名称" maxlength="20">
         </div>
       </div>
-      <div class="page__bd">
-        <div class="weui-gallery" id="gallery">
-          <span class="weui-gallery__img" id="galleryImg"></span>
-          <div class="weui-gallery__opr">
-            <a href="javascript:" class="weui-gallery__del">
-              <i class="weui-icon-delete weui-icon_gallery-delete"></i>
-            </a>
-          </div>
-        </div>
-        <div class="weui-cell">
-          <div class="weui-cell__bd">
-            <div class="weui-uploader">
-              <div class="weui-uploader__hd">
-                <p class="weui-uploader__title">二维码（最大4MB）</p>
-                <div class="weui-uploader__info">{{images.length}}/1</div>
-              </div>
-              <div class="weui-uploader__bd">
-                <ul class="weui-uploader__files" id="uploaderFiles">
-                  <li v-for="(image,i) in images" :key="i" class="weui-uploader__file" @click="handleImgClick(image,i)" :style="`background-image:url('${imageHost}/${image}')`"></li>
-                  <li v-if="uploading" class="weui-uploader__file weui-uploader__file_status">
-                    <div class="weui-uploader__file-content">{{percent}}%</div>
-                  </li>
-                </ul>
-                <div v-if="images.length !== 1" class="weui-uploader__input-box">
-                  <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <image-upload title="二维码" :token="token" v-model="images"></image-upload>
+      <image-upload title="店铺Logo" :token="token" v-model="logos"></image-upload>
     </div>
     <div class="weui-cells__title">店铺描述</div>
     <div class="weui-cells weui-cells_form">
@@ -77,30 +48,30 @@
 </template>
 
 <script>
-import * as qiniu from "qiniu-js";
-import axios from "axios";
-import weui from "weui.js";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { tryFunc, openToast } from "../../common/js/common";
-import Back from "../../common/components/Back";
-import "../../common/js/share";
+import axios from 'axios';
+import weui from 'weui.js';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
+import { tryFunc, openToast } from '../../common/js/common';
+import Back from '../../common/components/Back';
+import ImageUpload from '../../common/components/ImageUpload';
+import '../../common/js/share';
 
 export default {
   components: {
-    Back
+    Back,
+    ImageUpload
   },
   data() {
     return {
       showApp: false,
-      name: "",
-      shopName: "",
-      shopAddress: "",
-      shopDesc: "",
-      token: "",
-      uploading: false,
-      percent: 0,
+      name: '',
+      shopName: '',
+      shopAddress: '',
+      shopDesc: '',
+      token: '',
       images: [],
+      logos: [],
       imageHost: config.imageHost
     };
   },
@@ -110,13 +81,13 @@ export default {
       this.showApp = true;
       let response = await axios.get(`${config.apiHost}/token`, {
         headers: {
-          userId: localStorage.getItem("userId")
+          userId: localStorage.getItem('userId')
         }
       });
       this.token = response.data.uptoken;
       response = await axios.get(`${config.apiHost}/user/shopInfo`, {
         headers: {
-          userId: localStorage.getItem("userId")
+          userId: localStorage.getItem('userId')
         }
       });
       if (response.data) {
@@ -126,77 +97,23 @@ export default {
         this.shopDesc = response.data.description;
         let src = response.data.src;
         if (src) {
-          this.images = [src.substr(src.lastIndexOf("/") + 1)];
+          this.images = [src.substr(src.lastIndexOf('/') + 1)];
+        }
+        let logo = response.data.logo;
+        if (logo) {
+          this.logos = [logo.substr(logo.lastIndexOf('/') + 1)];
         }
       }
     });
   },
   methods: {
-    async handleImgChange(e) {
-      if (!this.token) {
-        openToast("上传Token无效，请刷新页面重试");
-        return;
-      }
-      for (let file of e.target.files) {
-        if (!file) {
-          continue;
-        }
-        if (file.size > 1024 * 1024 * 4) {
-          openToast(`图片${file.name}大小超过4MB，无法上传`);
-        } else {
-          this.upload(file);
-        }
-      }
-    },
-    upload(file) {
-      const observable = qiniu.upload(
-        file,
-        null,
-        this.token,
-        {
-          mimeType: ["image/png", "image/jpeg", "image/jpg", "image/gif"]
-        },
-        {
-          useCdnDomain: false,
-          disableStatisticsReport: false,
-          retryCount: 3,
-          region: null
-        }
-      );
-      const _this = this;
-      this.uploading = true;
-      observable.subscribe({
-        next(res) {
-          _this.percent = res.total.percent.toFixed(0);
-        },
-        error(error) {
-          openToast(JSON.stringify(error));
-        },
-        complete(res) {
-          _this.uploading = false;
-          _this.percent = 0;
-          _this.images.push(res.hash);
-        }
-      });
-    },
-    handleImgClick(hash, idx) {
-      const _this = this;
-      const gallery = weui.gallery(`${this.imageHost}/${hash}`, {
-        onDelete: function() {
-          if (confirm("确定删除该图片？")) {
-            _this.images.splice(idx, 1);
-          }
-          gallery.hide(function() {});
-        }
-      });
-    },
     handleSave() {
       if (this.images.length !== 0 && !this.name) {
-        openToast("请输入条码名称");
+        openToast('请输入条码名称');
         return;
       }
       if (!this.shopName) {
-        openToast("请输入店铺名称");
+        openToast('请输入店铺名称');
         return;
       }
       tryFunc(async () => {
@@ -207,15 +124,16 @@ export default {
             description: this.shopDesc,
             name: this.shopName,
             qrTitle: this.name,
-            src: this.images.map(item => `${this.imageHost}/${item}`).join(",")
+            src: this.images.map(item => `${this.imageHost}/${item}`).join(','),
+            logo: this.logos.map(item => `${this.imageHost}/${item}`).join(',')
           },
           {
             headers: {
-              userId: localStorage.getItem("userId")
+              userId: localStorage.getItem('userId')
             }
           }
         );
-        weui.alert("操作成功", () => {
+        weui.alert('操作成功', () => {
           // this.name = '';
           // this.shopName = '';
           // this.shopAddress = '';

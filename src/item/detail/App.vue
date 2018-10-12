@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import axios from "axios";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { tryFunc, openToast, getQueryString } from "../../common/js/common";
-import Back from "../../common/components/Back";
-import wxApi from "../../common/js/wxApi";
+import axios from 'axios';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
+import { tryFunc, openToast, getQueryString } from '../../common/js/common';
+import Back from '../../common/components/Back';
+import wxApi from '../../common/js/wxApi';
 
 export default {
   components: {
@@ -40,8 +40,8 @@ export default {
   },
   data() {
     return {
-      pId: getQueryString("pId"),
-      userId: "",
+      pId: getQueryString('pId'),
+      userId: '',
       product: null,
       showApp: false,
       buyed: false
@@ -52,23 +52,23 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.pId) {
-        openToast("商品编号无效");
+        openToast('商品编号无效');
         return;
       }
       const { data } = await axios.get(`${config.apiHost}/item/${this.pId}`);
-      data.images = data.imgUrl.split(",");
+      data.images = data.imgUrl.split(',');
       this.product = data;
       window.document.title = this.product.name;
       this.$nextTick(() => {
-        const swiper = new window.Swiper(".swiper-container", {
-          direction: "horizontal",
+        const swiper = new window.Swiper('.swiper-container', {
+          direction: 'horizontal',
           autoplay: {
             delay: 2000
           },
           speed: 1000,
           loop: true,
           pagination: {
-            el: ".swiper-pagination"
+            el: '.swiper-pagination'
           }
         });
         console.log(swiper);
@@ -88,35 +88,41 @@ export default {
   },
   methods: {
     async shareFunc() {
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: this.product.name,
-          desc: this.product.description ? this.product.description : "商品描述",
-          link: config.webHost + "/item/detail.html?pId=" + this.pId,
-          imgUrl: this.product.images[0] + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+          desc: this.product.description
+            ? this.product.description
+            : '商品描述',
+          link: config.webHost + '/item/detail.html?pId=' + this.pId,
+          imgUrl:
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         },
         function(res) {}
       );
       window.wx.onMenuShareTimeline(
         {
           title: this.product.name,
-          desc: this.product.description ? this.product.description : "商品描述",
-          link: config.webHost + "/item/detail.html?pId=" + this.pId,
-          imgUrl: this.product.images[0] + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+          desc: this.product.description
+            ? this.product.description
+            : '商品描述',
+          link: config.webHost + '/item/detail.html?pId=' + this.pId,
+          imgUrl:
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         },
         function(res) {}
       );
     },
     async buy() {
-      let name = localStorage.getItem("name");
+      let name = localStorage.getItem('name');
       if (!name) {
-        name = prompt("请正确输入您的联系方式或微信号", "");
+        name = prompt('请正确输入您的联系方式或微信号', '');
         if (!name) {
-          openToast("请输入正确的联系方式或微信号");
+          openToast('请输入正确的联系方式或微信号');
           return;
         }
-        localStorage.setItem("name", name);
+        localStorage.setItem('name', name);
       }
       if (!this.buyed) {
         this.buyed = true;
@@ -125,7 +131,7 @@ export default {
             `${config.apiHost}/item/${this.pId}/buy?name=${name}`
           );
           openToast(
-            "购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!"
+            '购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!'
           );
         });
       }
@@ -136,7 +142,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .swiper-container {
   height: 23.4375rem;

@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import axios from "axios";
-import weui from "weui.js";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { openToast, tryFunc } from "../../common/js/common";
-import Back from "../../common/components/Back";
-import wxApi from "../../common/js/wxApi";
+import axios from 'axios';
+import weui from 'weui.js';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
+import { openToast, tryFunc } from '../../common/js/common';
+import Back from '../../common/components/Back';
+import wxApi from '../../common/js/wxApi';
 
 export default {
   components: {
@@ -51,7 +51,7 @@ export default {
     return {
       showApp: false,
       products: [],
-      userId: localStorage.getItem("userId"),
+      userId: localStorage.getItem('userId'),
       webHost: config.webHost
     };
   },
@@ -65,37 +65,39 @@ export default {
   },
   methods: {
     async checkShopInfo() {
-      var userId = localStorage.getItem("userId");
+      var userId = localStorage.getItem('userId');
       const { data } = await axios.get(`${config.apiHost}/user/shopInfo`, {
         headers: {
           userId: userId
         }
       });
       if (!data) {
-        openToast("请先设置店铺标题，点击确定前往", () => {
-          window.location.href = "/other/toker.html";
+        openToast('请先设置店铺标题，点击确定前往', () => {
+          window.location.href = '/other/toker.html';
         });
       }
-    
-      var name = data.name;
-      var desc = data.description;
 
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      var name = data.name ? data.name : '商伴部落';
+      var desc = data.description
+        ? data.description
+        : '我的商品货架，欢迎大家选购';
+
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
-          title: name ? name : "商伴部落",
-          desc: desc ? desc : "我的商品货架，欢迎大家选购",
+          title: name,
+          desc: desc,
           link: config.webHost + '/item/list.html?userId=' + userId,
-          imgUrl: "http://static.fangzhoubuluo.com/logo.png"
+          imgUrl: 'http://static.fangzhoubuluo.com/logo.png'
         },
         function(res) {}
       );
       window.wx.onMenuShareTimeline(
         {
-          title: name ? name : "商伴部落",
-          desc: desc ? desc : "我的商品货架，欢迎大家选购",
+          title: name,
+          desc: desc,
           link: config.webHost + '/item/list.html?userId=' + userId,
-          imgUrl: "http://static.fangzhoubuluo.com/logo.png"
+          imgUrl: 'http://static.fangzhoubuluo.com/logo.png'
         },
         function(res) {}
       );
@@ -103,13 +105,13 @@ export default {
     async getProducts() {
       const { data } = await axios.get(`${config.apiHost}/item`, {
         headers: {
-          userId: localStorage.getItem("userId")
+          userId: localStorage.getItem('userId')
         }
       });
       this.products = data.map(item => {
         return {
           ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(",")[0] : ""
+          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
         };
       });
     },
@@ -117,7 +119,7 @@ export default {
       window.location.href = `./edit.html?pId=${id}`;
     },
     handleDelete(id) {
-      weui.confirm("您确实要删除该商品？", () => {
+      weui.confirm('您确实要删除该商品？', () => {
         tryFunc(async () => {
           await axios.delete(`${config.apiHost}/item/${id}`);
           await this.getProducts();
