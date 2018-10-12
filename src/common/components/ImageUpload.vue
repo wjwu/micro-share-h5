@@ -3,7 +3,7 @@
     <div class="weui-cell__bd">
       <div class="weui-uploader">
         <div class="weui-uploader__hd">
-          <p class="weui-uploader__title">{{title}}（最大4MB）</p>
+          <p class="weui-uploader__title">{{title}}（单张图片最大4MB）</p>
           <div class="weui-uploader__info">{{images.length}}/{{this.max}}</div>
         </div>
         <div class="weui-uploader__bd">
@@ -14,7 +14,8 @@
             </li>
           </ul>
           <div v-if="images.length !== this.max" class="weui-uploader__input-box">
-            <input id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*" :multiple="isMultiple">
+            <input v-if="multiple" multiple="multiple" id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*">
+            <input v-else id="uploaderInput" @change="handleImgChange($event)" class="weui-uploader__input" type="file" accept="image/*">
           </div>
         </div>
       </div>
@@ -55,20 +56,23 @@ export default {
   },
   data() {
     return {
-      // images: [],
       uploading: false,
       percent: 0,
-      isMultiple: this.multiple ? 'multiple' : '',
       imageHost: config.imageHost
     };
   },
   methods: {
     async handleImgChange(e) {
       if (!this.token) {
-        openToast('上传Token无效，请刷新页面重试');
+        openToast('上传图片Token无效');
         return;
       }
-      for (let file of e.target.files) {
+      let files = Array.prototype.slice.call(
+        e.target.files,
+        0,
+        this.max - this.images.length
+      );
+      for (let file of files) {
         if (!file) {
           continue;
         }
