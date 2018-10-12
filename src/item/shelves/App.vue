@@ -81,6 +81,9 @@ export default {
       var desc = data.description
         ? data.description
         : '我的商品货架，欢迎大家选购';
+      var logo = data.logo
+        ? data.logo
+        : 'http://static.fangzhoubuluo.com/logo.png';
 
       await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
@@ -88,7 +91,7 @@ export default {
           title: name,
           desc: desc,
           link: config.webHost + '/item/list.html?userId=' + userId,
-          imgUrl: 'http://static.fangzhoubuluo.com/logo.png'
+          imgUrl: logo
         },
         function(res) {}
       );
@@ -97,7 +100,7 @@ export default {
           title: name,
           desc: desc,
           link: config.webHost + '/item/list.html?userId=' + userId,
-          imgUrl: 'http://static.fangzhoubuluo.com/logo.png'
+          imgUrl: logo
         },
         function(res) {}
       );
