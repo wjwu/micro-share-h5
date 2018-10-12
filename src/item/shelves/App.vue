@@ -79,6 +79,7 @@ export default {
     
       var name = data.name;
       var desc = data.description;
+      var logo = data.logo;
 
       await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
       window.wx.onMenuShareAppMessage(
@@ -86,7 +87,7 @@ export default {
           title: name ? name : "商伴部落",
           desc: desc ? desc : "我的商品货架，欢迎大家选购",
           link: config.webHost + '/item/list.html?userId=' + userId,
-          imgUrl: "http://static.fangzhoubuluo.com/logo.png"
+          imgUrl: logo ? logo : "http://static.fangzhoubuluo.com/logo.png"
         },
         function(res) {}
       );
@@ -95,7 +96,7 @@ export default {
           title: name ? name : "商伴部落",
           desc: desc ? desc : "我的商品货架，欢迎大家选购",
           link: config.webHost + '/item/list.html?userId=' + userId,
-          imgUrl: "http://static.fangzhoubuluo.com/logo.png"
+          imgUrl: logo ? logo : "http://static.fangzhoubuluo.com/logo.png"
         },
         function(res) {}
       );
