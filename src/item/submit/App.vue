@@ -43,10 +43,10 @@ import { auth } from '../../common/js/auth';
 import { tryFunc, openToast, getQueryString } from '../../common/js/common';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
-import config from "../../common/js/config";
+import config from '../../common/js/config';
 
-const SPECIAL = 'special';
-const NEW = 'new';
+const SPECIAL = 'SPECIAL';
+const NEWER = 'NEWER';
 
 export default {
   components: {
@@ -55,8 +55,7 @@ export default {
   data() {
     return {
       SPECIAL,
-      NEW,
-      productType: getQueryString('t'),
+      productType: getQueryString('t') || 'NORMAL',
       productNo: getQueryString('no'),
       product: {
         name: '',
@@ -66,8 +65,7 @@ export default {
       token: '',
       images: [],
       regPrice: new RegExp('[0-9\\.]'),
-      showApp: false,
-      imageHost: config.imageHost
+      showApp: false
     };
   },
   mounted() {
@@ -107,13 +105,16 @@ export default {
       tryFunc(async () => {
         const { data } = await axios.post('/item', {
           ...this.product,
-          imgUrl: this.images.map(item => `${this.imageHost}/${item}`).join(',')
+          type: this.productType,
+          imgUrl: this.images
+            .map(item => `${config.imageHost}/${item}`)
+            .join(',')
         });
         if (this.productType === SPECIAL) {
           await axios.post('/shop/special', {
             itemId: data
           });
-        } else if (this.productType === NEW) {
+        } else if (this.productType === NEWER) {
           await axios.post('/shop/newItem', {
             [`itemId${this.productNo}`]: data
           });

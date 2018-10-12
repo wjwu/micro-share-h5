@@ -12,7 +12,7 @@
           <b>新品鉴赏（欢迎品鉴）</b>
         </div>
       </div>
-      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=1`">
+      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEWER}&no=1`">
         <div class="weui-cell__hd">
           <label class="weui-label">1号商品</label>
         </div>
@@ -23,7 +23,7 @@
           设置
         </div>
       </a>
-      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=2`">
+      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEWER}&no=2`">
         <div class="weui-cell__hd">
           <label class="weui-label">2号商品</label>
         </div>
@@ -34,7 +34,7 @@
           设置
         </div>
       </a>
-      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEW}&no=3`">
+      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEWER}&no=3`">
         <div class="weui-cell__hd">
           <label class="weui-label">3号商品</label>
         </div>
@@ -67,12 +67,12 @@ import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openToast } from '../../common/js/common';
 
-const NEW = 'new';
+const NEWER = 'NEWER';
 
 export default {
   data() {
     return {
-      NEW,
+      NEWER,
       showApp: false,
       itemName1: '',
       itemName2: '',

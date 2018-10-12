@@ -39,27 +39,26 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
-import { tryFunc, openToast } from "../../common/js/common";
-import config from "../../common/js/config";
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc, openToast } from '../../common/js/common';
 
-const SPECIAL = "special";
+const SPECIAL = 'SPECIAL';
 
 export default {
   data() {
     return {
       SPECIAL,
       showApp: false,
-      itemName: "",
-      description: "",
+      itemName: '',
+      description: ''
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get("/shop/special");
+      const { data } = await axios.get('/shop/special');
       this.itemName = data.itemName;
       this.description = data.description;
     });
@@ -67,14 +66,14 @@ export default {
   methods: {
     handleSave() {
       if (!this.description) {
-        openToast("请输入特价描述信息");
+        openToast('请输入特价描述信息');
         return;
       }
       tryFunc(async () => {
-        await axios.post("/shop/special", {
+        await axios.post('/shop/special', {
           description: this.description
         });
-        openToast("操作成功");
+        openToast('操作成功');
       });
     }
   }
