@@ -4,6 +4,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(img,i) in product.images" :key="i">
+            <span class="shop-name">{{shopInfo.name}}</span>
             <img :src="img +'?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
           </div>
         </div>
@@ -16,8 +17,14 @@
           <span>单价：￥{{product.sellPrice}} </span>
         </p>
       </div>
-      <div class="product-detail">
+      <!-- <div class="product-detail">
         {{product.description}}
+      </div> -->
+      <div class="shop">
+        <h4>- 店铺地址 -</h4>
+        <div class="address">{{shopInfo.address}}</div>
+        <h4>- 店铺二维码 -</h4>
+        <img :src="shopInfo.address"/>
       </div>
     </div>
     <div class="buy-wrap">
@@ -41,7 +48,8 @@ export default {
       userId: '',
       product: null,
       showApp: false,
-      buyed: false
+      buyed: false,
+      shopInfo: {}
     };
   },
   mounted() {
@@ -52,10 +60,14 @@ export default {
         openAlert('商品编号无效');
         return;
       }
-      let response = await axios.get(`/item/${this.pId}`);
-      response.data.images = response.data.imgUrl.split(',');
-      this.product = response.data;
-      window.document.title = this.product.name;
+      const { data: product } = await axios.get(`/item/${this.pId}`);
+      product.images = product.imgUrl.split(',');
+      this.product = product;
+      window.document.title = product.name;
+
+      const { data: shopInfo } = await axios.get(`/item/${this.pId}/shopInfo`);
+      this.shopInfo = shopInfo;
+
       this.$nextTick(() => {
         const swiper = new window.Swiper('.swiper-container', {
           direction: 'horizontal',
@@ -70,8 +82,6 @@ export default {
         });
         console.log(swiper);
       });
-      response = await axios.get(`/item/${this.pId}/shopInfo`);
-      this.userId = response.data.userId;
     });
 
     this.shareFunc();
@@ -139,6 +149,15 @@ body {
   height: 23.4375rem;
 }
 .swiper-slide {
+  position: relative;
+  .shop-name {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -155,6 +174,7 @@ body {
 .top_title {
   background: #fff;
   padding: 1.125rem 0.75rem;
+  border-bottom: 8px solid #f5f5f5;
   .tit_name {
     font-size: 1rem;
     color: #333;
@@ -215,6 +235,25 @@ body {
 
 .product-detail {
   padding: 1rem;
+}
+
+.shop {
+  background-color: #fff;
+  text-align:center;
+  color: #333;
+  padding: 1rem 0;
+
+  h4{
+    margin-bottom: 1rem;
+  }
+  .address{
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+  img{
+    width: 12rem;
+    height: 12rem;
+  }
 }
 </style>
 
