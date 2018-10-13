@@ -1,22 +1,24 @@
 <template>
-  <div v-if="product && showApp">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(img,i) in product.images" :key="i">
-          <img :src="img +'?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+  <div class="main" v-if="product && showApp">
+    <div class="content">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(img,i) in product.images" :key="i">
+            <img :src="img +'?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+          </div>
         </div>
+        <div class="swiper-pagination"></div>
       </div>
-      <div class="swiper-pagination"></div>
-    </div>
-    <div class="top_title">
-      <p class="tit_name">商品名称：{{product.name}}</p>
-      <p class="smalltit_name">{{product.description}}</p>
-      <p class="tit_money">
-        <span>单价：￥{{product.sellPrice}} </span>
-      </p>
-    </div>
-    <div class="product-detail">
-      {{product.description}}
+      <div class="top_title">
+        <p class="tit_name">商品名称：{{product.name}}</p>
+        <p class="smalltit_name">{{product.description}}</p>
+        <p class="tit_money">
+          <span>单价：￥{{product.sellPrice}} </span>
+        </p>
+      </div>
+      <div class="product-detail">
+        {{product.description}}
+      </div>
     </div>
     <div class="buy-wrap">
       <a :href="'./list.html?userId=' + userId" class="buy-tohome"></a>
@@ -129,6 +131,9 @@ export default {
 <style lang="scss">
 body {
   font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
+}
+.content {
+  padding-bottom: 3rem;
 }
 .swiper-container {
   height: 23.4375rem;
