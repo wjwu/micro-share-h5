@@ -3,36 +3,27 @@
     <div class="title">
       <h1>意见反馈</h1>
     </div>
-    <div class="weui-cells__title">反馈内容</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea class="weui-textarea" v-model="content" placeholder="请输入反馈内容" rows="3" maxlength="200"></textarea>
-          <div class="weui-textarea-counter">
-            <span>{{content.length}}</span>/200</div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell weui-cell_select weui-cell_select-after">
-        <div class="weui-cell__hd">
-          <label class="weui-label">反馈类型</label>
-        </div>
-        <div class="weui-cell__bd">
-          <select class="weui-select" v-model="type">
-            <option value="OPTIMIZATION">部落运营优化建议</option>
-            <option value="REQUIREMENT">部落新增需求建议</option>
-            <option value="PROBLEM">部落存在问题反馈</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells weui-cells_form">
+    <weui-cells-title>反馈内容</weui-cells-title>
+    <weui-cells-form>
+      <weui-cell>
+        <weui-textarea v-model="content" placeholder="请输入反馈内容" rows="3" maxlength="200"></weui-textarea>
+      </weui-cell>
+    </weui-cells-form>
+    <weui-cells-form>
+      <weui-cell-select label="反馈类型">
+        <select class="weui-select" v-model="type">
+          <option value="OPTIMIZATION">部落运营优化建议</option>
+          <option value="REQUIREMENT">部落新增需求建议</option>
+          <option value="PROBLEM">部落存在问题反馈</option>
+        </select>
+      </weui-cell-select>
+    </weui-cells-form>
+    <weui-cells-form>
       <image-upload title="图片" :token="token" :max="4" v-model="images" multiple></image-upload>
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSubmit">提交</a>
-    </div>
+    </weui-cells-form>
+    <weui-btn-area>
+      <weui-btn type="primary" @click="handleSubmit">提交</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
@@ -41,12 +32,28 @@ import axios from '../common/js/axios';
 import { auth } from '../common/js/auth';
 import config from '../common/js/config';
 import { tryFunc, openToast } from '../common/js/common';
-import ImageUpload from '../common/components/ImageUpload';
+import {
+  ImageUpload,
+  WeuiCell,
+  WeuiCellsForm,
+  WeuiCellsTitle,
+  WeuiCellSelect,
+  WeuiBtnArea,
+  WeuiBtn,
+  WeuiTextarea
+} from '../common/components';
 import '../common/js/share';
 
 export default {
   components: {
-    ImageUpload
+    ImageUpload,
+    WeuiCell,
+    WeuiCellsForm,
+    WeuiCellsTitle,
+    WeuiCellSelect,
+    WeuiBtnArea,
+    WeuiBtn,
+    WeuiTextarea
   },
   data() {
     return {
