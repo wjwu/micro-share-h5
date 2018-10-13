@@ -4,10 +4,7 @@
       <h1>新品鉴赏</h1>
     </div>
     <weui-cells>
-      <weui-cell>
-        <template slot="headLabel">
-          对外展示名
-        </template>
+      <weui-cell label="对外展示名">
         <b>新品鉴赏（欢迎品鉴）</b>
       </weui-cell>
       <weui-cell-access label="1号商品" foot="设置" :href="`/item/submit.html?t=${NEWER}&no=1`">

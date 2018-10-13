@@ -1,6 +1,6 @@
 <template>
   <div>
-    <textarea class="weui-textarea" v-bind="$attrs" @input="handleChange"></textarea>
+    <textarea :value="value" class="weui-textarea" v-bind="$attrs" @input="handleChange"></textarea>
     <div class="weui-textarea-counter" v-if="$attrs['maxlength']">
       <span>{{length}}</span>/{{$attrs['maxlength']}}
     </div>

@@ -3,38 +3,24 @@
     <div class="title">
       <h1>本周特价</h1>
     </div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">对外展示名</label>
-        </div>
-        <div class="weui-cell__bd">
-          <b>本周特价（抢购）</b>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">商品名称</label>
-        </div>
-        <div class="weui-cell__bd">
-          {{itemName ? itemName : '未添加商品'}}
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title">特价商品描述</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea class="weui-textarea" v-model="description" maxlength="30" placeholder="请输入特价描述信息（必填）,不超过30字" rows="3"></textarea>
-          <div class="weui-textarea-counter">
-            <span>{{description ? description.length : 0}}</span>/30</div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存商品描述</a>
-      <a class="weui-btn weui-btn_primary" :href="`/item/submit.html?t=${SPECIAL}`">设置特价商品</a>
-    </div>
+    <weui-cells>
+      <weui-cell label="对外展示名">
+        <b>本周特价（抢购）</b>
+      </weui-cell>
+      <weui-cell label="商品名称">
+        {{itemName ? itemName : '未添加商品'}}
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title>特价商品描述</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <weui-textarea v-model="description" maxlength="30" placeholder="请输入特价描述信息（必填）,不超过30字" rows="3"></weui-textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-btn-area>
+      <weui-btn type="primary" @click="handleSave">保存商品描述</weui-btn>
+      <weui-btn type="primary" :href="`/item/submit.html?t=${SPECIAL}`">设置特价商品</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
@@ -42,10 +28,26 @@
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openAlert } from '../../common/js/common';
+import {
+  WeuiCells,
+  WeuiCell,
+  WeuiBtnArea,
+  WeuiBtn,
+  WeuiCellsTitle,
+  WeuiTextarea
+} from '../../common/components';
 
 const SPECIAL = 'SPECIAL';
 
 export default {
+  components: {
+    WeuiCells,
+    WeuiCell,
+    WeuiBtnArea,
+    WeuiBtn,
+    WeuiCellsTitle,
+    WeuiTextarea
+  },
   data() {
     return {
       SPECIAL,

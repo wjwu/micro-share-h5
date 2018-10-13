@@ -1,9 +1,9 @@
 <template>
   <div class="weui-cell">
-    <div class="weui-cell__hd" v-if="$slots.head || $slots.headLabel">
+    <div class="weui-cell__hd" v-if="$slots.head || label">
       <slot name="head" v-if="$slots.head"></slot>
       <label v-else class="weui-label">
-        <slot name="headLabel"></slot>
+        {{label}}
       </label>
     </div>
     <div class="weui-cell__bd">
@@ -16,6 +16,8 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ['label']
+};
 </script>
 

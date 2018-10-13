@@ -30,8 +30,7 @@
       <weui-load-more-line v-else></weui-load-more-line>
       <weui-cells-title>添加/修改</weui-cells-title>
       <weui-cells>
-        <weui-cell>
-          <template slot="headLabel">关键词</template>
+        <weui-cell label="关键词">
           <input v-model="keyword" class="weui-input" type="text" placeholder="请输入关键词" maxlength="20">
         </weui-cell>
       </weui-cells>
