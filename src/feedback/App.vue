@@ -31,7 +31,7 @@
 import axios from '../common/js/axios';
 import { auth } from '../common/js/auth';
 import config from '../common/js/config';
-import { tryFunc, openToast } from '../common/js/common';
+import { tryFunc, openAlert } from '../common/js/common';
 import {
   ImageUpload,
   WeuiCell,
@@ -76,7 +76,7 @@ export default {
   methods: {
     handleSubmit() {
       if (!this.content) {
-        openToast('请输入反馈内容');
+        openAlert('请输入反馈内容');
         return;
       }
 
@@ -88,7 +88,7 @@ export default {
             .map(item => `${config.imageHost}/${item}`)
             .join(',')
         });
-        openToast('我们已经收到您的建议，谢谢您！', () => {
+        openAlert('我们已经收到您的建议，谢谢您！', () => {
           this.content = '';
           this.type = 'OPTIMIZATION';
           this.images = [];

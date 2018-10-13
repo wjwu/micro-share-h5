@@ -27,7 +27,7 @@
 import * as qiniu from 'qiniu-js';
 import weui from 'weui.js';
 import config from '../js/config';
-import { openToast } from '../js/common';
+import { openAlert } from '../js/common';
 
 export default {
   props: {
@@ -64,7 +64,7 @@ export default {
   methods: {
     async handleImgChange(e) {
       if (!this.token) {
-        openToast('上传图片Token无效');
+        openAlert('上传图片Token无效');
         return;
       }
       let files = Array.prototype.slice.call(
@@ -77,7 +77,7 @@ export default {
           continue;
         }
         if (file.size > 1024 * 1024 * 4) {
-          openToast(`图片${file.name}大小超过4MB，无法上传`);
+          openAlert(`图片${file.name}大小超过4MB，无法上传`);
         } else {
           this.upload(file);
         }
@@ -105,7 +105,7 @@ export default {
           _this.percent = res.total.percent.toFixed(0);
         },
         error(error) {
-          openToast(JSON.stringify(error));
+          openAlert(JSON.stringify(error));
         },
         complete(res) {
           _this.uploading = false;

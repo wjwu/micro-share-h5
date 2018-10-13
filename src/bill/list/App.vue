@@ -52,7 +52,7 @@
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast, getQueryString } from '../../common/js/common';
+import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -71,14 +71,14 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.from || !this.to) {
-        openToast('日期参数错误');
+        openAlert('日期参数错误');
         return;
       }
       const { data } = await axios.get(
         `/account/query?startDate=${this.from}&endDate=${this.to}`
       );
       if (!data) {
-        openToast('暂无数据!');
+        openAlert('暂无数据!');
         return;
       }
       this.totalIn = data.totalIn;

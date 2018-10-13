@@ -79,7 +79,7 @@ import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import StarRate from 'vue-cute-rate';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -111,11 +111,11 @@ export default {
     async handleClick() {
       const orderId = getQueryString('orderId');
       if (!orderId) {
-        openToast('订单Id无效');
+        openAlert('订单Id无效');
         return;
       }
       if (this.total === 0) {
-        openToast('请先评分');
+        openAlert('请先评分');
         return;
       }
       tryFunc(async () => {

@@ -46,7 +46,7 @@ import axios from 'axios';
 import weui from 'weui.js';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
-import { tryFunc, openToast, getQueryString } from '../../../common/js/common';
+import { tryFunc, openAlert, getQueryString } from '../../../common/js/common';
 import '../../../common/js/share';
 
 export default {
@@ -95,15 +95,15 @@ export default {
   methods: {
     handleSave() {
       if (!this.title) {
-        openToast('请输入主标题');
+        openAlert('请输入主标题');
         return;
       }
       if (!this.subTitle) {
-        openToast('请输入副题');
+        openAlert('请输入副题');
         return;
       }
       if (!this.selectedQr) {
-        openToast('请选择二维码');
+        openAlert('请选择二维码');
         return;
       }
 
@@ -190,7 +190,7 @@ export default {
       let imageData = canvas.toDataURL('image/png');
       document.getElementById('template').setAttribute('src', imageData);
       loading.hide();
-      openToast('生成成功，请长按图片保存到手机');
+      openAlert('生成成功，请长按图片保存到手机');
     }
   }
 };

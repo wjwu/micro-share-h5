@@ -41,7 +41,7 @@
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast } from '../../common/js/common';
+import { tryFunc, openAlert } from '../../common/js/common';
 
 const SPECIAL = 'SPECIAL';
 
@@ -66,14 +66,14 @@ export default {
   methods: {
     handleSave() {
       if (!this.description) {
-        openToast('请输入特价描述信息');
+        openAlert('请输入特价描述信息');
         return;
       }
       tryFunc(async () => {
         await axios.post('/shop/special', {
           description: this.description
         });
-        openToast('操作成功');
+        openAlert('操作成功');
       });
     }
   }

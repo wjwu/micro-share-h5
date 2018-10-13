@@ -9,6 +9,7 @@ import WeuiCellSelect from './WeuiCellSelect';
 import WeuiBtnArea from './WeuiBtnArea';
 import WeuiBtn from './WeuiBtn';
 import WeuiTextarea from './WeuiTextarea';
+import WeuiCellAccess from './WeuiCellAccess';
 
 export {
   Bar,
@@ -21,5 +22,6 @@ export {
   WeuiCellSelect,
   WeuiBtnArea,
   WeuiBtn,
-  WeuiTextarea
+  WeuiTextarea,
+  WeuiCellAccess
 };

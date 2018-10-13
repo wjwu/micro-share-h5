@@ -165,7 +165,7 @@ import weui from 'weui.js';
 import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
-import { tryFunc, openToast } from '../../../common/js/common';
+import { tryFunc, openAlert } from '../../../common/js/common';
 import ImageUpload from '../../../common/components/ImageUpload';
 import '../../../common/js/share';
 
@@ -219,19 +219,19 @@ export default {
     },
     handleSubmit() {
       if (!this.title) {
-        openToast('请输入标题');
+        openAlert('请输入标题');
         return;
       }
       if (this.messageType === 'TEXT' && !this.content) {
-        openToast('请输入消息内容');
+        openAlert('请输入消息内容');
         return;
       } else if (this.messageType === 'IMG' && this.images.length === 0) {
-        openToast('请至少上传一张图片');
+        openAlert('请至少上传一张图片');
         return;
       }
       const checkedRoom = this.rooms.filter(item => item.checked);
       if (checkedRoom.length === 0) {
-        openToast('请至少选择一个群');
+        openAlert('请至少选择一个群');
         return;
       }
 
@@ -239,7 +239,7 @@ export default {
         (this.messageType === 'TEXT' || this.messageType === 'IMG') &&
         !this.time
       ) {
-        openToast('请输入发送时间');
+        openAlert('请输入发送时间');
         return;
       }
       tryFunc(async () => {

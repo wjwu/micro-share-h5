@@ -28,7 +28,7 @@
         </div>
         <p class="weui-grid__label">新品鉴赏</p>
       </a>
-      <a href="javascript:;"  @click="handleJumpShopper('/item/special.html')" class="weui-grid">
+      <a href="javascript:;" @click="handleJumpShopper('/item/special.html')" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/vip.png" alt="">
         </div>
@@ -104,9 +104,8 @@
 
 <script>
 import format from 'date-fns/format';
-import weui from 'weui.js';
 import { auth, checkIsMember } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
+import { tryFunc, openConfirm } from '../../common/js/common';
 import Bar from '../../common/components/Bar';
 import defaultHeadPhone from './assets/images/user.png';
 import '../../common/js/share';
@@ -132,7 +131,7 @@ export default {
   methods: {
     handleJumpShopper(url) {
       if (!this.vipInfo.advVipFlag) {
-        weui.confirm('您尚未购买店长版VIP功能，是否前往购买页面购买？', () => {
+        openConfirm('您尚未购买店长版VIP功能，是否前往购买页面购买？', () => {
           window.location.href = '/pay.html';
         });
       } else {
@@ -141,7 +140,7 @@ export default {
     },
     handleJumpBase(url) {
       if (!this.vipInfo.baseVipFlag) {
-        weui.confirm('您尚未购买基础版VIP功能，是否前往购买页面购买？', () => {
+        openConfirm('您尚未购买基础版VIP功能，是否前往购买页面购买？', () => {
           window.location.href = '/pay.html';
         });
       } else {

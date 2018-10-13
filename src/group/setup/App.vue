@@ -47,7 +47,7 @@
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc } from '../../common/js/common';
+import { openAlert, tryFunc } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -97,7 +97,7 @@ export default {
           rule: this.ruleText,
           roomId: this.selectedRoomId
         });
-        openToast('操作成功');
+        openAlert('操作成功');
       });
     }
   }

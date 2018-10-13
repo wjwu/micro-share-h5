@@ -58,7 +58,7 @@
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast } from '../../common/js/common';
+import { tryFunc, openAlert } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -125,7 +125,7 @@ export default {
     handleSave() {
       const checkedMembers = this.members.filter(member => member.checked);
       // if (checkedMembers.length === 0) {
-      //   openToast('请选择需要关注的成员');
+      //   openAlert('请选择需要关注的成员');
       //   return;
       // }
       tryFunc(async () => {
@@ -133,7 +133,7 @@ export default {
           follows: checkedMembers.map(m => m.wechatId),
           roomId: this.selectedRoomId
         });
-        openToast('操作成功', () => {
+        openAlert('操作成功', () => {
           window.location.reload();
         });
       });

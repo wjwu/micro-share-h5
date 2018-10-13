@@ -198,7 +198,7 @@ import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import {
-  openToast,
+  openAlert,
   tryFunc,
   getQueryString,
   wxPay
@@ -219,12 +219,12 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.orderId) {
-        openToast('订单编号无效');
+        openAlert('订单编号无效');
         return;
       }
       const { data } = await axios.get(`/order/${this.orderId}`);
       if (!data) {
-        openToast('订单编号无效');
+        openAlert('订单编号无效');
       } else {
         this.order = data;
       }
@@ -249,7 +249,7 @@ export default {
     handleDisagree() {
       tryFunc(async () => {
         await axios.post(`/order/${this.orderId}/refuse`);
-        openToast('【匹配失败】您已拒绝支付，系统重新匹配中', () => {
+        openAlert('【匹配失败】您已拒绝支付，系统重新匹配中', () => {
           window.location.reload();
         });
       });

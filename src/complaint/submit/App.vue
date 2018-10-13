@@ -68,7 +68,7 @@ import weui from 'weui.js';
 import axios from '../../common/js/axios';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
 
@@ -95,13 +95,13 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.orderId) {
-        openToast('订单Id无效');
+        openAlert('订单Id无效');
       } else {
         let response = await axios.get('/token');
         this.token = response.data.uptoken;
         response = await axios.get(`/order/${this.orderId}/report`);
         if (!response.data) {
-          openToast('订单Id无效');
+          openAlert('订单Id无效');
         } else {
           this.disableSubmit = false;
           this.userName = response.data.userName;
@@ -116,15 +116,15 @@ export default {
         return;
       }
       if (!this.type) {
-        openToast('请选择投诉类型');
+        openAlert('请选择投诉类型');
         return;
       }
       if (this.images.length === 0) {
-        openToast('请上传至少一张证据照片');
+        openAlert('请上传至少一张证据照片');
         return;
       }
       if (!this.content) {
-        openToast('请输入投诉内容');
+        openAlert('请输入投诉内容');
         return;
       }
       tryFunc(async () => {

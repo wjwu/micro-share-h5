@@ -21,7 +21,7 @@
 import weui from 'weui.js';
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc } from '../../common/js/common';
+import { openAlert, tryFunc } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -40,7 +40,7 @@ export default {
   methods: {
     handleSave() {
       if (!this.wechat) {
-        openToast('请输入微信号');
+        openAlert('请输入微信号');
         return;
       }
 

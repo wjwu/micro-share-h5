@@ -64,7 +64,7 @@ import weui from 'weui.js';
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import {
-  openToast,
+  openAlert,
   tryFunc,
   checkPhone,
   getQueryString
@@ -92,20 +92,20 @@ export default {
   methods: {
     handleSave() {
       if (!this.protocolChecked) {
-        openToast('请勾选使用协议');
+        openAlert('请勾选使用协议');
         return;
       }
       if (!this.phone) {
-        openToast('请输入手机号');
+        openAlert('请输入手机号');
         return;
       }
       if (!this.captcha) {
-        openToast('请输入验证码');
+        openAlert('请输入验证码');
         return;
       }
 
       if (!checkPhone(this.phone)) {
-        openToast('手机号码格式不正确');
+        openAlert('手机号码格式不正确');
         return;
       }
 
@@ -131,11 +131,11 @@ export default {
     },
     handleSend() {
       if (!this.phone) {
-        openToast('请输入手机号');
+        openAlert('请输入手机号');
         return;
       }
       if (!checkPhone(this.phone)) {
-        openToast('手机号码格式不正确');
+        openAlert('手机号码格式不正确');
         return;
       }
 
@@ -156,7 +156,7 @@ export default {
             this.time = this.time - 1;
           }
         }, 1000);
-        openToast('验证码已发送');
+        openAlert('验证码已发送');
       });
     }
   }

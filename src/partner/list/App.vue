@@ -30,9 +30,8 @@
 
 <script>
 import axios from '../../common/js/axios';
-import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
+import { tryFunc, openConfirm } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -62,7 +61,7 @@ export default {
       }
     },
     handleDelete(item) {
-      weui.confirm(`您确定要删除商伴：${item.name}？`, () => {
+      openConfirm(`您确定要删除商伴：${item.name}？`, () => {
         this.doDelete(item.id);
       });
     },

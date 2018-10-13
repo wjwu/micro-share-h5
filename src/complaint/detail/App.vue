@@ -103,7 +103,7 @@
 import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -125,7 +125,7 @@ export default {
   methods: {
     async getComps() {
       if (!this.compsId) {
-        openToast('投诉编号无效');
+        openAlert('投诉编号无效');
         return;
       }
       let { data } = await axios.get(`/user/report/${this.compsId}`);

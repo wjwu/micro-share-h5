@@ -39,7 +39,7 @@
 import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -57,7 +57,7 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.orderId) {
-        openToast('订单编号无效');
+        openAlert('订单编号无效');
         return;
       }
       await this.getList();

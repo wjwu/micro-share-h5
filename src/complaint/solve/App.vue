@@ -50,7 +50,7 @@
 import weui from 'weui.js';
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { openToast, tryFunc, getQueryString } from '../../common/js/common';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -74,11 +74,11 @@ export default {
     handleClick() {
       const compsId = getQueryString('compsId');
       if (!compsId) {
-        openToast('投诉编号无效');
+        openAlert('投诉编号无效');
         return;
       }
       if (!this.content && !this.flag) {
-        openToast('请先输入拒绝理由');
+        openAlert('请先输入拒绝理由');
         return;
       }
       tryFunc(async () => {

@@ -66,7 +66,7 @@
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast } from '../../common/js/common';
+import { tryFunc, openAlert } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -114,13 +114,13 @@ export default {
     },
     handleAdd() {
       if (!this.keyword) {
-        openToast('请输入关键词');
+        openAlert('请输入关键词');
         return;
       }
       if (this.btnText === '修改') {
         const idx = this.keywords.findIndex(this.keyword.trim());
         if (idx !== this.selectedIdx && idx >= 0) {
-          openToast('关键词已存在');
+          openAlert('关键词已存在');
           return;
         } else {
           this.keywords[this.selectedIdx] = this.keyword.trim();
@@ -130,7 +130,7 @@ export default {
         }
       } else {
         if (this.keywords.indexOf(this.keyword.trim()) >= 0) {
-          openToast('关键词已存在，请勿重复添加');
+          openAlert('关键词已存在，请勿重复添加');
           return;
         } else {
           this.keywords.push(this.keyword.trim());
@@ -155,7 +155,7 @@ export default {
           keyword: this.keywords.join(','),
           roomId: this.selectedRoomId
         });
-        openToast('操作成功');
+        openAlert('操作成功');
       });
     }
   }

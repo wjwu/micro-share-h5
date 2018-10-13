@@ -40,7 +40,7 @@
 import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast, getQueryString } from '../../common/js/common';
+import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
 import config from '../../common/js/config';
@@ -89,16 +89,16 @@ export default {
     },
     handleSave() {
       if (!this.product.name) {
-        openToast('请输入商品名称');
+        openAlert('请输入商品名称');
         return;
       }
       if (this.images.length === 0) {
-        openToast('请至少上传一张商品图片');
+        openAlert('请至少上传一张商品图片');
         return;
       }
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
       if (!reg.test(this.product.sellPrice)) {
-        openToast('商品价格不能为空，最多保留两位小数');
+        openAlert('商品价格不能为空，最多保留两位小数');
         return;
       }
       const _this = this;

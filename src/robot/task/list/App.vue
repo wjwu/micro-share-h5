@@ -59,11 +59,10 @@
 
 <script>
 import axios from '../../../common/js/axios';
-import weui from 'weui.js';
 import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
-import { tryFunc } from '../../../common/js/common';
+import { tryFunc, openConfirm } from '../../../common/js/common';
 import '../../../common/js/share';
 
 export default {
@@ -93,7 +92,7 @@ export default {
       this.selectedTab = tab;
     },
     handleDelete(id) {
-      weui.confirm('您确实要删除该任务？', () => {
+      openConfirm('您确实要删除该任务？', () => {
         tryFunc(async () => {
           await axios.delete(`${config.apiHost}/user/task/${id}`);
           await this.getTasks();

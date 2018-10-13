@@ -6,7 +6,7 @@
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc, getQueryString, openToast } from '../../common/js/common';
+import { tryFunc, getQueryString, openAlert } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -21,7 +21,7 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.partnerId) {
-        openToast('商伴Id无效');
+        openAlert('商伴Id无效');
         return;
       }
       await axios.post(`/user/room/${this.partnerId}`);

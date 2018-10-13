@@ -95,7 +95,7 @@ import { auth, checkPhone } from '../../common/js/auth';
 import wxApi from '../../common/js/wxApi';
 import industries from '../../common/js/industries';
 import { getAddress } from '../../common/js/map';
-import { openToast, tryFunc } from '../../common/js/common';
+import { openAlert, tryFunc } from '../../common/js/common';
 import '../../common/js/share';
 
 export default {
@@ -176,20 +176,20 @@ export default {
       }
 
       if (Number(this.number) < 200) {
-        openToast('群人数需要大于200人才能参与商伴匹配');
+        openAlert('群人数需要大于200人才能参与商伴匹配');
         return;
       }
 
       if (!this.selectedGroupId) {
-        openToast('请选择微信群');
+        openAlert('请选择微信群');
         return;
       }
       if (!this.selectedIndustryId) {
-        openToast('请选择微信群行业');
+        openAlert('请选择微信群行业');
         return;
       }
       if (!this.latitude || !this.latitude) {
-        openToast('请先定位位置');
+        openAlert('请先定位位置');
         return;
       }
 

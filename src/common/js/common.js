@@ -19,12 +19,16 @@ export const openTips = message => {
   weui.topTips(message);
 };
 
-export const openToast = (message, callback = null) => {
-  if (callback) {
-    weui.alert(message, callback);
-  } else {
-    weui.alert(message);
-  }
+export const openAlert = (message, callback = undefined) => {
+  weui.alert(message, callback);
+};
+
+export const openConfirm = (
+  message,
+  yesCallback = undefined,
+  noCallback = undefined
+) => {
+  weui.confirm(message, yesCallback, noCallback);
 };
 
 export const tryFunc = async func => {
@@ -35,9 +39,9 @@ export const tryFunc = async func => {
   } catch (e) {
     loading.hide();
     if (e.response && e.response.data) {
-      openToast(e.response.data.message);
+      openAlert(e.response.data.message);
     } else {
-      openToast(e);
+      openAlert(e);
     }
   }
 };

@@ -35,10 +35,9 @@
 
 <script>
 import axios from '../../common/js/axios';
-import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
-import { openToast, tryFunc } from '../../common/js/common';
+import { openAlert, openConfirm, tryFunc } from '../../common/js/common';
 import wxApi from '../../common/js/wxApi';
 
 export default {
@@ -63,7 +62,7 @@ export default {
       var userId = localStorage.getItem('userId');
       const { data } = await axios.get('/user/shopInfo');
       if (!data) {
-        openToast('请先设置店铺标题，点击确定前往', () => {
+        openAlert('请先设置店铺标题，点击确定前往', () => {
           window.location.href = '/other/toker.html';
         });
       }
@@ -109,7 +108,7 @@ export default {
       window.location.href = `./edit.html?pId=${id}`;
     },
     handleDelete(id) {
-      weui.confirm('您确实要删除该商品？', () => {
+      openConfirm('您确实要删除该商品？', () => {
         tryFunc(async () => {
           await axios.delete(`/item/${id}`);
           await this.getProducts();

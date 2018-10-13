@@ -51,7 +51,7 @@ import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
-import { tryFunc, openToast } from '../../common/js/common';
+import { tryFunc, openAlert } from '../../common/js/common';
 import ImageUpload from '../../common/components/ImageUpload';
 import '../../common/js/share';
 
@@ -98,11 +98,11 @@ export default {
   methods: {
     handleSave() {
       if (this.images.length !== 0 && !this.name) {
-        openToast('请输入条码名称');
+        openAlert('请输入条码名称');
         return;
       }
       if (!this.shopName) {
-        openToast('请输入店铺名称');
+        openAlert('请输入店铺名称');
         return;
       }
       tryFunc(async () => {

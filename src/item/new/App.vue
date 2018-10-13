@@ -3,73 +3,61 @@
     <div class="title">
       <h1>新品鉴赏</h1>
     </div>
-    <div class="weui-cells">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">对外展示名</label>
-        </div>
-        <div class="weui-cell__bd">
-          <b>新品鉴赏（欢迎品鉴）</b>
-        </div>
-      </div>
-      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEWER}&no=1`">
-        <div class="weui-cell__hd">
-          <label class="weui-label">1号商品</label>
-        </div>
-        <div class="weui-cell__bd">
-          {{itemName1}}
-        </div>
-        <div class="weui-cell__ft">
-          设置
-        </div>
-      </a>
-      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEWER}&no=2`">
-        <div class="weui-cell__hd">
-          <label class="weui-label">2号商品</label>
-        </div>
-        <div class="weui-cell__bd">
-          {{itemName2}}
-        </div>
-        <div class="weui-cell__ft">
-          设置
-        </div>
-      </a>
-      <a class="weui-cell weui-cell_access" :href="`/item/submit.html?t=${NEWER}&no=3`">
-        <div class="weui-cell__hd">
-          <label class="weui-label">3号商品</label>
-        </div>
-        <div class="weui-cell__bd">
-          {{itemName3}}
-        </div>
-        <div class="weui-cell__ft">
-          设置
-        </div>
-      </a>
-    </div>
-    <div class="weui-cells__title">商品描述</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea class="weui-textarea" v-model="description" maxlength="30" placeholder="请输入新品描述信息（必填）,不超过30字" rows="3"></textarea>
-          <div class="weui-textarea-counter">
-            <span>{{description.length}}</span>/30</div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存商品描述</a>
-    </div>
+    <weui-cells>
+      <weui-cell>
+        <template slot="headLabel">
+          对外展示名
+        </template>
+        <b>新品鉴赏（欢迎品鉴）</b>
+      </weui-cell>
+      <weui-cell-access label="1号商品" foot="设置" :href="`/item/submit.html?t=${NEWER}&no=1`">
+        {{itemName1}}
+      </weui-cell-access>
+      <weui-cell-access label="2号商品" foot="设置" :href="`/item/submit.html?t=${NEWER}&no=2`">
+        {{itemName2}}
+      </weui-cell-access>
+      <weui-cell-access label="3号商品" foot="设置" :href="`/item/submit.html?t=${NEWER}&no=3`">
+        {{itemName3}}
+      </weui-cell-access>
+    </weui-cells>
+    <weui-cells-title>商品描述</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <weui-textarea v-model="description" maxlength="30" placeholder="请输入新品描述信息（必填）,不超过30字" rows="3"></weui-textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-btn-area>
+      <weui-btn type="primary" @click="handleSave">保存商品描述</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
 <script>
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc, openToast } from '../../common/js/common';
+import { tryFunc, openAlert } from '../../common/js/common';
+import {
+  WeuiCells,
+  WeuiCell,
+  WeuiBtnArea,
+  WeuiBtn,
+  WeuiCellAccess,
+  WeuiCellsTitle,
+  WeuiTextarea
+} from '../../common/components';
 
 const NEWER = 'NEWER';
 
 export default {
+  components: {
+    WeuiCells,
+    WeuiCell,
+    WeuiBtnArea,
+    WeuiBtn,
+    WeuiCellAccess,
+    WeuiCellsTitle,
+    WeuiTextarea
+  },
   data() {
     return {
       NEWER,
@@ -94,14 +82,14 @@ export default {
   methods: {
     handleSave() {
       if (!this.description) {
-        openToast('请输入特价描述信息');
+        openAlert('请输入特价描述信息');
         return;
       }
       tryFunc(async () => {
         await axios.post('/shop/newItem', {
           description: this.description
         });
-        openToast('操作成功');
+        openAlert('操作成功');
       });
     }
   }
