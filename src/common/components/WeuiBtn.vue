@@ -1,5 +1,5 @@
 <template>
-  <a class="weui-btn" :class="`weui-btn_${type}`" :href="href" @click="$emit('click')">
+  <a class="weui-btn" :class="[`weui-btn_${type}`,{'weui-btn_mini':mini}]" :href="href" @click="$emit('click')">
     <slot></slot>
   </a>
 </template>
@@ -10,6 +10,10 @@ export default {
     type: {
       type: String,
       default: 'default'
+    },
+    mini: {
+      type: Boolean,
+      default: false
     },
     href: {
       type: String,

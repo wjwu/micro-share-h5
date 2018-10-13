@@ -1,56 +1,32 @@
 <template>
   <div v-if="showApp">
-    <div v-if="!selectedRoomId" class="group">
-      <div class="weui-cells__title">我的群列表</div>
-      <div v-if="myGroups.length > 0">
-        <div class="weui-cells" v-for="item in myGroups" :key="item.id">
-          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.wechatId)">
-            <div class="weui-cell__bd">
-              <p>{{item.name}}</p>
-            </div>
-            <div class="weui-cell__ft">设置关注成员</div>
-          </a>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
-      <div class="weui-cells__title">商伴的群列表</div>
-      <div v-if="orderGroups.length > 0">
-        <div class="weui-cells" v-for="item in orderGroups" :key="item.id">
-          <a class="weui-cell weui-cell_access" href="javascript:;" @click="handleClick(item.wechatId)">
-            <div class="weui-cell__bd">
-              <p>{{item.name}}</p>
-            </div>
-            <div class="weui-cell__ft">设置关注成员</div>
-          </a>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
+    <div v-if="!selectedRoomId">
+      <weui-cells-title>我的群列表</weui-cells-title>
+      <weui-cells v-if="myGroups.length > 0">
+        <weui-cell-access v-for="item in myGroups" :key="item.id" @click="handleClick(item.wechatId)" foot="设置关注成员">
+          {{item.name}}
+        </weui-cell-access>
+      </weui-cells>
+      <weui-load-more-line v-else></weui-load-more-line>
+      <weui-cells-title>商伴的群列表</weui-cells-title>
+      <weui-cells v-if="orderGroups.length > 0">
+        <weui-cell-access v-for="item in orderGroups" :key="item.id" @click="handleClick(item.wechatId)" foot="设置关注成员">
+          {{item.name}}
+        </weui-cell-access>
+      </weui-cells>
+      <weui-load-more-line v-else></weui-load-more-line>
     </div>
     <div v-else>
-      <div class="weui-cells__title">每个群限关注3人</div>
-      <div class="weui-cells weui-cells_checkbox" v-if="members.length > 0">
-        <label class="weui-cell weui-check__label" :for="member.wechatId" v-for="member in members" :key="member.id">
-          <div class="weui-cell__hd">
-            <input type="checkbox" class="weui-check" @click="handleMemberClick($event)" :id="member.wechatId" v-model="member.checked">
-            <i class="weui-icon-checked"></i>
-          </div>
-          <div class="weui-cell__bd">
-            <p>{{member.name}}</p>
-          </div>
-        </label>
-      </div>
-      <div class="weui-panel__bd" v-else>
-        <div class="weui-loadmore weui-loadmore_line">
-          <span class="weui-loadmore__tips">暂无数据</span>
-        </div>
-      </div>
-      <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">保存</a>
-      </div>
+      <weui-cells-title>每个群限关注3人</weui-cells-title>
+      <weui-cells-checkbox v-if="members.length > 0">
+        <weui-check-label v-for="member in members" :key="member.id" :id="member.id" @click="handleMemberClick" v-model="member.checked">
+          {{member.name}}
+        </weui-check-label>
+      </weui-cells-checkbox>
+      <weui-load-more-line v-else></weui-load-more-line>
+      <weui-btn-area>
+        <weui-btn type="primary" @click="handleSave">保存</weui-btn>
+      </weui-btn-area>
     </div>
   </div>
 </template>
@@ -59,9 +35,29 @@
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openAlert } from '../../common/js/common';
+import {
+  WeuiCells,
+  WeuiCellAccess,
+  WeuiCellsTitle,
+  WeuiLoadMoreLine,
+  WeuiBtnArea,
+  WeuiBtn,
+  WeuiCellsCheckbox,
+  WeuiCheckLabel
+} from '../../common/components';
 import '../../common/js/share';
 
 export default {
+  components: {
+    WeuiCells,
+    WeuiCellAccess,
+    WeuiCellsTitle,
+    WeuiLoadMoreLine,
+    WeuiBtnArea,
+    WeuiBtn,
+    WeuiCellsCheckbox,
+    WeuiCheckLabel
+  },
   data() {
     return {
       showApp: false,
@@ -116,10 +112,14 @@ export default {
         this.selectedRoomId = id;
       });
     },
-    handleMemberClick(e) {
+    handleMemberClick(id, checked) {
       let count = this.members.filter(member => member.checked).length;
-      if (count >= 3 && e.target.checked) {
-        e.preventDefault();
+      if (count > 3) {
+        for (let member of this.members) {
+          if (member.id === id) {
+            member.checked = false;
+          }
+        }
       }
     },
     handleSave() {
@@ -143,17 +143,8 @@ export default {
 </script>
 
 <style lang="scss">
-.group {
-  .weui-cells {
-    margin-top: 0;
-  }
-  .weui-loadmore_line {
-    margin-top: 1.5rem;
-
-    .weui-loadmore__tips {
-      background-color: #f8f8f8 !important;
-    }
-  }
+.weui-loadmore__tips {
+  background-color: #f8f8f8 !important;
 }
 </style>
 

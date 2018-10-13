@@ -1,30 +1,20 @@
 <template>
   <div v-if="showApp">
-    <div class="group">
-      <div class="weui-cells__title">我的群列表</div>
-      <div v-if="myGroups.length>0">
-        <div class="weui-cells">
-          <div class="weui-cell" v-for="item in myGroups" :key="item.id">{{item.name}} | {{item.number}}人</div>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
-      <div class="weui-cells__title">商伴的群列表</div>
-      <div v-if="orderGroups.length>0">
-        <div class="weui-cells">
-          <div class="weui-cell" v-for="item in orderGroups" :key="item.id">
-            <div class="weui-cell__bd">{{item.name}} | {{item.number}}人</div>
-            <div class="weui-cell__fd">
-              <a href="javascript:;" @click="handleDelete(item)" class="weui-btn weui-btn_mini weui-btn_warn">删除</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
-    </div>
+    <weui-cells-title>我的群列表</weui-cells-title>
+    <weui-cells v-if="myGroups.length>0">
+      <weui-cell v-for="item in myGroups" :key="item.id">{{item.name}} | {{item.number}}人</weui-cell>
+    </weui-cells>
+    <weui-load-more-line v-else></weui-load-more-line>
+    <weui-cells-title>商伴的群列表</weui-cells-title>
+    <weui-cells v-if="orderGroups.length>0">
+      <weui-cell v-for="item in orderGroups" :key="item.id">
+        {{item.name}} | {{item.number}}人
+        <template slot="foot">
+          <weui-btn type="warn" mini @click="handleDelete(item)">删除</weui-btn>
+        </template>
+      </weui-cell>
+    </weui-cells>
+    <weui-load-more-line v-else></weui-load-more-line>
   </div>
 </template>
 
@@ -32,9 +22,23 @@
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openConfirm } from '../../common/js/common';
+import {
+  WeuiCells,
+  WeuiCell,
+  WeuiCellsTitle,
+  WeuiLoadMoreLine,
+  WeuiBtn
+} from '../../common/components';
 import '../../common/js/share';
 
 export default {
+  components: {
+    WeuiCells,
+    WeuiCell,
+    WeuiCellsTitle,
+    WeuiLoadMoreLine,
+    WeuiBtn
+  },
   data() {
     return {
       showApp: false,
@@ -76,21 +80,11 @@ export default {
 </script>
 
 <style lang="scss">
-.group {
-  .weui-loadmore_line {
-    margin-top: 1.5rem;
-
-    .weui-loadmore__tips {
-      background-color: #f8f8f8 !important;
-    }
-  }
-
-  .weui-cells {
-    margin-top: 0;
-  }
+.weui-loadmore__tips {
+  background-color: #f8f8f8 !important;
 }
 
-.weui-cell__fd {
+.weui-cell__ft {
   line-height: 0;
 }
 </style>

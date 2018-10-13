@@ -1,32 +1,22 @@
 <template>
   <div v-if="showApp">
-    <div class="group">
-      <div class="weui-cells__title">我的群列表</div>
-      <div v-if="myGroups.length>0">
-        <div class="weui-cells">
-          <div class="weui-cell" v-for="item in myGroups" :key="item.id">
-            <div class="weui-cell__bd">{{item.name}} | {{item.number}}人</div>
-            <div class="weui-cell__fd">
-              <a href="javascript:;" @click="handleClick(item.id)" class="weui-btn weui-btn_mini weui-btn_primary">分享</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
-      <div class="weui-cells__title">商伴的群列表</div>
-      <div v-if="orderGroups.length>0">
-        <div class="weui-cells">
-          <div class="weui-cell" v-for="item in orderGroups" :key="item.id">
-            <div class="weui-cell__bd">{{item.name}} | {{item.number}}人</div>
-          </div>
-        </div>
-      </div>
-      <div v-else class="weui-loadmore weui-loadmore_line">
-        <span class="weui-loadmore__tips">暂无数据</span>
-      </div>
-    </div>
+    <weui-cells-title>我的群列表</weui-cells-title>
+    <weui-cells v-if="myGroups.length>0">
+      <weui-cell v-for="item in myGroups" :key="item.id">
+        {{item.name}} | {{item.number}}人
+        <template slot="foot">
+          <weui-btn type="primary" mini @click="handleClick(item.id)">分享</weui-btn>
+        </template>
+      </weui-cell>
+    </weui-cells>
+    <weui-load-more-line v-else></weui-load-more-line>
+    <weui-cells-title>商伴的群列表</weui-cells-title>
+    <weui-cells v-if="orderGroups.length>0">
+      <weui-cell v-for="item in orderGroups" :key="item.id">
+        {{item.name}} | {{item.number}}人
+      </weui-cell>
+    </weui-cells>
+    <weui-load-more-line v-else></weui-load-more-line>
     <div class="mask" v-show="showMask" @click="handleMaskClick">
       <p>请长按二维码转发</p>
       <vue-qr :text="shareUrl" :size="200" :margin="10"></vue-qr>
@@ -40,11 +30,23 @@ import VueQr from '../../common/lib/vue-qr/main';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
+import {
+  WeuiCells,
+  WeuiCell,
+  WeuiCellsTitle,
+  WeuiLoadMoreLine,
+  WeuiBtn
+} from '../../common/components';
 import '../../common/js/share';
 
 export default {
   components: {
-    VueQr
+    VueQr,
+    WeuiCells,
+    WeuiCell,
+    WeuiCellsTitle,
+    WeuiLoadMoreLine,
+    WeuiBtn
   },
   data() {
     return {
@@ -86,21 +88,11 @@ export default {
 </script>
 
 <style lang="scss">
-.group {
-  .weui-loadmore_line {
-    margin-top: 1.5rem;
-
-    .weui-loadmore__tips {
-      background-color: #f8f8f8 !important;
-    }
-  }
-
-  .weui-cells {
-    margin-top: 0;
-  }
+.weui-loadmore__tips {
+  background-color: #f8f8f8 !important;
 }
 
-.weui-cell__fd {
+.weui-cell__ft {
   line-height: 0;
 }
 .mask {

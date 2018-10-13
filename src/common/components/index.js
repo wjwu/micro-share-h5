@@ -10,6 +10,9 @@ import WeuiBtnArea from './WeuiBtnArea';
 import WeuiBtn from './WeuiBtn';
 import WeuiTextarea from './WeuiTextarea';
 import WeuiCellAccess from './WeuiCellAccess';
+import WeuiLoadMoreLine from './WeuiLoadMoreLine';
+import WeuiCellsCheckbox from './WeuiCellsCheckbox';
+import WeuiCheckLabel from './WeuiCheckLabel';
 
 export {
   Bar,
@@ -23,5 +26,8 @@ export {
   WeuiBtnArea,
   WeuiBtn,
   WeuiTextarea,
-  WeuiCellAccess
+  WeuiCellAccess,
+  WeuiLoadMoreLine,
+  WeuiCellsCheckbox,
+  WeuiCheckLabel
 };

@@ -1,18 +1,19 @@
 <template>
   <result title="添加成功">
     <template slot="buttons">
-      <a href="/partner/list.html" class="weui-btn weui-btn_default">查看我的商伴</a>
+      <weui-btn type="default" href="/partner/list.html">查看我的商伴</weui-btn>
     </template>
   </result>
 </template>
 
 <script>
 import '../../common/js/share';
-import Result from '../../common/components/Result';
+import { Result, WeuiBtn } from '../../common/components';
 
 export default {
   components: {
-    Result
+    Result,
+    WeuiBtn
   }
 };
 </script>
