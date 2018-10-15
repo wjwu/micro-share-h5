@@ -5,22 +5,10 @@
       <div class="menu" @click="handleMenuClick"></div>
       <div class="content">
         <h5>公告</h5>
-        <ul>
-          <li>
-            <p>上线促销活动、购买优惠多多!</p>
-            <a href="">详情</a>
-          </li>
-          <li>
-            <p>网站上线公告!</p>
-            <a href="">详情</a>
-          </li>
-          <li>
-            <p>会员细则及免责声明!</p>
-            <a href="">详情</a>
-          </li>
-          <li>
-            <p>网站遵守守则!</p>
-            <a href="">详情</a>
+        <ul v-if="notices">
+          <li v-for="item in notices" :key="item.id">
+            <p>{{item.title}}</p>
+            <a :href="`/notice.html?id=${item.id}`">详情</a>
           </li>
         </ul>
         <button @click="handleJump('/buy.html')">登录部落</button>
@@ -174,9 +162,22 @@
 
 <script>
 import weui from 'weui.js';
+import axios from '../common/js/axios.js';
+import { tryFunc } from '../common/js/common';
 import '../common/js/share';
 
 export default {
+  data() {
+    return {
+      notices: []
+    };
+  },
+  mounted() {
+    tryFunc(async () => {
+      const { data } = await axios.get('/news/top4');
+      this.notices = data;
+    });
+  },
   methods: {
     handleJump(url) {
       window.location.href = url;
@@ -270,11 +271,11 @@ body {
 
       p {
         flex: 1;
-        height: 100%;
         color: #333;
         font-size: 1rem;
-        display: flex;
-        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       a {
