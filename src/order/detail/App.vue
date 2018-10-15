@@ -1,195 +1,98 @@
 <template>
   <div v-if="showApp">
-    <div class="weui-cells__title">订单信息</div>
-    <div class="weui-cells weui-cells_form" v-if="order.originalOrder">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            订单编号
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.number}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            创建时间
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.createTime | time}}</span>
-        </div>
-      </div>
-      <div class="weui-cell" v-if="order.originalOrder.status !== 'MATCH_ONGOING'">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            服务费
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.groupMemberCount | price}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            订单状态
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.status | status}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            群名称
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.groupName}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            群行业
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.industry}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            群人数
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.groupMemberCount}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title" v-if="order.originalOrder && order.originalOrder.status == 'MATCH_ONGOING'">条件信息</div>
-    <div class="weui-cells weui-cells_form" v-if="order.originalOrder && order.originalOrder.status == 'MATCH_ONGOING'">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            匹配范围
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.originalOrder.matchRange}}米</span>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title" v-if="order.matchedOrder">商伴信息</div>
-    <div class="weui-cells weui-cells_form" v-if="order.matchedOrder">
-      <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
-        <div class="weui-cell__hd">
+    <weui-cells-title>订单信息</weui-cells-title>
+    <weui-cells v-if="order.originalOrder">
+      <weui-cell label="订单编号">
+        {{order.originalOrder.number}}
+      </weui-cell>
+      <weui-cell label="创建时间">
+        {{order.originalOrder.createTime | time}}
+      </weui-cell>
+      <weui-cell label="服务费" v-if="order.originalOrder.status !== 'MATCH_ONGOING'">
+        {{order.originalOrder.groupMemberCount | price}}
+      </weui-cell>
+      <weui-cell label="订单状态">
+        {{order.originalOrder.status | status}}
+      </weui-cell>
+      <weui-cell label="群名称">
+        {{order.originalOrder.groupName}}
+      </weui-cell>
+      <weui-cell label="群行业">
+        {{order.originalOrder.industry}}
+      </weui-cell>
+      <weui-cell label="群人数">
+        {{order.originalOrder.groupMemberCount}}
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title v-if="order.originalOrder && order.originalOrder.status == 'MATCH_ONGOING'">条件信息</weui-cells-title>
+    <weui-cells v-if="order.originalOrder && order.originalOrder.status == 'MATCH_ONGOING'">
+      <weui-cell label="匹配范围">
+        {{order.originalOrder.matchRange}}米
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title v-if="order.matchedOrder">商伴信息</weui-cells-title>
+    <weui-cells v-if="order.matchedOrder">
+      <weui-cell v-if="order.matchedOrder.status == 'DONE'">
+        <template slot="head">
           <label class="weui-label">
             手机号
             <span class="weui-badge" style="margin-left: 5px;">重要</span>
           </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.phone}}</span>
-        </div>
-      </div>
-      <div class="weui-cell" v-if="order.matchedOrder.status == 'DONE'">
-        <div class="weui-cell__hd">
+        </template>
+        {{order.matchedOrder.phone}}
+      </weui-cell>
+      <weui-cell v-if="order.matchedOrder.status == 'DONE'">
+        <template slot="head">
           <label class="weui-label">
             微信号
             <span class="weui-badge" style="margin-left: 5px;">重要</span>
           </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.wechat}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            订单状态
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.status | status}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            群名称
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.groupName}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            群行业
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchedOrder.industry}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            群位置
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchOrderExtInfo.location}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            产品描述
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{order.matchOrderExtInfo.description}}</span>
-        </div>
-      </div>
+        </template>
+        {{order.matchedOrder.wechat}}
+      </weui-cell>
+      <weui-cell label="订单状态">
+        {{order.matchedOrder.status | status}}
+      </weui-cell>
+      <weui-cell label="群名称">
+        {{order.matchedOrder.groupName}}
+      </weui-cell>
+      <weui-cell label="群行业">
+        {{order.matchedOrder.industry}}
+      </weui-cell>
+      <weui-cell label="群位置">
+        {{order.matchOrderExtInfo.location}}
+      </weui-cell>
+      <weui-cell label="产品描述">
+        {{order.matchOrderExtInfo.description}}
+      </weui-cell>
       <div class="weui-cell weui-cell_switch">
         <div class="weui-cell__bd">点击查看群审核材料</div>
         <div class="weui-cell__ft">
           <input class="weui-switch" type="checkbox" v-model="showMsgs">
         </div>
       </div>
-      <div class="weui-cell" v-if="showMsgs">
-        <div class="weui-cell__bd">
-          <ul class="msgs">
-            <li v-for="msg in order.matchOrderExtInfo.msgList" :key="msg.id">
-              <div class="msg">
-                <div class="sender">{{msg.senderName}}</div>
-                <div class="content">
-                  <i class="arrow out"></i>
-                  <i class="arrow in"></i>
-                  <span>{{msg.name}}</span>
-                </div>
+      <weui-cell v-if="showMsgs">
+        <ul class="msgs">
+          <li v-for="msg in order.matchOrderExtInfo.msgList" :key="msg.id">
+            <div class="msg">
+              <div class="sender">{{msg.senderName}}</div>
+              <div class="content">
+                <i class="arrow out"></i>
+                <i class="arrow in"></i>
+                <span>{{msg.name}}</span>
               </div>
-              <p class="time">{{msg.createTime | time}}</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="weui-btn-area">
-      <a v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" class="weui-btn weui-btn_primary" :href="`/order/evaluate.html?orderId=${order.matchedOrder.id}`">去评价</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" class="weui-btn weui-btn_warn" :href="`/complaint/submit.html?orderId=${order.originalOrder.id}`">去投诉</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_primary" href="javascript:;" @click="handlePay">同意匹配并支付</a>
-      <a v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-btn weui-btn_warn" href="javascript:;" @click="handleDisagree">不同意匹配</a>
-    </div>
+            </div>
+            <p class="time">{{msg.createTime | time}}</p>
+          </li>
+        </ul>
+      </weui-cell>
+    </weui-cells>
+    <weui-btn-area>
+      <weui-btn type="primary" v-if="order.matchedOrder && order.matchedOrder.status === 'DONE'" :href="`/order/evaluate.html?orderId=${order.matchedOrder.id}`">去评价</weui-btn>
+      <weui-btn type="warn" v-if="order.originalOrder && order.originalOrder.status === 'DONE' && order.reported" :href="`/complaint/submit.html?orderId=${order.originalOrder.id}`">去投诉</weui-btn>
+      <weui-btn type="primary" v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" @click="handlePay">同意匹配并支付</weui-btn>
+      <weui-btn type="warn" v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" @click="handleDisagree">不同意匹配</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
@@ -203,9 +106,23 @@ import {
   getQueryString,
   wxPay
 } from '../../common/js/common';
+import {
+  WeuiCellsTitle,
+  WeuiCells,
+  WeuiCell,
+  WeuiBtnArea,
+  WeuiBtn
+} from '../../common/components';
 import '../../common/js/share';
 
 export default {
+  components: {
+    WeuiCellsTitle,
+    WeuiCells,
+    WeuiCell,
+    WeuiBtnArea,
+    WeuiBtn
+  },
   data() {
     return {
       orderId: getQueryString('orderId'),
