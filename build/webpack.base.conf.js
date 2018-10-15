@@ -8,10 +8,13 @@ var VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 var src = path.join(__dirname, '..', 'src');
 
-var entryDirs = glob.sync('src/**/index.js').map(item => {
-  var firstIdx = item.indexOf('/');
-  var lastIdx = item.lastIndexOf('/');
-  return item.substr(firstIdx + 1, lastIdx - firstIdx - 1);
+var entryDirs = [];
+glob.sync('src/**/index.js').forEach(item => {
+  if (item.indexOf('common') < 0) {
+    var firstIdx = item.indexOf('/');
+    var lastIdx = item.lastIndexOf('/');
+    entryDirs.push(item.substr(firstIdx + 1, lastIdx - firstIdx - 1));
+  }
 });
 
 var entry = {};

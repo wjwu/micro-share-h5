@@ -26,7 +26,7 @@
 
 <script>
 import axios from '../../common/js/axios';
-import VueQr from '../../common/lib/vue-qr/main';
+import VueQr from '../../common/lib/vue-qr';
 import config from '../../common/js/config';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
