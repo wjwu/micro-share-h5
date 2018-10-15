@@ -93,6 +93,15 @@
         </div>
       </div>
     </div>
+
+    <div class="weui-cells__title" v-if="comps.handleContent">客服处理意见</div>
+    <div class="weui-cells weui-cells_form" v-if="comps.handleContent">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.handleContent"></textarea>
+        </div>
+      </div>
+    </div>
     <div class="weui-btn-area">
       <a v-if="comps.status==='REPORTED' && userId === comps.toId" class="weui-btn weui-btn_primary" :href="`/complaint/solve.html?compsId=${compsId}`">处理</a>
     </div>
