@@ -106,7 +106,7 @@ export default {
           matchedOrderId: id,
           originalOrderId: this.orderId
         });
-        window.location.href = `./match_detail?orderId=${this.orderId}`;
+        window.location.href = `./detail?orderId=${this.orderId}`;
       });
     }
   }

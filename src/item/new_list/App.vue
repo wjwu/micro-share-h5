@@ -28,9 +28,10 @@
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-import { auth } from '../../common/js/auth';
-import { tryFunc, getQueryString } from '../../common/js/common';
+import axios from "../../common/js/axios";
+import { auth } from "../../common/js/auth";
+import { tryFunc, getQueryString } from "../../common/js/common";
+import wxApi from "../../common/js/wxApi";
 
 export default {
   data() {
@@ -43,18 +44,58 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get('/shop/newItemList', {
+      const { data } = await axios.get("/shop/newItemList", {
         params: {
-          userId: getQueryString('userId')
+          userId: getQueryString("userId")
         }
       });
-      this.products = data.map(item => {
-        return {
-          ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
-        };
-      });
+      this.products = data;
+      await this.checkShopInfo();
     });
+  },
+  methods: {
+    async checkShopInfo() {
+      var userId = getQueryString("userId");
+      const { shopData } = await axios.get("/user/shopInfoById", {
+        params: {
+          userId: getQueryString("userId")
+        }
+      });
+
+      const { newerDate } = await axios.get("/shop/newItemByUserId", {
+        params: {
+          userId: getQueryString("userId")
+        }
+      });
+
+      var name = shopData.name + "新品鉴赏（欢迎品鉴）";
+      var desc = newerDate.description
+        ? newerDate.description
+        : "本周新品鉴赏，欢迎大家选购";
+      var logo = shopData.logo
+        ? shopData.logo
+        : "http://static.fangzhoubuluo.com/logo.png";
+
+      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      window.wx.onMenuShareAppMessage(
+        {
+          title: name,
+          desc: desc,
+          link: config.webHost + "/item/new_list.html?userId=" + userId,
+          imgUrl: logo
+        },
+        function(res) {}
+      );
+      window.wx.onMenuShareTimeline(
+        {
+          title: name,
+          desc: desc,
+          link: config.webHost + "/item/new_list.html?userId=" + userId,
+          imgUrl: logo
+        },
+        function(res) {}
+      );
+    }
   }
 };
 </script>
@@ -65,7 +106,7 @@ body,
 .main {
   height: 100%;
   background-color: #fff;
-  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .main {
   .title {

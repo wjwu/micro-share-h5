@@ -1,8 +1,8 @@
 <template>
   <div v-if="showApp">
-    <div class="weui-cells__title">我的二维码：请导入您的微信号和微信群二维码，以便后续制作海报时统一导入使用。（请保持正方形）</div>
-    <div class="weui-cells__title">我的店铺名称：请输入您的不超过6个字的店铺名称，以便在后续制作海报/货架时制作店铺水印信章使用。</div>
-    <div class="weui-cells__title">我的店铺地址：请输入您的店铺地址信息，以便在海报中使用（由于空间限制，请简化填写地址信息）。</div>
+    <div class="weui-cells__title">二维码：请导入您的微信号或微信群二维码，以便后续制作海报时统一导入使用。（请保持正方形）</div>
+    <div class="weui-cells__title">店铺名称：请输入您的不超过6个字的店铺名称，以便在后续制作海报/货架时制作店铺水印信章使用。</div>
+    <div class="weui-cells__title">店铺地址：请输入您的店铺地址信息，以便在海报中使用（由于空间限制，请简化填写地址信息）。</div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
@@ -17,15 +17,7 @@
           <label class="weui-label">店铺地址</label>
         </div>
         <div class="weui-cell__bd">
-          <input v-model="shopAddress" class="weui-input" type="text" placeholder="请输入店铺地址" maxlength="20">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">条码名称</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input v-model="name" class="weui-input" type="text" placeholder="请输入条码名称" maxlength="20">
+          <input v-model="shopAddress" class="weui-input" type="text" placeholder="请输入店铺地址（不超过20字）" maxlength="20">
         </div>
       </div>
       <image-upload title="二维码" :token="token" v-model="images"></image-upload>
@@ -62,7 +54,6 @@ export default {
   data() {
     return {
       showApp: false,
-      name: '',
       shopName: '',
       shopAddress: '',
       shopDesc: '',
@@ -80,7 +71,6 @@ export default {
       this.token = response.data.uptoken;
       response = await axios.get('/user/shopInfo');
       if (response.data) {
-        this.name = response.data.qrTitle;
         this.shopName = response.data.name;
         this.shopAddress = response.data.address;
         this.shopDesc = response.data.description;
@@ -97,10 +87,6 @@ export default {
   },
   methods: {
     handleSave() {
-      if (this.images.length !== 0 && !this.name) {
-        openAlert('请输入条码名称');
-        return;
-      }
       if (!this.shopName) {
         openAlert('请输入店铺名称');
         return;
@@ -110,7 +96,6 @@ export default {
           address: this.shopAddress,
           description: this.shopDesc,
           name: this.shopName,
-          qrTitle: this.name,
           src: this.images.map(item => `${this.imageHost}/${item}`).join(','),
           logo: this.logos.map(item => `${this.imageHost}/${item}`).join(',')
         });

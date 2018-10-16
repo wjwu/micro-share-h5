@@ -4,7 +4,6 @@
     <div class="page__bd page__bd_spacing" style="padding: 0 .8rem;">
       <a href="./submit.html" class="weui-btn weui-btn_primary">添加商品</a>
       <a :href="`./list.html?userId=${userId}`" class="weui-btn weui-btn_primary">查看货架</a>
-      <a :href="`https://sapi.k780.com/?app=qr.get&data=${webHost}/item/list.html?userId=${userId}&level=L&size=6`" class="weui-btn weui-btn_primary">店铺二维码</a>
     </div>
     <div class="weui-panel__hd">商品管理</div>
     <div class="weui-cell" v-for="item in products" :key="item.id">
@@ -14,7 +13,7 @@
       </div>
       <div class="weui-cell__bd">
         <p>{{item.name}}</p>
-        <p style="font-size: 13px;color: #888888;">¥{{item.sellPrice}} - {{item.sales}}已售</p>
+        <p style="font-size: 13px;color: #888888;">¥{{item.sellPrice}} - {{item.stock}}已售</p>
       </div>
       <div class="weui-cell__ft">
         <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:;" @click="handleEdit(item.id)">编辑</a>
@@ -60,14 +59,18 @@ export default {
   methods: {
     async checkShopInfo() {
       var userId = localStorage.getItem('userId');
-      const { data } = await axios.get('/user/shopInfo');
+      const { data } = await axios.get('/user/shopInfo', {
+        headers: {
+          userId: localStorage.getItem('userId')
+        }
+      });
       if (!data) {
         openAlert('请先设置店铺标题，点击确定前往', () => {
           window.location.href = '/other/toker.html';
         });
       }
 
-      var name = data.name ? data.name : '商伴部落';
+      var name = data.name ? data.name + "电子货架（欢迎选购）" : '商伴部落';
       var desc = data.description
         ? data.description
         : '我的商品货架，欢迎大家选购';
@@ -97,6 +100,7 @@ export default {
     },
     async getProducts() {
       const { data } = await axios.get('/item');
+      console.log(data);
       this.products = data.map(item => {
         return {
           ...item,

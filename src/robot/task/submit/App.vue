@@ -16,8 +16,8 @@
         </div>
         <div class="weui-cell__bd">
           <select class="weui-select" v-model="messageType">
-            <option value="CARD">分享卡片</option>
-            <option selected="selected" value="TEXT">文本</option>
+            <option value="TEXT">文本</option>
+            <option selected="selected" value="CARD">分享卡片</option>
             <option value="IMG">图片</option>
           </select>
         </div>

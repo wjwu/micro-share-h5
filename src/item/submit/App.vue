@@ -16,7 +16,15 @@
           <label class="weui-label">{{productType===SPECIAL?'特价':'价格'}}</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.sellPrice" type="text" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" :placeholder="`请输入商品${productType===SPECIAL?'特价':'价格'}`">
+          <input class="weui-input" v-model="product.sellPrice" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" :placeholder="`请输入商品${productType===SPECIAL?'特价':'价格'}`">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">可售</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" placeholder="可售数量" maxlength="5" v-model="product.stock">
         </div>
       </div>
     </div>
@@ -37,16 +45,16 @@
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-import weui from 'weui.js';
-import { auth } from '../../common/js/auth';
-import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
-import ImageUpload from '../../common/components/ImageUpload';
-import '../../common/js/share';
-import config from '../../common/js/config';
+import axios from "../../common/js/axios";
+import weui from "weui.js";
+import { auth } from "../../common/js/auth";
+import { tryFunc, openAlert, getQueryString } from "../../common/js/common";
+import ImageUpload from "../../common/components/ImageUpload";
+import "../../common/js/share";
+import config from "../../common/js/config";
 
-const SPECIAL = 'SPECIAL';
-const NEWER = 'NEWER';
+const SPECIAL = "SPECIAL";
+const NEWER = "NEWER";
 
 export default {
   components: {
@@ -55,16 +63,16 @@ export default {
   data() {
     return {
       SPECIAL,
-      productType: getQueryString('t') || 'NORMAL',
-      productNo: getQueryString('no'),
+      productType: getQueryString("t") || "NORMAL",
+      productNo: getQueryString("no"),
       product: {
-        name: '',
-        sellPrice: '',
-        description: ''
+        name: "",
+        sellPrice: "",
+        description: ""
       },
-      token: '',
+      token: "",
       images: [],
-      regPrice: new RegExp('[0-9\\.]'),
+      regPrice: new RegExp("[0-9\\.]"),
       showApp: false
     };
   },
@@ -72,7 +80,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get('/token');
+      const { data } = await axios.get("/token");
       this.token = data.uptoken;
     });
   },
@@ -89,61 +97,67 @@ export default {
     },
     handleSave() {
       if (!this.product.name) {
-        openAlert('请输入商品名称');
+        openAlert("请输入商品名称");
         return;
       }
       if (this.images.length === 0) {
-        openAlert('请至少上传一张商品图片');
+        openAlert("请至少上传一张商品图片");
         return;
       }
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
       if (!reg.test(this.product.sellPrice)) {
-        openAlert('商品价格不能为空，最多保留两位小数');
+        openAlert("商品价格不能为空，最多保留两位小数");
         return;
       }
       const _this = this;
       tryFunc(async () => {
-        const { data } = await axios.post('/item', {
+        const { data } = await axios.post("/item", {
           ...this.product,
           type: this.productType,
           imgUrl: this.images
             .map(item => `${config.imageHost}/${item}`)
-            .join(',')
+            .join(",")
         });
         if (this.productType === SPECIAL) {
-          await axios.post('/shop/special', {
+          await axios.post("/shop/special", {
             itemId: data
           });
         } else if (this.productType === NEWER) {
-          await axios.post('/shop/newItem', {
+          await axios.post("/shop/newItem", {
             [`itemId${this.productNo}`]: data
           });
         }
-        const dialog = weui.dialog({
-          content: '操作成功',
-          buttons: [
-            {
-              label: '货架管理',
-              type: 'default',
-              onClick: () => {
-                window.location.href = './shelves.html';
+        if (this.productType === "NORMAL") {
+          const dialog = weui.dialog({
+            content: "操作成功",
+            buttons: [
+              {
+                label: "货架管理",
+                type: "default",
+                onClick: () => {
+                  window.location.href = "./shelves.html";
+                }
+              },
+              {
+                label: "继续上传",
+                type: "primary",
+                onClick: () => {
+                  _this.product = {
+                    name: "",
+                    sellPrice: "",
+                    description: ""
+                  };
+                  _this.images = [];
+                  dialog.hide();
+                }
               }
-            },
-            {
-              label: '继续上传',
-              type: 'primary',
-              onClick: () => {
-                _this.product = {
-                  name: '',
-                  sellPrice: '',
-                  description: ''
-                };
-                _this.images = [];
-                dialog.hide();
-              }
-            }
-          ]
-        });
+            ]
+          });
+        } else {
+          openAlert("设置成功", () => {
+            window.history.back(-1);
+          });
+        }
       });
     }
   }

@@ -25,6 +25,7 @@
     </weui-cells>
     <weui-btn-area>
       <weui-btn type="primary" @click="handleSave">保存商品描述</weui-btn>
+      <weui-btn type="primary" @click="handleJump">去分享</weui-btn>
     </weui-btn-area>
   </div>
 </template>
@@ -77,6 +78,9 @@ export default {
     });
   },
   methods: {
+    handleJump(){
+      window.location.href = "./new_list.html?userId=" + localStorage.getItem("userId");
+    },
     handleSave() {
       if (!this.description) {
         openAlert('请输入特价描述信息');

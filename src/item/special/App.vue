@@ -20,6 +20,7 @@
     <weui-btn-area>
       <weui-btn type="primary" @click="handleSave">保存商品描述</weui-btn>
       <weui-btn type="primary" :href="`/item/submit.html?t=${SPECIAL}`">设置特价商品</weui-btn>
+      <weui-btn v-if="itemId != 0 && itemId != null" type="primary" :href="`/item/detail.html?pId=${itemId}`">去分享</weui-btn>
     </weui-btn-area>
   </div>
 </template>
@@ -53,7 +54,8 @@ export default {
       SPECIAL,
       showApp: false,
       itemName: '',
-      description: ''
+      description: '',
+      itemId: 0
     };
   },
   mounted() {
@@ -63,6 +65,7 @@ export default {
       const { data } = await axios.get('/shop/special');
       this.itemName = data.itemName;
       this.description = data.description;
+      this.itemId = data.itemId;
     });
   },
   methods: {
