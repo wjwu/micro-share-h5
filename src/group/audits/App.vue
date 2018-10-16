@@ -26,6 +26,7 @@
                 <span class="count">{{item.count}}人 | {{item.industry}} | {{item.status | status}}</span>
               </h4>
               <p class="weui-media-box__desc">{{item.location}}</p>
+              <p class="weui-media-box__desc" v-if="item.status === 'REVIEW_FAILED'">失败原因：{{item.failedType | failType}}</p>
             </div>
           </div>
         </div>
@@ -65,6 +66,7 @@
                 <span class="count">{{item.count}}人 | {{item.industry}}</span>
               </h4>
               <p class="weui-media-box__desc">{{item.location}}</p>
+              <p class="weui-media-box__desc">失败原因：{{item.failedType | failType}}</p>
             </div>
           </div>
         </div>
@@ -129,6 +131,15 @@ export default {
         return '审核成功';
       } else if (val === 'REVIEW_FAILED') {
         return '审核失败';
+      } else {
+        return '';
+      }
+    },
+    failType: val => {
+      if (val === 'ILLAGE') {
+        return '非法';
+      } else if (val === 'DIE') {
+        return '僵尸群';
       } else {
         return '';
       }
