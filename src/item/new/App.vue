@@ -78,8 +78,9 @@ export default {
     });
   },
   methods: {
-    handleJump(){
-      window.location.href = "./new_list.html?userId=" + localStorage.getItem("userId");
+    handleJump() {
+      window.location.href =
+        './new_list.html?userId=' + localStorage.getItem('userId');
     },
     handleSave() {
       if (!this.description) {

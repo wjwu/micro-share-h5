@@ -22,9 +22,9 @@
       </div> -->
       <div class="shop">
         <h4 v-if="shopInfo.address != null && shopInfo.address != ''">- 店铺地址 -</h4>
-        <div  v-if="shopInfo.address != null && shopInfo.address != ''" class="address">{{shopInfo.address}}</div>
+        <div v-if="shopInfo.address != null && shopInfo.address != ''" class="address">{{shopInfo.address}}</div>
         <h4 v-if="shopInfo.src != null  && shopInfo.src != ''">- 店铺二维码 -</h4>
-        <img v-if="shopInfo.src != null  && shopInfo.src != ''" :src="shopInfo.src"/>
+        <img v-if="shopInfo.src != null  && shopInfo.src != ''" :src="shopInfo.src" />
       </div>
     </div>
     <div class="buy-wrap">
@@ -35,17 +35,17 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
-import config from "../../common/js/config";
-import { tryFunc, openAlert, getQueryString } from "../../common/js/common";
-import wxApi from "../../common/js/wxApi";
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import config from '../../common/js/config';
+import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
+import wxApi from '../../common/js/wxApi';
 
 export default {
   data() {
     return {
-      pId: getQueryString("pId"),
-      userId: "",
+      pId: getQueryString('pId'),
+      userId: '',
       product: null,
       showApp: false,
       buyed: false,
@@ -57,11 +57,11 @@ export default {
       await auth();
       this.showApp = true;
       if (!this.pId) {
-        openAlert("商品编号无效");
+        openAlert('商品编号无效');
         return;
       }
       const { data: product } = await axios.get(`/item/${this.pId}`);
-      product.images = product.imgUrl.split(",");
+      product.images = product.imgUrl.split(',');
       this.product = product;
       window.document.title = product.name;
 
@@ -69,15 +69,15 @@ export default {
       this.shopInfo = shopInfo;
 
       this.$nextTick(() => {
-        const swiper = new window.Swiper(".swiper-container", {
-          direction: "horizontal",
+        const swiper = new window.Swiper('.swiper-container', {
+          direction: 'horizontal',
           autoplay: {
             delay: 2000
           },
           speed: 1000,
           loop: true,
           pagination: {
-            el: ".swiper-pagination"
+            el: '.swiper-pagination'
           }
         });
         console.log(swiper);
@@ -85,30 +85,28 @@ export default {
 
       this.shareFunc();
     });
-    
   },
   methods: {
     async shareFunc() {
-      console.log(this.product);
-      if (this.product.type === "SPECIAL") {
-        var name = this.shopInfo.name + "本周特价（欢迎抢购）";
+      let name;
+      let desc;
+      if (this.product.type === 'SPECIAL') {
+        name = this.shopInfo.name + '本周特价（欢迎抢购）';
         const { data } = await axios.get(`/item/${this.pId}/special`);
-        var desc = data.description;
+        desc = data.description;
       } else {
-        var name = this.product.name;
-        var desc = this.product.description
-          ? this.product.description
-          : "商品描述";
+        name = this.product.name;
+        desc = this.product.description ? this.product.description : '商品描述';
       }
 
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/detail.html?pId=" + this.pId,
+          link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         },
         function(res) {}
       );
@@ -116,29 +114,29 @@ export default {
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/detail.html?pId=" + this.pId,
+          link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         },
         function(res) {}
       );
     },
     async buy() {
-      let name = localStorage.getItem("name");
+      let name = localStorage.getItem('name');
       if (!name) {
-        name = prompt("请输入您联系电话，方便卖家与您联系。", "");
+        name = prompt('请输入您联系电话，方便卖家与您联系。', '');
         if (!name) {
-          openAlert("请输入正确的联系方式或微信号");
+          openAlert('请输入正确的联系方式或微信号');
           return;
         }
-        localStorage.setItem("name", name);
+        localStorage.setItem('name', name);
       }
       if (!this.buyed) {
         this.buyed = true;
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
           openAlert(
-            "购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!"
+            '购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!'
           );
         });
       }
@@ -149,7 +147,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .content {
   padding-bottom: 3rem;

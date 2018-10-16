@@ -70,7 +70,7 @@ export default {
         });
       }
 
-      var name = data.name ? data.name + "电子货架（欢迎选购）" : '商伴部落';
+      var name = data.name ? data.name + '电子货架（欢迎选购）' : '商伴部落';
       var desc = data.description
         ? data.description
         : '我的商品货架，欢迎大家选购';

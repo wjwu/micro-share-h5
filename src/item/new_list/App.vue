@@ -28,15 +28,17 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
-import { tryFunc, getQueryString } from "../../common/js/common";
-import wxApi from "../../common/js/wxApi";
+import axios from '../../common/js/axios';
+import config from '../../common/js/config';
+import { auth } from '../../common/js/auth';
+import { tryFunc, getQueryString } from '../../common/js/common';
+import wxApi from '../../common/js/wxApi';
 
 export default {
   data() {
     return {
       products: [],
+      userId: getQueryString('userId'),
       showApp: false
     };
   },
@@ -44,44 +46,42 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get("/shop/newItemList", {
+      const { data } = await axios.get('/shop/newItemList', {
         params: {
-          userId: getQueryString("userId")
+          userId: this.userId
         }
       });
       this.products = data;
-      await this.checkShopInfo();
     });
+    this.checkShopInfo();
   },
   methods: {
     async checkShopInfo() {
-      var userId = getQueryString("userId");
-      const { shopData } = await axios.get("/user/shopInfoById", {
+      const { data: shopData } = await axios.get('/user/shopInfoById', {
         params: {
-          userId: getQueryString("userId")
+          userId: this.userId
         }
       });
 
-      const { newerDate } = await axios.get("/shop/newItemByUserId", {
+      const { data: newerDate } = await axios.get('/shop/newItemByUserId', {
         params: {
-          userId: getQueryString("userId")
+          userId: this.userId
         }
       });
-
-      var name = shopData.name + "新品鉴赏（欢迎品鉴）";
+      var name = shopData.name + '新品鉴赏（欢迎品鉴）';
       var desc = newerDate.description
         ? newerDate.description
-        : "本周新品鉴赏，欢迎大家选购";
+        : '本周新品鉴赏，欢迎大家选购';
       var logo = shopData.logo
         ? shopData.logo
-        : "http://static.fangzhoubuluo.com/logo.png";
+        : 'http://static.fangzhoubuluo.com/logo.png';
 
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/new_list.html?userId=" + userId,
+          link: config.webHost + '/item/new_list.html?userId=' + this.userId,
           imgUrl: logo
         },
         function(res) {}
@@ -90,7 +90,7 @@ export default {
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/new_list.html?userId=" + userId,
+          link: config.webHost + '/item/new_list.html?userId=' + this.userId,
           imgUrl: logo
         },
         function(res) {}
@@ -106,7 +106,7 @@ body,
 .main {
   height: 100%;
   background-color: #fff;
-  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .main {
   .title {
