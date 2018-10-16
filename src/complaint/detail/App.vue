@@ -1,107 +1,56 @@
 <template>
   <div v-if="showApp && comps">
-    <div class="weui-cells__title">投诉详情</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            订单号：
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{comps.orderNo}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            投诉时间
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{comps.createTime | time}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            投诉状态
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{comps.status | status}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            投诉类型
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{comps.type | type}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            投诉人
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{comps.fromUserName}}</span>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">
-            被投诉人
-          </label>
-        </div>
-        <div class="weui-cell__bd">
-          <span>{{comps.toUserName}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title">投诉理由</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.content"></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title" v-if="comps.refuseContent">拒绝理由</div>
-    <div class="weui-cells weui-cells_form" v-if="comps.refuseContent">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.refuseContent"></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title">证据照片</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <div class="weui-uploader">
-            <div class="weui-uploader__bd">
-              <ul class="weui-uploader__files">
-                <li v-for="(image,i) in comps.imgs" :key="i" class="weui-uploader__file" :style="`background-image:url('${image}')`"></li>
-              </ul>
-            </div>
+    <weui-cells-title>投诉详情</weui-cells-title>
+    <weui-cells>
+      <weui-cell label="订单号：">
+        {{comps.orderNo}}
+      </weui-cell>
+      <weui-cell label="投诉时间：">
+        {{comps.createTime | time}}
+      </weui-cell>
+      <weui-cell label="投诉状态：">
+        {{comps.status | status}}
+      </weui-cell>
+      <weui-cell label="投诉类型：">
+        {{comps.type | type}}
+      </weui-cell>
+      <weui-cell label="投诉人：">
+        {{comps.fromUserName}}
+      </weui-cell>
+      <weui-cell label="被投诉人：">
+        {{comps.toUserName}}
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title>投诉理由</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.content"></textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title v-if="comps.refuseContent">拒绝理由</weui-cells-title>
+    <weui-cells v-if="comps.refuseContent">
+      <weui-cell>
+        <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.refuseContent"></textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title>证据照片</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <div class="weui-uploader">
+          <div class="weui-uploader__bd">
+            <ul class="weui-uploader__files">
+              <li v-for="(image,i) in comps.imgs" :key="i" class="weui-uploader__file" :style="`background-image:url('${image}')`"></li>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="weui-cells__title" v-if="comps.handleContent">客服处理意见</div>
-    <div class="weui-cells weui-cells_form" v-if="comps.handleContent">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.handleContent"></textarea>
-        </div>
-      </div>
-    </div>
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title v-if="comps.handleContent">客服处理意见</weui-cells-title>
+    <weui-cells v-if="comps.handleContent">
+      <weui-cell>
+        <textarea readonly="readonly" class="weui-textarea" rows="3" v-model="comps.handleContent"></textarea>
+      </weui-cell>
+    </weui-cells>
     <div class="weui-btn-area">
       <a v-if="comps.status==='REPORTED' && userId === comps.toId" class="weui-btn weui-btn_primary" :href="`/complaint/solve.html?compsId=${compsId}`">处理</a>
     </div>
@@ -113,9 +62,15 @@ import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
+import { WeuiCellsTitle, WeuiCells, WeuiCell } from '../../common/components';
 import '../../common/js/share';
 
 export default {
+  components: {
+    WeuiCellsTitle,
+    WeuiCells,
+    WeuiCell
+  },
   data() {
     return {
       compsId: getQueryString('compsId'),
