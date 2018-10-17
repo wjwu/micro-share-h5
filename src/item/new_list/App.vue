@@ -73,7 +73,7 @@ export default {
         ? newerDate.description
         : '本周新品鉴赏，欢迎大家选购';
       var logo = shopData.logo
-        ? shopData.logo
+        ? shopData.logo + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         : 'http://static.fangzhoubuluo.com/logo.png';
 
       await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
