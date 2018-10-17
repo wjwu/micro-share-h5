@@ -24,7 +24,7 @@
           <label class="weui-label">可售</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="number" placeholder="可售数量" maxlength="5" v-model="product.stock">
+          <input class="weui-input" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="可售数量" maxlength="5" v-model="product.stock">
         </div>
       </div>
     </div>
