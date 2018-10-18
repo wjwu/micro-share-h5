@@ -126,7 +126,6 @@ export default {
       if (!name) {
         name = prompt('请输入您联系电话，方便卖家与您联系。', '');
         if (!name) {
-          openAlert('请输入正确的联系方式或微信号');
           return;
         }
         localStorage.setItem('name', name);
