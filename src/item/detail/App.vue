@@ -97,7 +97,7 @@ export default {
       if (this.product.type === 'SPECIAL') {
         name = this.shopInfo.name + '本周特价（欢迎抢购）';
         const { data } = await axios.get(`/item/${this.pId}/special`);
-        desc = data.description ? newerDate.description : '本周特价，欢迎大家选购';
+        desc = data.description ? data.description : '本周特价，欢迎大家选购';
       } else {
         name = this.product.name;
         desc = this.product.description ? this.product.description : '商品描述';
@@ -139,7 +139,7 @@ export default {
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
           openAlert(
-            '购买成功,请等待卖家联系。若卖家长时间未联系请点击下方的联系卖家按钮!'
+            '购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!'
           );
         });
       }
