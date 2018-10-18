@@ -93,7 +93,7 @@ export default {
       if (this.product.type === 'SPECIAL') {
         name = this.shopInfo.name + '本周特价（欢迎抢购）';
         const { data } = await axios.get(`/item/${this.pId}/special`);
-        desc = data.description;
+        desc = data.description ? newerDate.description : '本周特价，欢迎大家选购';
       } else {
         name = this.product.name;
         desc = this.product.description ? this.product.description : '商品描述';
