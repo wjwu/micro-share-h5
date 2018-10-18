@@ -1,46 +1,34 @@
 <template>
   <div v-if="showApp">
-    <div class="weui-cells__title">上传商品</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">名称</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" type="text" placeholder="请输入商品名(不超过15字)" maxlength="15" v-model="product.name">
-        </div>
-      </div>
+    <weui-cells-title>上传商品</weui-cells-title>
+    <weui-cells>
+      <weui-cell label="名称">
+        <input class="weui-input" type="text" placeholder="请输入商品名(不超过15字)" maxlength="15" v-model="product.name">
+      </weui-cell>
       <image-upload title="商品图片" :token="token" :max="5" v-model="images" multiple></image-upload>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">{{productType===SPECIAL?'特价':'价格'}}</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" v-model="product.sellPrice" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" :placeholder="`请输入商品${productType===SPECIAL?'特价':'价格'}`">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">可售</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input class="weui-input" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="可售数量" maxlength="5" v-model="product.stock">
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title">描述</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea class="weui-textarea" v-model="product.description" maxlength="100" placeholder="请输入商品描述信息（可选）,不超过100字" rows="3"></textarea>
-          <div class="weui-textarea-counter">
-            <span>{{product.description.length}}</span>/100</div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:" @click="handleSave">提交</a>
-    </div>
+      <weui-cell label="原价" v-if="isSpecial">
+        <input class="weui-input" v-model="product.originPrice" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="请输入商品原价">
+      </weui-cell>
+      <weui-cell>
+        <template slot="head">
+          <label class="weui-label red" v-if="isSpecial">特价</label>
+          <label class="weui-label" v-else>价格</label>
+        </template>
+        <input class="weui-input" v-model="product.sellPrice" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" :placeholder="`请输入商品${isSpecial?'特价':'价格'}`">
+      </weui-cell>
+      <weui-cell label="可售">
+        <input class="weui-input" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="可售数量" maxlength="5" v-model="product.stock">
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title>描述</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <weui-textarea v-model="product.description" maxlength="100" placeholder="请输入商品描述信息（可选）,不超过100字" rows="3"></weui-textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-btn-area>
+      <weui-btn type="primary" @click="handleSave">提交</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
@@ -49,24 +37,40 @@ import axios from '../../common/js/axios';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
-import ImageUpload from '../../common/components/ImageUpload';
-import '../../common/js/share';
+import {
+  ImageUpload,
+  WeuiCellsTitle,
+  WeuiCells,
+  WeuiCell,
+  WeuiTextarea,
+  WeuiBtnArea,
+  WeuiBtn
+} from '../../common/components';
 import config from '../../common/js/config';
+import '../../common/js/share';
 
 const SPECIAL = 'SPECIAL';
 const NEWER = 'NEWER';
 
 export default {
   components: {
-    ImageUpload
+    ImageUpload,
+    WeuiCellsTitle,
+    WeuiCells,
+    WeuiCell,
+    WeuiTextarea,
+    WeuiBtnArea,
+    WeuiBtn
   },
   data() {
     return {
       SPECIAL,
-      productType: getQueryString('t') || 'NORMAL',
+      productType: getQueryString('t').toUpperCase() || 'NORMAL',
+      isSpecial: (getQueryString('t').toLowerCase() || 'NORMAL') === SPECIAL.toLowerCase(),
       productNo: getQueryString('no'),
       product: {
         name: '',
+        originPrice: '',
         sellPrice: '',
         description: ''
       },
@@ -105,8 +109,14 @@ export default {
         return;
       }
       const reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
+      if (this.isSpecial && !reg.test(this.product.originPrice)) {
+        openAlert('商品原价不能为空，最多保留两位小数');
+        return;
+      }
       if (!reg.test(this.product.sellPrice)) {
-        openAlert('商品价格不能为空，最多保留两位小数');
+        openAlert(
+          `商品${this.isSpecial ? '特价' : '价格'}不能为空，最多保留两位小数`
+        );
         return;
       }
       const _this = this;
@@ -163,4 +173,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.red {
+  color: red;
+}
+</style>
+
 

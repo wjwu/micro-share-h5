@@ -14,7 +14,8 @@
         <p class="tit_name">商品名称：{{product.name}}</p>
         <p class="smalltit_name">{{product.description}}</p>
         <p class="tit_money">
-          <span>单价：￥{{product.sellPrice}} </span>
+          <span>{{product.type === SPECIAL?'特价':'单价'}} ￥{{product.sellPrice}} </span>
+          <span class="thought_money" v-if="product.type === SPECIAL"> 原价 <span class="del">¥ {{product.originPrice}}</span></span>
         </p>
       </div>
       <!-- <div class="product-detail">
@@ -41,9 +42,12 @@ import config from '../../common/js/config';
 import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
 import wxApi from '../../common/js/wxApi';
 
+const SPECIAL = 'SPECIAL';
+
 export default {
   data() {
     return {
+      SPECIAL,
       pId: getQueryString('pId'),
       userId: '',
       product: null,
@@ -200,6 +204,15 @@ body {
     color: #fc6b80;
     font-weight: bold;
     margin-top: 1rem;
+  }
+
+  .thought_money {
+    color: #999;
+    font-size: 12px;
+    font-weight: initial;
+  }
+  .del {
+    text-decoration: line-through;
   }
 }
 .buy-wrap {
