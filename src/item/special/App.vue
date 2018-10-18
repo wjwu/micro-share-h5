@@ -1,13 +1,13 @@
 <template>
   <div v-if="showApp">
-    <div class="title">
+    <div class="title" style="padding:1rem;">
       <h1>本周特价</h1>
     </div>
     <weui-cells>
       <weui-cell label="对外展示名">
         <b>本周特价（抢购）</b>
       </weui-cell>
-      <weui-cell label="商品名称">
+      <weui-cell label="已设置商品">
         {{itemName ? itemName : '未添加商品'}}
       </weui-cell>
     </weui-cells>

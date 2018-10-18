@@ -1,6 +1,6 @@
 <template>
   <div v-if="showApp">
-    <div class="title">
+    <div class="title" style="padding:1rem;">
       <h1>新品鉴赏</h1>
     </div>
     <weui-cells>
