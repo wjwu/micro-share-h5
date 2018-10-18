@@ -51,7 +51,13 @@ export default {
           userId: this.userId
         }
       });
-      this.products = data;
+
+      this.products = data.map(item => {
+        if (item.imgUrl) {
+          return { ...item, imgUrl: item.imgUrl.split(',')[0] };
+        }
+        return item;
+      });
     });
     this.checkShopInfo();
   },
