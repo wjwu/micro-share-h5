@@ -70,10 +70,12 @@ export default {
   data() {
     return {
       showApp: false,
+      myGroups: [],
+      orderGroups: [],
       keywords: [],
       keyword: '',
       selectedIdx: null,
-      selectedRoomId: 'sss',
+      selectedRoomId: '',
       btnText: '添加'
     };
   },
