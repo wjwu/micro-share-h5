@@ -30,7 +30,6 @@
 <script>
 import axios from '../../common/js/axios';
 import config from '../../common/js/config';
-import { auth } from '../../common/js/auth';
 import { tryFunc, getQueryString } from '../../common/js/common';
 import wxApi from '../../common/js/wxApi';
 
@@ -44,7 +43,6 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      await auth();
       this.showApp = true;
       const { data } = await axios.get('/shop/newItemList', {
         params: {

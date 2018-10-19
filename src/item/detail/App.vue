@@ -30,14 +30,13 @@
     </div>
     <div class="buy-wrap">
       <a :href="'./list.html?userId=' + userId" class="buy-tohome"></a>
-      <div class="buy" @click="buy">立即购买</div>
+      <div class="buy" @click="buy">联系商家购买</div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from '../../common/js/axios';
-import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
 import wxApi from '../../common/js/wxApi';
@@ -58,7 +57,6 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      await auth();
       this.showApp = true;
       if (!this.pId) {
         openAlert('商品编号无效');

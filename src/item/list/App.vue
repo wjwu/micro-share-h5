@@ -29,7 +29,6 @@
 
 <script>
 import axios from '../../common/js/axios';
-import { auth } from '../../common/js/auth';
 import { tryFunc, getQueryString } from '../../common/js/common';
 
 export default {
@@ -41,7 +40,6 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      await auth();
       this.showApp = true;
       const { data } = await axios.get('/item/owner', {
         params: {
