@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-if="showApp">
-    <weui-cells-title>请设置您的群发任务</weui-cells-title>
+    <weui-cells-title>请设置您的群发任务(可用时间09:00-21:00)</weui-cells-title>
     <weui-cells>
       <weui-cell label="标题">
         <input v-model="title" class="weui-input" type="text" placeholder="请输入标题">
@@ -163,7 +163,7 @@ export default {
         let hours = Number(this.time.split(':')[0]);
         let minutes = Number(this.time.split(':')[1]);
         if (hours <= 8 || (hours >= 21 && minutes > 0)) {
-          openAlert('在非09:00-21:00时间段之外，管家不发送讯息');
+          openAlert('非09:00-21:00时间段之外，管家不发送讯息');
           return;
         }
       }
