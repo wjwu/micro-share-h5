@@ -1,161 +1,59 @@
 <template>
   <div class="main" v-if="showApp">
-    <div class="weui-cells__title">请设置您的群发任务</div>
-    <div class="weui-cells">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">标题</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input v-model="title" class="weui-input" type="text" placeholder="请输入标题">
-        </div>
-      </div>
-      <div class="weui-cell weui-cell_select weui-cell_select-after">
-        <div class="weui-cell__hd">
-          <label class="weui-label">消息类型</label>
-        </div>
-        <div class="weui-cell__bd">
-          <select class="weui-select" v-model="messageType">
-            <option value="TEXT">文本</option>
-            <option selected="selected" value="CARD">分享卡片</option>
-            <option value="IMG">图片</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells weui-cells_form" v-if="messageType === 'IMG'">
+    <weui-cells-title>请设置您的群发任务</weui-cells-title>
+    <weui-cells>
+      <weui-cell label="标题">
+        <input v-model="title" class="weui-input" type="text" placeholder="请输入标题">
+      </weui-cell>
+      <weui-cell-select label="消息类型">
+        <select class="weui-select" v-model="messageType">
+          <option value="TEXT">文本</option>
+          <option selected="selected" value="CARD">分享卡片</option>
+          <option value="IMG">图片</option>
+        </select>
+      </weui-cell-select>
+    </weui-cells>
+    <weui-cells v-if="messageType === 'IMG'">
       <image-upload title="图片" :token="token" :max="2" v-model="images" multiple></image-upload>
-    </div>
-    <div class="weui-cells__title" v-if="messageType === 'TEXT'">消息内容</div>
-    <div class="weui-cells weui-cells_form" v-if="messageType === 'TEXT'">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea v-model="content" class="weui-textarea" maxlength="200" placeholder="请输入群发消息内容" rows="3"></textarea>
-          <div class="weui-textarea-counter">
-            <span>{{content.length}}</span>/200</div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-cells__title" v-if="messageType === 'CARD'">由于分享卡片消息的特殊性，请直接将分享卡片消息发送给机器人，机器人将自动为您立即转发到设置的群组中。</div>
-    <div class="weui-cells__title">请选择需要群发的群组和群</div>
-    <div class="weui-cells weui-cells_checkbox">
-      <label class="weui-cell weui-check__label" :for="room.id" v-for="room in rooms" :key="room.id">
-        <div class="weui-cell__hd">
-          <input type="checkbox" class="weui-check" :id="room.id" v-model="room.checked">
-          <i class="weui-icon-checked"></i>
-        </div>
-        <div class="weui-cell__bd">
-          <p>{{room.name}}</p>
-        </div>
-      </label>
-      <div class="weui-cell" v-if="!rooms || rooms.length === 0">暂无可用群</div>
-    </div>
-    <div class="weui-cells__title">请选择发送类型</div>
-    <div class="weui-cells weui-cells_radio">
-      <div class="weui-cell weui-cell_select weui-cell_select-after">
-        <div class="weui-cell__hd">
-          <label class="weui-label">发送类型</label>
-        </div>
-        <div class="weui-cell__bd">
-          <select class="weui-select" v-model="sendType" :disabled="messageType === 'CARD'">
-            <option selected="selected" value="NOW">立即发送</option>
-            <option value="TASK">定时发送</option>
-          </select>
-        </div>
-      </div>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="no-repeat">
-        <div class="weui-cell__bd">
-          <p>不重复发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(0)" value="0" class="weui-check" id="no-repeat" name="radioSend" checked="checked">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="every">
-        <div class="weui-cell__bd">
-          <p>每天发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(-1)" value="-1" class="weui-check" id="every" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="mon">
-        <div class="weui-cell__bd">
-          <p>每周一发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(1)" value="1" class="weui-check" id="mon" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="tue">
-        <div class="weui-cell__bd">
-          <p>每周二发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(2)" value="2" class="weui-check" id="tue" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="wed">
-        <div class="weui-cell__bd">
-          <p>每周三发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(3)" value="3" class="weui-check" id="wed" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="thu">
-        <div class="weui-cell__bd">
-          <p>每周四发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(4)" value="4" class="weui-check" id="thu" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="fri">
-        <div class="weui-cell__bd">
-          <p>每周五发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(5)" value="5" class="weui-check" id="fri" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="sat">
-        <div class="weui-cell__bd">
-          <p>每周六发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(6)" value="6" class="weui-check" id="sat" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <label v-if="sendType === 'TASK'" class="weui-cell weui-check__label" for="sun">
-        <div class="weui-cell__bd">
-          <p>每周日发送</p>
-        </div>
-        <div class="weui-cell__ft">
-          <input type="radio" @change="handleDayChange(7)" value="7" class="weui-check" id="sun" name="radioSend">
-          <span class="weui-icon-checked"></span>
-        </div>
-      </label>
-      <div v-if="sendType === 'TASK'" class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">发送时间</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input v-model="time" class="weui-input" type="time">
-        </div>
-      </div>
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" :disabled="disabled" href="javascript:;" @click="handleSubmit">发送</a>
-    </div>
+    </weui-cells>
+    <weui-cells-title v-if="messageType === 'TEXT'">消息内容</weui-cells-title>
+    <weui-cells v-if="messageType === 'TEXT'">
+      <weui-cell>
+        <weui-textarea v-model="content" maxlength="200" placeholder="请输入群发消息内容" rows="3"></weui-textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title v-if="messageType === 'CARD'">由于分享卡片消息的特殊性，请直接将分享卡片消息发送给机器人，机器人将自动为您立即转发到设置的群组中。</weui-cells-title>
+    <weui-cells-title>请选择需要群发的群组和群</weui-cells-title>
+    <weui-cells-checkbox>
+      <weui-check-label v-for="room in rooms" :key="room.id" :id="room.id" v-model="room.checked">
+        {{room.name}}
+      </weui-check-label>
+      <weui-cell v-if="!rooms || rooms.length === 0">暂无可用群</weui-cell>
+    </weui-cells-checkbox>
+    <weui-cells-title>请选择发送类型</weui-cells-title>
+    <weui-cells-radio>
+      <weui-cell-select label="发送类型">
+        <select class="weui-select" v-model="sendType" :disabled="messageType === 'CARD'">
+          <option selected="selected" value="NOW">立即发送</option>
+          <option value="TASK">定时发送</option>
+        </select>
+      </weui-cell-select>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(0)" name="radioSend" id="no-repeat">不重复发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(-1)" name="radioSend" id="every">每天发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(1)" name="radioSend" id="mon">每周一发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(2)" name="radioSend" id="tue">每周二发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(3)" name="radioSend" id="wed">每周三发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(4)" name="radioSend" id="thu">每周四发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(5)" name="radioSend" id="fri">每周五发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(6)" name="radioSend" id="sat">每周六发送</weui-check-label>
+      <weui-check-label type="radio" v-if="sendType === 'TASK'" @change="handleDayChange(7)" name="radioSend" id="sun">每周日发送</weui-check-label>
+      <weui-cell v-if="sendType === 'TASK'" label="发送时间">
+        <input v-model="time" class="weui-input" type="time">
+      </weui-cell>
+    </weui-cells-radio>
+    <weui-btn-area>
+      <weui-btn type="primary" :disabled="disabled" @click="handleSubmit">发送</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
@@ -166,12 +64,34 @@ import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
 import config from '../../../common/js/config';
 import { tryFunc, openAlert } from '../../../common/js/common';
-import ImageUpload from '../../../common/components/ImageUpload';
+import {
+  ImageUpload,
+  WeuiCellsTitle,
+  WeuiCells,
+  WeuiCell,
+  WeuiCellSelect,
+  WeuiTextarea,
+  WeuiCellsCheckbox,
+  WeuiCheckLabel,
+  WeuiCellsRadio,
+  WeuiBtnArea,
+  WeuiBtn
+} from '../../../common/components';
 import '../../../common/js/share';
 
 export default {
   components: {
-    ImageUpload
+    ImageUpload,
+    WeuiCellsTitle,
+    WeuiCells,
+    WeuiCell,
+    WeuiCellSelect,
+    WeuiTextarea,
+    WeuiCellsCheckbox,
+    WeuiCheckLabel,
+    WeuiCellsRadio,
+    WeuiBtnArea,
+    WeuiBtn
   },
   data() {
     return {
@@ -235,13 +155,19 @@ export default {
         return;
       }
 
-      if (
-        (this.messageType === 'TEXT' || this.messageType === 'IMG') &&
-        !this.time
-      ) {
-        openAlert('请输入发送时间');
-        return;
+      if (this.messageType === 'TEXT' || this.messageType === 'IMG') {
+        if (!this.time) {
+          openAlert('请输入发送时间');
+          return;
+        }
+        let hours = Number(this.time.split(':')[0]);
+        let minutes = Number(this.time.split(':')[1]);
+        if (hours <= 8 || (hours >= 21 && minutes > 0)) {
+          openAlert('在非09:00-21:00时间段之外，管家不发送讯息');
+          return;
+        }
       }
+
       tryFunc(async () => {
         await axios.post('/user/task', {
           img: this.images.map(item => `${config.imageHost}/${item}`).join(','),

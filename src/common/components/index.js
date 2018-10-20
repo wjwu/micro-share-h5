@@ -13,6 +13,7 @@ import WeuiCellAccess from './WeuiCellAccess';
 import WeuiLoadMoreLine from './WeuiLoadMoreLine';
 import WeuiCellsCheckbox from './WeuiCellsCheckbox';
 import WeuiCheckLabel from './WeuiCheckLabel';
+import WeuiCellsRadio from './WeuiCellsRadio';
 
 export {
   Bar,
@@ -29,5 +30,6 @@ export {
   WeuiCellAccess,
   WeuiLoadMoreLine,
   WeuiCellsCheckbox,
-  WeuiCheckLabel
+  WeuiCheckLabel,
+  WeuiCellsRadio
 };
