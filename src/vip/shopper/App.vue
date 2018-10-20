@@ -64,6 +64,12 @@
         </div>
         <p class="weui-grid__label">海报生成</p>
       </a>
+      <a href="javascript:;" @click="handleJumpShopper('/success.html?type=1')" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="./assets/images/jump.png" alt="">
+        </div>
+        <p class="weui-grid__label">客服/机器人</p>
+      </a>
     </div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -103,12 +109,12 @@
 </template>
 
 <script>
-import format from 'date-fns/format';
-import { auth, checkIsMember } from '../../common/js/auth';
-import { tryFunc, openConfirm } from '../../common/js/common';
-import Bar from '../../common/components/Bar';
-import defaultHeadPhone from './assets/images/user.png';
-import '../../common/js/share';
+import format from "date-fns/format";
+import { auth, checkIsMember } from "../../common/js/auth";
+import { tryFunc, openConfirm } from "../../common/js/common";
+import Bar from "../../common/components/Bar";
+import defaultHeadPhone from "./assets/images/user.png";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -117,7 +123,7 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
+      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone,
       vipInfo: {}
     };
   },
@@ -131,8 +137,8 @@ export default {
   methods: {
     handleJumpShopper(url) {
       if (!this.vipInfo.advVipFlag) {
-        openConfirm('您尚未购买店长版VIP功能，是否前往购买页面购买？', () => {
-          window.location.href = '/pay.html';
+        openConfirm("您尚未购买店长版VIP功能，是否前往购买页面购买？", () => {
+          window.location.href = "/pay.html";
         });
       } else {
         window.location.href = url;
@@ -140,8 +146,8 @@ export default {
     },
     handleJumpBase(url) {
       if (!this.vipInfo.baseVipFlag) {
-        openConfirm('您尚未购买基础版VIP功能，是否前往购买页面购买？', () => {
-          window.location.href = '/pay.html';
+        openConfirm("您尚未购买基础版VIP功能，是否前往购买页面购买？", () => {
+          window.location.href = "/pay.html";
         });
       } else {
         window.location.href = url;
@@ -150,7 +156,7 @@ export default {
   },
   filters: {
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };

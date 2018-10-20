@@ -34,6 +34,7 @@
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, openAlert } from '../../common/js/common';
+import '../../common/js/share';
 import {
   WeuiCells,
   WeuiCell,

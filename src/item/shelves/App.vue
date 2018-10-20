@@ -34,6 +34,7 @@
 
 <script>
 import axios from '../../common/js/axios';
+import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { openAlert, openConfirm, tryFunc } from '../../common/js/common';
@@ -65,9 +66,25 @@ export default {
         }
       });
       if (!data) {
-        openAlert('请先设置店铺标题，点击确定前往', () => {
-          window.location.href = '/other/toker.html';
-        });
+        const dialog = weui.dialog({
+            content: '请先设置店铺标题，点击确定前往',
+            buttons: [
+              {
+                label: '确定',
+                type: 'primary',
+                onClick: () => {
+                   window.location.href = '/other/toker.html';
+                }
+              },
+              {
+                label: '取消',
+                type: 'default',
+                onClick: () => {
+                  window.location.href = '/vip/shopper.html';
+                }
+              }
+            ]
+          });
       }
 
       var name = data.name ? data.name + '电子货架（欢迎选购）' : '商伴部落';
