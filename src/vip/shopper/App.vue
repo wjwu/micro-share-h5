@@ -69,7 +69,7 @@
       <div class="weui-cell">
         <div class="weui-cell__bd">
           <p>基础模块</p>
-          <small v-if="vipInfo.baseVipFlag">有效期至：{{vipInfo.baseVipExpire | time}}</small>
+          <small v-if="vipInfo.baseVipFlag">群数：{{vipInfo.baseVipNumber}}&nbsp;&nbsp;有效期至：{{vipInfo.baseVipExpire | time}}</small>
         </div>
       </div>
     </div>
