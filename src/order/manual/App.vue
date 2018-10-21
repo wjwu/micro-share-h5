@@ -2,7 +2,7 @@
   <div v-if="showApp">
     <div class="title">
       <h1>{{name}}</h1>
-      <div class="sub">系统将为你匹配附近同行业的微信群</div>
+      <div class="sub">系统将为你匹配附近的微信群</div>
     </div>
     <div class="weui-cells__title">筛选范围</div>
     <div class="weui-cells weui-cells_form">
@@ -23,20 +23,30 @@
     <div class="weui-panel weui-panel_access">
       <div class="weui-panel__hd">可匹配的群列表</div>
       <div class="weui-panel__bd">
-        <div v-for="item in orders" :key="item.id" class="weui-media-box weui-media-box_text" @click="handleClick(item.id)">
-          <h4 class="weui-media-box__title">{{item.groupName}} - {{item.groupMemberCount}}人</h4>
-          <p class="weui-media-box__desc">{{item.desc}}</p>
+        <div v-for="item in orders" :key="item.id" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+              <i class="fa fa-weixin fa-2x"></i>
+          </div>
+          <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">{{item.groupName}}</h4>
+              <p class="weui-media-box__desc">{{item.groupMemberCount}}人 | {{item.industry}}</p>
+              <p class="weui-media-box__desc">{{item.createTime | time}}</p>
+          </div>
+          <div class="weui-media-box__fd">
+            <a href="javascript:;" @click="handleClick(item.id)" class="weui-btn weui-btn_mini weui-btn_default">跟TA匹配</a>
+          </div>
         </div>
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="./list.html">返回</a>
+      <a class="weui-btn weui-btn_default" href="./list.html">返回</a>
     </div>
   </div>
 </template>
 
 <script>
 import axios from '../../common/js/axios';
+import format from 'date-fns/format';
 import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
@@ -45,7 +55,7 @@ import '../../common/js/share';
 export default {
   data() {
     return {
-      selectedRadius: 500,
+      selectedRadius: 1000,
       orderId: getQueryString('orderId'),
       name: getQueryString('name'),
       orders: [],
@@ -109,7 +119,22 @@ export default {
         window.location.href = `./detail?orderId=${this.orderId}`;
       });
     }
+  },
+  filters: {
+    time: val => {
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
+    }
   }
 };
 </script>
 
+<style lang="scss">
+.fa {
+  color: #1aad19;
+}
+
+.weui-media-box__fd {
+  display: flex;
+  flex-direction: column;
+}
+</style>

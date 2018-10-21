@@ -27,13 +27,14 @@
               <p class="weui-media-box__desc">{{item.createTime | time}} | {{item.status | status}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a v-if="item.status === 'MATCH_FAILED'" :href="`/order/manual.html?orderId=${item.id}&name=${encodeURIComponent(item.groupName)}`" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
+              <a v-if="item.status === 'MATCH_ONGOING'" :href="`/order/manual.html?orderId=${item.id}&name=${encodeURIComponent(item.groupName)}`" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
               <a :href="`/order/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
               <a v-if="item.status === 'DONE'" :href="`/order/evaluate.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">去评价</a>
             </div>
           </div>
         </div>
         <div class="weui-panel__bd" v-else-if="selected === 'matching' && matching.length>0">
+          <div class="weui-cells__title">您可以等待系统为您搜索完美匹配商伴；您也可以选择手动匹配快速完成商伴匹配</div>
           <div v-for="(item,i) in matching" :key="i" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
               <i class="fa fa-weixin fa-2x"></i>
@@ -44,6 +45,7 @@
               <p class="weui-media-box__desc">{{item.createTime | time}}</p>
             </div>
             <div class="weui-media-box__fd">
+              <a :href="`/order/manual.html?orderId=${item.id}&name=${encodeURIComponent(item.groupName)}`" class="weui-btn weui-btn_mini weui-btn_default">手动匹配</a>
               <a :href="`/order/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
@@ -142,8 +144,6 @@ export default {
         return '匹配中';
       } else if (val === 'MATCH_SUCCESS') {
         return '匹配成功';
-      } else if (val === 'MATCH_FAILED') {
-        return '匹配失败';
       } else if (val === 'PAID') {
         return '已支付';
       } else if (val === 'DONE') {

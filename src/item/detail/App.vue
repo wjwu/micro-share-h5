@@ -51,7 +51,6 @@ export default {
       userId: '',
       product: null,
       showApp: false,
-      buyed: false,
       shopInfo: {}
     };
   },
@@ -132,8 +131,9 @@ export default {
         }
         localStorage.setItem('name', name);
       }
-      if (!this.buyed) {
-        this.buyed = true;
+      var buyed = localStorage.getItem("buyed");
+      if (!buyed) {
+        localStorage.setItem('buyed', true);
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
           openAlert(

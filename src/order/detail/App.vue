@@ -1,5 +1,6 @@
 <template>
   <div v-if="showApp">
+    <div v-if="order.originalOrder && order.originalOrder.status === 'MATCH_SUCCESS'" class="weui-cells__title">由于结伴双方无法在同一时间进行确认操作，系统设定先发起结伴一方先预先支付服务费用等另一方进行确认。3天内另一方拒绝结伴或者不进行确认操作，本次结伴失败，系统自动退回您预先支付的服务费。</div>
     <weui-cells-title>订单信息</weui-cells-title>
     <weui-cells v-if="order.originalOrder">
       <weui-cell label="订单编号">
@@ -9,7 +10,7 @@
         {{order.originalOrder.createTime | time}}
       </weui-cell>
       <weui-cell label="服务费" v-if="order.originalOrder.status !== 'MATCH_ONGOING'">
-        {{order.originalOrder.groupMemberCount | price}}
+        {{order.originalOrder.price}}
       </weui-cell>
       <weui-cell label="订单状态">
         {{order.originalOrder.status | status}}
@@ -173,18 +174,6 @@ export default {
     }
   },
   filters: {
-    price: val => {
-      const groupCount = Number(val);
-      if (groupCount >= 200 && groupCount < 300) {
-        return 5;
-      } else if (groupCount >= 300 && groupCount < 400) {
-        return 8;
-      } else if (groupCount >= 400 && groupCount <= 500) {
-        return 10;
-      } else {
-        return 'Unknown';
-      }
-    },
     status: val => {
       if (val === 'MATCH_ONGOING') {
         return '匹配中';

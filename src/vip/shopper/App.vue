@@ -64,12 +64,6 @@
         </div>
         <p class="weui-grid__label">海报生成</p>
       </a>
-      <a href="javascript:;" @click="handleJumpShopper('/success.html?type=1')" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/jump.png" alt="">
-        </div>
-        <p class="weui-grid__label">客服/机器人</p>
-      </a>
     </div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -97,6 +91,12 @@
           <img src="./assets/images/newuser.png" alt="">
         </div>
         <p class="weui-grid__label">欢迎&群规</p>
+      </a>
+      <a href="javascript:;" @click="handleJumpAll('/success.html?type=1')" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="./assets/images/jump.png" alt="">
+        </div>
+        <p class="weui-grid__label">添加客服/机器人</p>
       </a>
       <a href="javascript:;" class="weui-grid">
         <div class="weui-grid__icon">
@@ -135,6 +135,15 @@ export default {
     });
   },
   methods: {
+    handleJumpAll(url) {
+      if (!this.vipInfo.advVipFlag && !this.vipInfo.advVipFlag) {
+        openConfirm('您尚未购买VIP功能，是否前往购买页面购买？', () => {
+          window.location.href = '/pay.html';
+        });
+      } else {
+        window.location.href = url;
+      }
+    },
     handleJumpShopper(url) {
       if (!this.vipInfo.advVipFlag) {
         openConfirm('您尚未购买店长版VIP功能，是否前往购买页面购买？', () => {

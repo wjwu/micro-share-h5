@@ -13,7 +13,7 @@
       </div>
       <div class="bd">
         <div class="my">
-          <div @click="handleJump('/vip/shopper.html')">我的管家s</div>
+          <div @click="handleJump('/vip/shopper.html')">我的管家</div>
           <div @click="handleJump('/group/enter.html')">
             我的商伴
           </div>
