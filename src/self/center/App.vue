@@ -13,7 +13,7 @@
       </div>
       <div class="bd">
         <div class="my">
-          <div @click="handleJump('/vip/shopper.html')">我的管家</div>
+          <div @click="handleJump('/vip/shopper.html')">我的管家s</div>
           <div @click="handleJump('/group/enter.html')">
             我的商伴
           </div>
@@ -82,11 +82,6 @@ export default {
 </script>
 
 <style lang="scss">
-html,
-body,
-.main {
-  height: 100%;
-}
 .main {
   background: #f7f7f7;
   .hd {

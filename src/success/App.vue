@@ -18,7 +18,7 @@ import { getQueryString } from '../common/js/common';
 export default {
   data() {
     return {
-      type: getQueryString('type'),
+      type: getQueryString('type')
     };
   },
   components: {
