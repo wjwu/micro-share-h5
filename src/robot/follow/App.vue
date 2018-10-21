@@ -18,6 +18,7 @@
     </div>
     <div v-else>
       <weui-cells-title>每个群限关注3人</weui-cells-title>
+      <weui-cells-title>为减少对您信息干扰，相同关注人信息10分钟内不重复上报</weui-cells-title>
       <weui-cells-checkbox v-if="members.length > 0">
         <weui-check-label v-for="member in members" :key="member.id" :id="member.id" @click="handleMemberClick" v-model="member.checked">
           {{member.name}}

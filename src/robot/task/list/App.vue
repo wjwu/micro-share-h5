@@ -31,7 +31,12 @@
         </div>
         <div class="weui-btn-area">
           <a href="./submit.html" class="weui-btn weui-btn_primary">新增任务</a>
+          <weui-cells-title>1、请设置您的群发任务（可用时间09:00-21:00）</weui-cells-title>
+          <weui-cells-title>2、每天自己群发消息不超过10条，在商伴群发消息不超过3条(超过将忽略)</weui-cells-title>
+          <weui-cells-title>3、群发消息只有具备管家的群（自己&商伴）中才能够送达</weui-cells-title>
+          <weui-cells-title>4、提交发送申请后，系统将在0-5分钟内进行发送</weui-cells-title>
         </div>
+
       </div>
     </div>
     <div class="weui-tab__panel" v-if="selectedTab==='history'">
@@ -58,18 +63,38 @@
 </template>
 
 <script>
-import axios from '../../../common/js/axios';
-import format from 'date-fns/format';
-import { auth } from '../../../common/js/auth';
-import config from '../../../common/js/config';
-import { tryFunc, openConfirm } from '../../../common/js/common';
-import '../../../common/js/share';
+import axios from "../../../common/js/axios";
+import format from "date-fns/format";
+import { auth } from "../../../common/js/auth";
+import config from "../../../common/js/config";
+import { tryFunc, openConfirm } from "../../../common/js/common";
+import "../../../common/js/share";
+import {
+  WeuiCells,
+  WeuiCellAccess,
+  WeuiCellsTitle,
+  WeuiLoadMoreLine,
+  WeuiBtnArea,
+  WeuiBtn,
+  WeuiCellsCheckbox,
+  WeuiCheckLabel
+} from '../../../common/components';
 
 export default {
+  components: {
+    WeuiCells,
+    WeuiCellAccess,
+    WeuiCellsTitle,
+    WeuiLoadMoreLine,
+    WeuiBtnArea,
+    WeuiBtn,
+    WeuiCellsCheckbox,
+    WeuiCheckLabel
+  },
   data() {
     return {
       showApp: false,
-      selectedTab: 'task',
+      selectedTab: "task",
       tasks: [],
       histories: []
     };
@@ -79,7 +104,7 @@ export default {
       await auth();
       this.showApp = true;
       await this.getTasks();
-      let response = await axios.get('/user/task/history');
+      let response = await axios.get("/user/task/history");
       this.histories = response.data;
     });
   },
@@ -92,7 +117,7 @@ export default {
       this.selectedTab = tab;
     },
     handleDelete(id) {
-      openConfirm('您确实要删除该任务？', () => {
+      openConfirm("您确实要删除该任务？", () => {
         tryFunc(async () => {
           await axios.delete(`${config.apiHost}/user/task/${id}`);
           await this.getTasks();
@@ -104,29 +129,29 @@ export default {
     sendDayNum(val) {
       switch (val) {
         case -1:
-          return '不重复发送';
+          return "不重复发送";
         case 0:
-          return '每天发送';
+          return "每天发送";
         case 1:
-          return '每周一发送';
+          return "每周一发送";
         case 2:
-          return '每周二发送';
+          return "每周二发送";
         case 3:
-          return '每周三发送';
+          return "每周三发送";
         case 4:
-          return '每周四发送';
+          return "每周四发送";
         case 5:
-          return '每周五发送';
+          return "每周五发送";
         case 6:
-          return '每周六发送';
+          return "每周六发送";
         case 7:
-          return '每周日发送';
+          return "每周日发送";
         default:
-          return '';
+          return "";
       }
     },
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };

@@ -1,5 +1,7 @@
 <template>
   <div v-if="showApp">
+    <weui-cells-title>1、点击“删除”为单向删除对方</weui-cells-title>
+    <weui-cells-title>2、删除商伴后，您无法在商伴群中发送信息</weui-cells-title>
     <weui-cells-title>我的群列表</weui-cells-title>
     <weui-cells v-if="myGroups.length>0">
       <weui-cell v-for="item in myGroups" :key="item.id">{{item.name}} | {{item.number}}人</weui-cell>

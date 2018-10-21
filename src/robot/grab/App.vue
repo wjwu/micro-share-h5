@@ -18,6 +18,7 @@
     </div>
     <div v-else>
       <weui-cells-title>请设置订单抓取关键词(最多15个)</weui-cells-title>
+      <weui-cells-title>为减少对您信息干扰，相同订单咨询信息10分钟内不重复上报</weui-cells-title>
       <weui-cells v-if="keywords.length > 0">
         <weui-cell v-for="(item,i) in keywords" :key="i">
           {{item}}
