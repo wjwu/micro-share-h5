@@ -5,12 +5,12 @@
     <br />
     您需要做得最多的是第一步，提交资料环节（整个需要大约3-5分钟时间）：
     <br /><br />
-    第一步：点击“参与商伴匹配”或者在“我的商伴”菜单中点击“提交群”进入匹配流程
+    第一步：点击<span style="color:red;font-weight:900;">“参与商伴匹配”</span>或者在“我的商伴”菜单中点击<span style="color:red;font-weight:900;">“提交群”</span>进入匹配流程
     <br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/1.png" /></center><br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/2.png" /></center><br />
     第二步：扫描二维码添加好友（按提示）<br />
-    <center><img src="http://static.fangzhoubuluo.com/matchHelp/3.png" /></center>
+    <center><img src="http://static.fangzhoubuluo.com/matchHelp/11.png" /></center>
     <br />
     第三步：拉入好友入参与匹配的群（按提示）<br /><br />
     第四步：填写群资料并提交（读提示与注意事项）<br /><br />
