@@ -10,7 +10,7 @@
             <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
           </span>
           <span>
-            <a style="color: white;font-weight: 900;" href="javascript:alert('暂未提供文档');">匹配指南</a>
+            <a style="color: white;font-weight: 900;" href="match.html">匹配指南</a>
           </span>
         </div>
         <div class="intro" v-if="selectedTab ==='t2'">
