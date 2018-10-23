@@ -28,11 +28,11 @@ if (process.env.NODE_ENV !== 'development') {
   });
   htmlExternals.push({
     module: 'vue',
-    entry: 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'
+    entry: 'http://static.fangzhoubuluo.com/js/vue.min.js'
   });
   htmlExternals.push({
     module: 'axios',
-    entry: 'https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js'
+    entry: 'http://static.fangzhoubuluo.com/js/axios.min.js'
   });
 }
 
@@ -69,13 +69,13 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        include: src,
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
+        // enforce: 'pre',
+        // test: /\.(js|vue)$/,
+        // loader: 'eslint-loader',
+        // include: src,
+        // options: {
+        //   formatter: require('eslint-friendly-formatter')
+        // }
       },
       {
         test: /\.vue$/,
