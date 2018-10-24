@@ -18,7 +18,7 @@
             <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
           </span>
           <span>
-            <a style="color: white;font-weight: 900;" href="javascript:alert('暂未提供文档');">管家指南</a>
+            <a style="color: white;font-weight: 900;" href="guide.html">管家指南</a>
           </span>
         </div>
       </div>
