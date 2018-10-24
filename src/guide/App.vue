@@ -8,7 +8,7 @@
     第一步：点击“引流拓客”，进入店铺设置界面<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/15.png" /></center><br />
     第二步：设置店铺信息：（只首次使用需要设置）<br />
-    <center><img src="http://static.fangzhoubuluo.com/matchHelp/16.png" /></center><br />
+    <center><img src="http://static.fangzhoubuluo.com/matchHelp/26.png" /></center><br />
     第三步商品上传：（以本周特价为例），素材可从相册导入图片、亦可采用相机时时拍摄图片<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/17.png" /></center><br />
     第四步对外分享：商品对外在微信群中分享展现形式（可直接分享到朋友圈、好友、各种微信群，亦可分享给管家机器人实现多商伴微信群一键送达）<br />
@@ -16,7 +16,7 @@
     商品展现形式：客户在微信群中进入您的店铺链接进入商品展现形式（含商品信息、店铺水印、店铺地址、您的二维码等信息）<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/19.png" /></center><br />
     客户在微信群中进入您的店铺链接进入商品展现形式（客户可扫描您二维码实现引流、实体店可上门消费）<br />
-    <center><img src="http://static.fangzhoubuluo.com/matchHelp/20.png" /></center><br />
+    <center><img src="http://static.fangzhoubuluo.com/matchHelp/27.png" /></center><br />
     客户点击“联系商家购买”输入电话号码后，订单信息通过公众号信息立即上报给您,你可及时和买家联系<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/21.png" /></center><br />
     订单抓取：根据您设定商品关键词，在您和你商伴以及您朋友微信群里，有客户咨询包含您设定的商品关键词信息，管家将实时通过公众号信息上报给您，让您眼睛不用盯着微信群翻滚信息流也能不错过潜在订单：<br />
