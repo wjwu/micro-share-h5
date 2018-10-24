@@ -27,6 +27,8 @@
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/24.png" /></center><br />
     商伴共享：您和朋友之间可以通过“商伴共享”分享功能直接结成商伴，共享社群和管家资源，体验管家各种功能；参与商伴匹配的商伴自动直接进入您的商伴群列表，您亦可在商伴的社群中发送包含您店铺信息的商品海报<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/25.png" /></center><br />
+    温馨特别提示：<br />
+    您使用的店长功能订单信息将通过公众号信息窗口即时上报，建议您顶置公众号，以便您能及时收取和处理订单信息。<br />
     还有其他的管家功能您可以逐步体会，人工客服会协助您实现良好体验。
   </div>
 </template>
