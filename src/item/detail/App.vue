@@ -92,9 +92,9 @@ export default {
       let name;
       let desc;
       if (this.product.type === "SPECIAL") {
-        let shopName ="";
-        if(this.shopInfo.name){
-            shopName = this.shopInfo.name;
+        let shopName = "";
+        if (this.shopInfo.name) {
+          shopName = this.shopInfo.name;
         }
         name = shopName + "本周特价（欢迎抢购）";
         const { data } = await axios.get(`/item/${this.pId}/special`);
@@ -133,18 +133,25 @@ export default {
         if (!name) {
           return;
         }
+        var part = /^1\d{10}$/gi;
+        if (!part.test(name)) {
+          openAlert(
+            "联系电话格式不正确，请输入11位手机号!"
+          );
+          return;
+        }
         localStorage.setItem("name", name);
       }
-      let buyTime = Number(localStorage.getItem('buyTime'));
+      let buyTime = Number(localStorage.getItem("buyTime"));
       let now = new Date().getTime();
       if (!buyTime || now - buyTime > 30 * 60 * 1000) {
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
         });
-        localStorage.setItem('buyTime', now.toString());
+        localStorage.setItem("buyTime", now.toString());
       }
       openAlert(
-        '购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!'
+        "购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!"
       );
     }
   }
