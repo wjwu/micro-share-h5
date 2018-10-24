@@ -131,13 +131,13 @@ export default {
         }
         localStorage.setItem("name", name);
       }
-      let buyed = Number(localStorage.getItem('buyed'));
+      let buyTime = Number(localStorage.getItem('buyTime'));
       let now = new Date().getTime();
-      if (!buyed || now - buyed > 30 * 60 * 1000) {
+      if (!buyTime || now - buyTime > 30 * 60 * 1000) {
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
         });
-        localStorage.setItem('buyed', now.toString());
+        localStorage.setItem('buyTime', now.toString());
       }
       openAlert(
         '购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!'
