@@ -131,15 +131,16 @@ export default {
         }
         localStorage.setItem("name", name);
       }
-      var buyed = localStorage.getItem("buyed");
-      if (!buyed) {
-        localStorage.setItem("buyed", true);
+      let buyed = Number(localStorage.getItem('buyed'));
+      let now = new Date().getTime();
+      if (!buyed || now - buyed > 30 * 60 * 1000) {
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
         });
+        localStorage.setItem('buyed', now.toString());
       }
       openAlert(
-        "购买成功,请等待商家联系。若商家长时间未联系请查看本页下方商家信息!"
+        '购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!'
       );
     }
   }
