@@ -72,7 +72,11 @@ export default {
           userId: this.userId
         }
       });
-      var name = shopData.name + '新品鉴赏（欢迎品鉴）';
+      var shopName = "";
+      if(shopData.name){
+          shopName = shopData.name;
+      }
+      var name = shopName + '新品鉴赏（欢迎品鉴）';
       var desc = newerDate.description
         ? newerDate.description
         : '本周新品鉴赏，欢迎大家选购';
