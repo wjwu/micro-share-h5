@@ -75,8 +75,8 @@ module.exports = merge(baseConfig, {
       'process.env': {
         NODE_ENV: '"production"',
         APP_ID: '"wx78ec611707faf6af"',
-        API_HOST: '"http://web.j-coder.com"',
-        WEB_HOST: '"http://frp.j-coder.com"',
+        API_HOST: '"http://web.shangbanbuluo.com"',
+        WEB_HOST: '"http://www.shangbanbuluo.com"',
         IMAGE_HOST: '"http://static.fangzhoubuluo.com"'
       }
     })
