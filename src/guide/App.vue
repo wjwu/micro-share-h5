@@ -1,7 +1,9 @@
 <template>
   <div>
     前言：<br />
-    在使用管家中每个关键环节都有提示或说明指引您的使用，在使用过程中如有疑问，人工客服也会协助您完成各功能模块的使用。
+    <span style='color:red;font-weight:900;'>部落管家聚焦于在您不具备自己店铺小程序/APP/产品网站/服务器/运维推广人员前提下，提供属于您自己的简洁/高效/易操作/低成本的网上店铺/智能店长工具，主要包括产品推广展示/引流拓客/智能销售/社区商伴圈互联共享四大功能。</span>
+    <br />
+    在使用管家中每个关键环节都有提示或说明指引您的使用，在使用过程中如有疑问，人工客服也会协助您完成各功能模块的使用。<br />
     完成管家购买后，相应的功能将会自动开通，您需要扫描添加机器人，并拉入您需要管理的社群即可开始使用。<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/14.png" /></center><br />
     <b>店长模块：</b>以本周特价模块功能展示为例<br />
@@ -20,13 +22,15 @@
     客户点击“联系商家购买”输入电话号码后，订单信息通过公众号信息立即上报给您,你可及时和买家联系<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/21.png" /></center><br />
     订单抓取：根据您设定商品关键词，在您和你商伴以及您朋友微信群里，有客户咨询包含您设定的商品关键词信息，管家将实时通过公众号信息上报给您，让您眼睛不用盯着微信群翻滚信息流也能不错过潜在订单：<br />
-    <center><img src="http://static.fangzhoubuluo.com/matchHelp/22.png" /></center><br />
+    <center><img src="http://static.fangzhoubuluo.com/matchHelp/30.png" /></center><br />
     关注人：根据您设定关注人，在您和你商伴以及您朋友微信群里，有关注人发言，管家将实时通过公众号信息上报给您，让您及时知晓关注人动态并回复：<br />
-    <center><img src="http://static.fangzhoubuluo.com/matchHelp/23.png" /></center><br />
+    <center><img src="http://static.fangzhoubuluo.com/matchHelp/29.png" /></center><br />
     一键群发：您可以通过“一键群发”在您自己群、朋友和商伴群中发送您的商品信息：可定时、即时发送文本、图片（含二维码）、分享卡片链接等信息<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/24.png" /></center><br />
     商伴共享：您和朋友之间可以通过“商伴共享”分享功能直接结成商伴，共享社群和管家资源，体验管家各种功能；参与商伴匹配的商伴自动直接进入您的商伴群列表，您亦可在商伴的社群中发送包含您店铺信息的商品海报<br />
     <center><img src="http://static.fangzhoubuluo.com/matchHelp/25.png" /></center><br />
+    欢迎语/群规：在新成员入群时，系统自动给成员发送入群欢迎语和群规。<br />
+    <center><img src="http://static.fangzhoubuluo.com/matchHelp/28.png" /></center><br />
     温馨特别提示：<br />
     您使用的店长功能订单信息将通过公众号信息窗口即时上报，建议您顶置公众号，以便您能及时收取和处理订单信息。<br />
     还有其他的管家功能您可以逐步体会，人工客服会协助您实现良好体验。
