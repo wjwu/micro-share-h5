@@ -14,7 +14,7 @@
           <p class="desc">{{item.description}}</p>
           <p class="price">
             <span>￥{{item.sellPrice}}元</span>
-            <small>{{item.sales}}已售</small>
+            <small>{{item.stock}}可售</small>
           </p>
         </a>
       </li>

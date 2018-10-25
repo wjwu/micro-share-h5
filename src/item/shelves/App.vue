@@ -13,7 +13,7 @@
       </div>
       <div class="weui-cell__bd">
         <p>{{item.name}}</p>
-        <p style="font-size: 13px;color: #888888;">¥{{item.sellPrice}} - {{item.stock}}已售</p>
+        <p style="font-size: 13px;color: #888888;">¥{{item.sellPrice}} - {{item.stock}}可售</p>
       </div>
       <div class="weui-cell__ft">
         <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:;" @click="handleEdit(item.id)">编辑</a>
