@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_default" href="./list.html">返回</a>
+      <a class="weui-btn weui-btn_default" href="./list/all.html">返回</a>
     </div>
   </div>
 </template>
