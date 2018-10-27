@@ -136,7 +136,7 @@ export default {
         var part = /^1\d{10}$/gi;
         if (!part.test(name)) {
           openAlert(
-            "联系电话格式不正确，请输入11位手机号!"
+            "请您输入正确的手机联系方式噢……"
           );
           return;
         }
