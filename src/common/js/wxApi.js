@@ -13,11 +13,17 @@ export default {
       window.wx.error(res => {
         reject(res);
       });
+      var url = window.location.href;
+      if(url.indexOf("isappinstalled") > 0){
+        url = url.replace("&isappinstalled", "*isappinstalled");
+        url = url.replace("&from", "*from");
+      }
       axios
-        .get(`${config.apiHost}/wx/shareParam?reqUrl=${window.location.href}`)
+        .get(`${config.apiHost}/wx/shareParam?reqUrl=${url}`)
         .then(response => {
           const data = response.data;
           window.wx.config({
+            debug: false,
             appId: config.appId, // 必填，公众号的唯一标识
             timestamp: data.timestamp, // 必填，生成签名的时间戳
             nonceStr: data.nonceStr, // 必填，生成签名的随机串
