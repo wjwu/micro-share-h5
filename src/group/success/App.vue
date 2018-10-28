@@ -1,5 +1,5 @@
 <template>
-  <result title="提交成功" sub-title="我们会对您的群考察三天，审核结果会通过微信公众号通知给您">
+  <result title="提交成功" sub-title="我会在您的群里待1-4天时间，不会做任何发言，然后自动退出群，审核结果会通过公众号通知您。">
     <template slot="buttons">
       <a href="/index.html" class="weui-btn weui-btn_default">返回首页</a>
     </template>
