@@ -78,7 +78,7 @@ export default {
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/list.html?userId=" + this.userId,
+          link: config.webHost + "/item/list.html?userId=" + getQueryString("userId"),
           imgUrl: logo
         },
         function(res) {}
@@ -87,7 +87,7 @@ export default {
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/list.html?userId=" + this.userId,
+          link: config.webHost + "/item/list.html?userId=" + getQueryString("userId"),
           imgUrl: logo
         },
         function(res) {}
