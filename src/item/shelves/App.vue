@@ -54,8 +54,8 @@ export default {
       await auth();
       this.showApp = true;
       await this.getProducts();
-      await this.checkShopInfo();
     });
+    this.checkShopInfo();
   },
   methods: {
     async checkShopInfo() {

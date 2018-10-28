@@ -36,19 +36,19 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import config from "../../common/js/config";
-import { tryFunc, openAlert, getQueryString } from "../../common/js/common";
-import wxApi from "../../common/js/wxApi";
+import axios from '../../common/js/axios';
+import config from '../../common/js/config';
+import { tryFunc, openAlert, getQueryString } from '../../common/js/common';
+import wxApi from '../../common/js/wxApi';
 
-const SPECIAL = "SPECIAL";
+const SPECIAL = 'SPECIAL';
 
 export default {
   data() {
     return {
       SPECIAL,
-      pId: getQueryString("pId"),
-      userId: "",
+      pId: getQueryString('pId'),
+      userId: '',
       product: null,
       showApp: false,
       shopInfo: {}
@@ -58,11 +58,11 @@ export default {
     tryFunc(async () => {
       this.showApp = true;
       if (!this.pId) {
-        openAlert("商品编号无效");
+        openAlert('商品编号无效');
         return;
       }
       const { data: product } = await axios.get(`/item/${this.pId}`);
-      product.images = product.imgUrl.split(",");
+      product.images = product.imgUrl.split(',');
       this.product = product;
       window.document.title = product.name;
 
@@ -70,15 +70,15 @@ export default {
       this.shopInfo = shopInfo;
 
       this.$nextTick(() => {
-        const swiper = new window.Swiper(".swiper-container", {
-          direction: "horizontal",
+        const swiper = new window.Swiper('.swiper-container', {
+          direction: 'horizontal',
           autoplay: {
             delay: 2000
           },
           speed: 1000,
           loop: true,
           pagination: {
-            el: ".swiper-pagination"
+            el: '.swiper-pagination'
           }
         });
         console.log(swiper);
@@ -91,27 +91,27 @@ export default {
     async shareFunc() {
       let name;
       let desc;
-      if (this.product.type === "SPECIAL") {
-        let shopName = "";
+      if (this.product.type === 'SPECIAL') {
+        let shopName = '';
         if (this.shopInfo.name) {
           shopName = this.shopInfo.name;
         }
-        name = shopName + "本周特价（欢迎抢购）";
+        name = shopName + '本周特价（欢迎抢购）';
         const { data } = await axios.get(`/item/${this.pId}/special`);
-        desc = data.description ? data.description : "本周特价，欢迎大家选购";
+        desc = data.description ? data.description : '本周特价，欢迎大家选购';
       } else {
         name = this.product.name;
-        desc = this.product.description ? this.product.description : "商品描述";
+        desc = this.product.description ? this.product.description : '商品描述';
       }
 
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/detail.html?pId=" + this.pId,
+          link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         },
         function(res) {}
       );
@@ -119,39 +119,37 @@ export default {
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/detail.html?pId=" + this.pId,
+          link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
         },
         function(res) {}
       );
     },
     async buy() {
-      let name = localStorage.getItem("name");
+      let name = localStorage.getItem('name');
       if (!name) {
-        name = prompt("请输入您联系电话，方便卖家与您联系。", "");
+        name = prompt('请输入您联系电话，方便卖家与您联系。', '');
         if (!name) {
           return;
         }
         var part = /^1\d{10}$/gi;
         if (!part.test(name)) {
-          openAlert(
-            "请您输入正确的手机联系方式噢……"
-          );
+          openAlert('请您输入正确的手机联系方式噢……');
           return;
         }
-        localStorage.setItem("name", name);
+        localStorage.setItem('name', name);
       }
-      let buyTime = Number(localStorage.getItem("buyTime"));
+      let buyTime = Number(localStorage.getItem('buyTime'));
       let now = new Date().getTime();
       if (!buyTime || now - buyTime > 30 * 60 * 1000) {
         tryFunc(async () => {
           await axios.get(`/item/${this.pId}/buy?name=${name}`);
         });
-        localStorage.setItem("buyTime", now.toString());
+        localStorage.setItem('buyTime', now.toString());
       }
       openAlert(
-        "购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!"
+        '购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!'
       );
     }
   }
@@ -160,7 +158,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .content {
   padding-bottom: 3rem;

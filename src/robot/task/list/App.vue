@@ -63,12 +63,12 @@
 </template>
 
 <script>
-import axios from "../../../common/js/axios";
-import format from "date-fns/format";
-import { auth } from "../../../common/js/auth";
-import config from "../../../common/js/config";
-import { tryFunc, openConfirm } from "../../../common/js/common";
-import "../../../common/js/share";
+import axios from '../../../common/js/axios';
+import format from 'date-fns/format';
+import { auth } from '../../../common/js/auth';
+import config from '../../../common/js/config';
+import { tryFunc, openConfirm } from '../../../common/js/common';
+import '../../../common/js/share';
 import {
   WeuiCells,
   WeuiCellAccess,
@@ -94,7 +94,7 @@ export default {
   data() {
     return {
       showApp: false,
-      selectedTab: "task",
+      selectedTab: 'task',
       tasks: [],
       histories: []
     };
@@ -104,7 +104,7 @@ export default {
       await auth();
       this.showApp = true;
       await this.getTasks();
-      let response = await axios.get("/user/task/history");
+      let response = await axios.get('/user/task/history');
       this.histories = response.data;
     });
   },
@@ -117,7 +117,7 @@ export default {
       this.selectedTab = tab;
     },
     handleDelete(id) {
-      openConfirm("您确实要删除该任务？", () => {
+      openConfirm('您确实要删除该任务？', () => {
         tryFunc(async () => {
           await axios.delete(`${config.apiHost}/user/task/${id}`);
           await this.getTasks();
@@ -129,29 +129,29 @@ export default {
     sendDayNum(val) {
       switch (val) {
         case -1:
-          return "不重复发送";
+          return '不重复发送';
         case 0:
-          return "每天发送";
+          return '每天发送';
         case 1:
-          return "每周一发送";
+          return '每周一发送';
         case 2:
-          return "每周二发送";
+          return '每周二发送';
         case 3:
-          return "每周三发送";
+          return '每周三发送';
         case 4:
-          return "每周四发送";
+          return '每周四发送';
         case 5:
-          return "每周五发送";
+          return '每周五发送';
         case 6:
-          return "每周六发送";
+          return '每周六发送';
         case 7:
-          return "每周日发送";
+          return '每周日发送';
         default:
-          return "";
+          return '';
       }
     },
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };
