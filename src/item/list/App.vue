@@ -28,8 +28,10 @@
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-import { tryFunc, getQueryString } from '../../common/js/common';
+import axios from "../../common/js/axios";
+import config from '../../common/js/config';
+import { tryFunc, getQueryString } from "../../common/js/common";
+import wxApi from "../../common/js/wxApi";
 
 export default {
   data() {
@@ -41,18 +43,56 @@ export default {
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
-      const { data } = await axios.get('/item/owner', {
+      const { data } = await axios.get("/item/owner", {
         params: {
-          userId: getQueryString('userId')
+          userId: getQueryString("userId")
         }
       });
       this.products = data.map(item => {
         return {
           ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
+          imgUrl: item.imgUrl ? item.imgUrl.split(",")[0] : ""
         };
       });
+      await this.checkShopInfo();
     });
+  },
+  methods: {
+    async checkShopInfo() {
+      const { data } = await axios.get('/user/shopInfoById', {
+        params: {
+          userId: getQueryString("userId")
+        }
+      });
+
+      var name = data && data.name ? data.name + "电子货架（欢迎选购）" : "商伴部落";
+      var desc = data && data.description
+        ? data.description
+        : "我的商品货架，欢迎大家选购";
+      var logo = data && data.logo
+        ? data.logo + "?imageView2/1/w/50/h/50/interlace/1/q/75"
+        : "http://static.fangzhoubuluo.com/logo.png";
+
+      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      window.wx.onMenuShareAppMessage(
+        {
+          title: name,
+          desc: desc,
+          link: config.webHost + "/item/list.html?userId=" + this.userId,
+          imgUrl: logo
+        },
+        function(res) {}
+      );
+      window.wx.onMenuShareTimeline(
+        {
+          title: name,
+          desc: desc,
+          link: config.webHost + "/item/list.html?userId=" + this.userId,
+          imgUrl: logo
+        },
+        function(res) {}
+      );
+    }
   }
 };
 </script>
@@ -63,7 +103,7 @@ body,
 .main {
   height: 100%;
   background-color: #fff;
-  font-family: 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !important;
 }
 .main {
   .title {
