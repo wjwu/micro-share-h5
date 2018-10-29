@@ -103,7 +103,6 @@ export default {
         name = this.product.name;
         desc = this.product.description ? this.product.description : '商品描述';
       }
-
       await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
@@ -111,7 +110,7 @@ export default {
           desc: desc,
           link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75/.jpg'
         },
         function(res) {}
       );
@@ -121,7 +120,7 @@ export default {
           desc: desc,
           link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75'
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75.jpg'
         },
         function(res) {}
       );
