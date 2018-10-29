@@ -120,7 +120,7 @@ export default {
           desc: desc,
           link: config.webHost + '/item/detail.html?pId=' + this.pId,
           imgUrl:
-            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75.jpg'
+            this.product.images[0] + '?imageView2/1/w/50/h/50/interlace/1/q/75/.jpg'
         },
         function(res) {}
       );
