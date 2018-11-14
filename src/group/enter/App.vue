@@ -2,7 +2,7 @@
   <bar v-if="showApp" :active-index="2">
     <div class="page__hd top">
       <div class="top-info">
-        <a href="/qa.html" class="help">
+        <a href="/match.html" class="help">
           <img src="./assets/images/help.png">
         </a>
       </div>
@@ -20,7 +20,7 @@
         <div class="weui-grid__icon">
           <img src="./assets/images/list.png" alt="">
         </div>
-        <p class="weui-grid__label">群组列表</p>
+        <p class="weui-grid__label">审核进展</p>
       </a>
       <a href="/order/list/all.html" class="weui-grid">
         <div class="weui-grid__icon">

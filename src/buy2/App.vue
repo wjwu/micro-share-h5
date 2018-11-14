@@ -10,51 +10,30 @@
             <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
           </span>
           <span>
-            <a style="color: white;font-weight: 900;" href="match.html">商伴指南</a>
+            <a style="color: white;font-weight: 900;" href="guide.html">掌柜指南</a>
           </span>
         </div>
-        <!-- <div class="intro">
-          <span>
-            <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
-          </span>
-          <span>
-            <a style="color: white;font-weight: 900;" href="guide.html">管家指南</a>
-          </span>
-        </div> -->
       </div>
       <div class="content">
         <div class="tip">
           <div class="intro">
             <p>温馨提示:</p>
-            <p>1.分享源群不得涉及黄/毒/赌/传销/涉政/股票/区块链等非法群，违规账户进入部落黑名单；拒绝僵尸/广告/死群参与分享，违规账户信用降级。</p>
-            <p>2.只能提交属于群主自己群，分享群数量为N&lt;=5个，每单个群分享次数N&lt;=8次。</p>
-            <p>3.服务费：群人数&lt;300人，服务费5元；300&lt;群人数&lt;400人，服务费8元；群人数&gt;400,服务费10元，匹配成功后收取。</p>
-          </div>
-          <div class="flow">
-            <h4>匹配流程</h4>
-            <img src="./assets/images/page1.png" />
-          </div>
-          <div class="footer">
-            <button @click="handleJump('/group/submit.html')">找商伴</button>
-            <button @click="handleJump('/qa.html')">在线客服</button>
-          </div>
-        </div>
-        <!-- <div class="tip">
-          <div class="intro">
-            <p>温馨提示:</p>
-            <p>1.管家可独立于商伴匹配，单独购买独立使用。</p>
-            <p>2.管家不得用于发送涉及黄/毒/赌/传销/涉政/股票/区块链等非法以及其他虚假、夸大的信息、广告。</p>
+            <p>1.手掌柜可独立于找商伴，单独购买独立使用。</p>
+            <p>2.手掌柜不得用于发送涉及黄/毒/赌/传销/涉政/股票/区块链等非法以及其他虚假、夸大的信息、广告。</p>
             <p>3.单个账户可购买1（店长模块）+N（基础模块群），N&lt;=8。</p>
           </div>
           <div class="flow">
             <h4>购买流程</h4>
             <img src="./assets/images/page2.png" />
+            <h4>功能版本对比</h4>
+            <img src="./assets/images/introduction.png" />
+            <img src="./assets/images/desc.png" />
           </div>
           <div class="footer">
-            <button @click="handleJump('/pay.html')">购买管家</button>
+            <button @click="handleJump('/pay.html')">购买掌柜</button>
             <button @click="handleJump('/qa.html')">在线客服</button>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </bar>
