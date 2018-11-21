@@ -14,9 +14,9 @@ export default {
         reject(res);
       });
       var url = window.location.href;
-      if(url.indexOf("isappinstalled") > 0 || url.indexOf("from=") > 0){
-        url = url.replace("&isappinstalled", "*isappinstalled");
-        url = url.replace("&from", "*from");
+      if (url.indexOf('isappinstalled') > 0 || url.indexOf('from=') > 0) {
+        url = url.replace('&isappinstalled', '*isappinstalled');
+        url = url.replace('&from', '*from');
       }
       axios
         .get(`${config.apiHost}/wx/shareParam?reqUrl=${url}`)
