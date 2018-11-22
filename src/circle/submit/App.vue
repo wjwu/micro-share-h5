@@ -54,6 +54,11 @@ import {
   WeuiBtnArea,
   WeuiBtn
 } from '../../common/components';
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import '../../common/js/share';
+
 export default {
   components: {
     WeuiCellsTitle,
@@ -68,11 +73,21 @@ export default {
   },
   data() {
     return {
-      showApp: true
+      showApp: false
     };
   },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+    });
+  },
   methods: {
-    handleSubmit() {}
+    handleSubmit() {
+      tryFunc(async () => {
+        await axios.post('');
+      });
+    }
   }
 };
 </script>
