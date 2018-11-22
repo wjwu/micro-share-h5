@@ -4,19 +4,35 @@
       <h1>我的圈子</h1>
     </div>
     <weui-cells>
-      <weui-cell-access label="圈子1" empty-body foot="100人">
-      </weui-cell-access>
-      <weui-cell-access label="圈子2" empty-body foot="100人">
+      <weui-cell-access :label="item.name" empty-body foot="100人" v-for="item in list" :key="item.id" :href="`/circle/detail.html?id=${item.id}`">
       </weui-cell-access>
     </weui-cells>
   </div>
 </template>
 <script>
 import { WeuiCells, WeuiCellAccess } from '../../common/components';
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+
 export default {
   components: {
     WeuiCells,
     WeuiCellAccess
+  },
+  data() {
+    return {
+      showApp: false,
+      list: []
+    };
+  },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+      const { data } = await axios.get('/circle/myCircle');
+      this.list = data;
+    });
   }
 };
 </script>

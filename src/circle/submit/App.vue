@@ -10,30 +10,28 @@
       </div>
     </div>
     <weui-cells>
-      <weui-cell label="申请人昵称："></weui-cell>
-      <weui-cell label="所在城市："></weui-cell>
+      <weui-cell label="申请人昵称：">{{circle.nick}}</weui-cell>
       <weui-cell label="圈名：">
-        <input class="weui-input" type="text" placeholder="请输入圈名(不超过10个字)" maxlength="10">
+        <input v-model="circle.name" class="weui-input" type="text" placeholder="请输入圈名(不超过10个字)" maxlength="10">
       </weui-cell>
       <weui-cell label="圈主题：">
-        <input class="weui-input" type="text" placeholder="请输入圈名(不超过20个字)" maxlength="20">
+        <input v-model="circle.subject" class="weui-input" type="text" placeholder="请输入圈名(不超过20个字)" maxlength="20">
       </weui-cell>
       <weui-cell-select label="申请人行业：">
-        <select class="weui-select">
-          <option value="OPTIMIZATION">部落运营优化建议</option>
-          <option value="REQUIREMENT">部落新增需求建议</option>
-          <option value="PROBLEM">部落存在问题反馈</option>
+        <select v-model="circle.industry" class="weui-select">
+          <option value="">请选择群所属行业</option>
+          <option :value="item.id" v-for="item in industries" :key="item.id">{{item.name}}</option>
         </select>
       </weui-cell-select>
     </weui-cells>
     <weui-cells-title>您是否具备社群运营经验？</weui-cells-title>
     <weui-cells-radio>
-      <weui-check-label type="radio" @change="handleDayChange(7)" name="radioSend" id="sun">是</weui-check-label>
-      <weui-check-label type="radio" @change="handleDayChange(7)" name="radioSend" id="sun">否</weui-check-label>
+      <weui-check-label type="radio" @change="handleExpChange(true)" name="radioExp" id="expYes">是</weui-check-label>
+      <weui-check-label type="radio" @change="handleExpChange(false)" name="radioExp" id="expNo">否</weui-check-label>
     </weui-cells-radio>
     <weui-cells>
       <weui-cell>
-        <weui-textarea maxlength="100" placeholder="请您简述对社群运营体会或看法：100字内" rows="3"></weui-textarea>
+        <weui-textarea v-model="circle.description" maxlength="100" placeholder="请您简述对社群运营体会或看法：100字内" rows="3"></weui-textarea>
       </weui-cell>
     </weui-cells>
     <weui-btn-area>
@@ -56,7 +54,8 @@ import {
 } from '../../common/components';
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
+import { tryFunc, openAlert } from '../../common/js/common';
+import industries from '../../common/js/industries.js';
 import '../../common/js/share';
 
 export default {
@@ -73,19 +72,55 @@ export default {
   },
   data() {
     return {
-      showApp: false
+      showApp: false,
+      industries,
+      circle: {
+        nick: '',
+        name: '',
+        subject: '',
+        industry: '',
+        experience: '',
+        description: ''
+      }
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
+      this.circle.nick = localStorage.getItem('userName');
     });
   },
   methods: {
+    handleExpChange(result) {
+      this.circle.experience = result;
+    },
     handleSubmit() {
+      if (!this.circle.name) {
+        openAlert('请输入圈名');
+        return;
+      }
+      if (!this.circle.subject) {
+        openAlert('请输入圈主题');
+        return;
+      }
+      if (!this.circle.industry) {
+        openAlert('请选择群所属行业');
+        return;
+      }
+      if (this.circle.experience === '') {
+        openAlert('请选择是否具备群社运营经验');
+        return;
+      }
+      if (!this.circle.description) {
+        openAlert('请输入对社群运营体会或看法');
+        return;
+      }
       tryFunc(async () => {
-        await axios.post('');
+        await axios.post('/circle', this.circle);
+        openAlert('添加成功，请等待审核！', () => {
+          window.location.href = '/circle/list.html';
+        });
       });
     }
   }
