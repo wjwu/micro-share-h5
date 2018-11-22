@@ -1,14 +1,15 @@
 <template>
   <a class="weui-cell weui-cell_access" :href="href" @click="$emit('click')">
-    <div class="weui-cell__hd" v-if="label">
-      <label class="weui-label">
+    <div class="weui-cell__hd" v-if="$slots.head || label">
+      <slot name="head" v-if="$slots.head"></slot>
+      <label class="weui-label" v-else>
         {{label}}
       </label>
     </div>
-    <div class="weui-cell__bd" v-if="$slots.default">
+    <div class="weui-cell__bd" v-if="$slots.default || emptyBody">
       <slot></slot>
     </div>
-    <div class="weui-cell__ft" v-if="foot">
+    <div class="weui-cell__ft" v-if="foot || emptyFoot">
       {{foot}}
     </div>
   </a>
@@ -25,7 +26,16 @@ export default {
       type: String
     },
     foot: {
-      type: String
+      type: String,
+      default: ''
+    },
+    emptyBody: {
+      type: Boolean,
+      default: false
+    },
+    emptyFoot: {
+      type: Boolean,
+      default: false
     }
   }
 };

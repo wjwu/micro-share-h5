@@ -5,17 +5,17 @@
     </a>
     <div class="page__hd top">
       <div class="top-info">
-        <h1 class="page__title">管家工具</h1>
+        <h1 class="page__title">网店</h1>
       </div>
       <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
-    <div class="weui-cell">
+    <!-- <div class="weui-cell">
       <div class="weui-cell__bd">
         <p>店长模块</p>
         <small v-if="vipInfo.advVipFlag">有效期至：{{vipInfo.advVipExpire | time}}</small>
       </div>
-    </div>
-    <div class="weui-grids content">
+    </div> -->
+    <!-- <div class="weui-grids content">
       <a href="javascript:;" @click="handleJumpShopper('/item/shelves.html')" class="weui-grid">
         <div class="weui-grid__icon">
           <img src="./assets/images/shop.png" alt="">
@@ -44,7 +44,7 @@
         <div class="weui-grid__icon">
           <img src="./assets/images/qrcode.png" alt="">
         </div>
-        <p class="weui-grid__label">引流拓客</p>
+        <p class="weui-grid__label">店铺设置</p>
       </a>
       <a href="javascript:;" @click="handleJumpShopper('/robot/grab.html')" class="weui-grid">
         <div class="weui-grid__icon">
@@ -104,7 +104,91 @@
         </div>
         <p class="weui-grid__label">更多功能</p>
       </a>
-    </div>
+    </div> -->
+    <weui-cells-title>
+      商城模块
+      <small v-if="vipInfo.advVipFlag">有效期至：{{vipInfo.advVipExpire | time}}</small>
+    </weui-cells-title>
+    <weui-cells>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>店铺设置</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>商品管理</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>我的订单</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>电子账簿</label>
+          </div>
+        </template>
+      </weui-cell-access>
+    </weui-cells>
+    <weui-cells>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>会员管理</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>优惠活动</label>
+          </div>
+        </template>
+      </weui-cell-access>
+    </weui-cells>
+    <weui-cells>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>订单抓取</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>一键群发</label>
+          </div>
+        </template>
+      </weui-cell-access>
+    </weui-cells>
+    <weui-cells>
+      <weui-cell-access empty-body empty-foot>
+        <template slot="head">
+          <div class="head">
+            <!-- <img src="./assets/images/circle.png"> -->
+            <label>社群管理</label>
+          </div>
+        </template>
+      </weui-cell-access>
+    </weui-cells>
   </bar>
 </template>
 
@@ -112,13 +196,21 @@
 import format from 'date-fns/format';
 import { auth, checkIsMember } from '../../common/js/auth';
 import { tryFunc, openConfirm } from '../../common/js/common';
-import Bar from '../../common/components/Bar';
+import {
+  Bar,
+  WeuiCells,
+  WeuiCellAccess,
+  WeuiCellsTitle
+} from '../../common/components';
 import defaultHeadPhone from './assets/images/user.png';
 import '../../common/js/share';
 
 export default {
   components: {
-    Bar
+    Bar,
+    WeuiCells,
+    WeuiCellAccess,
+    WeuiCellsTitle
   },
   data() {
     return {
@@ -173,7 +265,7 @@ export default {
 
 
 <style lang="scss">
-.weui-cell__bd {
+/*.weui-cell__bd {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -182,6 +274,12 @@ export default {
     font-size: 12px;
     color: #06b04f;
   }
+}*/
+
+small {
+  float: right;
+  font-size: 12px;
+  color: #06b04f;
 }
 .top {
   padding: 2rem;
@@ -214,6 +312,16 @@ export default {
   img {
     width: 2rem;
     height: 2rem;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 1rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 </style>

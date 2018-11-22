@@ -28,6 +28,7 @@
           <li class="menu-poster"><a href="/message.html">我的消息</a></li>
           <li class="menu-shelves"><a href="/feedback.html">我的建议</a></li>
           <li class="menu-books"><a href="/order/list/complaint.html">举报与投诉</a></li>
+          <li class="menu-books"><a href="/rule.html">运行规则</a></li>
         </ul>
         <ul class="menu">
           <!-- <li class="menu-setup">系统设置</li> -->
