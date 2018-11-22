@@ -8,64 +8,81 @@
       <weui-cell label="人数："></weui-cell>
       <weui-cell label="行业："></weui-cell>
     </weui-cells>
-    <weui-cells-title>圈子成员</weui-cells-title>
-    <weui-cells>
-      <weui-cell>
-        <div class="member">
-          <img src="../../vip/shopper/assets/images/newuser.png">
-          <label>成员1</label>
-        </div>
-      </weui-cell>
-      <weui-cell>
-        <div class="member">
-          <img src="../../vip/shopper/assets/images/newuser.png">
-          <label>成员2</label>
-        </div>
-      </weui-cell>
-      <weui-cell>
-        <div class="member">
-          <img src="../../vip/shopper/assets/images/newuser.png">
-          <label>成员3</label>
-        </div>
-      </weui-cell>
-    </weui-cells>
-    <weui-cells-title>审核通过成员</weui-cells-title>
-    <weui-cells>
-      <weui-cell>
-        <div class="member">
-          <img src="../../vip/shopper/assets/images/newuser.png">
-          <label>成员1</label>
-        </div>
-      </weui-cell>
-      <weui-cell>
-        <div class="member">
-          <img src="../../vip/shopper/assets/images/newuser.png">
-          <label>成员2</label>
-        </div>
-      </weui-cell>
-      <weui-cell>
-        <div class="member">
-          <img src="../../vip/shopper/assets/images/newuser.png">
-          <label>成员3</label>
-        </div>
-      </weui-cell>
-    </weui-cells>
+    <weui-panel label="圈子成员">
+      <div class="weui-media-box weui-media-box_small-appmsg">
+        <weui-cells>
+          <weui-cell>
+            <template slot="head">
+              <img src="../../vip/shopper/assets/images/newuser.png">
+            </template>
+            <p>成员1</p>
+          </weui-cell>
+          <weui-cell>
+            <template slot="head">
+              <img src="../../vip/shopper/assets/images/newuser.png">
+            </template>
+            <p>成员2</p>
+          </weui-cell>
+          <weui-cell>
+            <template slot="head">
+              <img src="../../vip/shopper/assets/images/newuser.png">
+            </template>
+            <p>成员3</p>
+          </weui-cell>
+        </weui-cells>
+      </div>
+    </weui-panel>
+   <weui-panel label="审核通过成员">
+      <div class="weui-media-box weui-media-box_small-appmsg">
+        <weui-cells>
+          <weui-cell>
+            <template slot="head">
+              <img src="../../vip/shopper/assets/images/newuser.png">
+            </template>
+            <p>成员1</p>
+          </weui-cell>
+          <weui-cell>
+            <template slot="head">
+              <img src="../../vip/shopper/assets/images/newuser.png">
+            </template>
+            <p>成员2</p>
+          </weui-cell>
+          <weui-cell>
+            <template slot="head">
+              <img src="../../vip/shopper/assets/images/newuser.png">
+            </template>
+            <p>成员3</p>
+          </weui-cell>
+        </weui-cells>
+      </div>
+    </weui-panel>
   </div>
 </template>
 
 <script>
-import { WeuiCells, WeuiCell, WeuiCellsTitle } from '../../common/components';
+import {
+  WeuiCells,
+  WeuiCell,
+  WeuiCellsTitle,
+  WeuiPanel
+} from '../../common/components';
 export default {
   components: {
     WeuiCells,
     WeuiCell,
-    WeuiCellsTitle
+    WeuiCellsTitle,
+    WeuiPanel
   }
 };
 </script>
 
 <style lang="scss">
-.member {
+img {
+  margin-right: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+/*.member {
   display: flex;
   align-items: center;
   img {
@@ -73,6 +90,6 @@ export default {
     width: 1.75rem;
     height: 1.75rem;
   }
-}
+}*/
 </style>
 

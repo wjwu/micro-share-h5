@@ -1,33 +1,24 @@
 <template>
-  <div class="weui-panel">
-    <div class="weui-panel__hd">
-      <label>圈子名称</label>
-      <label>人数</label>
+  <div>
+    <div class="title">
+      <h1>我的圈子</h1>
     </div>
-    <div class="weui-panel__bd">
-      <div class="weui-media-box weui-media-box_text">
-        <p class="weui-media-box__desc">
-          <label>圈子名称</label>
-          <label>人数</label>
-        </p>
-      </div>
-      <div class="weui-media-box weui-media-box_text">
-        <p class="weui-media-box__desc">
-          <label>圈子名称</label>
-          <label>人数</label>
-        </p>
-      </div>
-      <div class="weui-media-box weui-media-box_text">
-        <p class="weui-media-box__desc">
-          <label>圈子名称</label>
-          <label>人数</label>
-        </p>
-      </div>
-    </div>
+    <weui-cells>
+      <weui-cell-access label="圈子1" empty-body foot="100人">
+      </weui-cell-access>
+      <weui-cell-access label="圈子2" empty-body foot="100人">
+      </weui-cell-access>
+    </weui-cells>
   </div>
 </template>
 <script>
-export default {};
+import { WeuiCells, WeuiCellAccess } from '../../common/components';
+export default {
+  components: {
+    WeuiCells,
+    WeuiCellAccess
+  }
+};
 </script>
 <style lang="scss">
 .weui-panel__hd {
