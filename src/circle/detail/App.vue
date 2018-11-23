@@ -48,6 +48,7 @@ import {
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc, getQueryString } from '../../common/js/common';
+import '../../common/js/share';
 
 export default {
   components: {

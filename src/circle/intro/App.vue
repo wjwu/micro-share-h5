@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showApp">
     <div class="title">
       <h2>申请条件</h2>
       <div class="sub-content">
@@ -22,18 +22,48 @@
       </div>
     </div>
     <weui-btn-area>
-      <weui-btn type="primary">申请圈主</weui-btn>
-      <weui-btn>邀请进展</weui-btn>
+      <weui-btn v-if="canApply" type="primary" href="/circle/submmit.html">申请圈主</weui-btn>
+      <weui-btn v-if="!canApply" type="primary">邀请进展</weui-btn>
+      <weui-btn v-if="!canApply" type="primary" @click="handleShareClick">去分享</weui-btn>
     </weui-btn-area>
   </div>
 </template>
 
 <script>
 import { WeuiBtnArea, WeuiBtn } from '../../common/components';
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import '../../common/js/share';
+
 export default {
   components: {
     WeuiBtnArea,
     WeuiBtn
+  },
+  data() {
+    return {
+      showApp: false,
+      canApply: true,
+      circleId: '',
+      userName: window.encodeURIComponent(localStorage.getItem('userName'))
+    };
+  },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      const { data } = await axios.get('/circle/owner');
+      if (data) {
+        this.canApply = false;
+        this.circleId = data;
+      }
+      this.showApp = true;
+    });
+  },
+  methods: {
+    handleShareClick() {
+      // `/circle/share.html?circleId=${circleId}&userName=${userName}`
+    }
   }
 };
 </script>
