@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="showApp">
     <div class="title">
-      <h1>xxx圈子</h1>
+      <h1>{{this.circle.name}}</h1>
     </div>
     <weui-cells>
       <!-- <weui-cell label="名称："></weui-cell> -->
@@ -17,22 +17,10 @@
             </template>
             <p>成员1</p>
           </weui-cell>
-          <weui-cell>
-            <template slot="head">
-              <img src="../../vip/shopper/assets/images/newuser.png">
-            </template>
-            <p>成员2</p>
-          </weui-cell>
-          <weui-cell>
-            <template slot="head">
-              <img src="../../vip/shopper/assets/images/newuser.png">
-            </template>
-            <p>成员3</p>
-          </weui-cell>
         </weui-cells>
       </div>
     </weui-panel>
-   <weui-panel label="审核通过成员">
+    <weui-panel label="审核通过成员">
       <div class="weui-media-box weui-media-box_small-appmsg">
         <weui-cells>
           <weui-cell>
@@ -40,18 +28,6 @@
               <img src="../../vip/shopper/assets/images/newuser.png">
             </template>
             <p>成员1</p>
-          </weui-cell>
-          <weui-cell>
-            <template slot="head">
-              <img src="../../vip/shopper/assets/images/newuser.png">
-            </template>
-            <p>成员2</p>
-          </weui-cell>
-          <weui-cell>
-            <template slot="head">
-              <img src="../../vip/shopper/assets/images/newuser.png">
-            </template>
-            <p>成员3</p>
           </weui-cell>
         </weui-cells>
       </div>
@@ -66,12 +42,30 @@ import {
   WeuiCellsTitle,
   WeuiPanel
 } from '../../common/components';
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc, getQueryString } from '../../common/js/common';
+
 export default {
   components: {
     WeuiCells,
     WeuiCell,
     WeuiCellsTitle,
     WeuiPanel
+  },
+  data() {
+    return {
+      showApp: false,
+      circle: null
+    };
+  },
+  mounted() {
+    tryFunc(async () => {
+      await auth();
+      this.showApp = true;
+      const { data } = await axios.get(`/circle/${getQueryString('id')}`);
+      this.circle = data;
+    });
   }
 };
 </script>
