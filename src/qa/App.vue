@@ -28,6 +28,9 @@
         <div class="time">{{record.time}}</div>
       </li>
     </ul>
+    <div class="footer">
+      <button @click="handleCustClick">联系人工客服</button>
+    </div>
   </div>
 </template>
 
@@ -117,6 +120,9 @@ export default {
     },
     handleImgClick(url) {
       weui.gallery(url, {});
+    },
+    handleCustClick() {
+      weui.gallery('', {});
     }
   }
 };
@@ -264,6 +270,22 @@ body {
           line-height: 1.4rem;
         }
       }
+    }
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3.125rem;
+
+    button {
+      color: #fff;
+      font-size: 1rem;
+      width: 100%;
+      height: 100%;
+      background-color: #3e88ee;
     }
   }
 }
