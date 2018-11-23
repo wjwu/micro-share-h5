@@ -20,7 +20,7 @@
       <weui-cell-select label="申请人行业：">
         <select v-model="circle.industry" class="weui-select">
           <option value="">请选择群所属行业</option>
-          <option :value="item.id" v-for="item in industries" :key="item.id">{{item.name}}</option>
+          <option :value="item.name" v-for="item in industries" :key="item.id">{{item.name}}</option>
         </select>
       </weui-cell-select>
     </weui-cells>

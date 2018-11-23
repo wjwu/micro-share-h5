@@ -1,10 +1,11 @@
 <template>
   <div>
-    <!-- <div class="title">
+    <div class="title">
       <h1>我的圈子</h1>
-    </div> -->
+    </div>
     <weui-cells>
-      <weui-cell-access :label="item.name" empty-body foot="100人" v-for="item in list" :key="item.id" :href="`/circle/detail.html?id=${item.id}`">
+      <weui-cell-access :foot="`${item.groupNum}人`" v-for="item in list" :key="item.id" :href="`/circle/detail.html?id=${item.id}`">
+        {{item.name}}
       </weui-cell-access>
     </weui-cells>
   </div>
@@ -30,13 +31,24 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get('/circle/myCircle');
+      let { data } = await axios.get('/circle/myCircle');
+      data = data.map(item => {
+        if (item.circleMemberDtoList) {
+          item.groupNum = item.circleMemberDtoList.length;
+        } else {
+          item.groupNum = 0;
+        }
+        return item;
+      });
       this.list = data;
     });
   }
 };
 </script>
 <style lang="scss">
+.weui-cells{
+  margin-top: 0;
+}
 .weui-panel__hd {
   display: flex;
   label {

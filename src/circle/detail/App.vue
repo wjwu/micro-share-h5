@@ -1,26 +1,26 @@
 <template>
-  <div v-if="showApp">
+  <div v-if="showApp && circle">
     <div class="title">
-      <h1>{{this.circle.name}}</h1>
+      <h1>{{circle.name}}</h1>
     </div>
     <weui-cells>
-      <!-- <weui-cell label="名称："></weui-cell> -->
-      <weui-cell label="人数："></weui-cell>
-      <weui-cell label="行业："></weui-cell>
+      <weui-cell label="人数：">{{circle.groupNum}}</weui-cell>
+      <weui-cell label="行业：">{{circle.industry}}</weui-cell>
+      <weui-cell label="主题：">{{circle.subject}}</weui-cell>
     </weui-cells>
     <weui-panel label="圈子成员">
       <div class="weui-media-box weui-media-box_small-appmsg">
         <weui-cells>
-          <weui-cell>
+          <weui-cell :key="item.userId" v-for="item in circle.circleMemberDtoList">
             <template slot="head">
-              <img src="../../vip/shopper/assets/images/newuser.png">
+              <img :src="item.headPhoto">
             </template>
-            <p>成员1</p>
+            <p>{{item.nickName}}</p>
           </weui-cell>
         </weui-cells>
       </div>
     </weui-panel>
-    <weui-panel label="审核通过成员">
+    <!-- <weui-panel label="审核通过成员">
       <div class="weui-media-box weui-media-box_small-appmsg">
         <weui-cells>
           <weui-cell>
@@ -31,7 +31,7 @@
           </weui-cell>
         </weui-cells>
       </div>
-    </weui-panel>
+    </weui-panel> -->
   </div>
 </template>
 
@@ -64,6 +64,11 @@ export default {
       await auth();
       this.showApp = true;
       const { data } = await axios.get(`/circle/${getQueryString('id')}`);
+      if (data.circleMemberDtoList) {
+        data.groupNum = data.circleMemberDtoList.length;
+      } else {
+        data.groupNum = 0;
+      }
       this.circle = data;
     });
   }
