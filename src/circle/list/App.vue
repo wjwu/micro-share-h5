@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="title">
+    <!-- <div class="title">
       <h1>我的圈子</h1>
-    </div>
+    </div> -->
     <weui-cells>
       <weui-cell-access :label="item.name" empty-body foot="100人" v-for="item in list" :key="item.id" :href="`/circle/detail.html?id=${item.id}`">
       </weui-cell-access>
