@@ -10,7 +10,7 @@
     </weui-cells>
     <weui-panel label="圈子成员">
       <div class="weui-media-box weui-media-box_small-appmsg">
-        <weui-cells>
+        <weui-cells v-if="circle.circleMemberDtoList && circle.circleMemberDtoList.length>0">
           <weui-cell :key="item.userId" v-for="item in circle.circleMemberDtoList">
             <template slot="head">
               <img :src="item.headPhoto">
@@ -18,20 +18,22 @@
             <p>{{item.nickName}}</p>
           </weui-cell>
         </weui-cells>
+        <weui-load-more-line v-else></weui-load-more-line>
       </div>
     </weui-panel>
-    <!-- <weui-panel label="审核通过成员">
+    <weui-panel label="审核通过成员">
       <div class="weui-media-box weui-media-box_small-appmsg">
-        <weui-cells>
-          <weui-cell>
+        <weui-cells v-if="circle.passedMemberDtoList && circle.passedMemberDtoList.length>0">
+          <weui-cell :key="item.userId" v-for="item in circle.passedMemberDtoList">
             <template slot="head">
-              <img src="../../vip/shopper/assets/images/newuser.png">
+              <img :src="item.headPhoto">
             </template>
-            <p>成员1</p>
+            <p>{{item.nickName}}</p>
           </weui-cell>
         </weui-cells>
+        <weui-load-more-line v-else></weui-load-more-line>
       </div>
-    </weui-panel> -->
+    </weui-panel>
   </div>
 </template>
 
@@ -40,7 +42,8 @@ import {
   WeuiCells,
   WeuiCell,
   WeuiCellsTitle,
-  WeuiPanel
+  WeuiPanel,
+  WeuiLoadMoreLine
 } from '../../common/components';
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
@@ -51,7 +54,8 @@ export default {
     WeuiCells,
     WeuiCell,
     WeuiCellsTitle,
-    WeuiPanel
+    WeuiPanel,
+    WeuiLoadMoreLine
   },
   data() {
     return {

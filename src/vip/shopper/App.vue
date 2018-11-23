@@ -121,7 +121,7 @@
       <weui-cell-access empty-body empty-foot>
         <template slot="head">
           <div class="head">
-            <!-- <img src="./assets/images/circle.png"> -->
+            <img src="./assets/images/shop.png">
             <label>商品管理</label>
           </div>
         </template>
@@ -137,7 +137,7 @@
       <weui-cell-access empty-body empty-foot>
         <template slot="head">
           <div class="head">
-            <!-- <img src="./assets/images/circle.png"> -->
+            <img src="./assets/images/account.png">
             <label>电子账簿</label>
           </div>
         </template>
@@ -165,7 +165,7 @@
       <weui-cell-access empty-body empty-foot>
         <template slot="head">
           <div class="head">
-            <!-- <img src="./assets/images/circle.png"> -->
+            <img src="./assets/images/robot.png">
             <label>订单抓取</label>
           </div>
         </template>
@@ -173,7 +173,7 @@
       <weui-cell-access empty-body empty-foot>
         <template slot="head">
           <div class="head">
-            <!-- <img src="./assets/images/circle.png"> -->
+            <img src="./assets/images/msg.png">
             <label>一键群发</label>
           </div>
         </template>
@@ -320,8 +320,8 @@ small {
   align-items: center;
   img {
     margin-right: 1rem;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }
 </style>
