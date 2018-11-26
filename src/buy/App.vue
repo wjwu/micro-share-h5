@@ -7,20 +7,9 @@
         </a>
         <div class="intro">
           <span>
-            <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
-          </span>
-          <span>
             <a style="color: white;font-weight: 900;" href="match.html">商伴指南</a>
           </span>
         </div>
-        <!-- <div class="intro">
-          <span>
-            <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
-          </span>
-          <span>
-            <a style="color: white;font-weight: 900;" href="guide.html">管家指南</a>
-          </span>
-        </div> -->
       </div>
       <div class="content">
         <div class="tip">
