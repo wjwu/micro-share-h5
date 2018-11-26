@@ -10,7 +10,7 @@
             <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
           </span>
           <span>
-            <a style="color: white;font-weight: 900;" href="guide.html">掌柜指南</a>
+            <a style="color: white;font-weight: 900;" href="guide.html">网店指南</a>
           </span>
         </div>
       </div>
@@ -18,8 +18,8 @@
         <div class="tip">
           <div class="intro">
             <p>温馨提示:</p>
-            <p>1.手掌柜可独立于找商伴，单独购买独立使用。</p>
-            <p>2.手掌柜不得用于发送涉及黄/毒/赌/传销/涉政/股票/区块链等非法以及其他虚假、夸大的信息、广告。</p>
+            <p>1.云网店可独立于找商伴，单独购买独立使用。</p>
+            <p>2.云网店不得用于发送涉及黄/毒/赌/传销/涉政/股票/区块链等非法以及其他虚假、夸大的信息、广告。</p>
             <p>3.单个账户可购买1（店长模块）+N（基础模块群），N&lt;=8。</p>
           </div>
           <div class="flow">
@@ -30,7 +30,7 @@
             <img src="./assets/images/desc.png" />
           </div>
           <div class="footer">
-            <button @click="handleJump('/pay.html')">购买掌柜</button>
+            <button @click="handleJump('/pay.html')">购买网店</button>
             <button @click="handleJump('/qa.html')">在线客服</button>
           </div>
         </div>

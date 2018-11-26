@@ -8,6 +8,7 @@
           <div class="tag">
             <span class="vip" v-if="user.vipDto">VIP</span>
             <span class="credit" @click="handleJump('/self/credit.html')">{{user.creditScore}}分</span>
+            <span class="vip"  @click="handleJump('/circle/intro.html')">申请圈主</span>
           </div>
         </div>
       </div>
@@ -41,7 +42,7 @@
 
 <script>
 import axios from '../../common/js/axios';
-import { auth } from '../../common/js/auth';
+//import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
 import weui from 'weui.js';
 import Bar from '../../common/components/Bar';
@@ -59,7 +60,7 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      await auth();
+      //await auth();
       this.showApp = true;
       const { data } = await axios.get('/user/info');
       this.user = data;
