@@ -31,6 +31,9 @@
     <div class="footer">
       <button @click="handleCustClick">联系人工客服</button>
     </div>
+    <div class="mask" v-if="showMask" @click="showMask=false">
+      <img src="http://static.fangzhoubuluo.com/qrcode/customer.jpg" @click="handleCustImgClick" />
+    </div>
   </div>
 </template>
 
@@ -51,7 +54,8 @@ export default {
       // userName: '佳哇儿',
       // headPhoto:
       //   'http://thirdwx.qlogo.cn/mmopen/OU2rqvx645tApw6HTRnxM4I1wBWZEmypWP8FkWykrPdWv9TQozeic8BiasEtvlRRdqSN1DqJaXQ9yx4nRkiaQSWsVBlRJUoeKyR/132',
-      records: []
+      records: [],
+      showMask: false
     };
   },
   mounted() {
@@ -121,8 +125,11 @@ export default {
     handleImgClick(url) {
       weui.gallery(url, {});
     },
+    handleCustImgClick(e) {
+      e.stopPropagation();
+    },
     handleCustClick() {
-      weui.gallery('', {});
+      this.showMask = true;
     }
   }
 };
@@ -286,7 +293,26 @@ body {
       width: 100%;
       height: 100%;
       background-color: #3e88ee;
+      outline: none;
+      border: none;
     }
+  }
+}
+
+.mask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  img {
+    width: 15rem;
   }
 }
 </style>
