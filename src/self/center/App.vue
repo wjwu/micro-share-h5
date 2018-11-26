@@ -19,7 +19,69 @@
             我的商伴
           </div>
         </div>
-        <ul class="menu">
+      <weui-cells>
+          <weui-cell-access empty-body empty-foot href="/self/info.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/info.png">
+                <label>个人资料</label>
+              </div>
+            </template>
+          </weui-cell-access>
+          <weui-cell-access empty-body empty-foot href="/self/consume.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/bill.png">
+                <label>我的消费</label>
+              </div>
+            </template>
+          </weui-cell-access>
+          <weui-cell-access empty-body empty-foot href="/message.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/message.png">
+                <label>我的消息</label>
+              </div>
+            </template>
+          </weui-cell-access>
+      </weui-cells>
+      <weui-cells>
+          <weui-cell-access empty-body empty-foot href="/feedback.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/feedback.png">
+                <label>我的建议</label>
+              </div>
+            </template>
+          </weui-cell-access>
+          <weui-cell-access empty-body empty-foot href="/order/list/complaint.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/complanion.png">
+                <label>举报与投诉</label>
+              </div>
+            </template>
+          </weui-cell-access>
+          <weui-cell-access empty-body empty-foot href="/rule.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/rule.png">
+                <label>运行规则</label>
+              </div>
+            </template>
+          </weui-cell-access>
+      </weui-cells>
+      <weui-cells>
+        <weui-cell-access empty-body empty-foot href="/qa.html">
+            <template slot="head">
+              <div class="head">
+                <img src="./assets/images/qa.png">
+                <label>联系客服</label>
+              </div>
+            </template>
+          </weui-cell-access>
+      </weui-cells>
+        <!-- <ul class="menu">
           <li class="menu-info">
             <a href="/self/info.html">个人资料</a>
           </li>
@@ -32,25 +94,26 @@
           <li class="menu-books"><a href="/rule.html">运行规则</a></li>
         </ul>
         <ul class="menu">
-          <!-- <li class="menu-setup">系统设置</li> -->
           <li class="menu-service" @click="handleJump('/qa.html')">联系客服</li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </bar>
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-//import { auth } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
-import weui from 'weui.js';
-import Bar from '../../common/components/Bar';
-import '../../common/js/share';
+import axios from "../../common/js/axios";
+import { auth } from "../../common/js/auth";
+import { tryFunc } from "../../common/js/common";
+import weui from "weui.js";
+import { Bar, WeuiCells, WeuiCellAccess } from "../../common/components";
+import "../../common/js/share";
 
 export default {
   components: {
-    Bar
+    Bar,
+    WeuiCells,
+    WeuiCellAccess
   },
   data() {
     return {
@@ -60,14 +123,14 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      //await auth();
+      await auth();
       this.showApp = true;
-      const { data } = await axios.get('/user/info');
+      const { data } = await axios.get("/user/info");
       this.user = data;
-      this.$el.querySelector('.hd').style.background = `url("${
+      this.$el.querySelector(".hd").style.background = `url("${
         this.user.headPhoto
       }") no-repeat`;
-      this.$el.querySelector('.avatar').style.background = `url("${
+      this.$el.querySelector(".avatar").style.background = `url("${
         this.user.headPhoto
       }") no-repeat`;
     });
@@ -77,21 +140,30 @@ export default {
       window.location.href = url;
     },
     handleClick() {
-      weui.alert('请在公众号发送消息咨询');
+      weui.alert("请在公众号发送消息咨询");
     }
   }
 };
 </script>
 
 <style lang="scss">
+
+.head {
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 1rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
 .main {
-  background: #f7f7f7;
   .hd {
     position: relative;
     height: 11.5625rem;
     // background: url('./assets/images/timg.jpg') no-repeat;
     background-size: cover !important;
-
     &:after {
       content: '';
       width: 100%;
@@ -116,7 +188,6 @@ export default {
       background-size: cover !important;
       z-index: 3;
     }
-
     .info {
       position: absolute;
       width: 100%;
@@ -127,13 +198,11 @@ export default {
         color: #fff;
         text-align: center;
       }
-
       .tag {
         display: flex;
         font-size: 0.875rem;
         color: #fff;
         justify-content: center;
-
         .vip,
         .credit {
           display: inline-block;
@@ -147,7 +216,6 @@ export default {
             center/ 1rem;
           background-color: #fc863f;
         }
-
         .credit {
           background: url('./assets/images/credit@3x.png') no-repeat 0.375rem
             center/ 1rem;
@@ -156,7 +224,6 @@ export default {
       }
     }
   }
-
   .bd {
     .my {
       background: #fff;
@@ -165,87 +232,19 @@ export default {
       display: flex;
       font-size: 1rem;
       color: #222;
-
       div {
         flex: 1;
         text-align: center;
         padding-top: 1.3rem;
       }
-
       div:first-of-type {
-        border-right: 1px solid #c3c3c3;
+        border-right: 1px solid #e8e8e8;
         background: url('./assets/images/Robot@3x.png') no-repeat center 0 /1.5rem;
       }
-
       div:last-of-type {
         background: url('./assets/images/group@3x.png') no-repeat center 0 /1.5rem;
-      }
-    }
-
-    .menu {
-      padding-left: 0.9375rem;
-      background: #fff;
-      margin: 0.9375rem 0;
-      border-bottom: 1px solid #e6e6e6;
-      border-top: 1px solid #e6e6e6;
-
-      li {
-        padding-left: 2.3125rem;
-
-        height: 2.75rem;
-        line-height: 2.75rem;
-        border-bottom: 1px solid #e6e6e6;
-      }
-
-      a {
-        display: block;
-        height: 100%;
-        width: 100%;
-        color: #333;
-        font-size: 1rem;
-      }
-
-      li:last-of-type {
-        border-bottom: none;
-      }
-
-      $arrow: url('./assets/images/Go@3x.png') no-repeat calc(100% - 0.625rem)
-        center/1rem;
-
-      @function icon($path) {
-        @return url($path) no-repeat 0 center / 1.5rem;
-      }
-
-      .menu-info {
-        background: icon('./assets/images/homepage@3x.png'), $arrow;
-      }
-
-      .menu-partner {
-        background: icon('./assets/images/companion@3x.png'), $arrow;
-      }
-
-      .menu-poster {
-        background: icon('./assets/images/poster@3x.png'), $arrow;
-      }
-
-      .menu-shelves {
-        background: icon('./assets/images/classification@3x.png'), $arrow;
-      }
-
-      .menu-books {
-        background: icon('./assets/images/Books@3x.png'), $arrow;
-      }
-
-      .menu-setup {
-        background: icon('./assets/images/Syste-setup@3x.png'), $arrow;
-      }
-
-      .menu-service {
-        background: icon('./assets/images/service@3x.png'), $arrow;
       }
     }
   }
 }
 </style>
-
-

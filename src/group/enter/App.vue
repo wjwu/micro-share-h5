@@ -7,7 +7,7 @@
         </a>
       </div>
       <h1 class="page__title">我的商伴</h1>
-      <p class="page__desc">请允许获取地理位置以便更好的匹配到附近的商伴<br />建议您关注并置顶公众号，以方便您即时收取与处理相关进展</p>
+      <p class="page__desc">提交群请允许获取地理位置以便更好的匹配到附近的商伴<br />建议您关注并置顶公众号，以方便您即时收取与处理相关进展</p>
     </div>
     <!-- <div class="weui-grids content">
       <a href="/group/submit.html" class="weui-grid">
@@ -94,18 +94,25 @@
       </weui-cell-access>
     </weui-cells>
     <weui-cells>
-      <weui-cell-access label="我的圈子" empty-body empty-foot></weui-cell-access>
+      <weui-cell-access label="我的圈子" empty-body empty-foot href="/circle/list.html">
+        <template slot="head">
+          <div class="head">
+            <img src="./assets/images/mycircle.png">
+            <label>我的圈子</label>
+          </div>
+        </template>
+      </weui-cell-access>
     </weui-cells>
   </bar>
 </template>
 
 <script>
-import format from 'date-fns/format';
-import { auth } from '../../common/js/auth';
-import { tryFunc } from '../../common/js/common';
-import { Bar, WeuiCells, WeuiCellAccess } from '../../common/components';
-import defaultHeadPhone from './assets/images/user.png';
-import '../../common/js/share';
+import format from "date-fns/format";
+import { auth } from "../../common/js/auth";
+import { tryFunc } from "../../common/js/common";
+import { Bar, WeuiCells, WeuiCellAccess } from "../../common/components";
+import defaultHeadPhone from "./assets/images/user.png";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -116,8 +123,8 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
-      expireTime: ''
+      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone,
+      expireTime: ""
     };
   },
   mounted() {
@@ -128,7 +135,7 @@ export default {
   },
   filters: {
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };
