@@ -134,11 +134,19 @@
           </div>
         </template>
       </weui-cell-access>
-      <weui-cell-access empty-body empty-foot>
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/bill/save.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/account.png">
             <label>电子账簿</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/robot/grab.html')">
+        <template slot="head">
+          <div class="head">
+            <img src="./assets/images/robot.png">
+            <label>订单抓取</label>
           </div>
         </template>
       </weui-cell-access>
@@ -166,15 +174,7 @@
       <small v-if="vipInfo.baseVipFlag">群数：{{vipInfo.baseVipNumber}}&nbsp;&nbsp;有效期至：{{vipInfo.baseVipExpire | time}}</small>
     </weui-cells-title>
     <weui-cells>
-      <weui-cell-access empty-body empty-foot>
-        <template slot="head">
-          <div class="head">
-            <img src="./assets/images/robot.png">
-            <label>订单抓取</label>
-          </div>
-        </template>
-      </weui-cell-access>
-      <weui-cell-access empty-body empty-foot>
+      <weui-cell-access empty-body empty-foot @click="handleJumpBase('/robot/task/list.html')" >
         <template slot="head">
           <div class="head">
             <img src="./assets/images/msg.png">
@@ -182,13 +182,27 @@
           </div>
         </template>
       </weui-cell-access>
-    </weui-cells>
-    <weui-cells>
-      <weui-cell-access empty-body empty-foot>
+      <weui-cell-access empty-body empty-foot @click="handleJumpBase('/partner/share.html')">
+        <template slot="head">
+          <div class="head">
+            <img src="./assets/images/hand.png">
+            <label>商伴共享</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot @click="handleJumpBase('/group/setup.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/manager.png">
-            <label>社群管理</label>
+            <label>入群欢迎&群规</label>
+          </div>
+        </template>
+      </weui-cell-access>
+      <weui-cell-access empty-body empty-foot @click="handleJumpAll('/success.html?type=1')">
+        <template slot="head">
+          <div class="head">
+            <img src="./assets/images/jump.png">
+            <label>添加客服/机器人</label>
           </div>
         </template>
       </weui-cell-access>
@@ -286,7 +300,9 @@ small {
   color: #06b04f;
 }
 .top {
-  padding: 2rem;
+  padding: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
   background-color: #06b04f;
   color: white;
 }
