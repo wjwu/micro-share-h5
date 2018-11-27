@@ -5,7 +5,7 @@
     </a>
     <div class="page__hd top">
       <div class="top-info">
-        <h1 class="page__title">网店</h1>
+        <h1 class="page__title">云网店</h1>
       </div>
       <p class="page__desc">建议您关注并置顶公众号，以方便您及时收取和处理相关进展</p>
     </div>
