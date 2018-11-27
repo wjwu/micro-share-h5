@@ -8,18 +8,18 @@
         <img src="./assets/images/home.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">首页</p>
       </a>
+      <a href="/vip/shopper.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
+        <img src="./assets/images/manager.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">我的网店</p>
+      </a>
       <a href="/group/enter.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
         <img src="./assets/images/users.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">我的商伴</p>
       </a>
-      <a href="/vip/shopper.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
-        <img src="./assets/images/manager.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">我的管家</p>
-      </a>
-      <a href="/message.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===4}">
+      <!-- <a href="/message.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===4}">
         <img src="./assets/images/message.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">我的消息</p>
-      </a>
+      </a> -->
       <a href="/self/center.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===5}">
         <img src="./assets/images/user.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">我的</p>
