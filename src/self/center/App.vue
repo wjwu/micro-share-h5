@@ -8,7 +8,7 @@
           <div class="tag">
             <span class="vip" v-if="user.vipDto">VIP</span>
             <span class="credit" @click="handleJump('/self/credit.html')">{{user.creditScore}}分</span>
-            <span class="vip"  @click="handleJump('/circle/intro.html')">申请圈主</span>
+            <span class="vip" @click="handleJump('/circle/intro.html')">申请圈主</span>
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
             我的商伴
           </div>
         </div>
-      <weui-cells>
+        <weui-cells>
           <weui-cell-access empty-body empty-foot href="/self/info.html">
             <template slot="head">
               <div class="head">
@@ -44,8 +44,8 @@
               </div>
             </template>
           </weui-cell-access>
-      </weui-cells>
-      <weui-cells>
+        </weui-cells>
+        <weui-cells>
           <weui-cell-access empty-body empty-foot href="/feedback.html">
             <template slot="head">
               <div class="head">
@@ -70,9 +70,9 @@
               </div>
             </template>
           </weui-cell-access>
-      </weui-cells>
-      <weui-cells>
-        <weui-cell-access empty-body empty-foot href="/qa.html">
+        </weui-cells>
+        <weui-cells>
+          <weui-cell-access empty-body empty-foot href="/qa.html">
             <template slot="head">
               <div class="head">
                 <img src="./assets/images/qa.png">
@@ -80,7 +80,7 @@
               </div>
             </template>
           </weui-cell-access>
-      </weui-cells>
+        </weui-cells>
         <!-- <ul class="menu">
           <li class="menu-info">
             <a href="/self/info.html">个人资料</a>
@@ -102,12 +102,12 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
-import { tryFunc } from "../../common/js/common";
-import weui from "weui.js";
-import { Bar, WeuiCells, WeuiCellAccess } from "../../common/components";
-import "../../common/js/share";
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import weui from 'weui.js';
+import { Bar, WeuiCells, WeuiCellAccess } from '../../common/components';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -125,12 +125,12 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get("/user/info");
+      const { data } = await axios.get('/user/info');
       this.user = data;
-      this.$el.querySelector(".hd").style.background = `url("${
+      this.$el.querySelector('.hd').style.background = `url("${
         this.user.headPhoto
       }") no-repeat`;
-      this.$el.querySelector(".avatar").style.background = `url("${
+      this.$el.querySelector('.avatar').style.background = `url("${
         this.user.headPhoto
       }") no-repeat`;
     });
@@ -140,14 +140,13 @@ export default {
       window.location.href = url;
     },
     handleClick() {
-      weui.alert("请在公众号发送消息咨询");
+      weui.alert('请在公众号发送消息咨询');
     }
   }
 };
 </script>
 
 <style lang="scss">
-
 .head {
   display: flex;
   align-items: center;

@@ -44,12 +44,12 @@ import {
   WeuiCellsTitle,
   WeuiPanel,
   WeuiLoadMoreLine
-} from "../../common/components";
-import axios from "../../common/js/axios";
-import config from "../../common/js/config";
-import { auth } from "../../common/js/auth";
-import { tryFunc, getQueryString } from "../../common/js/common";
-import wxApi from "../../common/js/wxApi";
+} from '../../common/components';
+import axios from '../../common/js/axios';
+import config from '../../common/js/config';
+import { auth } from '../../common/js/auth';
+import { tryFunc, getQueryString } from '../../common/js/common';
+import wxApi from '../../common/js/wxApi';
 
 export default {
   components: {
@@ -69,7 +69,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(`/circle/${getQueryString("id")}`);
+      const { data } = await axios.get(`/circle/${getQueryString('id')}`);
       if (data.circleMemberDtoList) {
         data.groupNum = data.circleMemberDtoList.length;
       } else {
@@ -82,15 +82,18 @@ export default {
   },
   methods: {
     async shareFunc() {
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
-      name = "组建圈子邀请函";
-      desc = "您的朋友邀请您一起组建" + this.circle.name + "私人商伴圈子，抱团联合经营。如您前往，有机会获得免费使用智能社交网店工具。"
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
+      let name = '组建圈子邀请函';
+      let desc =
+        '您的朋友邀请您一起组建' +
+        this.circle.name +
+        '私人商伴圈子，抱团联合经营。如您前往，有机会获得免费使用智能社交网店工具。';
       window.wx.onMenuShareAppMessage(
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/detail.html?pId=" + this.circle.id,
-          imgUrl: "http://static.fangzhoubuluo.com/logo.png"
+          link: config.webHost + '/item/detail.html?pId=' + this.circle.id,
+          imgUrl: 'http://static.fangzhoubuluo.com/logo.png'
         },
         function(res) {}
       );
@@ -98,8 +101,8 @@ export default {
         {
           title: name,
           desc: desc,
-          link: config.webHost + "/item/detail.html?pId=" + this.circle.id,
-          imgUrl: "http://static.fangzhoubuluo.com/logo.png"
+          link: config.webHost + '/item/detail.html?pId=' + this.circle.id,
+          imgUrl: 'http://static.fangzhoubuluo.com/logo.png'
         },
         function(res) {}
       );

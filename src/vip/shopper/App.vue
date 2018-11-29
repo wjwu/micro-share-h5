@@ -110,7 +110,7 @@
       <small v-if="vipInfo.advVipFlag">有效期至：{{vipInfo.advVipExpire | time}}</small>
     </weui-cells-title>
     <weui-cells>
-      <weui-cell-access empty-body empty-foot  @click="handleJumpShopper('/other/toker.html')">
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/other/toker.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/qrcode.png">
@@ -118,7 +118,7 @@
           </div>
         </template>
       </weui-cell-access>
-      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/item/shelves.html')" >
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/item/shelves.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/shop.png">
@@ -174,7 +174,7 @@
       <small v-if="vipInfo.baseVipFlag">群数：{{vipInfo.baseVipNumber}}&nbsp;&nbsp;有效期至：{{vipInfo.baseVipExpire | time}}</small>
     </weui-cells-title>
     <weui-cells>
-      <weui-cell-access empty-body empty-foot @click="handleJumpBase('/robot/task/list.html')" >
+      <weui-cell-access empty-body empty-foot @click="handleJumpBase('/robot/task/list.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/msg.png">
@@ -211,17 +211,17 @@
 </template>
 
 <script>
-import format from "date-fns/format";
-import { auth, checkIsMember } from "../../common/js/auth";
-import { tryFunc, openConfirm } from "../../common/js/common";
+import format from 'date-fns/format';
+import { auth, checkIsMember } from '../../common/js/auth';
+import { tryFunc, openConfirm } from '../../common/js/common';
 import {
   Bar,
   WeuiCells,
   WeuiCellAccess,
   WeuiCellsTitle
-} from "../../common/components";
-import defaultHeadPhone from "./assets/images/user.png";
-import "../../common/js/share";
+} from '../../common/components';
+import defaultHeadPhone from './assets/images/user.png';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -233,7 +233,7 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone,
+      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
       vipInfo: {}
     };
   },
@@ -247,8 +247,8 @@ export default {
   methods: {
     handleJumpAll(url) {
       if (!this.vipInfo.advVipFlag && !this.vipInfo.advVipFlag) {
-        openConfirm("您尚未购买VIP功能，是否前往购买页面购买？", () => {
-          window.location.href = "/pay.html";
+        openConfirm('您尚未购买VIP功能，是否前往购买页面购买？', () => {
+          window.location.href = '/pay.html';
         });
       } else {
         window.location.href = url;
@@ -256,8 +256,8 @@ export default {
     },
     handleJumpShopper(url) {
       if (!this.vipInfo.advVipFlag) {
-        openConfirm("您尚未购买店长版VIP功能，是否前往购买页面购买？", () => {
-          window.location.href = "/pay.html";
+        openConfirm('您尚未购买店长版VIP功能，是否前往购买页面购买？', () => {
+          window.location.href = '/pay.html';
         });
       } else {
         window.location.href = url;
@@ -265,8 +265,8 @@ export default {
     },
     handleJumpBase(url) {
       if (!this.vipInfo.baseVipFlag) {
-        openConfirm("您尚未购买基础版VIP功能，是否前往购买页面购买？", () => {
-          window.location.href = "/pay.html";
+        openConfirm('您尚未购买基础版VIP功能，是否前往购买页面购买？', () => {
+          window.location.href = '/pay.html';
         });
       } else {
         window.location.href = url;
@@ -275,7 +275,7 @@ export default {
   },
   filters: {
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };
@@ -301,8 +301,8 @@ small {
 }
 .top {
   padding: 1rem;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background-color: #06b04f;
   color: white;
 }

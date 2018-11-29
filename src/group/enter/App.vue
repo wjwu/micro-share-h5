@@ -107,12 +107,12 @@
 </template>
 
 <script>
-import format from "date-fns/format";
-import { auth } from "../../common/js/auth";
-import { tryFunc } from "../../common/js/common";
-import { Bar, WeuiCells, WeuiCellAccess } from "../../common/components";
-import defaultHeadPhone from "./assets/images/user.png";
-import "../../common/js/share";
+import format from 'date-fns/format';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import { Bar, WeuiCells, WeuiCellAccess } from '../../common/components';
+import defaultHeadPhone from './assets/images/user.png';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -123,8 +123,8 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone,
-      expireTime: ""
+      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone,
+      expireTime: ''
     };
   },
   mounted() {
@@ -135,7 +135,7 @@ export default {
   },
   filters: {
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };
