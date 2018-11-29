@@ -3,7 +3,7 @@
     <div class="weui-cell__bd">
       <div class="weui-uploader">
         <div class="weui-uploader__hd">
-          <p class="weui-uploader__title">{{title}}（单张图片最大4MB）</p>
+          <p class="weui-uploader__title">{{title}}{{tip}}</p>
           <div class="weui-uploader__info">{{images.length}}/{{this.max}}</div>
         </div>
         <div class="weui-uploader__bd">
@@ -33,6 +33,10 @@ export default {
   props: {
     title: {
       type: String
+    },
+    tip: {
+      type: String,
+      default: '（单张图片最大4MB）'
     },
     token: {
       type: String,

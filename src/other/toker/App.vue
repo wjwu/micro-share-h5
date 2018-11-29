@@ -1,40 +1,34 @@
 <template>
   <div v-if="showApp">
-    <div class="weui-cells__title">二维码：请导入您的微信号或微信群二维码，以便后续制作海报时统一导入使用。（请保持正方形）</div>
-    <div class="weui-cells__title">店铺名称：请输入您的不超过6个字的店铺名称，以便在后续制作海报/货架时制作店铺水印信章使用。</div>
-    <div class="weui-cells__title">店铺地址：请输入您的店铺地址信息，以便在海报中使用（由于空间限制，请简化填写地址信息）。</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">店铺名称</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input v-model="shopName" class="weui-input" type="text" placeholder="请输入店铺名称" maxlength="6">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">店铺地址</label>
-        </div>
-        <div class="weui-cell__bd">
-          <input v-model="shopAddress" class="weui-input" type="text" placeholder="请输入店铺地址（不超过20字）" maxlength="20">
-        </div>
-      </div>
+    <weui-cells-title>二维码：请导入您的微信号或微信群二维码，以便后续制作海报时统一导入使用。（请保持正方形）</weui-cells-title>
+    <weui-cells-title>店铺名称：请输入您的不超过6个字的店铺名称，以便在后续制作海报/货架时制作店铺水印信章使用。</weui-cells-title>
+    <weui-cells-title>店铺地址：请输入您的店铺地址信息，以便在海报中使用（由于空间限制，请简化填写地址信息）。</weui-cells-title>
+    <weui-cells>
+      <weui-cell label="店铺名称">
+        <input v-model="shopName" class="weui-input" type="text" placeholder="请输入店铺名称（不超过10字)" maxlength="10">
+      </weui-cell>
+      <weui-cell label="店铺地址">
+        <input v-model="shopAddress" class="weui-input" type="text" placeholder="请输入店铺地址（不超过20字）" maxlength="20">
+      </weui-cell>
       <image-upload title="二维码" :token="token" v-model="images"></image-upload>
-      <image-upload title="店铺Logo" :token="token" v-model="logos"></image-upload>
-    </div>
-    <div class="weui-cells__title">店铺描述</div>
-    <div class="weui-cells weui-cells_form">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <textarea v-model="shopDesc" class="weui-textarea" placeholder="请输入店铺描述" rows="3" maxlength="100"></textarea>
-          <div class="weui-textarea-counter"><span>{{shopDesc.length}}</span>/100</div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" href="javascript:;" @click="handleSave">提交</a>
-    </div>
+      <image-upload title="宣传展示图" tip="（请您选择一张和您商品贴切相关的精美图片）" :token="token" v-model="logos"></image-upload>
+      <image-upload title="商城背景图" :token="token" v-model="bgs"></image-upload>
+    </weui-cells>
+    <weui-cells-title>店铺描述</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <weui-textarea v-model="shopDesc" placeholder="请输入店铺描述" rows="3" maxlength="100"></weui-textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-cells-title>店长公告</weui-cells-title>
+    <weui-cells>
+      <weui-cell>
+        <weui-textarea v-model="shopNotice" placeholder="请输入店长公告" rows="3" maxlength="30"></weui-textarea>
+      </weui-cell>
+    </weui-cells>
+    <weui-btn-area>
+      <weui-btn type="primary" @click="handleSave">提交</weui-btn>
+    </weui-btn-area>
   </div>
 </template>
 
@@ -44,12 +38,26 @@ import weui from 'weui.js';
 import { auth } from '../../common/js/auth';
 import config from '../../common/js/config';
 import { tryFunc, openAlert } from '../../common/js/common';
-import ImageUpload from '../../common/components/ImageUpload';
+import {
+  ImageUpload,
+  WeuiCellsTitle,
+  WeuiCells,
+  WeuiCell,
+  WeuiBtnArea,
+  WeuiBtn,
+  WeuiTextarea
+} from '../../common/components';
 import '../../common/js/share';
 
 export default {
   components: {
-    ImageUpload
+    ImageUpload,
+    WeuiCellsTitle,
+    WeuiCells,
+    WeuiCell,
+    WeuiBtnArea,
+    WeuiBtn,
+    WeuiTextarea
   },
   data() {
     return {
@@ -57,9 +65,11 @@ export default {
       shopName: '',
       shopAddress: '',
       shopDesc: '',
+      shopNotice: '',
       token: '',
       images: [],
       logos: [],
+      bgs: [],
       imageHost: config.imageHost
     };
   },
@@ -91,13 +101,41 @@ export default {
         openAlert('请输入店铺名称');
         return;
       }
+      if (!this.shopAddress) {
+        openAlert('请输入店铺地址');
+        return;
+      }
+      if (this.images.length === 0) {
+        openAlert('请上传至少一张二维码图片');
+        return;
+      }
+      if (this.logos.length === 0) {
+        openAlert('请上传至少一张宣传展示图');
+        return;
+      }
+      if (this.bgs.length === 0) {
+        openAlert('请上传至少一张商城背景图');
+        return;
+      }
+      if (!this.shopDesc) {
+        openAlert('请输入店铺描述');
+        return;
+      }
+      if (!this.shopNotice) {
+        openAlert('请输入店长公告');
+        return;
+      }
       tryFunc(async () => {
         await axios.post('/user/shopInfo', {
           address: this.shopAddress,
           description: this.shopDesc,
+          notice: this.shopNotice,
           name: this.shopName,
           src: this.images.map(item => `${this.imageHost}/${item}`).join(','),
-          logo: this.logos.map(item => `${this.imageHost}/${item}`).join(',')
+          logo: this.logos.map(item => `${this.imageHost}/${item}`).join(','),
+          background: this.bgs
+            .map(item => `${this.imageHost}/${item}`)
+            .join(',')
         });
         weui.alert('操作成功', () => {
           // this.name = '';
