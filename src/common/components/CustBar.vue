@@ -9,7 +9,10 @@
         <p class="weui-tabbar__label">首页</p>
       </a>
       <a href="/cart.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
-        <img src="./assets/images/shopping-cart.png" alt="" class="weui-tabbar__icon">
+        <span style="display: inline-block;position: relative;">
+          <img src="./assets/images/shopping-cart.png" alt="" class="weui-tabbar__icon">
+          <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;" v-if="cartCount">{{cartCount}}</span>
+        </span>
         <p class="weui-tabbar__label">购物车</p>
       </a>
       <a href="/self/center.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
@@ -25,6 +28,9 @@ export default {
   props: {
     activeIndex: {
       type: Number
+    },
+    cartCount: {
+      type: String
     }
   }
 };

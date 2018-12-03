@@ -15,6 +15,7 @@ import WeuiCellsCheckbox from './WeuiCellsCheckbox';
 import WeuiCheckLabel from './WeuiCheckLabel';
 import WeuiCellsRadio from './WeuiCellsRadio';
 import WeuiPanel from './WeuiPanel';
+import CustBar from './CustBar';
 
 export {
   Bar,
@@ -33,5 +34,6 @@ export {
   WeuiCellsCheckbox,
   WeuiCheckLabel,
   WeuiCellsRadio,
-  WeuiPanel
+  WeuiPanel,
+  CustBar
 };

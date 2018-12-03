@@ -14,8 +14,15 @@ export default {
   },
   data() {
     return {
-      showApp: false
+      showApp: false,
+      cart: []
     };
+  },
+  created() {
+    const strCart = localStorage.getItem('cart');
+    if (strCart) {
+      this.cart = JSON.parse(strCart);
+    }
   },
   mounted() {
     tryFunc(async () => {

@@ -18,7 +18,7 @@
         <h2>本周特价<span>/ SPECIALS</span></h2>
         <ul v-if="products">
           <li v-for="product in products.specialList" :key="product.id">
-            <a :href="`./detail.html?pId=${product.id}`">
+            <a :href="`./product.html?productId=${product.id}&userId=${userId}`">
               <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
@@ -34,7 +34,7 @@
         <h2>店长推荐<span>/ RECOMMENDS</span></h2>
         <ul v-if="products">
           <li v-for="product in products.newerList" :key="product.id">
-            <a :href="`./detail.html?pId=${product.id}`">
+            <a :href="`./product.html?productId=${product.id}&userId=${userId}`">
               <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
@@ -50,7 +50,7 @@
         <h2>所有商品<span>/ ALL</span></h2>
         <ul v-if="products">
           <li v-for="product in products.normalList" :key="product.id">
-            <a :href="`./detail.html?pId=${product.id}`">
+            <a :href="`./product.html?productId=${product.id}&userId=${userId}`">
               <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
