@@ -1,64 +1,39 @@
 <template>
-  <div class="cust-bar">
-    <a class="active" href="#">
-      <i class="fa fa-home"></i>
-      <p>首页</p>
-    </a>
-    <a href="#">
-      <i class="fa fa-shopping-cart"></i>
-      <p>购物车</p>
-    </a>
-    <a href="#">
-      <i class="fa fa-user"></i>
-      <p>我的</p>
-    </a>
+  <div class="weui-tab">
+    <div class="weui-tab__panel">
+      <slot></slot>
+    </div>
+    <div class="weui-tabbar">
+      <a href="/" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===1}">
+        <img src="./assets/images/home.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">首页</p>
+      </a>
+      <a href="/cart.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
+        <img src="./assets/images/shopping-cart.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">购物车</p>
+      </a>
+      <a href="/self/center.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
+        <img src="./assets/images/user.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">我的</p>
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    activeIndex: {
+      type: Number
+    }
+  }
+};
 </script>
 
 <style lang="scss">
-.cust-bar {
+.weui-tabbar {
   position: fixed;
-  display: flex;
   bottom: 0;
-  width: 100%;
-  height: 3.125rem;
-  background-color: #fff;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    height: 1px;
-    border-top: 1px solid #c0bfc4;
-    color: #c0bfc4;
-    transform-origin: 0 0;
-    transform: scaleY(0.5);
-  }
-
-  .active {
-    color: #333;
-  }
-
-  a {
-    padding-top: 5px;
-    i {
-      font-size: 1.5rem;
-    }
-    color: #999;
-    flex: 1;
-    text-align: center;
-    display: block;
-    font-size: 0.75rem;
-    p {
-      padding-top: 2px;
-    }
-  }
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="showApp && shop">
-    <div class="main">
+  <cust-bar v-if="showApp" :active-index="1">
+    <div class="main" v-if="shop">
       <div class="hd">
         <div class="avatar"></div>
         <div class="info">
@@ -12,40 +12,66 @@
         <marquee>{{shop.notice}}</marquee>
       </div>
       <div class="activity">
-        <h2>优惠活动<span>/ FLASH SALE</span></h2>
+        <h2>优惠活动<span>/ ACTIVITIES</span></h2>
       </div>
       <div class="special">
-        <h2>本周特价<span>/ FLASH SALE</span></h2>
-        <ul>
-          <li>
-            <a href="https://static2.flowerplus.cn/p/R39va8eu50011.html">
-              <div class="pic">
-                <img src="https://oss.flowerplus.cn/homepage/15326010469403.jpg">
-                <div class="prompt">平台新用户送花瓶</div>
-              </div>
-              <h3>一千零一夜同款简花</h3>
-              <p class="desc">经典单品，新人首选。</p>
-              <p class="price"><span class="new">¥99元/4束</span>
+        <h2>本周特价<span>/ SPECIALS</span></h2>
+        <ul v-if="products">
+          <li v-for="product in products.specialList" :key="product.id">
+            <a :href="`./detail.html?pId=${product.id}`">
+              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+              <h3>{{product.name}}</h3>
+              <p class="desc">{{product.description}}</p>
+              <p class="price">
+                <span>￥{{product.sellPrice}}元</span>
+                <small>{{product.stock}}可售</small>
               </p>
             </a>
           </li>
         </ul>
       </div>
       <div class="newer">
-        <h2>店长推荐<span>/ FLASH SALE</span></h2>
+        <h2>店长推荐<span>/ RECOMMENDS</span></h2>
+        <ul v-if="products">
+          <li v-for="product in products.newerList" :key="product.id">
+            <a :href="`./detail.html?pId=${product.id}`">
+              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+              <h3>{{product.name}}</h3>
+              <p class="desc">{{product.description}}</p>
+              <p class="price">
+                <span>￥{{product.sellPrice}}元</span>
+                <small>{{product.stock}}可售</small>
+              </p>
+            </a>
+          </li>
+        </ul>
       </div>
       <div class="all">
-        <h2>所有商品<span>/ FLASH SALE</span></h2>
+        <h2>所有商品<span>/ ALL</span></h2>
+        <ul v-if="products">
+          <li v-for="product in products.normalList" :key="product.id">
+            <a :href="`./detail.html?pId=${product.id}`">
+              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+              <h3>{{product.name}}</h3>
+              <p class="desc">{{product.description}}</p>
+              <p class="price">
+                <span>￥{{product.sellPrice}}元</span>
+                <small>{{product.stock}}可售</small>
+              </p>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    <cust-bar></cust-bar>
-  </div>
+  </cust-bar>
 </template>
 <script>
 import axios from '../common/js/axios';
 import { auth } from '../common/js/auth';
 import { tryFunc, getQueryString } from '../common/js/common';
 import CustBar from '../common/components/CustBar';
+import '../common/js/share.js';
+
 export default {
   components: {
     CustBar
@@ -54,6 +80,7 @@ export default {
     return {
       showApp: false,
       shop: null,
+      products: null,
       userId: getQueryString('userId')
     };
   },
@@ -61,13 +88,24 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get('/user/shopInfoById', {
+      let response = await axios.get('/user/shopInfoById', {
         params: {
           userId: this.userId
         }
       });
-      this.shop = data;
+      this.shop = response.data;
       window.document.title = this.shop.name;
+      response = await axios.get(`item/owner/all?userId=${this.userId}`);
+      const getFirstImg = item => {
+        return {
+          ...item,
+          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
+        };
+      };
+      response.data.newerList = response.data.newerList.map(getFirstImg);
+      response.data.normalList = response.data.normalList.map(getFirstImg);
+      response.data.specialList = response.data.specialList.map(getFirstImg);
+      this.products = response.data;
       this.$nextTick(() => {
         this.$el.querySelector('.hd').style.background = `url("${
           this.shop.background
@@ -128,15 +166,14 @@ body {
 }
 
 .notice {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1.25rem;
+  padding: 0.3rem 1.25rem;
   display: flex;
   p {
     flex-shrink: 0;
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
   marquee {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: #333;
   }
   background-color: #f4f4f4;
