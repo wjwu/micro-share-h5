@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="weui-tabbar">
-      <a href="/" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===1}">
+      <a :href="`/shop.html?userId=${seller}`" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===1}">
         <img src="./assets/images/home.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">首页</p>
       </a>
@@ -15,7 +15,7 @@
         </span>
         <p class="weui-tabbar__label">购物车</p>
       </a>
-      <a href="/self/center.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
+      <a href="/account.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
         <img src="./assets/images/user.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">我的</p>
       </a>
@@ -29,8 +29,24 @@ export default {
     activeIndex: {
       type: Number
     },
-    cartCount: {
+    seller: {
       type: String
+    }
+  },
+  data() {
+    return {
+      cartCount: ''
+    };
+  },
+  created() {
+    this.updateCartCount();
+  },
+  methods: {
+    updateCartCount() {
+      const strCart = localStorage.getItem('cart');
+      if (strCart) {
+        this.cartCount = JSON.parse(strCart).length;
+      }
     }
   }
 };

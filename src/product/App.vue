@@ -1,5 +1,5 @@
 <template>
-  <cust-bar v-if="product && showApp" :cart-count="cartCount">
+  <cust-bar v-if="product && showApp" ref="custBar" :seller='userId'>
     <div class="content">
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -30,7 +30,7 @@
     </div>
     <div class="buy-wrap">
       <div class="cart" @click="handleAddCart">加入购物车</div>
-      <div class="buy" @click="buy">联系商家购买</div>
+      <a class="buy" :href="`/settlement.html?productIds=${productId}`">立即购买</a>
     </div>
   </cust-bar>
 </template>
@@ -51,19 +51,12 @@ export default {
   data() {
     return {
       SPECIAL,
-      cartCount: '',
       productId: getQueryString('productId'),
       userId: getQueryString('userId'),
       product: null,
       showApp: false,
       shopInfo: {}
     };
-  },
-  created() {
-    const strCart = localStorage.getItem('cart');
-    if (strCart) {
-      this.cartCount = JSON.parse(strCart).length;
-    }
   },
   mounted() {
     tryFunc(async () => {
@@ -140,32 +133,6 @@ export default {
         function(res) {}
       );
     },
-    async buy() {
-      let name = localStorage.getItem('name');
-      if (!name) {
-        name = prompt('请输入您联系电话，方便卖家与您联系。', '');
-        if (!name) {
-          return;
-        }
-        var part = /^1\d{10}$/gi;
-        if (!part.test(name)) {
-          openAlert('请您输入正确的手机联系方式噢……');
-          return;
-        }
-        localStorage.setItem('name', name);
-      }
-      let buyTime = Number(localStorage.getItem('buyTime'));
-      let now = new Date().getTime();
-      if (!buyTime || now - buyTime > 30 * 60 * 1000) {
-        tryFunc(async () => {
-          await axios.get(`/item/${this.productId}/buy?name=${name}`);
-        });
-        localStorage.setItem('buyTime', now.toString());
-      }
-      openAlert(
-        '购买成功,请等待卖家联系。若卖家长时间未联系请查看本页下方卖家信息!'
-      );
-    },
     handleAddCart() {
       const strCart = localStorage.getItem('cart');
       let cart;
@@ -181,11 +148,14 @@ export default {
           count: 1
         };
         cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        setTimeout(() => {
+          this.$refs.custBar.updateCartCount();
+        }, 50);
       } else {
+        openAlert('您已添加过该商品');
         // product.count = Number(product.count) + 1;
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
-      this.cartCount = cart.length.toString();
     }
   }
 };
@@ -264,7 +234,6 @@ body {
   height: 3rem;
   line-height: 3rem;
   background: #fff;
-  color: #fff;
   font-size: 1rem;
   z-index: 2;
   text-align: center;
@@ -273,6 +242,7 @@ body {
   .buy {
     background-color: #ff6672;
     flex: 1;
+    color: #fff;
   }
 
   .cart {

@@ -81,6 +81,7 @@ export default {
       showApp: false,
       shop: null,
       products: null,
+      cartCount: '',
       userId: getQueryString('userId')
     };
   },
