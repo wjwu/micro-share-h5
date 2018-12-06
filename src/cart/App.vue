@@ -28,8 +28,15 @@
           </div>
         </div>
         <weui-load-more-line v-else></weui-load-more-line>
-        <template slot="foot">
+        <template slot="foot" v-if="products.length > 0">
           <div class="weui-cell weui-cell_access weui-cell_link">
+            <div class="weui-cell__hd">
+              <label class="select" for="all">
+                <input type="checkbox" class="weui-check" id="all" v-model="checkedAll" @change="handleAllChange">
+                <i class="weui-icon-checked"></i>
+              </label>
+              <span>全选</span>
+            </div>
             <div class="weui-cell__bd">总计：<span class="price">￥{{total}}</span></div>
           </div>
         </template>
@@ -78,7 +85,8 @@ export default {
     return {
       showApp: false,
       cart: [],
-      products: []
+      products: [],
+      checkedAll: true
     };
   },
   created() {
@@ -105,6 +113,11 @@ export default {
         this.cart = this.cart.splice(idx, 1);
         localStorage.setItem('cart', JSON.stringify(this.cart));
       });
+    },
+    handleAllChange(e) {
+      for (let product of this.products) {
+        product.checked = e.target.checked;
+      }
     },
     handleSettlement() {
       const checkedProducts = this.products
@@ -156,6 +169,9 @@ export default {
 }
 
 .weui-cell_link {
+  .weui-cell__hd{
+    color: #999;
+  }
   .weui-cell__bd {
     color: #999;
     text-align: right;
