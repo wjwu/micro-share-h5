@@ -11,7 +11,7 @@
             <a :href="`/notice.html?id=${item.id}`">详情</a>
           </li>
         </ul>
-        <button @click="handleJump('/buy.html')">登录部落</button>
+        <button @click="handleJump('/manager.html')">进入部落</button>
       </div>
     </section>
     <section class="page-two">
