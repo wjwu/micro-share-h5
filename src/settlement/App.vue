@@ -3,21 +3,21 @@
     <weui-cells-title>请选择省市区：</weui-cells-title>
     <weui-cells>
       <weui-cell-select label="省份">
-        <select class="weui-select">
-          <option value="">请选择群所属行业</option>
-          <!-- <option :value="item.name" v-for="item in industries" :key="item.id">{{item.name}}</option> -->
+        <select class="weui-select" v-model="selectedProvince" @change="handleProvinceChange">
+          <option value="">请选择省份</option>
+          <option :value="item.code" v-for="item in provinces" :key="item.code">{{item.name}}</option>
         </select>
       </weui-cell-select>
       <weui-cell-select label="城市">
-        <select class="weui-select">
-          <option value="">请选择群所属行业</option>
-          <!-- <option :value="item.name" v-for="item in industries" :key="item.id">{{item.name}}</option> -->
+        <select class="weui-select" v-model="selectedCity" @change="handleCityChange">
+          <option value="">请选择城市</option>
+          <option :value="item.code" v-for="item in cities" :key="item.code">{{item.name}}</option>
         </select>
       </weui-cell-select>
       <weui-cell-select label="区县">
-        <select class="weui-select">
-          <option value="">请选择群所属行业</option>
-          <!-- <option :value="item.name" v-for="item in industries" :key="item.id">{{item.name}}</option> -->
+        <select class="weui-select" v-model="selectedCounty">
+          <option value="">请选择区县</option>
+          <option :value="item.code" v-for="item in counties" :key="item.code">{{item.name}}</option>
         </select>
       </weui-cell-select>
     </weui-cells>
@@ -72,6 +72,7 @@ import {
   WeuiCellSelect
 } from '../common/components';
 import { tryFunc, getQueryString, openAlert } from '../common/js/common';
+import regions from '../common/js/regions';
 import '../common/js/share.js';
 
 export default {
@@ -102,13 +103,25 @@ export default {
       showApp: false,
       products: [],
       address: '',
-      productIds: getQueryString('productIds')
+      productIds: getQueryString('productIds'),
+      selectedProvince: '',
+      selectedCity: '',
+      selectedCounty: '',
+      provinces: [],
+      cities: [],
+      counties: []
     };
   },
   created() {
     const address = localStorage.getItem('address');
     if (address) {
       this.address = address;
+    }
+    const countyCode = localStorage.getItem('countyCode');
+    if (countyCode) {
+      this.setSelected(countyCode);
+    } else {
+      this.provinces = regions.filter(item => item.code.endsWith('0000'));
     }
   },
   mounted() {
@@ -125,6 +138,50 @@ export default {
     });
   },
   methods: {
+    setSelected(countyCode) {
+      this.counties = regions.filter(
+        item =>
+          item.code.startsWith(countyCode.substr(0, 4)) &&
+          !item.code.endsWith('00')
+      );
+      this.selectedCounty = countyCode;
+
+      this.cities = regions.filter(
+        item =>
+          item.code.startsWith(countyCode.substr(0, 2)) &&
+          item.code.endsWith('00') &&
+          !item.code.endsWith('0000')
+      );
+
+      this.provinces = regions.filter(item => item.code.endsWith('0000'));
+      const city = this.cities.filter(
+        item => item.code.substr(0, 4) === countyCode.substr(0, 4)
+      )[0];
+      this.selectedCity = city.code;
+      const provice = this.provinces.filter(
+        item => item.code.substr(0, 2) === countyCode.substr(0, 2)
+      )[0];
+      this.selectedProvince = provice.code;
+    },
+    handleProvinceChange() {
+      const proviceCode = this.selectedProvince;
+      this.cities = regions.filter(
+        item =>
+          item.code.startsWith(proviceCode.substr(0, 2)) &&
+          item.code.endsWith('00') &&
+          item.code !== proviceCode
+      );
+      this.selectedCity = this.cities[0].code;
+      this.handleCityChange();
+    },
+    handleCityChange() {
+      const cityCode = this.selectedCity;
+      this.counties = regions.filter(
+        item =>
+          item.code.startsWith(cityCode.substr(0, 4)) && item.code !== cityCode
+      );
+      this.selectedCounty = this.counties[0].code;
+    },
     handleSubmit() {
       if (!this.address) {
         openAlert('请输入收货地址');
@@ -133,6 +190,7 @@ export default {
       tryFunc(async () => {
         await axios.post('');
         localStorage.setItem('address', this.address);
+        localStorage.setItem('countyCode', this.selectedCounty);
         const strCart = localStorage.getItem('cart');
         let cart = [];
         let tmp = [];
