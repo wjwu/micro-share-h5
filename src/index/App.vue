@@ -15,125 +15,37 @@
       </div>
     </section>
     <section class="page-two">
-      <div class="banner"></div>
-      <div class="content">
-        <ul>
-          <li>
-            <div class="top">
-              <img src="./assets/images/quality@2x.png" />
-              <p>严审核/高质量</p>
-            </div>
-            <div class="bottom img-a">
-              <p>智能&人工对分享源群申请资料真实性、活跃度等进行多维度进行审核（确保分享源群高质量）</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/Sincerity@2x.png" />
-              <p>严信用/倡诚信</p>
-            </div>
-            <div class="bottom img-b">
-              <p>过程关键节点严格信用管理机制，商伴与源群评价机制结合（导向诚信互助，剔除短视投机）</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/industry@2x.png" />
-              <p>分行业/详地域</p>
-            </div>
-            <div class="bottom img-c">
-              <p>数十类大行业与细分行业，可实现以您店铺为中心半径500M-5KM范围内商伴选择（总能寻到适合您的商伴）</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/Under-line@2x.png" />
-              <p>线下抱团联合</p>
-            </div>
-            <div class="bottom img-d">
-              <p>社区同行与异业、实体与网络，在物流配送/设备资源/特色产品上实现联合互补（全力节省成本，扩大销售）</p>
-            </div>
-          </li>
-          <li class="m-b-0">
-            <div class="top">
-              <img src="./assets/images/On-line@2x.png" />
-              <p>线上共建共拓</p>
-            </div>
-            <div class="bottom img-c">
-              <p>商伴线上互助、共建社群圈，提升客户圈子归属和信任感，建立只属于商伴间享用的永久流量池</p>
-            </div>
-          </li>
-          <li class="m-b-0">
-            <div class="top">
-              <img src="./assets/images/Robot@2x.png" />
-              <p>智能管家支撑</p>
-            </div>
-            <div class="bottom img-d">
-              <p>除日常社群管理与店铺经营功能外，还将您与商伴链接成一张含社区数万户家庭资源组成的共享网络</p>
-            </div>
-          </li>
-        </ul>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="./assets/images/1.png" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./assets/images/2.png" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./assets/images/3.png" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./assets/images/4.png" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./assets/images/5.png" />
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
       </div>
-    </section>
-    <section class="page-three">
-      <div class="banner"></div>
-      <div class="content">
-        <ul>
-          <li>
-            <div class="top">
-              <img src="./assets/images/manage@2x.png" />
-              <p>社群日常管理</p>
-            </div>
-            <div class="bottom img-e">
-              <p>入群欢迎语/群规发送/定时消息发送/一键群发/商伴互联共享（日常管理与群发互联共享）</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/product@2x.png" />
-              <p>产品宣传展示</p>
-            </div>
-            <div class="bottom img-f">
-              <p>植入您专属店铺信章/微信号/微信群二维码的新品鉴赏/本周特价/店铺货架海报可灵活编辑与发布</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/drainage@2x.png" />
-              <p>线上引流拓客</p>
-            </div>
-            <div class="bottom img-g">
-              <p>包含您商品信息的海报可在众多商伴群以及其他渠道发送，将喜欢您产品的潜在客户吸引过来购买或入群</p>
-            </div>
-          </li>
-          <li>
-            <div class="top">
-              <img src="./assets/images/Order@2x.png" />
-              <p>订单自动抓取</p>
-            </div>
-            <div class="bottom img-h">
-              <p>不管是在您的群还是商伴群，只要有客户意向订单出现，管家将第一时间上报给您（将您眼睛从手机中解脱出来）</p>
-            </div>
-          </li>
-          <li class="m-b-0">
-            <div class="top">
-              <img src="./assets/images/bill@2x.png" />
-              <p>在线电子帐薄</p>
-            </div>
-            <div class="bottom img-g" style="padding:1.25rem 0.6875rem 0 0.6875rem">
-              <p>简洁高效的电子帐薄管理工具，与产品订单信息形成联动（让您对每天收入/库存了如指掌）</p>
-            </div>
-          </li>
-          <li class="m-b-0">
-            <div class="top">
-              <img src="./assets/images/link@2x.png" />
-              <p>链接商伴、互补共赢</p>
-            </div>
-            <div class="bottom img-h">
-              <p>强大的互联共享功能，完美将您和众多商伴资源实现互联、互助、互享（可建立数十个您的商伴互享社群）</p>
-            </div>
-          </li>
-        </ul>
+      <div class="shop">
+        <img src="./assets/images/bj-2@2x.png"/>
+        <p class="title">云网店</p>
+        <p class="desc">这是一套私人“社交网店”工具，集商城/社交/引流/社群管理与互联共享一体，易操作/自动化/价格低廉。</p>
+        <p class="sub-desc">假如您没有公众号/小程序/服务器/运维人员等资源，她应该非常适合您。您只需要会简单粘贴照片即可......</p>
+      </div>
+      <div class="partner">
+        <img src="./assets/images/bg-1@2x.png"/>
+        <p class="title">找商伴</p>
+        <p class="desc">这是一座“桥梁”，只要您乐于分享，您就有机会收获更多的伙伴和客户，获得更多收益。</p>
+        <p class="sub-desc">严审核/高质量/严信用/倡诚信/分行业/详地域,总能找到您合适的商伴......</p>
       </div>
     </section>
     <section class="page-four">
@@ -146,8 +58,8 @@
               <p>也是对愿遵循诚信经营成员的服务理念。</p>
             </li>
             <li>
-              <p>优秀的研发和运营团队，具备为您提供</p>
-              <p>有力的技术支撑和持续创造新价值的能力</p>
+              <p>强大的研发团队和运营团队提供技术支</p>
+              <p>撑和创造新价值的能力。</p>
             </li>
           </ul>
         </div>
@@ -176,6 +88,20 @@ export default {
     tryFunc(async () => {
       const { data } = await axios.get('/news/top4');
       this.notices = data;
+    });
+    this.$nextTick(() => {
+      const swiper = new window.Swiper('.swiper-container', {
+        direction: 'horizontal',
+        autoplay: {
+          delay: 2000
+        },
+        speed: 1000,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination'
+        }
+      });
+      console.log(swiper);
     });
   },
   methods: {
@@ -304,101 +230,70 @@ body {
   }
 }
 .page-two {
-  .banner {
-    background: url('./assets/images/banner-b@2x.png') no-repeat 50% / cover;
-  }
-}
-.page-three {
-  padding-top: 0.9375rem;
-  background-color: #ebebeb;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  .banner {
-    background: url('./assets/images/banner-c@2x.png') no-repeat 0% / cover;
-  }
-}
+  .swiper-container {
+    margin: 0 auto;
+    width: 21.5625rem;
+    height: 9.375rem;
 
-.page-two,
-.page-three {
-  .banner {
-    width: 100%;
-    height: 10.6rem;
-  }
-
-  .content {
-    background-color: #ebebeb;
-
-    ul {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 0.9375rem;
-
-      li {
-        flex: 0 0 48%;
-        margin-bottom: 0.9375rem;
-        background-color: #fff;
-      }
+    img {
+      width: 21.5625rem;
+      height: 9.375rem;
     }
 
-    .top {
-      height: 6.5625rem;
+    .swiper-pagination-bullet {
+      width: 5px;
+      height: 5px;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #fff;
+    }
+  }
+
+  .shop,
+  .partner {
+    padding: 0.9375rem 0.9375rem 0 0.9375rem;
+
+    img{
+      display: block;
+      margin: 0 auto;
+      width: 4rem;
+      height: 4rem;
+    }
+
+    .title{
+      margin-top: .625rem;
+      font-size: 1.125rem;
+      color: #333;
       text-align: center;
-      font-size: 0;
-
-      img {
-        margin: 0.625rem 0;
-        width: 3.875rem;
-        height: 3.875rem;
-      }
-
-      p {
-        color: #333;
-        font-size: 0.9375rem;
-        line-height: 1;
-      }
     }
 
-    .bottom {
-      height: 7.5rem;
-      padding: 1.25rem 0.875rem 0 0.875rem;
-
-      p {
-        color: #fff;
-        font-size: 0.8125rem;
-        line-height: 1.25rem;
-      }
+    .desc{
+      margin-top: 1.0625rem;
+      font-size: 1rem;
+      color: #333;
+      text-align: center;
     }
 
-    .img-a {
-      background: url('./assets/images/img-a@2x.png') no-repeat 50% / cover;
-    }
-    .img-b {
-      background: url('./assets/images/img-b@2x.png') no-repeat 50% / cover;
-    }
-    .img-c {
-      background: url('./assets/images/img-c@2x.png') no-repeat 50% / cover;
-    }
-    .img-d {
-      background: url('./assets/images/img-d@2x.png') no-repeat 50% / cover;
-    }
-    .img-e {
-      background: url('./assets/images/img-e@2x.png') no-repeat 50% / cover;
-    }
-    .img-f {
-      background: url('./assets/images/img-f@2x.png') no-repeat 50% / cover;
-    }
-    .img-g {
-      background: url('./assets/images/img-g@2x.png') no-repeat 50% / cover;
-    }
-    .img-h {
-      background: url('./assets/images/img-h@2x.png') no-repeat 50% / cover;
+    .sub-desc{
+      margin-top: 1.25rem;
+      font-size: .875rem;
+      color: #666;
+      text-align: center;
     }
   }
+}
+
+.shop{
+  padding-bottom: 2.5rem !important;
+}
+
+.partner{
+  padding-bottom: 3rem !important;
+  background-color: #F5FAFD;
 }
 
 .page-four {
-  padding-top: 0.9375rem;
   background-color: #ebebeb;
 
   .content {
@@ -416,7 +311,6 @@ body {
       color: #fa7228;
       font-weight: bold;
       text-align: center;
-      // -webkit-text-stroke: 2 rgba(255, 255, 255, 1);
     }
 
     ul {
@@ -440,15 +334,14 @@ body {
   }
 
   .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 4.375rem;
-    text-align: center;
+    height: 4.0625rem;
     font-size: 0.5625rem;
     color: #555;
-    line-height: 0.9375rem;
-    p:first-of-type {
-      margin-top: 1.4375rem;
-    }
   }
 }
 </style>
