@@ -43,7 +43,7 @@
               </div>
             </template>
           </weui-cell-access>
-          <weui-cell-access empty-body empty-foot href="/order/list/complaint.html">
+          <weui-cell-access empty-body empty-foot href="/buyer/invitation.html">
             <template slot="head">
               <div class="head">
                 <img src="">
