@@ -287,8 +287,10 @@ export default {
             tmp.push(item);
           }
         }
-
         localStorage.setItem('cart', JSON.stringify(tmp));
+        setTimeout(() => {
+          window.location.href = './success.html';
+        });
       });
     }
   }
