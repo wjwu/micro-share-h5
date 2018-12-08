@@ -81,21 +81,6 @@
             </template>
           </weui-cell-access>
         </weui-cells>
-        <!-- <ul class="menu">
-          <li class="menu-info">
-            <a href="/self/info.html">个人资料</a>
-          </li>
-          <li class="menu-partner">
-            <a href="/self/consume.html">我的消费</a>
-          </li>
-          <li class="menu-poster"><a href="/message.html">我的消息</a></li>
-          <li class="menu-shelves"><a href="/feedback.html">我的建议</a></li>
-          <li class="menu-books"><a href="/order/list/complaint.html">举报与投诉</a></li>
-          <li class="menu-books"><a href="/rule.html">运行规则</a></li>
-        </ul>
-        <ul class="menu">
-          <li class="menu-service" @click="handleJump('/qa.html')">联系客服</li>
-        </ul> -->
       </div>
     </div>
   </bar>
@@ -105,7 +90,6 @@
 import axios from '../../common/js/axios';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
-import weui from 'weui.js';
 import { Bar, WeuiCells, WeuiCellAccess } from '../../common/components';
 import '../../common/js/share';
 
@@ -138,9 +122,6 @@ export default {
   methods: {
     handleJump(url) {
       window.location.href = url;
-    },
-    handleClick() {
-      weui.alert('请在公众号发送消息咨询');
     }
   }
 };
