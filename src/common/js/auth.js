@@ -3,48 +3,48 @@ import { getQueryString, openAlert } from './common';
 import config from './config';
 
 export const auth = () => {
-  // if (process.env['NODE_ENV'] === 'development') {
-  //   return new Promise((resolve, reject) => {
-  //     localStorage.setItem('userId', '9d294dc1-c6bc-4bf2-bfe9-e82d5d66a7d9');
-  //     resolve();
-  //   });
-  // } else {
-  return new Promise((resolve, reject) => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      const code = getQueryString('code');
-      if (!code) {
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
-          config.appId
-        }&redirect_uri=${config.webHost}${
-          window.location.pathname
-        }&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect`;
-      } else {
-        axios
-          .get(`${config.apiHost}/auth?code=${code}`)
-          .then(response => {
-            localStorage.setItem('userId', response.data.id);
-            localStorage.setItem('userName', response.data.userName);
-            localStorage.setItem('phone', response.data.phone);
-            localStorage.setItem('headPhoto', response.data.headPhoto);
-            resolve();
-          })
-          .catch(e => {
-            let msg = e;
-            if (e.response && e.response.data) {
-              msg = e.response.data.message;
-            }
-            openAlert(msg, () => {
-              window.WeixinJSBridge.call('closeWindow');
-            });
-            // reject(e);
-          });
-      }
-    } else {
+  if (process.env['NODE_ENV'] === 'development') {
+    return new Promise((resolve, reject) => {
+      localStorage.setItem('userId', '9cfe98ff-ea0e-41a4-8217-f8a9e59d17f4');
       resolve();
-    }
-  });
-  // }
+    });
+  } else {
+    return new Promise((resolve, reject) => {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        const code = getQueryString('code');
+        if (!code) {
+          window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
+            config.appId
+          }&redirect_uri=${config.webHost}${
+            window.location.pathname
+          }&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect`;
+        } else {
+          axios
+            .get(`${config.apiHost}/auth?code=${code}`)
+            .then(response => {
+              localStorage.setItem('userId', response.data.id);
+              localStorage.setItem('userName', response.data.userName);
+              localStorage.setItem('phone', response.data.phone);
+              localStorage.setItem('headPhoto', response.data.headPhoto);
+              resolve();
+            })
+            .catch(e => {
+              let msg = e;
+              if (e.response && e.response.data) {
+                msg = e.response.data.message;
+              }
+              openAlert(msg, () => {
+                window.WeixinJSBridge.call('closeWindow');
+              });
+              // reject(e);
+            });
+        }
+      } else {
+        resolve();
+      }
+    });
+  }
 };
 
 export const checkPhone = () => {
