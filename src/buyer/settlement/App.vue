@@ -29,7 +29,7 @@
     </weui-cells>
     <weui-panel>
       <div v-if="products.length > 0">
-        <a v-for="product in products" :key="product.id" :href="`/shelves/edit.html?id=${product.id}`" class="weui-media-box weui-media-box_appmsg">
+        <a v-for="product in products" :key="product.id" :href="`/product.html?productId=${product.id}`" class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
             <img class="weui-media-box__thumb" :src="product.imgUrl">
           </div>
@@ -45,7 +45,7 @@
         </a>
       </div>
       <weui-load-more-line v-else></weui-load-more-line>
-      <template slot="foot" v-if="products.length > 0">
+      <template slot="foot">
         <div class="weui-cell weui-cell_access weui-cell_link">
           <div class="weui-cell__bd">
             <span>总计：</span>
@@ -62,7 +62,7 @@
           </div>
         </div>
       </template>
-      <template slot="foot" v-if="products.length > 0">
+      <template slot="foot">
         <div class="weui-cell weui-cell_access weui-cell_link">
           <div class="weui-cell__bd">
             <span>最终支付：</span>

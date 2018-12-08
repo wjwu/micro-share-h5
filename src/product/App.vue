@@ -1,5 +1,5 @@
 <template>
-  <cust-bar v-if="product && showApp" ref="custBar" :seller='userId'>
+  <cust-bar v-if="product && showApp" ref="custBar" :seller='shopInfo.userId'>
     <div class="content">
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -52,7 +52,6 @@ export default {
     return {
       SPECIAL,
       productId: getQueryString('productId'),
-      userId: getQueryString('userId'),
       product: null,
       showApp: false,
       shopInfo: {}
