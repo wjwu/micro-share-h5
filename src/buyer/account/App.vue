@@ -20,7 +20,7 @@
           <weui-cell-access empty-body empty-foot href="/buyer/score.html">
             <template slot="head">
               <div class="head">
-                <img src="">
+                <img src="./assets/images/credit.png">
                 <label>我的消费积分</label>
               </div>
             </template>
@@ -28,7 +28,7 @@
           <weui-cell-access empty-body empty-foot href="/buyer/coupon.html">
             <template slot="head">
               <div class="head">
-                <img src="">
+                <img src="./assets/images/coupon.png">
                 <label>我的优惠券</label>
               </div>
             </template>
@@ -38,7 +38,7 @@
           <weui-cell-access empty-body empty-foot href="/feedback.html">
             <template slot="head">
               <div class="head">
-                <img src="">
+                <img src="./assets/images/act.png">
                 <label>参与老带新活动</label>
               </div>
             </template>
@@ -46,7 +46,7 @@
           <weui-cell-access empty-body empty-foot href="/buyer/invitation.html">
             <template slot="head">
               <div class="head">
-                <img src="">
+                <img src="./assets/images/invite.png">
                 <label>我的邀请</label>
               </div>
             </template>

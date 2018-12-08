@@ -11,8 +11,13 @@
         <p>店长公告：</p>
         <marquee>{{shop.notice}}</marquee>
       </div>
-      <div class="activity">
+      <div class="activity" v-if="showAct">
         <h2>优惠活动<span>/ ACTIVITIES</span></h2>
+        <div v-if="act" style="padding-left:2.5rem;color: #404040;">
+          活动时间：{{act.startTime}} - {{act.endTime}}<br />
+          老带新：各赠送老/新顾客现金抵用券<span style="color:red;">{{act.price}}</span>元<br />
+          注:每次购物限用一张
+        </div>
       </div>
       <div class="special">
         <h2>本周特价<span>/ SPECIALS</span></h2>
@@ -79,6 +84,8 @@ export default {
   data() {
     return {
       showApp: false,
+      showAct: false,
+      act: null,
       shop: null,
       products: null,
       cartCount: '',
@@ -95,6 +102,15 @@ export default {
         }
       });
       this.shop = response.data;
+      let actResponse = await axios.get('/user/shopAct', {
+        params: {
+          userId: this.userId
+        }
+      });
+      if(actResponse.data){
+        this.showAct = true;
+        this.act = actResponse.data;
+      }
       window.document.title = this.shop.name;
       response = await axios.get(`item/owner/all?userId=${this.userId}`);
       const getFirstImg = item => {
@@ -128,12 +144,12 @@ body {
 }
 .hd {
   position: relative;
-  height: 11.5625rem;
+  height: 10rem;
   background-size: cover !important;
   &:after {
     content: '';
     width: 100%;
-    height: 11.5625rem;
+    height: 10rem;
     position: absolute;
     left: 0;
     top: 0;
@@ -185,7 +201,7 @@ body {
 .newer,
 .all {
   h2 {
-    padding: 3.125rem 1.25rem 1.25rem;
+    padding: 1rem 1.25rem 1.25rem;
     color: #333;
     font-size: 1.125rem;
     letter-spacing: 1;
