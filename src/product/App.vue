@@ -148,14 +148,13 @@ export default {
           count: 1
         };
         cart.push(product);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        setTimeout(() => {
-          this.$refs.custBar.updateCartCount();
-        }, 50);
       } else {
-        openAlert('您已添加过该商品');
-        // product.count = Number(product.count) + 1;
+        product.count = Number(product.count) + 1;
       }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      setTimeout(() => {
+        this.$refs.custBar.updateCartCount();
+      }, 50);
     }
   }
 };

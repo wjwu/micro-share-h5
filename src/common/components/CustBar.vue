@@ -8,14 +8,14 @@
         <img src="./assets/images/home.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">首页</p>
       </a>
-      <a href="/cart.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
+      <a href="/buyer/cart.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
         <span style="display: inline-block;position: relative;">
           <img src="./assets/images/shopping-cart.png" alt="" class="weui-tabbar__icon">
           <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;" v-if="cartCount">{{cartCount}}</span>
         </span>
         <p class="weui-tabbar__label">购物车</p>
       </a>
-      <a href="/account.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
+      <a href="/buyer/account.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
         <img src="./assets/images/user.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">我的</p>
       </a>
@@ -45,7 +45,12 @@ export default {
     updateCartCount() {
       const strCart = localStorage.getItem('cart');
       if (strCart) {
-        this.cartCount = JSON.parse(strCart).length;
+        const cart = JSON.parse(strCart);
+        let count = 0;
+        for (let product of cart) {
+          count += Number(product.count);
+        }
+        this.cartCount = count;
       }
     }
   }

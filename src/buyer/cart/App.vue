@@ -20,7 +20,7 @@
               <div class="info">
                 <div class="price">￥{{product.sellPrice}}</div>
                 <div>
-                  <span class="count">&times;&nbsp;1</span>
+                  <span class="count">&times;&nbsp;{{product.count}}</span>
                   <span class="del" @click="handleDelete(idx)">删除</span>
                 </div>
               </div>
@@ -50,17 +50,17 @@
 </template>
 
 <script>
-import axios from '../common/js/axios';
-import { auth } from '../common/js/auth';
-import { tryFunc, openConfirm, openAlert } from '../common/js/common';
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc, openConfirm, openAlert } from '../../common/js/common';
 import {
   WeuiPanel,
   WeuiLoadMoreLine,
   WeuiCellsCheckbox,
   WeuiCheckLabel,
   WeuiCell
-} from '../common/components';
-import '../common/js/share.js';
+} from '../../common/components';
+import '../../common/js/share.js';
 
 export default {
   components: {
@@ -75,7 +75,7 @@ export default {
       let total = 0;
       for (let product of this.products) {
         if (product.checked) {
-          total += product.sellPrice;
+          total += product.sellPrice * Number(product.count);
         }
       }
       return total;
@@ -99,12 +99,19 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const ids = this.cart.map(item => item.productId).join(',');
-      const { data } = await axios.get(`/item/findByIds?ids=${ids}`);
-      for (let product of data) {
-        product.checked = true;
+      if (this.cart.length > 0) {
+        const ids = this.cart.map(item => item.productId).join(',');
+        const { data } = await axios.get(`/item/findByIds?ids=${ids}`);
+        for (let product of data) {
+          product.checked = true;
+          for (let { count, productId } of this.cart) {
+            if (productId.toString() === product.id.toString()) {
+              product.count = count;
+            }
+          }
+        }
+        this.products = data;
       }
-      this.products = data;
     });
   },
   methods: {
@@ -124,7 +131,7 @@ export default {
         .filter(item => item.checked)
         .map(item => item.id);
       if (checkedProducts.length > 0) {
-        window.location.href = `/settlement.html?productIds=${checkedProducts.join(
+        window.location.href = `/buyer/settlement.html?productIds=${checkedProducts.join(
           ','
         )}`;
       } else {
@@ -169,7 +176,7 @@ export default {
 }
 
 .weui-cell_link {
-  .weui-cell__hd{
+  .weui-cell__hd {
     color: #999;
   }
   .weui-cell__bd {

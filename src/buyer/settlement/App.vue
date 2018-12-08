@@ -38,7 +38,7 @@
             <div class="info">
               <div class="price">￥{{product.sellPrice}}</div>
               <div>
-                <span class="count">&times;&nbsp;1</span>
+                <span class="count">&times;&nbsp;{{product.count}}</span>
               </div>
             </div>
           </div>
@@ -47,10 +47,39 @@
       <weui-load-more-line v-else></weui-load-more-line>
       <template slot="foot" v-if="products.length > 0">
         <div class="weui-cell weui-cell_access weui-cell_link">
-          <div class="weui-cell__bd">总计：<span class="price">￥{{total}}</span></div>
+          <div class="weui-cell__bd">
+            <span>总计：</span>
+            <span class="price">{{total}}元</span>
+          </div>
+        </div>
+      </template>
+      <template slot="foot">
+        <div class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">
+            <span>优惠券抵扣：</span>
+            <span class="price" v-if="couponPrice>0">-{{couponPrice}}元</span>
+            <span class="price" v-else>{{couponPrice}}元</span>
+          </div>
+        </div>
+      </template>
+      <template slot="foot" v-if="products.length > 0">
+        <div class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">
+            <span>最终支付：</span>
+            <span class="price">{{total - couponPrice}}元</span>
+          </div>
         </div>
       </template>
     </weui-panel>
+    <weui-cells>
+      <weui-cell-select label="优惠券">
+        <select class="weui-select" :disabled="coupons.length === 0" v-model="selectCoupon">
+          <option value="" v-if="coupons.length === 0">暂无可以用优惠券</option>
+          <option value="" v-else>请选择优惠券</option>
+          <option :value="item.id" v-for="item in coupons" :key="item.id">{{item.price}}元</option>
+        </select>
+      </weui-cell-select>
+    </weui-cells>
     <weui-btn-area>
       <weui-btn type="primary" @click="handleSubmit" :disabled="products.length === 0">确认下单</weui-btn>
     </weui-btn-area>
@@ -58,8 +87,8 @@
 </template>
 
 <script>
-import axios from '../common/js/axios';
-import { auth } from '../common/js/auth';
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
 import {
   WeuiPanel,
   WeuiLoadMoreLine,
@@ -70,10 +99,10 @@ import {
   WeuiCell,
   WeuiTextarea,
   WeuiCellSelect
-} from '../common/components';
-import { tryFunc, getQueryString, openAlert } from '../common/js/common';
-import regions from '../common/js/regions';
-import '../common/js/share.js';
+} from '../../common/components';
+import { tryFunc, getQueryString, openAlert } from '../../common/js/common';
+import regions from '../../common/js/regions';
+import '../../common/js/share.js';
 
 export default {
   components: {
@@ -91,19 +120,28 @@ export default {
     total() {
       let total = 0;
       for (let product of this.products) {
-        if (product.checked) {
-          total += product.sellPrice;
-        }
+        total += product.sellPrice * Number(product.count);
       }
       return total;
+    },
+    couponPrice() {
+      if (this.selectCoupon) {
+        return this.coupons.filter(item => item.id === this.selectCoupon)[0]
+          .price;
+      } else {
+        return 0;
+      }
     }
   },
   data() {
     return {
       showApp: false,
-      products: [],
-      address: '',
       productIds: getQueryString('productIds'),
+      cart: [],
+      products: [],
+      coupons: [],
+      selectCoupon: '',
+      address: '',
       selectedProvince: '',
       selectedCity: '',
       selectedCounty: '',
@@ -123,18 +161,33 @@ export default {
     } else {
       this.provinces = regions.filter(item => item.code.endsWith('0000'));
     }
+    const strCart = localStorage.getItem('cart');
+    if (strCart) {
+      this.cart = JSON.parse(strCart);
+    }
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get(
-        `/item/findByIds?ids=${this.productIds}`
-      );
-      for (let product of data) {
-        product.checked = true;
+      let response = await axios.get(`/item/findByIds?ids=${this.productIds}`);
+      for (let product of response.data) {
+        for (let { count, productId } of this.cart) {
+          if (productId.toString() === product.id.toString()) {
+            product.count = count;
+          }
+        }
       }
-      this.products = data;
+      this.products = response.data;
+      response = await axios.get('/user/coupon');
+      if (response.data) {
+        // 排序过滤优惠券
+        this.coupons = response.data
+          .sort((a, b) => {
+            return a.price - b.price;
+          })
+          .filter(item => item.price < this.total);
+      }
     });
   },
   methods: {
@@ -183,14 +236,46 @@ export default {
       this.selectedCounty = this.counties[0].code;
     },
     handleSubmit() {
-      if (!this.address) {
-        openAlert('请输入收货地址');
+      if (!this.selectedProvince) {
+        openAlert('请选择省份');
         return;
       }
+      if (!this.selectedCity) {
+        openAlert('请选择城市');
+        return;
+      }
+      if (!this.selectedCounty) {
+        openAlert('请选择区县');
+        return;
+      }
+      if (!this.address) {
+        openAlert('请输入详细地址');
+        return;
+      }
+      const proviceName = regions.filter(
+        item => item.code === this.selectedProvince
+      )[0].name;
+      const cityName = regions.filter(
+        item => item.code === this.selectedCity
+      )[0].name;
+      const countyName = regions.filter(
+        item => item.code === this.selectedCounty
+      )[0].name;
       tryFunc(async () => {
-        await axios.post('');
         localStorage.setItem('address', this.address);
         localStorage.setItem('countyCode', this.selectedCounty);
+        await axios.post('/buyer/order/', {
+          price: this.total - this.couponPrice,
+          coupon: this.couponPrice,
+          couponId: this.selectCoupon,
+          address: proviceName + cityName + countyName + this.address,
+          orderItemDtoList: this.products.map(item => {
+            return {
+              itemId: item.id,
+              num: item.count
+            };
+          })
+        });
         const strCart = localStorage.getItem('cart');
         let cart = [];
         let tmp = [];
@@ -198,10 +283,11 @@ export default {
           cart = JSON.parse(strCart);
         }
         for (let item of cart) {
-          if (!this.productIds.indexOf(item)) {
+          if (!this.productIds.indexOf(item.productId)) {
             tmp.push(item);
           }
         }
+
         localStorage.setItem('cart', JSON.stringify(tmp));
       });
     }

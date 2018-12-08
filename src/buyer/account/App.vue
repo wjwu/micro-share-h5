@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import { auth } from '../common/js/auth';
-import { tryFunc } from '../common/js/common';
-import { CustBar, WeuiCells, WeuiCell } from '../common/components';
-import '../common/js/share.js';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import { CustBar, WeuiCells, WeuiCell } from '../../common/components';
+import '../../common/js/share.js';
 
 export default {
   components: {
