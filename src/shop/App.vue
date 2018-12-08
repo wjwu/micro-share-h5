@@ -12,19 +12,26 @@
         <marquee>{{shop.notice}}</marquee>
       </div>
       <div class="activity" v-if="showAct">
-        <h2>优惠活动<span>/ ACTIVITIES</span></h2>
+        <h2>优惠活动
+          <span>/ ACTIVITIES</span>
+        </h2>
         <div v-if="act" style="padding-left:2.5rem;color: #404040;">
-          活动时间：{{act.startTime}} - {{act.endTime}}<br />
-          老带新：各赠送老/新顾客现金抵用券<span style="color:red;">{{act.price}}</span>元<br />
-          注:每次购物限用一张
+          活动时间：{{act.startTime}} - {{act.endTime}}
+          <br>老带新：各赠送老/新顾客现金抵用券
+          <span style="color:red;">{{act.price}}</span>元
+          <br>注:每次购物限用一张
         </div>
       </div>
       <div class="special">
-        <h2>本周特价<span>/ SPECIALS</span></h2>
+        <h2>本周特价
+          <span>/ SPECIALS</span>
+        </h2>
         <ul v-if="products">
           <li v-for="product in products.specialList" :key="product.id">
             <a :href="`./product.html?productId=${product.id}`">
-              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+              <img
+                :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
+              >
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
               <p class="price">
@@ -36,11 +43,15 @@
         </ul>
       </div>
       <div class="newer">
-        <h2>店长推荐<span>/ RECOMMENDS</span></h2>
+        <h2>店长推荐
+          <span>/ RECOMMENDS</span>
+        </h2>
         <ul v-if="products">
           <li v-for="product in products.newerList" :key="product.id">
             <a :href="`./product.html?productId=${product.id}`">
-              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+              <img
+                :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
+              >
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
               <p class="price">
@@ -52,11 +63,15 @@
         </ul>
       </div>
       <div class="all">
-        <h2>所有商品<span>/ ALL</span></h2>
+        <h2>所有商品
+          <span>/ ALL</span>
+        </h2>
         <ul v-if="products">
           <li v-for="product in products.normalList" :key="product.id">
             <a :href="`./product.html?productId=${product.id}`">
-              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'" />
+              <img
+                :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
+              >
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
               <p class="price">
@@ -71,11 +86,11 @@
   </cust-bar>
 </template>
 <script>
-import axios from '../common/js/axios';
-import { auth } from '../common/js/auth';
-import { tryFunc, getQueryString } from '../common/js/common';
-import CustBar from '../common/components/CustBar';
-import '../common/js/share.js';
+import axios from "../common/js/axios";
+import { auth } from "../common/js/auth";
+import { tryFunc, getQueryString } from "../common/js/common";
+import CustBar from "../common/components/CustBar";
+import "../common/js/share.js";
 
 export default {
   components: {
@@ -88,35 +103,47 @@ export default {
       act: null,
       shop: null,
       products: null,
-      cartCount: '',
-      userId: getQueryString('userId')
+      cartCount: "",
+      userId: getQueryString("userId")
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      let response = await axios.get('/user/shopInfoById', {
+      let response = await axios.get("/user/shopInfoById", {
         params: {
           userId: this.userId
         }
       });
       this.shop = response.data;
-      let actResponse = await axios.get('/user/shopAct', {
+      let actResponse = await axios.get("/user/shopAct", {
         params: {
           userId: this.userId
         }
       });
-      if(actResponse.data){
+      if (actResponse.data) {
         this.showAct = true;
         this.act = actResponse.data;
+      }
+      const inviterId = getQueryString("inviterId");
+      if (inviterId && actResponse.data) {
+        let inviterResult = await axios.get("/user/checkShopInvite", {
+          params: {
+            inviterId: inviterId,
+            shopId: this.userId
+          }
+        });
+        if(inviterResult.data){
+          //todo 显示优惠券   价格：this.act.price
+        }
       }
       window.document.title = this.shop.name;
       response = await axios.get(`item/owner/all?userId=${this.userId}`);
       const getFirstImg = item => {
         return {
           ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
+          imgUrl: item.imgUrl ? item.imgUrl.split(",")[0] : ""
         };
       };
       response.data.newerList = response.data.newerList.map(getFirstImg);
@@ -124,10 +151,10 @@ export default {
       response.data.specialList = response.data.specialList.map(getFirstImg);
       this.products = response.data;
       this.$nextTick(() => {
-        this.$el.querySelector('.hd').style.background = `url("${
+        this.$el.querySelector(".hd").style.background = `url("${
           this.shop.background
         }") no-repeat`;
-        this.$el.querySelector('.avatar').style.background = `url("${
+        this.$el.querySelector(".avatar").style.background = `url("${
           this.shop.logo
         }") no-repeat`;
       });
@@ -139,15 +166,15 @@ export default {
 <style lang="scss">
 body {
   background-color: #fff;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 .hd {
   position: relative;
   height: 10rem;
   background-size: cover !important;
   &:after {
-    content: '';
+    content: "";
     width: 100%;
     height: 10rem;
     position: absolute;
@@ -201,7 +228,7 @@ body {
 .newer,
 .all {
   h2 {
-    padding: 1rem 1.25rem 1.25rem;
+    padding: 1rem 1.25rem 1rem;
     color: #333;
     font-size: 1.125rem;
     letter-spacing: 1;
@@ -295,7 +322,7 @@ body {
 }
 .activity {
   h2 {
-    padding: 0.5rem 1.25rem 1.25rem;
+    padding: 0.5rem 1.25rem .5rem;
   }
 }
 </style>
