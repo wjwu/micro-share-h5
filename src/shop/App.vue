@@ -29,9 +29,7 @@
         <ul v-if="products">
           <li v-for="product in products.specialList" :key="product.id">
             <a :href="`./product.html?productId=${product.id}`">
-              <img
-                :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
-              >
+              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
               <p class="price">
@@ -49,9 +47,7 @@
         <ul v-if="products">
           <li v-for="product in products.newerList" :key="product.id">
             <a :href="`./product.html?productId=${product.id}`">
-              <img
-                :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
-              >
+              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
               <p class="price">
@@ -69,9 +65,7 @@
         <ul v-if="products">
           <li v-for="product in products.normalList" :key="product.id">
             <a :href="`./product.html?productId=${product.id}`">
-              <img
-                :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
-              >
+              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
               <h3>{{product.name}}</h3>
               <p class="desc">{{product.description}}</p>
               <p class="price">
@@ -83,18 +77,21 @@
         </ul>
       </div>
     </div>
+    <coupon-mask></coupon-mask>
   </cust-bar>
 </template>
 <script>
-import axios from "../common/js/axios";
-import { auth } from "../common/js/auth";
-import { tryFunc, getQueryString } from "../common/js/common";
-import CustBar from "../common/components/CustBar";
-import "../common/js/share.js";
+import axios from '../common/js/axios';
+import { auth } from '../common/js/auth';
+import { tryFunc, getQueryString } from '../common/js/common';
+import CustBar from '../common/components/CustBar';
+import CouponMask from './CouponMask';
+import '../common/js/share.js';
 
 export default {
   components: {
-    CustBar
+    CustBar,
+    CouponMask
   },
   data() {
     return {
@@ -103,58 +100,61 @@ export default {
       act: null,
       shop: null,
       products: null,
-      cartCount: "",
-      userId: getQueryString("userId")
+      cartCount: '',
+      userId: getQueryString('userId')
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      let response = await axios.get("/user/shopInfoById", {
+      const { data: shop } = await axios.get('/user/shopInfoById', {
         params: {
           userId: this.userId
         }
       });
-      this.shop = response.data;
-      let actResponse = await axios.get("/user/shopAct", {
+      this.shop = shop;
+      const { data: shopAct } = await axios.get('/user/shopAct', {
         params: {
           userId: this.userId
         }
       });
-      if (actResponse.data) {
+      if (shopAct) {
         this.showAct = true;
-        this.act = actResponse.data;
+        this.act = shopAct;
       }
-      const inviterId = getQueryString("inviterId");
-      if (inviterId && actResponse.data) {
-        let inviterResult = await axios.get("/user/checkShopInvite", {
+      const inviterId = getQueryString('inviterId');
+      if (inviterId && shopAct) {
+        const { data: inviter } = await axios.get('/user/checkShopInvite', {
           params: {
             inviterId: inviterId,
             shopId: this.userId
           }
         });
-        if(inviterResult.data){
-          //todo 显示优惠券   价格：this.act.price
+        debugger;
+        if (inviter) {
+          // todo 显示优惠券   价格：this.act.price
         }
       }
       window.document.title = this.shop.name;
-      response = await axios.get(`item/owner/all?userId=${this.userId}`);
+      const { data: products } = await axios.get(
+        `item/owner/all?userId=${this.userId}`
+      );
       const getFirstImg = item => {
         return {
           ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(",")[0] : ""
+          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
         };
       };
-      response.data.newerList = response.data.newerList.map(getFirstImg);
-      response.data.normalList = response.data.normalList.map(getFirstImg);
-      response.data.specialList = response.data.specialList.map(getFirstImg);
-      this.products = response.data;
+      products.newerList = products.newerList.map(getFirstImg);
+      products.normalList = products.normalList.map(getFirstImg);
+      products.specialList = products.specialList.map(getFirstImg);
+      this.products = products;
       this.$nextTick(() => {
-        this.$el.querySelector(".hd").style.background = `url("${
+        this.$el.querySelector('.hd').style.background = `url("${
           this.shop.background
         }") no-repeat`;
-        this.$el.querySelector(".avatar").style.background = `url("${
+        this.$el.querySelector('.avatar').style.background = `url("${
           this.shop.logo
         }") no-repeat`;
       });
@@ -166,15 +166,15 @@ export default {
 <style lang="scss">
 body {
   background-color: #fff;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 .hd {
   position: relative;
   height: 10rem;
   background-size: cover !important;
   &:after {
-    content: "";
+    content: '';
     width: 100%;
     height: 10rem;
     position: absolute;
@@ -322,7 +322,7 @@ body {
 }
 .activity {
   h2 {
-    padding: 0.5rem 1.25rem .5rem;
+    padding: 0.5rem 1.25rem 0.5rem;
   }
 }
 </style>

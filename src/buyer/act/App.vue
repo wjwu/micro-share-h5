@@ -41,26 +41,26 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
+import axios from '../../common/js/axios';
 import weui from 'weui.js';
-import { tryFunc, openAlert } from "../../common/js/common";
+import { tryFunc, openAlert } from '../../common/js/common';
 
 export default {
   data() {
     return {
       showApp: false,
       shopAct: {
-        startTime: "",
-        endTime: "",
-        price: ""
+        startTime: '',
+        endTime: '',
+        price: ''
       }
     };
   },
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
-      const userId = localStorage.getItem("userId");
-      const { data } = await axios.get("/user/shopAct?userId=" + userId);
+      const userId = localStorage.getItem('userId');
+      const { data } = await axios.get('/user/shopAct?userId=' + userId);
       if (data) {
         this.shopAct = data;
       }
@@ -69,33 +69,33 @@ export default {
   methods: {
     handleSave() {
       if (!this.shopAct.startTime) {
-        openAlert("请选择活动开始时间");
+        openAlert('请选择活动开始时间');
         return;
       }
       if (!this.shopAct.endTime) {
-        openAlert("请选择活动结束时间");
+        openAlert('请选择活动结束时间');
         return;
       }
       if (!this.shopAct.price) {
-        openAlert("请输入活动优惠价格");
+        openAlert('请输入活动优惠价格');
         return;
       }
-      var startTime = new Date(this.shopAct.startTime)
-      var endTime = new Date(this.shopAct.endTime)
-      if(startTime.getTime() > endTime.getTime()){
-        openAlert("结束时间不能小于开始时间");
+      var startTime = new Date(this.shopAct.startTime);
+      var endTime = new Date(this.shopAct.endTime);
+      if (startTime.getTime() > endTime.getTime()) {
+        openAlert('结束时间不能小于开始时间');
         return;
-      } 
+      }
       tryFunc(async () => {
-        await axios.post("/user/shopAct", {
+        await axios.post('/user/shopAct', {
           ...this.shopAct
         });
         weui.dialog({
-          content: "保存成功",
+          content: '保存成功',
           buttons: [
             {
-              label: "确定",
-              type: "primary"
+              label: '确定',
+              type: 'primary'
             }
           ]
         });
