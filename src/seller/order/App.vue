@@ -18,7 +18,7 @@
             </div>
             <div class="weui-media-box__fd">
               <span v-if="item.status === 'UN_USE'" class="weui-btn weui-btn_mini weui-btn_default" @click="handleScore(item.id)">计入积分</span>
-              <a :href="`/seller/detail?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a :href="`/seller/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="weui-media-box__fd">
               <a v-if="item.status === 'UN_USE'" class="weui-btn weui-btn_mini weui-btn_default" @click="handleScore(item.id)">计入积分</a>z
-              <a :href="`/seller/detail?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+              <a :href="`/seller/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>

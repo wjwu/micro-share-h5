@@ -45,6 +45,14 @@
       <template slot="foot">
         <div class="weui-cell weui-cell_access weui-cell_link">
           <div class="weui-cell__bd">
+            <span>联系方式：</span>
+            <span>{{order.phone}}</span>
+          </div>
+        </div>
+      </template>
+      <template slot="foot">
+        <div class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">
             <span>最终支付：</span>
             <span class="price">{{order.price}}元</span>
           </div>
