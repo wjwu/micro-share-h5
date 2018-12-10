@@ -3,7 +3,7 @@
     <div class="title">
       <h1>我的积分</h1>
     </div>
-    <div  v-for="item in scores" :key="item">
+    <div v-for="item in scores" :key="item">
       <weui-cells-title>{{item.shopName}}</weui-cells-title>
       <weui-cells>
         <weui-cell>积分：{{item.score}}</weui-cell>
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import format from "date-fns/format";
-// import { auth } from '../../common/js/auth';
-import { tryFunc } from "../../common/js/common";
-import "../../common/js/share";
-import { WeuiCells, WeuiCell, WeuiCellsTitle } from "../../common/components";
+import axios from '../../common/js/axios';
+import format from 'date-fns/format';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
+import '../../common/js/share';
+import { WeuiCells, WeuiCell, WeuiCellsTitle } from '../../common/components';
 
 export default {
   components: {
@@ -34,15 +34,15 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      //await auth();
+      await auth();
       this.showApp = true;
-      const { data } = await axios.get("/buyer/score");
+      const { data } = await axios.get('/buyer/score');
       this.scores = data;
     });
   },
   filters: {
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };

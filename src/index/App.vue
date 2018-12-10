@@ -8,7 +8,10 @@
         <ul v-if="notices">
           <li v-for="item in notices" :key="item.id">
             <p>{{item.title}}</p>
-            <a :href="`/notice.html?id=${item.id}`">详情</a>
+            <a :href="`/notice/detail.html?id=${item.id}`">详情</a>
+          </li>
+          <li>
+            <a href="/notice/list.html">历史公告</a>
           </li>
         </ul>
         <button @click="handleJump('/manager.html')">进入部落</button>
@@ -184,6 +187,16 @@ body {
       height: 2.875rem;
       padding-right: 0.9375rem;
       border-bottom: 1px solid #ccc;
+
+      &:last-of-type{
+        flex-direction: row-reverse;
+        border-bottom: none;
+        font-size: .8rem;
+
+        &::before{
+          display: none;
+        }
+      }
 
       &::before {
         content: '';

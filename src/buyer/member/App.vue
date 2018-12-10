@@ -53,7 +53,7 @@ export default {
     },
     handleOk(value) {
       tryFunc(async () => {
-        axios.put(`/shop/${this.selectedMemberId}?score=${value}`);
+        await axios.put(`/shop/${this.selectedMemberId}?score=${value}`);
       });
     }
   }

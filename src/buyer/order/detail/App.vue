@@ -1,7 +1,8 @@
 <template>
   <div v-if="showApp && order">
     <weui-cells>
-      <weui-cell-access label="购买店铺" empty-foot :href="`/shop.html?userId=${order.shopId}`">{{order.shopName}}</weui-cell-access>
+      <weui-cell-access label="购买店铺：" empty-foot :href="`/shop.html?userId=${order.shopId}`">{{order.shopName}}</weui-cell-access>
+      <weui-cell label="手机号：">{{order.phone}}</weui-cell>
     </weui-cells>
     <weui-cells-title>收货地址：</weui-cells-title>
     <weui-cells>

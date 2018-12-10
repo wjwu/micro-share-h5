@@ -20,27 +20,23 @@
       </weui-cell>
     </weui-cells>
     <weui-btn-area>
-      <weui-btn
-        type="primary"
-        v-if="order && order.status === 'UN_USE'"
-        @click="handleScore(order.id)"
-      >计入积分</weui-btn>
+      <weui-btn type="primary" v-if="order && order.status === 'UN_USE'" @click="handleScore(order.id)">计入积分</weui-btn>
     </weui-btn-area>
   </div>
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import format from "date-fns/format";
-import { openAlert, tryFunc, getQueryString } from "../../common/js/common";
+import axios from '../../common/js/axios';
+import format from 'date-fns/format';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import {
   WeuiCellsTitle,
   WeuiCells,
   WeuiCell,
   WeuiBtnArea,
   WeuiBtn
-} from "../../common/components";
-import "../../common/js/share";
+} from '../../common/components';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -52,7 +48,7 @@ export default {
   },
   data() {
     return {
-      orderId: getQueryString("orderId"),
+      orderId: getQueryString('orderId'),
       order: {},
       showApp: false,
       showMsgs: false
@@ -62,12 +58,12 @@ export default {
     tryFunc(async () => {
       this.showApp = true;
       if (!this.orderId) {
-        openAlert("订单编号无效");
+        openAlert('订单编号无效');
         return;
       }
       const { data } = await axios.get(`/buyer/order/${this.orderId}`);
       if (!data) {
-        openAlert("订单编号无效");
+        openAlert('订单编号无效');
       } else {
         this.order = data;
       }
@@ -75,31 +71,35 @@ export default {
   },
   methods: {
     handleScore(id) {
-      console.log(11);
-      axios.put(`/shop/${id}/score`);
-      window.location.reload();
+      tryFunc(async () => {
+        await axios.put(`/shop/${id}/score`);
+        window.location.reload();
+      });
     }
   },
   filters: {
     status: val => {
-      if (val === "UN_USE") {
-        return "未核销";
-      } else if (val === "USED") {
-        return "已核销";
+      if (val === 'UN_USE') {
+        return '未核销';
+      } else if (val === 'USED') {
+        return '已核销';
       } else {
-        return "";
+        return '';
       }
     },
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };
 </script>
 
 <style lang="scss">
-.item{
-   display:flex;align-items: center;justify-content: left;padding-bottom: .5rem;
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-bottom: 0.5rem;
 }
 </style>
 

@@ -79,6 +79,9 @@
           <option :value="item.id" v-for="item in coupons" :key="item.id">{{item.price}}元</option>
         </select>
       </weui-cell-select>
+      <weui-cell label="手机号">
+        <input v-model="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号">
+      </weui-cell>
     </weui-cells>
     <weui-btn-area>
       <weui-btn type="primary" @click="handleSubmit" :disabled="products.length === 0">确认下单</weui-btn>
@@ -100,7 +103,12 @@ import {
   WeuiTextarea,
   WeuiCellSelect
 } from '../../common/components';
-import { tryFunc, getQueryString, openAlert } from '../../common/js/common';
+import {
+  tryFunc,
+  getQueryString,
+  openAlert,
+  checkPhone
+} from '../../common/js/common';
 import regions from '../../common/js/regions';
 import '../../common/js/share.js';
 
@@ -154,7 +162,8 @@ export default {
       selectedCounty: '',
       provinces: [],
       cities: [],
-      counties: []
+      counties: [],
+      phone: ''
     };
   },
   created() {
@@ -170,7 +179,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.productIds);
     tryFunc(async () => {
       await auth();
       this.showApp = true;
@@ -256,6 +264,10 @@ export default {
         openAlert('请输入详细地址');
         return;
       }
+      if (!checkPhone(this.phone)) {
+        openAlert('手机号码格式不正确');
+        return;
+      }
       const proviceName = regions.filter(
         item => item.code === this.selectedProvince
       )[0].name;
@@ -273,6 +285,7 @@ export default {
           coupon: this.couponPrice,
           couponId: this.selectCoupon,
           address: proviceName + cityName + countyName + this.address,
+          phone: this.phone,
           orderItemDtoList: this.products.map(item => {
             return {
               itemId: item.id,

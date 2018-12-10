@@ -1,16 +1,8 @@
 <template>
   <div class="weui-tab" v-if="showApp">
     <div class="weui-navbar">
-      <div
-        class="weui-navbar__item"
-        :class="{'weui-bar__item_on':selected ==='all'}"
-        @click="handleTabChange('all')"
-      >全部</div>
-      <div
-        class="weui-navbar__item"
-        :class="{'weui-bar__item_on':selected ==='unuse'}"
-        @click="handleTabChange('unuse')"
-      >未核销</div>
+      <div class="weui-navbar__item" :class="{'weui-bar__item_on':selected ==='all'}" @click="handleTabChange('all')">全部</div>
+      <div class="weui-navbar__item" :class="{'weui-bar__item_on':selected ==='unuse'}" @click="handleTabChange('unuse')">未核销</div>
     </div>
     <div class="weui-tab__panel">
       <div class="weui-panel weui-panel_access">
@@ -25,15 +17,8 @@
               <p class="weui-media-box__desc">{{item.createTime | time}} | {{item.status | status}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <span
-                v-if="item.status === 'UN_USE'"
-                class="weui-btn weui-btn_mini weui-btn_default"
-                @click="handleScore(item.id)"
-              >计入积分</span>
-              <a
-                :href="`/seller/detail?orderId=${item.id}`"
-                class="weui-btn weui-btn_mini weui-btn_default"
-              >查看详情</a>
+              <span v-if="item.status === 'UN_USE'" class="weui-btn weui-btn_mini weui-btn_default" @click="handleScore(item.id)">计入积分</span>
+              <a :href="`/seller/detail?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -48,15 +33,8 @@
               <p class="weui-media-box__desc">{{item.createTime | time}} | {{item.status | status}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a
-                v-if="item.status === 'UN_USE'"
-                class="weui-btn weui-btn_mini weui-btn_default"
-                @click="handleScore(item.id)"
-              >计入积分</a>z
-              <a
-                :href="`/seller/detail?orderId=${item.id}`"
-                class="weui-btn weui-btn_mini weui-btn_default"
-              >查看详情</a>
+              <a v-if="item.status === 'UN_USE'" class="weui-btn weui-btn_mini weui-btn_default" @click="handleScore(item.id)">计入积分</a>z
+              <a :href="`/seller/detail?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
         </div>
@@ -75,15 +53,15 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import format from "date-fns/format";
-import { tryFunc } from "../../common/js/common";
-import "../../common/js/share";
+import axios from '../../common/js/axios';
+import format from 'date-fns/format';
+import { tryFunc } from '../../common/js/common';
+import '../../common/js/share';
 
 export default {
   data() {
     return {
-      selected: "all",
+      selected: 'all',
       all: [],
       unuse: [],
       showApp: false
@@ -92,10 +70,10 @@ export default {
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
-      const { data } = await axios.get("/shop/order/");
+      const { data } = await axios.get('/shop/order/');
       this.all = data;
       for (let item of data) {
-        if (item.status === "UN_USE") {
+        if (item.status === 'UN_USE') {
           this.unuse.push(item);
         }
       }
@@ -108,24 +86,24 @@ export default {
     handleTabChange(name) {
       this.selected = name;
     },
-    handleScore(id){
-      console.log(11)
+    handleScore(id) {
+      console.log(11);
       axios.put(`/shop/${id}/score`);
       window.location.reload();
     }
   },
   filters: {
     status: val => {
-      if (val === "UN_USE") {
-        return "未核销";
-      } else if (val === "USED") {
-        return "已核销";
+      if (val === 'UN_USE') {
+        return '未核销';
+      } else if (val === 'USED') {
+        return '已核销';
       } else {
-        return "";
+        return '';
       }
     },
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };

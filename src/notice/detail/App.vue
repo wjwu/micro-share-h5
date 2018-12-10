@@ -16,9 +16,9 @@
 
 <script>
 import weui from 'weui.js';
-import axios from '../common/js/axios.js';
-import { tryFunc, getQueryString } from '../common/js/common';
-import '../common/js/share';
+import axios from '../../common/js/axios.js';
+import { tryFunc, getQueryString } from '../../common/js/common';
+import '../../common/js/share';
 
 export default {
   data() {
@@ -93,6 +93,7 @@ body,
 }
 
 .banner {
+  flex-shrink: 0;
   height: 10rem;
   background: url('./assets/images/about.jpg') no-repeat center 0 / cover;
 
@@ -124,6 +125,7 @@ body,
 }
 
 .footer {
+  flex-shrink: 0;
   width: 100%;
   height: 4.375rem;
   text-align: center;
