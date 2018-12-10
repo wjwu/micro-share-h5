@@ -20,6 +20,10 @@
             <label class="weui-form-preview__label">创建时间</label>
             <span class="weui-form-preview__value">{{order.createTime | time}}</span>
           </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">购买店铺</label>
+            <span class="weui-form-preview__value">{{order.shopName}}</span>
+          </div>
         </div>
         <div class="weui-form-preview__ft">
           <a class="weui-form-preview__btn weui-form-preview__btn_primary" :href="`/buyer/order/detail.html?orderId=${order.id}`">查看详情</a>

@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="weui-tabbar">
-      <a :href="`/shop.html?userId=${seller}`" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===1}">
+      <a :href="`/shop.html?userId=${userId}`" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===1}">
         <img src="./assets/images/home.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">首页</p>
       </a>
@@ -24,26 +24,32 @@
 </template>
 
 <script>
+import { getQueryString } from '../../common/js/common';
 export default {
   props: {
     activeIndex: {
       type: Number
-    },
-    seller: {
-      type: String
     }
   },
   data() {
     return {
-      cartCount: ''
+      cartCount: '',
+      userId: ''
     };
   },
   created() {
+    const userId = getQueryString('userId');
+    if (userId) {
+      localStorage.setItem('visitShopUserId', userId);
+      this.userId = userId;
+    } else {
+      this.userId = localStorage.getItem('visitShopUserId');
+    }
     this.updateCartCount();
   },
   methods: {
     updateCartCount() {
-      const strCart = localStorage.getItem('cart');
+      const strCart = localStorage.getItem(`cart_${this.userId}`);
       if (strCart) {
         const cart = JSON.parse(strCart);
         let count = 0;

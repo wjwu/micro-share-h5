@@ -1,11 +1,17 @@
 <template>
   <div v-if="showApp">
-    <weui-cells-title>我的邀请</weui-cells-title>
-    <weui-cells>
-      <weui-cell v-for="(item,i) in inviters" :key="i">
-        {{item}}
-      </weui-cell>
-    </weui-cells>
+    <div class="title">
+      <h1>我的邀请</h1>
+    </div>
+    <div v-for="(item,i) in list" :key="i">
+      <weui-cells-title>{{item.shopName}}</weui-cells-title>
+      <weui-cells>
+        <weui-cell v-for="inviter in item.inviters" :key="inviter">
+          {{inviter}}
+        </weui-cell>
+      </weui-cells>
+    </div>
+
   </div>
 </template>
 
@@ -24,7 +30,7 @@ export default {
   data() {
     return {
       showApp: false,
-      inviters: []
+      list: []
     };
   },
   mounted() {
@@ -32,7 +38,12 @@ export default {
       await auth();
       this.showApp = true;
       const { data } = await axios.get('/user/inviters');
-      this.inviters = data;
+      for (let prop in data) {
+        this.list.push({
+          shopName: prop,
+          inviters: data[prop].split(',')
+        });
+      }
     });
   }
 };

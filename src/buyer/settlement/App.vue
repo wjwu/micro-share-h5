@@ -104,6 +104,14 @@ import { tryFunc, getQueryString, openAlert } from '../../common/js/common';
 import regions from '../../common/js/regions';
 import '../../common/js/share.js';
 
+const visitShopUserId = localStorage.getItem('visitShopUserId');
+const cartKey = `cart_${visitShopUserId}`;
+let cart = [];
+const strCart = localStorage.getItem(cartKey);
+if (strCart) {
+  cart = JSON.parse(strCart);
+}
+
 export default {
   components: {
     WeuiPanel,
@@ -137,7 +145,6 @@ export default {
     return {
       showApp: false,
       productIds: getQueryString('productIds'),
-      cart: [],
       products: [],
       coupons: [],
       selectCoupon: '',
@@ -161,18 +168,15 @@ export default {
     } else {
       this.provinces = regions.filter(item => item.code.endsWith('0000'));
     }
-    const strCart = localStorage.getItem('cart');
-    if (strCart) {
-      this.cart = JSON.parse(strCart);
-    }
   },
   mounted() {
+    console.log(this.productIds);
     tryFunc(async () => {
       await auth();
       this.showApp = true;
       let response = await axios.get(`/item/findByIds?ids=${this.productIds}`);
       for (let product of response.data) {
-        for (let { count, productId } of this.cart) {
+        for (let { count, productId } of cart) {
           if (productId.toString() === product.id.toString()) {
             product.count = count;
           }
@@ -276,18 +280,14 @@ export default {
             };
           })
         });
-        const strCart = localStorage.getItem('cart');
-        let cart = [];
+        const productIds = this.productIds.split(',');
         let tmp = [];
-        if (strCart) {
-          cart = JSON.parse(strCart);
-        }
         for (let item of cart) {
-          if (!this.productIds.indexOf(item.productId)) {
+          if (!productIds.includes(item.productId.toString())) {
             tmp.push(item);
           }
         }
-        localStorage.setItem('cart', JSON.stringify(tmp));
+        localStorage.setItem(cartKey, JSON.stringify(tmp));
         setTimeout(() => {
           window.location.href = './success.html';
         });

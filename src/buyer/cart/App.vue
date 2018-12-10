@@ -62,6 +62,9 @@ import {
 } from '../../common/components';
 import '../../common/js/share.js';
 
+const visitShopUserId = localStorage.getItem('visitShopUserId');
+const cartKey = `cart_${visitShopUserId}`;
+
 export default {
   components: {
     WeuiPanel,
@@ -90,7 +93,7 @@ export default {
     };
   },
   created() {
-    const strCart = localStorage.getItem('cart');
+    const strCart = localStorage.getItem(cartKey);
     if (strCart) {
       this.cart = JSON.parse(strCart);
     }
@@ -118,7 +121,7 @@ export default {
     handleDelete(idx) {
       openConfirm('您确定要删除该商品？', () => {
         this.cart = this.cart.splice(idx, 1);
-        localStorage.setItem('cart', JSON.stringify(this.cart));
+        localStorage.setItem(cartKey, JSON.stringify(this.cart));
       });
     },
     handleAllChange(e) {

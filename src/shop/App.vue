@@ -1,84 +1,86 @@
 <template>
-  <cust-bar v-if="showApp" :active-index="1">
-    <div class="main" v-if="shop">
-      <div class="hd">
-        <div class="avatar"></div>
-        <div class="info">
-          <div class="name">{{shop.address}}</div>
+  <div v-if="showApp">
+    <cust-bar :active-index="1">
+      <div class="main" v-if="shop">
+        <div class="hd">
+          <div class="avatar"></div>
+          <div class="info">
+            <div class="name">{{shop.address}}</div>
+          </div>
+        </div>
+        <div class="notice">
+          <p>店长公告：</p>
+          <marquee>{{shop.notice}}</marquee>
+        </div>
+        <div class="activity" v-if="showAct">
+          <h2>优惠活动
+            <span>/ ACTIVITIES</span>
+          </h2>
+          <div v-if="act" style="padding-left:2.5rem;color: #404040;">
+            活动时间：{{act.startTime}} - {{act.endTime}}
+            <br>老带新：各赠送老/新顾客现金抵用券
+            <span style="color:red;">{{act.price}}</span>元
+            <br>注:每次购物限用一张
+          </div>
+        </div>
+        <div class="special">
+          <h2>本周特价
+            <span>/ SPECIALS</span>
+          </h2>
+          <ul v-if="products">
+            <li v-for="product in products.specialList" :key="product.id">
+              <a :href="`./product.html?productId=${product.id}`">
+                <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
+                <h3>{{product.name}}</h3>
+                <p class="desc">{{product.description}}</p>
+                <p class="price">
+                  <span>￥{{product.sellPrice}}元</span>
+                  <small>{{product.stock}}可售</small>
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="newer">
+          <h2>店长推荐
+            <span>/ RECOMMENDS</span>
+          </h2>
+          <ul v-if="products">
+            <li v-for="product in products.newerList" :key="product.id">
+              <a :href="`./product.html?productId=${product.id}`">
+                <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
+                <h3>{{product.name}}</h3>
+                <p class="desc">{{product.description}}</p>
+                <p class="price">
+                  <span>￥{{product.sellPrice}}元</span>
+                  <small>{{product.stock}}可售</small>
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="all">
+          <h2>所有商品
+            <span>/ ALL</span>
+          </h2>
+          <ul v-if="products">
+            <li v-for="product in products.normalList" :key="product.id">
+              <a :href="`./product.html?productId=${product.id}`">
+                <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
+                <h3>{{product.name}}</h3>
+                <p class="desc">{{product.description}}</p>
+                <p class="price">
+                  <span>￥{{product.sellPrice}}元</span>
+                  <small>{{product.stock}}可售</small>
+                </p>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="notice">
-        <p>店长公告：</p>
-        <marquee>{{shop.notice}}</marquee>
-      </div>
-      <div class="activity" v-if="showAct">
-        <h2>优惠活动
-          <span>/ ACTIVITIES</span>
-        </h2>
-        <div v-if="act" style="padding-left:2.5rem;color: #404040;">
-          活动时间：{{act.startTime}} - {{act.endTime}}
-          <br>老带新：各赠送老/新顾客现金抵用券
-          <span style="color:red;">{{act.price}}</span>元
-          <br>注:每次购物限用一张
-        </div>
-      </div>
-      <div class="special">
-        <h2>本周特价
-          <span>/ SPECIALS</span>
-        </h2>
-        <ul v-if="products">
-          <li v-for="product in products.specialList" :key="product.id">
-            <a :href="`./product.html?productId=${product.id}`">
-              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
-              <h3>{{product.name}}</h3>
-              <p class="desc">{{product.description}}</p>
-              <p class="price">
-                <span>￥{{product.sellPrice}}元</span>
-                <small>{{product.stock}}可售</small>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="newer">
-        <h2>店长推荐
-          <span>/ RECOMMENDS</span>
-        </h2>
-        <ul v-if="products">
-          <li v-for="product in products.newerList" :key="product.id">
-            <a :href="`./product.html?productId=${product.id}`">
-              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
-              <h3>{{product.name}}</h3>
-              <p class="desc">{{product.description}}</p>
-              <p class="price">
-                <span>￥{{product.sellPrice}}元</span>
-                <small>{{product.stock}}可售</small>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="all">
-        <h2>所有商品
-          <span>/ ALL</span>
-        </h2>
-        <ul v-if="products">
-          <li v-for="product in products.normalList" :key="product.id">
-            <a :href="`./product.html?productId=${product.id}`">
-              <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
-              <h3>{{product.name}}</h3>
-              <p class="desc">{{product.description}}</p>
-              <p class="price">
-                <span>￥{{product.sellPrice}}元</span>
-                <small>{{product.stock}}可售</small>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <coupon-mask></coupon-mask>
-  </cust-bar>
+    </cust-bar>
+    <coupon-mask :price="couponPrice" :visible.sync="showCoupon"></coupon-mask>
+  </div>
 </template>
 <script>
 import axios from '../common/js/axios';
@@ -97,6 +99,8 @@ export default {
     return {
       showApp: false,
       showAct: false,
+      showCoupon: false,
+      couponPrice: '0',
       act: null,
       shop: null,
       products: null,
@@ -131,9 +135,10 @@ export default {
             shopId: this.userId
           }
         });
-        debugger;
         if (inviter) {
-          // todo 显示优惠券   价格：this.act.price
+          // 显示优惠券
+          this.couponPrice = this.act.price.toString();
+          this.showCoupon = true;
         }
       }
       window.document.title = this.shop.name;

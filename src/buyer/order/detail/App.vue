@@ -1,5 +1,8 @@
 <template>
   <div v-if="showApp && order">
+    <weui-cells>
+      <weui-cell-access label="购买店铺" empty-foot :href="`/shop.html?userId=${order.shopId}`">{{order.shopName}}</weui-cell-access>
+    </weui-cells>
     <weui-cells-title>收货地址：</weui-cells-title>
     <weui-cells>
       <weui-cell>
@@ -61,6 +64,7 @@ import {
   WeuiCellsTitle,
   WeuiCells,
   WeuiCell,
+  WeuiCellAccess,
   WeuiTextarea,
   WeuiPanel,
   WeuiBtnArea,
@@ -71,6 +75,7 @@ export default {
     WeuiCellsTitle,
     WeuiCells,
     WeuiCell,
+    WeuiCellAccess,
     WeuiTextarea,
     WeuiPanel,
     WeuiBtnArea,

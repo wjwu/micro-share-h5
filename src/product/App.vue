@@ -1,5 +1,5 @@
 <template>
-  <cust-bar v-if="product && showApp" ref="custBar" :seller='shopInfo.userId'>
+  <cust-bar v-if="product && showApp" ref="custBar">
     <div class="content">
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -30,7 +30,7 @@
     </div>
     <div class="buy-wrap">
       <div class="cart" @click="handleAddCart">加入购物车</div>
-      <a class="buy" :href="`/settlement.html?productIds=${productId}`">立即购买</a>
+      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId}`">立即购买</a>
     </div>
   </cust-bar>
 </template>
@@ -133,7 +133,8 @@ export default {
       );
     },
     handleAddCart() {
-      const strCart = localStorage.getItem('cart');
+      const cartKey = `cart_${this.shopInfo.userId}`;
+      const strCart = localStorage.getItem(cartKey);
       let cart;
       if (strCart) {
         cart = JSON.parse(strCart);
@@ -150,7 +151,7 @@ export default {
       } else {
         product.count = Number(product.count) + 1;
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
+      localStorage.setItem(cartKey, JSON.stringify(cart));
       setTimeout(() => {
         this.$refs.custBar.updateCartCount();
       }, 50);
