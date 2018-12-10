@@ -12,10 +12,13 @@
       </weui-cell>
       <weui-cell label="创建时间">{{order.createTime | time}}</weui-cell>
       <weui-cell label="收货地址">{{order.address}}</weui-cell>
+      <weui-cell label="联系方式">{{order.phone}}</weui-cell>
       <weui-cell label="购买商品">
         <span v-for="(item,i) in order.buyerOrderItemList" :key="i">
-          <!-- TODO 商品名字居中对齐    这里会有多个商品的情况-->
-          <div class="item"><img style="width:2rem;" :src="item.img" />&nbsp;{{item.title}} * {{item.num}}</div>
+          <div class="item">
+            <img style="width:2rem;" :src="item.img">
+            &nbsp;{{item.title}} * {{item.num}}
+          </div>
         </span>
       </weui-cell>
     </weui-cells>
@@ -98,8 +101,11 @@ export default {
 </script>
 
 <style lang="scss">
-.item{
-   display:flex;align-items: center;justify-content: left;padding-bottom: .5rem;
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-bottom: 0.5rem;
 }
 </style>
 

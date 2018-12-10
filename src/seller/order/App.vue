@@ -31,7 +31,7 @@
                 @click="handleScore(item.id)"
               >计入积分</span>
               <a
-                :href="`/seller/detail?orderId=${item.id}`"
+                :href="`/seller/detail.html?orderId=${item.id}`"
                 class="weui-btn weui-btn_mini weui-btn_default"
               >查看详情</a>
             </div>
@@ -54,7 +54,7 @@
                 @click="handleScore(item.id)"
               >计入积分</a>z
               <a
-                :href="`/seller/detail?orderId=${item.id}`"
+                :href="`/seller/detail.html?orderId=${item.id}`"
                 class="weui-btn weui-btn_mini weui-btn_default"
               >查看详情</a>
             </div>

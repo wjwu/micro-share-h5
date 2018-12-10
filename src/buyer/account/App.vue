@@ -35,7 +35,7 @@
           </weui-cell-access>
         </weui-cells>
         <weui-cells>
-          <weui-cell-access empty-body empty-foot href="/feedback.html">
+          <weui-cell-access empty-body empty-foot href="/buyer/invite.html">
             <template slot="head">
               <div class="head">
                 <img src="./assets/images/act.png">

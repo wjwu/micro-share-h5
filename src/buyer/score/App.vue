@@ -15,7 +15,7 @@
 <script>
 import axios from "../../common/js/axios";
 import format from "date-fns/format";
-// import { auth } from '../../common/js/auth';
+import { auth } from '../../common/js/auth';
 import { tryFunc } from "../../common/js/common";
 import "../../common/js/share";
 import { WeuiCells, WeuiCell, WeuiCellsTitle } from "../../common/components";
@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      //await auth();
+      await auth();
       this.showApp = true;
       const { data } = await axios.get("/buyer/score");
       this.scores = data;
