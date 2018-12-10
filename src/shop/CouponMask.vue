@@ -17,13 +17,6 @@ export default {
       type: Boolean
     }
   },
-  watch: {
-    visible(culVal) {
-      if (culVal) {
-      } else {
-      }
-    }
-  },
   mounted() {
     if (this.visible) {
       document.body.style.overflow = 'hidden';
