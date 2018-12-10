@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import axios from '../../common/js/axios';
+// import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
@@ -44,8 +44,8 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get('/credit');
-      this.credits = data;
+      // const { data } = await axios.get('/credit');
+      // this.credits = data;
     });
   },
   filters: {
