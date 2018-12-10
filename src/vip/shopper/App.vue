@@ -126,7 +126,7 @@
           </div>
         </template>
       </weui-cell-access>
-      <weui-cell-access empty-body empty-foot>
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/seller/order.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/order.png">
@@ -152,7 +152,7 @@
       </weui-cell-access>
     </weui-cells>
     <weui-cells>
-      <weui-cell-access empty-body empty-foot>
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/buyer/stats.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/vip.png">
@@ -160,7 +160,7 @@
           </div>
         </template>
       </weui-cell-access>
-      <weui-cell-access empty-body empty-foot>
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/buyer/act.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/coupon.png">
