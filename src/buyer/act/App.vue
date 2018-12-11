@@ -16,13 +16,7 @@
           <label class="weui-label">分享标题</label>
         </div>
         <div class="weui-cell__bd">
-          <input
-            class="weui-input"
-            type="text"
-            v-model="shopAct.title"
-            maxlength="20"
-            placeholder="请输入分享标题"
-          >
+          <input class="weui-input" type="text" v-model="shopAct.title" maxlength="20" placeholder="请输入分享标题">
         </div>
       </div>
       <div class="weui-cell">
@@ -30,13 +24,7 @@
           <label class="weui-label">分享描述</label>
         </div>
         <div class="weui-cell__bd">
-          <input
-            class="weui-input"
-            type="text"
-            v-model="shopAct.description"
-            maxlength="50"
-            placeholder="请输入分享描述"
-          >
+          <input class="weui-input" type="text" v-model="shopAct.description" maxlength="50" placeholder="请输入分享描述">
         </div>
       </div>
       <div class="weui-cell">
@@ -72,28 +60,28 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import weui from "weui.js";
-import { tryFunc, openAlert } from "../../common/js/common";
+import axios from '../../common/js/axios';
+import weui from 'weui.js';
+import { tryFunc, openAlert } from '../../common/js/common';
 
 export default {
   data() {
     return {
       showApp: false,
       shopAct: {
-        title: "",
-        description: "",
-        startTime: "",
-        endTime: "",
-        price: ""
+        title: '',
+        description: '',
+        startTime: '',
+        endTime: '',
+        price: ''
       }
     };
   },
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
-      const userId = localStorage.getItem("userId");
-      const { data } = await axios.get("/user/shopAct?userId=" + userId);
+      const userId = localStorage.getItem('userId');
+      const { data } = await axios.get('/user/shopAct?userId=' + userId);
       if (data) {
         this.shopAct = data;
       }
@@ -102,41 +90,41 @@ export default {
   methods: {
     handleSave() {
       if (!this.shopAct.startTime) {
-        openAlert("请选择活动开始时间");
+        openAlert('请选择活动开始时间');
         return;
       }
       if (!this.shopAct.endTime) {
-        openAlert("请选择活动结束时间");
+        openAlert('请选择活动结束时间');
         return;
       }
       if (!this.shopAct.title) {
-        openAlert("请输入分享活动标题");
+        openAlert('请输入分享活动标题');
         return;
       }
       if (!this.shopAct.description) {
-        openAlert("请输入分享活动描述");
+        openAlert('请输入分享活动描述');
         return;
       }
       if (!this.shopAct.price) {
-        openAlert("请输入活动优惠价格");
+        openAlert('请输入活动优惠价格');
         return;
       }
       var startTime = new Date(this.shopAct.startTime);
       var endTime = new Date(this.shopAct.endTime);
       if (startTime.getTime() > endTime.getTime()) {
-        openAlert("结束时间不能小于开始时间");
+        openAlert('结束时间不能小于开始时间');
         return;
       }
       tryFunc(async () => {
-        await axios.post("/user/shopAct", {
+        await axios.post('/user/shopAct', {
           ...this.shopAct
         });
         weui.dialog({
-          content: "保存成功",
+          content: '保存成功',
           buttons: [
             {
-              label: "确定",
-              type: "primary"
+              label: '确定',
+              type: 'primary'
             }
           ]
         });
