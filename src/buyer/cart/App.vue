@@ -10,7 +10,7 @@
                 <i class="weui-icon-checked"></i>
               </label>
               <a :href="`/product.html?productId=${product.id}`">
-                <img class="weui-media-box__thumb" :src="product.imgUrl">
+                <img class="weui-media-box__thumb" :src="product.imgUrl.split(',')[0]">
               </a>
             </div>
             <div class="weui-media-box__bd">
