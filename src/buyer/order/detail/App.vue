@@ -2,7 +2,6 @@
   <div v-if="showApp && order">
     <weui-cells>
       <weui-cell-access label="购买店铺：" empty-foot :href="`/shop.html?userId=${order.shopId}`">{{order.shopName}}</weui-cell-access>
-      <weui-cell label="手机号：">{{order.phone}}</weui-cell>
     </weui-cells>
     <weui-cells-title>收货地址：</weui-cells-title>
     <weui-cells>
@@ -39,6 +38,14 @@
             <span>优惠券抵扣：</span>
             <span class="price" v-if="order.coupon>0">-{{order.coupon}}元</span>
             <span class="price" v-else>0元</span>
+          </div>
+        </div>
+      </template>
+      <template slot="foot">
+        <div class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">
+            <span>联系人：</span>
+            <span>{{order.name}}</span>
           </div>
         </div>
       </template>

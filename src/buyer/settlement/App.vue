@@ -1,22 +1,28 @@
 <template>
   <div>
-    <weui-cells-title>请选择省市区：</weui-cells-title>
+    <weui-cells-title>收货信息</weui-cells-title>
     <weui-cells>
+      <weui-cell label="姓名">
+        <input v-model="name" class="weui-input" type="text" placeholder="请输入您的姓名">
+      </weui-cell>
+      <weui-cell label="手机号">
+        <input v-model="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号">
+      </weui-cell>
       <weui-cell-select label="省份">
         <select class="weui-select" v-model="selectedProvince" @change="handleProvinceChange">
-          <option value="">请选择省份</option>
+          <option value>请选择省份</option>
           <option :value="item.code" v-for="item in provinces" :key="item.code">{{item.name}}</option>
         </select>
       </weui-cell-select>
       <weui-cell-select label="城市">
         <select class="weui-select" v-model="selectedCity" @change="handleCityChange">
-          <option value="">请选择城市</option>
+          <option value>请选择城市</option>
           <option :value="item.code" v-for="item in cities" :key="item.code">{{item.name}}</option>
         </select>
       </weui-cell-select>
       <weui-cell-select label="区县">
         <select class="weui-select" v-model="selectedCounty">
-          <option value="">请选择区县</option>
+          <option value>请选择区县</option>
           <option :value="item.code" v-for="item in counties" :key="item.code">{{item.name}}</option>
         </select>
       </weui-cell-select>
@@ -74,14 +80,11 @@
     <weui-cells>
       <weui-cell-select label="优惠券">
         <select class="weui-select" :disabled="coupons.length === 0" v-model="selectCoupon">
-          <option value="" v-if="coupons.length === 0">暂无可以用优惠券</option>
-          <option value="" v-else>请选择优惠券</option>
+          <option value v-if="coupons.length === 0">暂无可以用优惠券</option>
+          <option value v-else>请选择优惠券</option>
           <option :value="item.id" v-for="item in coupons" :key="item.id">{{item.price}}元</option>
         </select>
       </weui-cell-select>
-      <weui-cell label="手机号">
-        <input v-model="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号">
-      </weui-cell>
     </weui-cells>
     <weui-btn-area>
       <weui-btn type="primary" @click="handleSubmit" :disabled="products.length === 0">确认下单</weui-btn>
@@ -155,13 +158,18 @@ export default {
       provinces: [],
       cities: [],
       counties: [],
-      phone: ''
+      phone: '',
+      name: ''
     };
   },
   created() {
     const address = localStorage.getItem('address');
     if (address) {
       this.address = address;
+    }
+    const name = localStorage.getItem('name');
+    if (name) {
+      this.name = name;
     }
     const countyCode = localStorage.getItem('countyCode');
     if (countyCode) {
@@ -275,6 +283,10 @@ export default {
         openAlert('手机号码格式不正确');
         return;
       }
+      if (!this.name) {
+        openAlert('请输入姓名');
+        return;
+      }
       const proviceName = regions.filter(
         item => item.code === this.selectedProvince
       )[0].name;
@@ -287,12 +299,15 @@ export default {
       tryFunc(async () => {
         localStorage.setItem('address', this.address);
         localStorage.setItem('countyCode', this.selectedCounty);
+        localStorage.setItem('phone', this.phone);
+        localStorage.setItem('name', this.name);
         await axios.post('/buyer/order/', {
           price: this.total - this.couponPrice,
           coupon: this.couponPrice,
           couponId: this.selectCoupon,
           address: proviceName + cityName + countyName + this.address,
           phone: this.phone,
+          name: this.name,
           orderItemDtoList: this.products.map(item => {
             return {
               itemId: item.id,

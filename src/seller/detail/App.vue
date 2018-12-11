@@ -12,6 +12,7 @@
       </weui-cell>
       <weui-cell label="创建时间">{{order.createTime | time}}</weui-cell>
       <weui-cell label="收货地址">{{order.address}}</weui-cell>
+      <weui-cell label="联系人">{{order.name}}</weui-cell>
       <weui-cell label="联系方式">{{order.phone}}</weui-cell>
       <weui-cell label="购买商品">
         <span v-for="(item,i) in order.buyerOrderItemList" :key="i">

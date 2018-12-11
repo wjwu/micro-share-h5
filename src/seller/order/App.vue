@@ -33,7 +33,7 @@
               <p class="weui-media-box__desc">{{item.createTime | time}} | {{item.status | status}}</p>
             </div>
             <div class="weui-media-box__fd">
-              <a v-if="item.status === 'UN_USE'" class="weui-btn weui-btn_mini weui-btn_default" @click="handleScore(item.id)">计入积分</a>z
+              <a v-if="item.status === 'UN_USE'" class="weui-btn weui-btn_mini weui-btn_default" @click="handleScore(item.id)">计入积分</a>
               <a :href="`/seller/detail.html?orderId=${item.id}`" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
             </div>
           </div>
