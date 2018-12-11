@@ -30,7 +30,7 @@
     </div>
     <div class="buy-wrap">
       <div class="cart" @click="handleAddCart">加入购物车</div>
-      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId}`">立即购买</a>
+      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},1&imm=true`">立即购买</a>
     </div>
   </cust-bar>
 </template>

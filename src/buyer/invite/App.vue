@@ -13,12 +13,7 @@
       <span style="color:red;font-weight:900;">{{select}}</span>）
     </div>
     <div class="weui-cells">
-      <a
-        class="weui-cell weui-cell_access"
-        @click="handleClick(item.shopName, item)"
-        v-for="item in inviteShop"
-        :key="item.id"
-      >
+      <a class="weui-cell weui-cell_access" @click="handleClick(item.shopName, item)" v-for="item in inviteShop" :key="item.id">
         <div class="weui-cell__hd">
           <img :src="item.shopImg" alt style="width:3rem;margin-right:5px;display:block">
         </div>
@@ -38,13 +33,13 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import format from "date-fns/format";
+import axios from '../../common/js/axios';
+import format from 'date-fns/format';
 // import { auth } from '../../common/js/auth';
-import { tryFunc, openAlert } from "../../common/js/common";
-import { WeuiCells, WeuiCell, WeuiCellsTitle } from "../../common/components";
-import wxApi from "../../common/js/wxApi";
-import config from "../../common/js/config";
+import { tryFunc, openAlert } from '../../common/js/common';
+import { WeuiCells, WeuiCell, WeuiCellsTitle } from '../../common/components';
+import wxApi from '../../common/js/wxApi';
+import config from '../../common/js/config';
 
 export default {
   components: {
@@ -57,24 +52,24 @@ export default {
       showApp: false,
       inviteShop: [],
       selectShop: null,
-      select: "暂未选择店铺"
+      select: '暂未选择店铺'
     };
   },
   mounted() {
     tryFunc(async () => {
-      //await auth();
+      // await auth();
       this.showApp = true;
-      const { data } = await axios.get("/buyer/invite");
+      const { data } = await axios.get('/buyer/invite');
       this.inviteShop = data;
 
       let title, desc, link, imgUrl;
       if (this.selectShop === null) {
-        title = "商伴部落";
-        desc = "开启找寻社区商伴，抱团联合经营之旅";
+        title = '商伴部落';
+        desc = '开启找寻社区商伴，抱团联合经营之旅';
         link = config.webHost;
-        imgUrl = "http://static.fangzhoubuluo.com/logo.png";
+        imgUrl = 'http://static.fangzhoubuluo.com/logo.png';
       } else {
-        let inviterId = localStorage.getItem("userId");
+        let inviterId = localStorage.getItem('userId');
         title = this.selectShop.title;
         desc = this.selectShop.description;
         imgUrl = this.selectShop.shopImg;
@@ -83,7 +78,7 @@ export default {
           `/shop.html?userId=${this.selectShop.shopId}&inviterId=${inviterId}`;
       }
 
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: title,
@@ -93,7 +88,7 @@ export default {
         },
         function(res) {
           if (this.selectShop === null) {
-            openAlert("分享成功但未选择店铺");
+            openAlert('分享成功但未选择店铺');
           }
         }
       );
@@ -106,7 +101,7 @@ export default {
         },
         function(res) {
           if (this.selectShop === null) {
-            openAlert("分享成功但未选择店铺");
+            openAlert('分享成功但未选择店铺');
           }
         }
       );
@@ -120,7 +115,7 @@ export default {
   },
   filters: {
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };

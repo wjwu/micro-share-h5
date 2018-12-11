@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <nav-head></nav-head>
     <section class="page-two">
       <div class="banner"></div>
       <div class="content">
@@ -105,8 +106,12 @@
 
 <script>
 import '../common/js/share';
+import NavHead from '../common/components/NavHead';
 
 export default {
+  components: {
+    NavHead
+  },
   methods: {
     handleJump(url) {
       window.location.href = url;
@@ -118,6 +123,9 @@ export default {
 <style lang="scss">
 body {
   background-color: #fff;
+}
+.main {
+  padding-top: 50px;
 }
 .page-two {
   padding-bottom: 2.1875rem;
@@ -131,10 +139,10 @@ body {
     background: url('./assets/images/banner-a@2x.png') no-repeat 0% / cover;
   }
 
-  .tip{
-    padding:0 0.9375rem 2.1875rem 0.9375rem;
-    font-size: .75rem;
-    color: #F65161;
+  .tip {
+    padding: 0 0.9375rem 2.1875rem 0.9375rem;
+    font-size: 0.75rem;
+    color: #f65161;
   }
 }
 

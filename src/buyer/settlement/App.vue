@@ -112,14 +112,6 @@ import {
 import regions from '../../common/js/regions';
 import '../../common/js/share.js';
 
-const visitShopUserId = localStorage.getItem('visitShopUserId');
-const cartKey = `cart_${visitShopUserId}`;
-let cart = [];
-const strCart = localStorage.getItem(cartKey);
-if (strCart) {
-  cart = JSON.parse(strCart);
-}
-
 export default {
   components: {
     WeuiPanel,
@@ -152,7 +144,7 @@ export default {
   data() {
     return {
       showApp: false,
-      productIds: getQueryString('productIds'),
+      isImm: !!getQueryString('imm'),
       products: [],
       coupons: [],
       selectCoupon: '',
@@ -177,15 +169,30 @@ export default {
     } else {
       this.provinces = regions.filter(item => item.code.endsWith('0000'));
     }
+
+    const phone = localStorage.getItem('phone');
+    if (phone) {
+      this.phone = phone;
+    }
+
+    this.products = getQueryString('productIds')
+      .split(';')
+      .map(item => {
+        return {
+          id: item.split(',')[0],
+          count: item.split(',')[1]
+        };
+      });
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      let response = await axios.get(`/item/findByIds?ids=${this.productIds}`);
+      const ids = this.products.map(item => item.id).join(',');
+      let response = await axios.get(`/item/findByIds?ids=${ids}`);
       for (let product of response.data) {
-        for (let { count, productId } of cart) {
-          if (productId.toString() === product.id.toString()) {
+        for (let { count, id } of this.products) {
+          if (id.toString() === product.id.toString()) {
             product.count = count;
           }
         }
@@ -293,14 +300,24 @@ export default {
             };
           })
         });
-        const productIds = this.productIds.split(',');
-        let tmp = [];
-        for (let item of cart) {
-          if (!productIds.includes(item.productId.toString())) {
-            tmp.push(item);
+        if (!this.isImm) {
+          const visitShopUserId = localStorage.getItem('visitShopUserId');
+          const cartKey = `cart_${visitShopUserId}`;
+          const strCart = localStorage.getItem(cartKey);
+          let cart = [];
+          if (strCart) {
+            cart = JSON.parse(strCart);
           }
+          const productIds = this.products.map(item => item.id.toString());
+          let tmp = [];
+          for (let item of cart) {
+            if (!productIds.includes(item.productId.toString())) {
+              tmp.push(item);
+            }
+          }
+
+          localStorage.setItem(cartKey, JSON.stringify(tmp));
         }
-        localStorage.setItem(cartKey, JSON.stringify(tmp));
         setTimeout(() => {
           window.location.href = './success.html';
         });

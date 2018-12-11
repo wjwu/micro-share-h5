@@ -39,13 +39,13 @@
         <div class="swiper-pagination"></div>
       </div>
       <div class="shop">
-        <img src="./assets/images/bj-2@2x.png"/>
+        <img src="./assets/images/bj-2@2x.png" />
         <p class="title">云网店</p>
         <p class="desc">这是一套私人“社交网店”工具，集商城/社交/引流/社群管理与互联共享一体，易操作/自动化/价格低廉。</p>
         <p class="sub-desc">假如您没有公众号/小程序/服务器/运维人员等资源，她应该非常适合您。您只需要会简单粘贴照片即可......</p>
       </div>
       <div class="partner">
-        <img src="./assets/images/bg-1@2x.png"/>
+        <img src="./assets/images/bg-1@2x.png" />
         <p class="title">找商伴</p>
         <p class="desc">这是一座“桥梁”，只要您乐于分享，您就有机会收获更多的伙伴和客户，获得更多收益。</p>
         <p class="sub-desc">严审核/高质量/严信用/倡诚信/分行业/详地域,总能找到您合适的商伴......</p>
@@ -149,6 +149,7 @@ export default {
 body {
   background-color: #fff;
 }
+
 .page-one {
   position: relative;
   .banner {
@@ -188,12 +189,12 @@ body {
       padding-right: 0.9375rem;
       border-bottom: 1px solid #ccc;
 
-      &:last-of-type{
+      &:last-of-type {
         flex-direction: row-reverse;
         border-bottom: none;
-        font-size: .8rem;
+        font-size: 0.8rem;
 
-        &::before{
+        &::before {
           display: none;
         }
       }
@@ -267,43 +268,43 @@ body {
   .partner {
     padding: 0.9375rem 0.9375rem 0 0.9375rem;
 
-    img{
+    img {
       display: block;
       margin: 0 auto;
       width: 4rem;
       height: 4rem;
     }
 
-    .title{
-      margin-top: .625rem;
+    .title {
+      margin-top: 0.625rem;
       font-size: 1.125rem;
       color: #333;
       text-align: center;
     }
 
-    .desc{
+    .desc {
       margin-top: 1.0625rem;
       font-size: 1rem;
       color: #333;
       text-align: center;
     }
 
-    .sub-desc{
+    .sub-desc {
       margin-top: 1.25rem;
-      font-size: .875rem;
+      font-size: 0.875rem;
       color: #666;
       text-align: center;
     }
   }
 }
 
-.shop{
+.shop {
   padding-bottom: 2.5rem !important;
 }
 
-.partner{
+.partner {
   padding-bottom: 3rem !important;
-  background-color: #F5FAFD;
+  background-color: #f5fafd;
 }
 
 .page-four {

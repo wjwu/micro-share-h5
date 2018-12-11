@@ -3,7 +3,7 @@
     <div class="products">
       <weui-panel>
         <div v-if="products.length > 0">
-          <div v-for="(product,idx) in products" :key="product.id" class="weui-media-box weui-media-box_appmsg">
+          <div v-for="(product) in products" :key="product.id" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
               <label class="select" :for="product.id">
                 <input type="checkbox" class="weui-check" :id="product.id" v-model="product.checked">
@@ -21,7 +21,7 @@
                 <div class="price">￥{{product.sellPrice}}</div>
                 <div>
                   <span class="count">&times;&nbsp;{{product.count}}</span>
-                  <span class="del" @click="handleDelete(idx)">删除</span>
+                  <span class="del" @click="handleDelete(product.id)">删除</span>
                 </div>
               </div>
             </div>
@@ -64,6 +64,11 @@ import '../../common/js/share.js';
 
 const visitShopUserId = localStorage.getItem('visitShopUserId');
 const cartKey = `cart_${visitShopUserId}`;
+const strCart = localStorage.getItem(cartKey);
+let cart = [];
+if (strCart) {
+  cart = JSON.parse(strCart);
+}
 
 export default {
   components: {
@@ -87,27 +92,20 @@ export default {
   data() {
     return {
       showApp: false,
-      cart: [],
       products: [],
       checkedAll: true
     };
-  },
-  created() {
-    const strCart = localStorage.getItem(cartKey);
-    if (strCart) {
-      this.cart = JSON.parse(strCart);
-    }
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      if (this.cart.length > 0) {
-        const ids = this.cart.map(item => item.productId).join(',');
+      if (cart.length > 0) {
+        const ids = cart.map(item => item.productId).join(',');
         const { data } = await axios.get(`/item/findByIds?ids=${ids}`);
         for (let product of data) {
           product.checked = true;
-          for (let { count, productId } of this.cart) {
+          for (let { count, productId } of cart) {
             if (productId.toString() === product.id.toString()) {
               product.count = count;
             }
@@ -118,10 +116,13 @@ export default {
     });
   },
   methods: {
-    handleDelete(idx) {
+    handleDelete(id) {
       openConfirm('您确定要删除该商品？', () => {
-        this.cart = this.cart.splice(idx, 1);
-        localStorage.setItem(cartKey, JSON.stringify(this.cart));
+        cart = cart.filter(item => item.productId.toString() !== id.toString());
+        this.products = this.products.filter(
+          item => item.id.toString() !== id.toString()
+        );
+        localStorage.setItem(cartKey, JSON.stringify(cart));
       });
     },
     handleAllChange(e) {
@@ -132,11 +133,9 @@ export default {
     handleSettlement() {
       const checkedProducts = this.products
         .filter(item => item.checked)
-        .map(item => item.id);
+        .map(item => `${item.id},${item.count}`);
       if (checkedProducts.length > 0) {
-        window.location.href = `/buyer/settlement.html?productIds=${checkedProducts.join(
-          ','
-        )}`;
+        window.location.href = `/buyer/settlement.html?productIds=${checkedProducts.join(';')}`;
       } else {
         openAlert('请先选择要结算的商品');
       }
