@@ -22,8 +22,8 @@
       </div>
     </div>
     <weui-btn-area>
-      <weui-btn v-if="canApply" type="primary" href="/circle/submmit.html">申请圈主</weui-btn>
-      <weui-btn v-if="!canApply" type="primary">邀请进展</weui-btn>
+      <weui-btn v-if="canApply" type="primary" href="/circle/submit.html">申请圈主</weui-btn>
+      <weui-btn v-if="!canApply" type="primary" :href="`/circle/detail.html?id=${circleId}`">邀请进展</weui-btn>
       <weui-btn v-if="!canApply" type="primary" @click="handleShareClick">去分享</weui-btn>
     </weui-btn-area>
   </div>
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     handleShareClick() {
-      // `/circle/share.html?circleId=${circleId}&userName=${userName}`
+      window.location.href = `/circle/share.html?circleId=${this.circleId}&userName=${this.userName}`;
     }
   }
 };

@@ -42,7 +42,7 @@
             </div>
           </li>
         </ul>
-        <a href="/buy.html">去买网店</a>
+        <a href="/buy2.html">去买网店</a>
       </div>
     </section>
     <div class="line"></div>
@@ -90,7 +90,7 @@
         <div class="tip">
           高压线：如发现有人在未征得您同意情况下，主动拉您客户。请您立即保存证据，断开商伴链接，提交证据给我们，部落会将他放入诚信黑名单!
         </div>
-        <a href="/buy2.html">去找商伴</a>
+        <a href="/buy.html">去找商伴</a>
       </div>
     </section>
     <section class="page-four">
