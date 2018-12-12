@@ -23,8 +23,9 @@
     </div>
     <weui-btn-area>
       <weui-btn v-if="canApply" type="primary" href="/circle/submit.html">申请圈主</weui-btn>
-      <weui-btn v-if="!canApply" type="primary" :href="`/circle/detail.html?id=${circleId}`">邀请进展</weui-btn>
-      <weui-btn v-if="!canApply" type="primary" @click="handleShareClick">去分享</weui-btn>
+      <weui-btn v-if="!canApply && status != 'FAILED' && status != 'COMMIT'" type="primary" :href="`/circle/detail.html?id=${circleId}`">邀请进展</weui-btn>
+      <weui-btn v-if="!canApply && status != 'FAILED' && status != 'COMMIT'" type="primary" @click="handleShareClick">去分享</weui-btn>
+      <weui-btn v-if="!canApply && status === 'COMMIT'" type="primary">圈子正在审核中</weui-btn>
     </weui-btn-area>
   </div>
 </template>
@@ -46,6 +47,7 @@ export default {
       showApp: false,
       canApply: true,
       circleId: '',
+      status: '',
       userName: window.encodeURIComponent(localStorage.getItem('userName'))
     };
   },
@@ -53,9 +55,11 @@ export default {
     tryFunc(async () => {
       await auth();
       const { data } = await axios.get('/circle/owner');
+      console.log(data);
       if (data) {
         this.canApply = false;
-        this.circleId = data;
+        this.circleId = data.id;
+        this.status = data.status;
       }
       this.showApp = true;
     });
