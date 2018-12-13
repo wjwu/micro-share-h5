@@ -7,7 +7,7 @@
         <ul>
           <li>
             <div class="top">
-              <img src="./assets/images/product@2x.png" />
+              <img src="./assets/images/product@2x.png" @click="handleJump('')" />
               <p>品牌宣传销售</p>
             </div>
             <div class="bottom img-a">
@@ -16,7 +16,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/drainage@2x.png" />
+              <img src="./assets/images/drainage@2x.png" @click="handleJump('')" />
               <p>引流互联共享</p>
             </div>
             <div class="bottom img-b">
@@ -42,7 +42,7 @@
             </div>
           </li>
         </ul>
-        <a href="/buy2.html">去买网店</a>
+        <a href="/buy2.html">体验货架</a>
       </div>
     </section>
     <div class="line"></div>
@@ -233,7 +233,7 @@ body {
       height: 3.0625rem;
       line-height: 3.0625rem;
       background-color: #f2933e;
-      font-size: 1rem;
+      font-size: 1.6rem;
       color: #fff;
       text-align: center;
     }

@@ -1,8 +1,8 @@
 <template>
   <ul class="nav-head">
-    <li><a href="/job.html">招揽英才</a></li>
-    <li><a href="/contact.html">联系我们</a></li>
-    <li><a href="/about.html">关于我们</a></li>
+    <li><a href="/job.html">关于我们</a></li>
+    <li><a href="/contact.html">商伴专属</a></li>
+    <li><a href="/about.html">货架专属</a></li>
   </ul>
 </template>
 
@@ -17,8 +17,8 @@ export default {};
   top: 0;
   height: 50px;
   width: 100%;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ccc;
+  background-color: red;
+  // border-bottom: 1px solid #ccc;
   li {
     padding: 0 0.6rem;
     float: right;
@@ -39,12 +39,12 @@ export default {};
       content: '';
       width: 1px;
       height: 17px;
-      color: #ccc;
-      background-color: #ccc;
+      color: #fff;
+      background-color: #fff;
     }
 
     a {
-      color: #333;
+      color: #fff;
     }
   }
 }

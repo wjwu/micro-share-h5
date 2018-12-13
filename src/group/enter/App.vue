@@ -1,52 +1,12 @@
 <template>
   <bar v-if="showApp" :active-index="2">
+    <a href="/match.html" class="help">
+      <img src="./assets/images/help.png">
+    </a>
     <div class="page__hd top">
-      <div class="top-info">
-        <a href="/match.html" class="help">
-          <img src="./assets/images/help.png">
-        </a>
-      </div>
       <h1 class="page__title">我的商伴</h1>
       <p class="page__desc">提交群请允许获取地理位置以便更好的匹配到附近的商伴<br />建议您关注并置顶公众号，以方便您即时收取与处理相关进展</p>
     </div>
-    <!-- <div class="weui-grids content">
-      <a href="/group/submit.html" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/circle.png" alt="">
-        </div>
-        <p class="weui-grid__label">提交群</p>
-      </a>
-      <a href="/group/audits.html" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/list.png" alt="">
-        </div>
-        <p class="weui-grid__label">审核进展</p>
-      </a>
-      <a href="/order/list/all.html" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/match.png" alt="">
-        </div>
-        <p class="weui-grid__label">匹配进展</p>
-      </a>
-      <a href="/order/list/evaluate.html" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/comment.png" alt="">
-        </div>
-        <p class="weui-grid__label">商伴评价</p>
-      </a>
-      <a href="/partner/list.html" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/manage.png" alt="">
-        </div>
-        <p class="weui-grid__label">商伴管理</p>
-      </a>
-      <a href="javascript:;" class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="./assets/images/more.png" alt="">
-        </div>
-        <p class="weui-grid__label">更多功能</p>
-      </a>
-    </div> -->
     <weui-cells>
       <weui-cell-access empty-body empty-foot href="/group/submit.html">
         <template slot="head">
@@ -145,9 +105,12 @@ export default {
 <style lang="scss">
 .top {
   position: relative;
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #06b04f;
   color: white;
+  h1{
+    line-height: 1.3rem;
+  }
 }
 
 .top-info {
@@ -165,9 +128,13 @@ export default {
 }
 
 .help {
+  z-index: 9;
+  position: absolute;
+  top:1rem;
+  right: 1rem;
   img {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
 

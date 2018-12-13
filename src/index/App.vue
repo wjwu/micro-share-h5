@@ -14,7 +14,12 @@
             <a href="/notice/list.html">历史公告</a>
           </li>
         </ul>
-        <button @click="handleJump('/manager.html')">进入部落</button>
+        <!-- <button @click="handleJump('/manager.html')">登录部落</button> -->
+        <div class="round">
+          <div class="circle" @click="handleJump('/manager.html')">登录部落</div>
+          <div class="circle_bottom animation"></div>
+          <div class="circle_bottom2 animation2"></div>
+        </div>
       </div>
     </section>
     <section class="page-two">
@@ -39,16 +44,16 @@
         <div class="swiper-pagination"></div>
       </div>
       <div class="shop">
-        <img src="./assets/images/bj-2@2x.png" />
-        <p class="title">云网店</p>
-        <p class="desc">这是一套私人“社交网店”工具，集商城/社交/引流/社群管理与互联共享一体，易操作/自动化/价格低廉。</p>
-        <p class="sub-desc">假如您没有公众号/小程序/服务器/运维人员等资源，她应该非常适合您。您只需要会简单粘贴照片即可......</p>
+        <img src="./assets/images/bj-2@2x.png" @click="handleJump('/manager.html')" />
+        <p class="title">好货架</p>
+        <p class="desc">这是一套私人“社交智能货架”工具，集商城/社交/引流/社群管理与互联共享一体，易操作/自动化/价格低廉。</p>
+        <p class="sub-desc">假如您没有公众号/小程序，她应该非常适合您，您只需要会简单粘贴照片即可......</p>
       </div>
       <div class="partner">
-        <img src="./assets/images/bg-1@2x.png" />
+        <img src="./assets/images/bg-1@2x.png" @click="handleJump('/manager.html')" />
         <p class="title">找商伴</p>
         <p class="desc">这是一座“桥梁”，只要您乐于分享，您就有机会收获更多的伙伴和客户，获得更多收益。</p>
-        <p class="sub-desc">严审核/高质量/严信用/倡诚信/分行业/详地域,总能找到您合适的商伴......</p>
+        <p class="sub-desc">组圈子/严审核/高质量/分行业，总能找到您合适的商伴......</p>
       </div>
     </section>
     <section class="page-four">
@@ -96,7 +101,7 @@ export default {
       const swiper = new window.Swiper('.swiper-container', {
         direction: 'horizontal',
         autoplay: {
-          delay: 2000
+          delay: 6000
         },
         speed: 1000,
         loop: true,
@@ -154,14 +159,15 @@ body {
   position: relative;
   .banner {
     width: 100%;
-    height: 13.4375rem;
+    // height: 13.4375rem;
+    height: 10.625rem;
     background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 0.5rem /
-        8.625rem 3rem,
+        6.875rem 2.375rem,
       url('./assets/images/banner-a@2x.png') no-repeat 50% / cover;
   }
   .menu {
-    width: 2.125rem;
-    height: 1.625rem;
+    width: 1.6875rem;
+    height: 1.25rem;
     position: absolute;
     right: 1.375rem;
     top: 1.3125rem;
@@ -230,16 +236,86 @@ body {
 
     button {
       display: block;
-      margin: 1.625rem auto 2.125rem;
+      margin: 0.2rem auto 1.625rem;
       width: 15rem;
       height: 3.4375rem;
       color: #fff;
-      font-size: 1.125rem;
+      font-size: 1.6rem;
       font-weight: bold;
       background-color: #eb8b35;
       outline: none;
       border: none;
       border-radius: 10px;
+    }
+
+    .round {
+      position: relative;
+      padding: 13px 0;
+      // left: 0px;
+      // top: 79px;
+    }
+
+    .circle {
+      background: #eb8b35;
+      border-radius: 10px;
+      width: 15rem;
+      height: 3.4375rem;
+      line-height: 3.4375rem;
+      z-index: 999;
+      text-align: center;
+      top: 18px;
+      left: calc(50% - 7.5rem);
+      position: absolute;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .circle_bottom {
+      background: rgba(235, 139, 53, 0.4);
+      border-radius: 10px;
+      width: 15rem;
+      height: 3.4375rem;
+      filter: alpha(opacity=40);
+      z-index: -100;
+      position: absolute;
+      top: 18px;
+      left: calc(50% - 7.5rem);
+    }
+    .circle_bottom2 {
+      background: rgba(235, 139, 53, 0.2);
+      border-radius: 10px;
+      width: 15.625rem;
+      height: 4.0625rem;
+      filter: alpha(opacity=20);
+      z-index: -110;
+      position: relative;
+      left: calc(50% - 7.8125rem);
+    }
+
+    .animation {
+      animation: twinkling 2.1s infinite ease-in-out;
+      animation-fill-mode: both;
+    }
+    .animation2 {
+      animation: twinkling 2.1s infinite ease-in-out;
+      animation-fill-mode: both;
+    }
+    @keyframes twinkling {
+      0% {
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        transform: scale(1.05, 1.14);
+      }
+      100% {
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+        transform: scale(1);
+      }
     }
   }
 }

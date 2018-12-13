@@ -15,12 +15,11 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
-import { WeuiBtnArea, WeuiBtn } from "../../common/components";
-import { tryFunc, getQueryString, openAlert } from "../../common/js/common";
-import wxApi from "../../common/js/wxApi";
-import config from "../../common/js/config";
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { WeuiBtnArea, WeuiBtn } from '../../common/components';
+import { tryFunc, getQueryString, openAlert } from '../../common/js/common';
+import wxApi from '../../common/js/wxApi';
 
 export default {
   components: {
@@ -30,10 +29,10 @@ export default {
   data() {
     return {
       showApp: false,
-      circleId: getQueryString("circleId"),
-      userName: getQueryString("userName"),
-      circleName: "",
-      mineUserName: localStorage.getItem("userName")
+      circleId: getQueryString('circleId'),
+      userName: getQueryString('userName'),
+      circleName: '',
+      mineUserName: localStorage.getItem('userName')
     };
   },
   mounted() {
@@ -44,10 +43,11 @@ export default {
       this.showApp = true;
 
       let title = `您的好友${this.userName}邀请您组件圈子`;
-      let desc = `联合抱团经营。加入圈子，您将有机会免费获得手掌柜智能社交商城工具`;
+      let desc =
+        '联合抱团经营。加入圈子，您将有机会免费获得手掌柜智能社交商城工具';
       let link = location.href;
       let imgUrl = 'http://static.fangzhoubuluo.com/logo.png';
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: title,
@@ -55,8 +55,7 @@ export default {
           link: link,
           imgUrl: imgUrl
         },
-        function(res) {
-        }
+        function(res) {}
       );
       window.wx.onMenuShareTimeline(
         {
@@ -67,7 +66,7 @@ export default {
         },
         function(res) {
           if (this.selectShop === null) {
-            openAlert("分享成功但未选择店铺");
+            openAlert('分享成功但未选择店铺');
           }
         }
       );
@@ -77,7 +76,7 @@ export default {
     handleJoinClick() {
       tryFunc(async () => {
         await axios.post(`/circle/${this.circleId}/addMember`);
-        openAlert("加入成功", () => {
+        openAlert('加入成功', () => {
           window.location.href = `/circle/detail.html?id=${this.circleId}`;
         });
       });
