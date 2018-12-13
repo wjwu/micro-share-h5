@@ -109,7 +109,7 @@ export default {
   background-color: #06b04f;
   color: white;
   h1{
-    line-height: 1.3rem;
+    line-height: 1.3;
   }
 }
 
