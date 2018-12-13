@@ -118,7 +118,7 @@
           </div>
         </template>
       </weui-cell-access>
-      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/item/shelves.html')">
+      <weui-cell-access empty-body empty-foot @click="handleJumpShopper('/shelves.html')">
         <template slot="head">
           <div class="head">
             <img src="./assets/images/shop.png">
