@@ -90,7 +90,7 @@ export default {
     });
   },
   methods: {
-    handleAccount(id){
+    handleAccount(id) {
       tryFunc(async () => {
         await axios
           .post(`/buyer/order/${id}/account`)
