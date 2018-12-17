@@ -34,7 +34,7 @@
                 <h3>{{product.name}}</h3>
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
-                  <span>￥{{product.sellPrice}}元</span>
+                  <span>￥{{product.sellPrice}}元 / {{product.spec}}</span>
                   <small>{{product.stock}}可售</small>
                 </p>
               </a>
@@ -52,7 +52,7 @@
                 <h3>{{product.name}}</h3>
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
-                  <span>￥{{product.sellPrice}}元</span>
+                  <span>￥{{product.sellPrice}}元 / {{product.spec}}</span>
                   <small>{{product.stock}}可售</small>
                 </p>
               </a>
@@ -70,7 +70,7 @@
                 <h3>{{product.name}}</h3>
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
-                  <span>￥{{product.sellPrice}}元</span>
+                  <span>￥{{product.sellPrice}}元 / {{product.spec}}</span>
                   <small>{{product.stock}}可售</small>
                 </p>
               </a>
