@@ -14,7 +14,6 @@
             <a href="/notice/list.html">历史公告</a>
           </li>
         </ul>
-        <!-- <button @click="handleJump('/manager.html')">登录部落</button> -->
         <div class="round">
           <div class="circle" @click="handleJump('/manager.html')">登录部落</div>
           <div class="circle_bottom animation"></div>
@@ -44,7 +43,7 @@
         <div class="swiper-pagination"></div>
       </div>
       <div class="shop">
-        <img src="./assets/images/bj-2@2x.png" @click="handleJump('/manager.html')" />
+        <img src="./assets/images/t1.png" @click="handleJump('/manager.html')" />
         <p class="title">好货架</p>
         <p class="desc">这是一套私人“社交智能货架”工具，集商城/社交/引流/社群管理与互联共享一体，易操作/自动化/价格低廉。</p>
         <p class="sub-desc">假如您没有公众号/小程序，她应该非常适合您，您只需要会简单粘贴照片即可......</p>
@@ -234,25 +233,9 @@ body {
       }
     }
 
-    button {
-      display: block;
-      margin: 0.2rem auto 1.625rem;
-      width: 15rem;
-      height: 3.4375rem;
-      color: #fff;
-      font-size: 1.6rem;
-      font-weight: bold;
-      background-color: #eb8b35;
-      outline: none;
-      border: none;
-      border-radius: 10px;
-    }
-
     .round {
       position: relative;
       padding: 13px 0;
-      // left: 0px;
-      // top: 79px;
     }
 
     .circle {

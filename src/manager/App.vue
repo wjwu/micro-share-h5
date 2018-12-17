@@ -7,7 +7,7 @@
         <ul>
           <li>
             <div class="top">
-              <img src="./assets/images/product@2x.png" @click="handleJump('')" />
+              <img src="./assets/images/product@2x.png" @click="handleJump('/grow.html')" />
               <p>品牌宣传销售</p>
             </div>
             <div class="bottom img-a">
@@ -16,7 +16,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/drainage@2x.png" @click="handleJump('')" />
+              <img src="./assets/images/drainage@2x.png" @click="handleJump('/grow.html')" />
               <p>引流互联共享</p>
             </div>
             <div class="bottom img-b">
@@ -42,7 +42,11 @@
             </div>
           </li>
         </ul>
-        <a href="/buy2.html">体验货架</a>
+        <div class="round">
+          <div class="circle" @click="handleJump('/buy2.html')">买货架</div>
+          <div class="circle_bottom animation"></div>
+          <div class="circle_bottom2 animation2"></div>
+        </div>
       </div>
     </section>
     <div class="line"></div>
@@ -90,7 +94,11 @@
         <div class="tip">
           高压线：如发现有人在未征得您同意情况下，主动拉您客户。请您立即保存证据，断开商伴链接，提交证据给我们，部落会将他放入诚信黑名单!
         </div>
-        <a href="/buy.html">去找商伴</a>
+        <div class="round">
+          <div class="circle" @click="handleJump('/buy.html')">找商伴</div>
+          <div class="circle_bottom animation"></div>
+          <div class="circle_bottom2 animation2"></div>
+        </div>
       </div>
     </section>
     <section class="page-four">
@@ -128,19 +136,19 @@ body {
   padding-top: 50px;
 }
 .page-two {
-  padding-bottom: 2.1875rem;
+  padding-bottom: 2rem;
   .banner {
     background: url('./assets/images/banner-b.png') no-repeat 50% / cover;
   }
 }
 .page-three {
-  padding-bottom: 3.9375rem;
+  padding-bottom: 3.5rem;
   .banner {
     background: url('./assets/images/banner-a@2x.png') no-repeat 0% / cover;
   }
 
   .tip {
-    padding: 0 0.9375rem 2.1875rem 0.9375rem;
+    padding: 0 0.9375rem 2rem 0.9375rem;
     font-size: 0.75rem;
     color: #f65161;
   }
@@ -163,7 +171,7 @@ body {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      padding: 0.9375rem 0.9375rem 1.5625rem 0.9375rem;
+      padding: 0.9375rem 0.9375rem 1.5rem 0.9375rem;
 
       li {
         flex: 0 0 48%;
@@ -226,16 +234,72 @@ body {
       background: url('./assets/images/img-h@2x.png') no-repeat 50% / cover;
     }
 
-    a {
-      display: block;
-      margin: 0 auto;
-      width: 12.5rem;
-      height: 3.0625rem;
-      line-height: 3.0625rem;
-      background-color: #f2933e;
-      font-size: 1.6rem;
-      color: #fff;
+    .round {
+      position: relative;
+      padding: 13px 0;
+    }
+
+    .circle {
+      background: #eb8b35;
+      border-radius: 10px;
+      width: 15rem;
+      height: 3.4375rem;
+      line-height: 3.4375rem;
+      z-index: 999;
       text-align: center;
+      top: 18px;
+      left: calc(50% - 7.5rem);
+      position: absolute;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .circle_bottom {
+      background: rgba(235, 139, 53, 0.4);
+      border-radius: 10px;
+      width: 15rem;
+      height: 3.4375rem;
+      filter: alpha(opacity=40);
+      z-index: -100;
+      position: absolute;
+      top: 18px;
+      left: calc(50% - 7.5rem);
+    }
+    .circle_bottom2 {
+      background: rgba(235, 139, 53, 0.2);
+      border-radius: 10px;
+      width: 15.625rem;
+      height: 4.0625rem;
+      filter: alpha(opacity=20);
+      z-index: -110;
+      position: relative;
+      left: calc(50% - 7.8125rem);
+    }
+
+    .animation {
+      animation: twinkling 2.1s infinite ease-in-out;
+      animation-fill-mode: both;
+    }
+    .animation2 {
+      animation: twinkling 2.1s infinite ease-in-out;
+      animation-fill-mode: both;
+    }
+    @keyframes twinkling {
+      0% {
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        transform: scale(1.05, 1.14);
+      }
+      100% {
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+        transform: scale(1);
+      }
     }
   }
 }

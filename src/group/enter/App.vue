@@ -105,12 +105,18 @@ export default {
 <style lang="scss">
 .top {
   position: relative;
-  padding: 1.5rem;
+  padding: .8rem 1.2rem;
   background-color: #06b04f;
   color: white;
   h1{
-    line-height: 1.3;
+    font-size: 1.75rem;
+    line-height: 1.2;
   }
+}
+
+.page__desc{
+  font-size: 14px;
+  letter-spacing: 1px;
 }
 
 .top-info {
