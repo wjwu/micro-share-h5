@@ -3,7 +3,7 @@
     <div class="title">
       <h1>邀请加入</h1>
     </div>
-    <div class="desc" v-if="this.userName === this.mineUserName">请分享本页给朋友，本条提示仅圈主可见</div>
+    <div class="desc" v-if="userName === mineUserName">请分享本页给朋友，本条提示仅圈主可见</div>
     <div class="desc">您的好友
       <b style="color:red;">{{userName}}</b>邀请您一起组建
       <b style="color:red;">《{{circleName}}》</b>商伴圈，联合抱团经营。加入圈子，您将有机会免费获得手掌柜智能社交商城工具
@@ -11,6 +11,9 @@
     <weui-btn-area>
       <weui-btn type="primary" @click="handleJoinClick">立即加入</weui-btn>
     </weui-btn-area>
+    <div class="mask" v-if="showMask && userName === mineUserName" @click="showMask=false">
+      <img src="./assets/images/share.png" />
+    </div>
   </div>
 </template>
 
@@ -29,6 +32,7 @@ export default {
   data() {
     return {
       showApp: false,
+      showMask: true,
       circleId: getQueryString('circleId'),
       userName: '',
       circleName: '',
@@ -95,6 +99,20 @@ export default {
   b {
     margin: 0 0.3125rem;
     font-size: 1rem;
+  }
+}
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: right;
+
+  img {
+    width: 90%;
   }
 }
 </style>

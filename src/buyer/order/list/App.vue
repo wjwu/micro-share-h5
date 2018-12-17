@@ -46,10 +46,7 @@ import format from 'date-fns/format';
 import { auth } from '../../../common/js/auth';
 import { tryFunc } from '../../../common/js/common';
 import '../../../common/js/share';
-import {
-  WeuiLoadMoreLine,
-  WeuiCells
-} from '../../../common/components';
+import { WeuiLoadMoreLine, WeuiCells } from '../../../common/components';
 
 export default {
   components: {
@@ -75,16 +72,16 @@ export default {
       return format(val, 'YYYY-MM-DD HH:mm:ss');
     },
     status: val => {
-      if (val === "SUBMIT") {
-        return "提交订单";
-      } else if (val === "RECEIVE") {
-        return "已收钱";
-      } else if (val === "SENDED") {
-        return "已发货";
-      } else if (val === "USED") {
-        return "已核销";
+      if (val === 'SUBMIT') {
+        return '提交订单';
+      } else if (val === 'RECEIVE') {
+        return '已收钱';
+      } else if (val === 'SENDED') {
+        return '已发货';
+      } else if (val === 'USED') {
+        return '已核销';
       } else {
-        return "";
+        return '';
       }
     }
   }
