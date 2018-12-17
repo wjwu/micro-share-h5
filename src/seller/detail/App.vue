@@ -27,6 +27,7 @@
       <weui-btn type="primary" v-if="order && order.status === 'SUBMIT'" @click="handleReceive(order.id)">已收款</weui-btn>
       <weui-btn type="primary" v-if="order && order.status === 'RECEIVE'" @click="handleSended(order.id)">已发货</weui-btn>
       <weui-btn type="primary" v-if="order && order.status === 'SENDED'" @click="handleScore(order.id)">计入积分</weui-btn>
+      <weui-btn type="primary" v-if="order && order.status === 'SENDED' && !order.account" @click="handleAccount(order.id)">计入账簿</weui-btn>
     </weui-btn-area>
     <mask-input :visible.sync="showMask" @ok="handleOk" :value="score" :max="maxScore" title="请输入积分" tip="积分"></mask-input>
   </div>
@@ -89,6 +90,18 @@ export default {
     });
   },
   methods: {
+    handleAccount(id){
+      tryFunc(async () => {
+        await axios
+          .post(`/buyer/order/${id}/account`)
+          .then(function(response) {
+            window.location.reload();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+    },
     handleScore(id) {
       this.showMask = true;
       this.id = id;
