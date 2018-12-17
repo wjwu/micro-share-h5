@@ -16,7 +16,7 @@
       <weui-btn href="/shelves/list.html?type=NORMAL">查看编辑</weui-btn>
     </weui-btn-area>
     <weui-btn-area>
-      <weui-btn type="warn">发布网店</weui-btn>
+      <weui-btn type="warn" @click="handleClick">发布网店</weui-btn>
     </weui-btn-area>
   </div>
 </template>
@@ -89,8 +89,11 @@ export default {
         openAlert(e);
       }
     }
+  },
+  methods: {
+    handleClick() {
+      window.location.href = `/shop.html?userId=${this.userId}`;
+    }
   }
 };
 </script>
-
-

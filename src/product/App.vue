@@ -11,10 +11,10 @@
         <div class="swiper-pagination"></div>
       </div>
       <div class="top_title">
-        <p class="tit_name">商品名称：{{product.name}}</p>
-        <p class="smalltit_name">{{product.description}}</p>
+        <div class="tit_name">商品名称：{{product.name}}</div>
+        <div class="smalltit_name">{{product.description}}</div>
         <div class="tit_money">
-          <span>{{product.type === SPECIAL?'特价':'单价'}} ￥{{product.sellPrice}} </span>
+          <span>{{product.type === SPECIAL?'特价':'单价'}} ￥{{product.sellPrice}} / {{product.spec}}</span>
           <span class="thought_money" v-if="product.type === SPECIAL"> 原价 <span class="del">¥ {{product.originPrice}}</span></span>
           <div class="info">
             <div class="reduce" @click="handleReduce(product)"></div>
@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="buy-wrap">
-      <div class="cart" @click="handleAddCart">加入购物车</div>
-      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},${product.count}&imm=true`">立即购买</a>
+      <div class="cart" @click="handleAddCart">扔进背篓</div>
+      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},1&imm=true`">立即购买</a>
     </div>
   </cust-bar>
 </template>
@@ -79,6 +79,8 @@ export default {
         `/item/${this.productId}/shopInfo`
       );
       this.shopInfo = shopInfo;
+
+      localStorage.setItem('visitShopUserId', shopInfo.userId);
 
       this.$nextTick(() => {
         const swiper = new window.Swiper('.swiper-container', {
