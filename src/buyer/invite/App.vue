@@ -13,12 +13,17 @@
       <span style="color:red;font-weight:900;">{{select}}</span>）
     </div>
     <div class="weui-cells">
-      <a class="weui-cell weui-cell_access" @click="handleClick(item.shopName, item)" v-for="item in inviteShop" :key="item.id">
+      <a
+        class="weui-cell weui-cell_access"
+        @click="handleClick(item.shopName, item)"
+        v-for="item in inviteShop"
+        :key="item.id"
+      >
         <div class="weui-cell__hd">
           <img :src="item.shopImg" alt style="width:3rem;margin-right:5px;display:block">
         </div>
         <div class="weui-cell__bd">
-          <p> {{item.shopName}}</p>
+          <p>{{item.shopName}}</p>
         </div>
         <div class="weui-cell__ft">
           奖励￥{{item.price}}
@@ -30,19 +35,18 @@
       </a>
     </div>
     <div class="mask" v-if="showMask" @click="showMask=false">
-      <img src="./assets/images/share.png" />
+      <img src="./assets/images/share.png">
     </div>
   </div>
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-import format from 'date-fns/format';
-// import { auth } from '../../common/js/auth';
-import { tryFunc, openAlert } from '../../common/js/common';
-import { WeuiCells, WeuiCell, WeuiCellsTitle } from '../../common/components';
-import wxApi from '../../common/js/wxApi';
-import config from '../../common/js/config';
+import axios from "../../common/js/axios";
+import format from "date-fns/format";
+import { tryFunc, openAlert } from "../../common/js/common";
+import { WeuiCells, WeuiCell, WeuiCellsTitle } from "../../common/components";
+import wxApi from "../../common/js/wxApi";
+import config from "../../common/js/config";
 
 export default {
   components: {
@@ -55,72 +59,75 @@ export default {
       showApp: false,
       inviteShop: [],
       selectShop: null,
-      select: '暂未选择店铺',
-      showMask: false
+      select: "暂未选择店铺",
+      showMask: false,
+      title: "商伴部落",
+      desc: "开启找寻社区商伴，抱团联合经营之旅",
+      link: config.webHost,
+      imgUrl: "http://static.fangzhoubuluo.com/logo.png"
     };
   },
   mounted() {
     tryFunc(async () => {
-      // await auth();
       this.showApp = true;
-      const { data } = await axios.get('/buyer/invite');
+      const { data } = await axios.get("/buyer/invite");
       this.inviteShop = data;
 
-      let title, desc, link, imgUrl;
-      if (this.selectShop === null) {
-        title = '商伴部落';
-        desc = '开启找寻社区商伴，抱团联合经营之旅';
-        link = config.webHost;
-        imgUrl = 'http://static.fangzhoubuluo.com/logo.png';
-      } else {
-        let inviterId = localStorage.getItem('userId');
-        title = this.selectShop.title;
-        desc = this.selectShop.description;
-        imgUrl = this.selectShop.shopImg;
-        link =
-          config.webHost +
-          `/shop.html?userId=${this.selectShop.shopId}&inviterId=${inviterId}`;
-      }
-
-      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
+      this.share();
+    });
+  },
+  methods: {
+    async share() {
+      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
       window.wx.onMenuShareAppMessage(
         {
-          title: title,
-          desc: desc,
-          link: link,
-          imgUrl: imgUrl
+          title: this.title,
+          desc: this.desc,
+          link: this.link,
+          imgUrl: this.imgUrl
         },
         function(res) {
           if (this.selectShop === null) {
-            openAlert('分享成功但未选择店铺');
+            openAlert("分享成功但未选择店铺");
           }
         }
       );
       window.wx.onMenuShareTimeline(
         {
-          title: title,
-          desc: desc,
-          link: link,
-          imgUrl: imgUrl
+          title: this.title,
+          desc: this.desc,
+          link: this.link,
+          imgUrl: this.imgUrl
         },
         function(res) {
           if (this.selectShop === null) {
-            openAlert('分享成功但未选择店铺');
+            openAlert("分享成功但未选择店铺");
           }
         }
       );
-    });
-  },
-  methods: {
-    handleClick(name, item) {
+    },
+    async handleClick(name, item) {
       this.select = name;
       this.selectShop = item;
       this.showMask = true;
+
+
+      let inviterId = localStorage.getItem("userId");
+      this.title = this.selectShop.title;
+      this.desc = this.selectShop.description;
+      this.imgUrl =
+        this.selectShop.shopImg +
+        "?imageView2/1/w/50/h/50/interlace/1/q/75/.jpg";
+      this.link =
+        config.webHost +
+        `/shop.html?userId=${this.selectShop.shopId}&inviterId=${inviterId}`;
+
+      this.share();
     }
   },
   filters: {
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };
