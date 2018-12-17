@@ -18,7 +18,7 @@ export const auth = () => {
             config.appId
           }&redirect_uri=${config.webHost}${
             window.location.pathname
-          }&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect`;
+          }${window.location.search}&response_type=code&scope=snsapi_userinfo&state=park#wechat_redirect`;
         } else {
           axios
             .get(`${config.apiHost}/auth?code=${code}`)

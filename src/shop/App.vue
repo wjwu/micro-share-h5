@@ -84,10 +84,11 @@
 </template>
 <script>
 import axios from '../common/js/axios';
-import { auth } from '../common/js/auth';
 import { tryFunc, getQueryString } from '../common/js/common';
 import CustBar from '../common/components/CustBar';
 import CouponMask from './CouponMask';
+import config from '../common/js/config';
+import wxApi from '../common/js/wxApi';
 
 export default {
   components: {
@@ -109,7 +110,6 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      await auth();
       this.showApp = true;
       const { data: shop } = await axios.get('/user/shopInfoById', {
         params: {
@@ -162,6 +162,31 @@ export default {
           this.shop.logo
         }") no-repeat`;
       });
+
+      let title = this.shop.name;
+      let desc = this.shop.description;
+      let imgUrl = this.shop.logo + '?imageView2/1/w/50/h/50/interlace/1/q/75/.jpg';
+      let link = config.webHost + `/shop.html?userId=${this.shop.userId}`;
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
+      window.wx.onMenuShareAppMessage(
+        {
+          title: title,
+          desc: desc,
+          link: link,
+          imgUrl: imgUrl
+        },
+        function(res) {}
+      );
+      window.wx.onMenuShareTimeline(
+        {
+          title: title,
+          desc: desc,
+          link: link,
+          imgUrl: imgUrl
+        },
+        function(res) {
+        }
+      );
     });
   }
 };
