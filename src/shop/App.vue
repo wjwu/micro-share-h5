@@ -88,7 +88,6 @@ import { auth } from '../common/js/auth';
 import { tryFunc, getQueryString } from '../common/js/common';
 import CustBar from '../common/components/CustBar';
 import CouponMask from './CouponMask';
-import '../common/js/share.js';
 
 export default {
   components: {

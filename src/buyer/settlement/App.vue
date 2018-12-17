@@ -301,7 +301,7 @@ export default {
         localStorage.setItem('countyCode', this.selectedCounty);
         localStorage.setItem('phone', this.phone);
         localStorage.setItem('name', this.name);
-        await axios.post('/buyer/order/', {
+        const response = await axios.post('/buyer/order/', {
           price: this.total - this.couponPrice,
           coupon: this.couponPrice,
           couponId: this.selectCoupon,
@@ -315,6 +315,7 @@ export default {
             };
           })
         });
+        let orderNumber = response.data;
         if (!this.isImm) {
           const visitShopUserId = localStorage.getItem('visitShopUserId');
           const cartKey = `cart_${visitShopUserId}`;
@@ -334,7 +335,7 @@ export default {
           localStorage.setItem(cartKey, JSON.stringify(tmp));
         }
         setTimeout(() => {
-          window.location.href = './success.html';
+          window.location.href = `./success.html?orderNo=${orderNumber}`;
         });
       });
     }

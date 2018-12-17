@@ -30,7 +30,7 @@ export default {
     return {
       showApp: false,
       circleId: getQueryString('circleId'),
-      userName: getQueryString('userName'),
+      userName: '',
       circleName: '',
       mineUserName: localStorage.getItem('userName')
     };
@@ -39,6 +39,7 @@ export default {
     tryFunc(async () => {
       await auth();
       const { data } = await axios.get(`/circle/${this.circleId}`);
+      this.userName = data.ownerNickName;
       this.circleName = data.name;
       this.showApp = true;
 

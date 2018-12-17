@@ -23,7 +23,7 @@
     <weui-cells-title>店长公告</weui-cells-title>
     <weui-cells>
       <weui-cell>
-        <weui-textarea v-model="shopNotice" placeholder="请输入店长公告" rows="3" maxlength="30"></weui-textarea>
+        <weui-textarea v-model="shopNotice" placeholder="请输入店长公告" rows="3" maxlength="50"></weui-textarea>
       </weui-cell>
     </weui-cells>
     <weui-btn-area>
@@ -84,6 +84,11 @@ export default {
         this.shopName = response.data.name;
         this.shopAddress = response.data.address;
         this.shopDesc = response.data.description;
+        this.shopNotice = response.data.notice;
+        let bgs = response.data.background;
+        if(bgs){
+           this.bgs = [bgs.substr(bgs.lastIndexOf('/') + 1)];
+        }
         let src = response.data.src;
         if (src) {
           this.images = [src.substr(src.lastIndexOf('/') + 1)];

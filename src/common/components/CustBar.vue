@@ -10,10 +10,10 @@
       </a>
       <a href="/buyer/cart.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
         <span style="display: inline-block;position: relative;">
-          <img src="./assets/images/shopping-cart.png" alt="" class="weui-tabbar__icon">
+          <img src="./assets/images/package.png" alt="" class="weui-tabbar__icon">
           <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;" v-if="cartCount">{{cartCount}}</span>
         </span>
-        <p class="weui-tabbar__label">购物车</p>
+        <p class="weui-tabbar__label">背篓</p>
       </a>
       <a href="/buyer/account.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
         <img src="./assets/images/user.png" alt="" class="weui-tabbar__icon">

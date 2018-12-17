@@ -3,7 +3,7 @@
     <weui-cells-title>上传商品</weui-cells-title>
     <weui-cells>
       <weui-cell label="名称">
-        <input class="weui-input" type="text" placeholder="请输入商品名(不超过15字)" maxlength="15" v-model="product.name">
+        <input class="weui-input" type="text" placeholder="请输入商品名(不超过15字)" maxlength="20" v-model="product.name">
       </weui-cell>
       <image-upload title="商品图片" :token="token" :max="5" v-model="images" multiple></image-upload>
       <weui-cell label="原价" v-if="isSpecial">
@@ -18,6 +18,9 @@
       </weui-cell>
       <weui-cell label="可售">
         <input class="weui-input" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="可售数量" maxlength="5" v-model="product.stock">
+      </weui-cell>
+      <weui-cell label="规格">
+        <input class="weui-input" type="text" placeholder="斤/公斤/盒/包/套/件等" maxlength="5" v-model="product.spec">
       </weui-cell>
     </weui-cells>
     <weui-cells-title>描述</weui-cells-title>
@@ -72,7 +75,8 @@ export default {
         name: '',
         originPrice: '',
         sellPrice: '',
-        description: ''
+        description: '',
+        spec: ''
       },
       token: '',
       images: [],
@@ -102,6 +106,10 @@ export default {
     handleSave() {
       if (!this.product.name) {
         openAlert('请输入商品名称');
+        return;
+      }
+      if(!this.product.spec){
+        openAlert('请输入商品规格');
         return;
       }
       if (this.images.length === 0) {
