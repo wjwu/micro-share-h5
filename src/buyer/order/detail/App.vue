@@ -60,6 +60,14 @@
       <template slot="foot">
         <div class="weui-cell weui-cell_access weui-cell_link">
           <div class="weui-cell__bd">
+            <span>状态：</span>
+            <span>{{order.status | status}}</span>
+          </div>
+        </div>
+      </template>
+      <template slot="foot">
+        <div class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">
             <span>最终支付：</span>
             <span class="price">{{order.price}}元</span>
           </div>
@@ -120,6 +128,20 @@ export default {
       const { data } = await axios.get(`/buyer/order/${this.orderId}`);
       this.order = data;
     });
+  },filters: {
+    status: val => {
+      if (val === "SUBMIT") {
+        return "提交订单";
+      } else if (val === "RECEIVE") {
+        return "已收钱";
+      } else if (val === "SENDED") {
+        return "已发货";
+      } else if (val === "USED") {
+        return "已核销";
+      } else {
+        return "";
+      }
+    }
   }
 };
 </script>

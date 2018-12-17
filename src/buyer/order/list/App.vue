@@ -24,6 +24,10 @@
             <label class="weui-form-preview__label">购买店铺</label>
             <span class="weui-form-preview__value">{{order.shopName}}</span>
           </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">订单状态</label>
+            <span class="weui-form-preview__value">{{order.status | status}}</span>
+          </div>
         </div>
         <div class="weui-form-preview__ft">
           <a class="weui-form-preview__btn weui-form-preview__btn_primary" :href="`/buyer/order/detail.html?orderId=${order.id}`">查看详情</a>
@@ -69,6 +73,19 @@ export default {
   filters: {
     time: val => {
       return format(val, 'YYYY-MM-DD HH:mm:ss');
+    },
+    status: val => {
+      if (val === "SUBMIT") {
+        return "提交订单";
+      } else if (val === "RECEIVE") {
+        return "已收钱";
+      } else if (val === "SENDED") {
+        return "已发货";
+      } else if (val === "USED") {
+        return "已核销";
+      } else {
+        return "";
+      }
     }
   }
 };
