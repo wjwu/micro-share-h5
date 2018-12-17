@@ -86,8 +86,8 @@ export default {
         this.shopDesc = response.data.description;
         this.shopNotice = response.data.notice;
         let bgs = response.data.background;
-        if(bgs){
-           this.bgs = [bgs.substr(bgs.lastIndexOf('/') + 1)];
+        if (bgs) {
+          this.bgs = [bgs.substr(bgs.lastIndexOf('/') + 1)];
         }
         let src = response.data.src;
         if (src) {

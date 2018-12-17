@@ -108,7 +108,7 @@ export default {
         openAlert('请输入商品名称');
         return;
       }
-      if(!this.product.spec){
+      if (!this.product.spec) {
         openAlert('请输入商品规格');
         return;
       }

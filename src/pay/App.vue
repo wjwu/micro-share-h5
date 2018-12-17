@@ -8,25 +8,6 @@
       </div>
       <h4>产品报价</h4>
       <div class="price">
-        <!-- <table>
-          <colgroup width="33.333%"></colgroup>
-          <colgroup width="33.333%"></colgroup>
-          <colgroup width="33.333%"></colgroup>
-          <thead>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table> -->
         <img src="./assets/images/pay.png" />
       </div>
       <h4>产品购买</h4>

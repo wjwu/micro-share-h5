@@ -89,8 +89,9 @@ export default {
         openAlert(e);
       }
     }
-  },methods:{
-    handleClick(){
+  },
+  methods: {
+    handleClick() {
       window.location.href = `/shop.html?userId=${this.userId}`;
     }
   }

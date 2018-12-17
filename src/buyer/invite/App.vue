@@ -29,6 +29,9 @@
         </div>
       </a>
     </div>
+    <div class="mask" v-if="showMask" @click="showMask=false">
+      <img src="./assets/images/share.png" />
+    </div>
   </div>
 </template>
 
@@ -52,7 +55,8 @@ export default {
       showApp: false,
       inviteShop: [],
       selectShop: null,
-      select: '暂未选择店铺'
+      select: '暂未选择店铺',
+      showMask: false
     };
   },
   mounted() {
@@ -111,6 +115,7 @@ export default {
     handleClick(name, item) {
       this.select = name;
       this.selectShop = item;
+      this.showMask = true;
     }
   },
   filters: {
@@ -125,6 +130,20 @@ export default {
 .weui-media-box {
   h4 {
     color: #000 !important;
+  }
+}
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: right;
+
+  img {
+    width: 90%;
   }
 }
 </style>
