@@ -3,7 +3,7 @@
     <weui-cells-title>订单信息</weui-cells-title>
     <weui-cells v-if="order">
       <weui-cell label="订单编号">{{order.number}}</weui-cell>
-      <weui-cell label="计入积分">
+      <weui-cell label="订单状态">
         <span class="weui-badge" style="margin-left: 5px;">{{order.status | status}}</span>
       </weui-cell>
       <weui-cell label="抵用金额">{{order.coupon}}</weui-cell>
@@ -24,23 +24,39 @@
       </weui-cell>
     </weui-cells>
     <weui-btn-area>
-      <weui-btn type="primary" v-if="order && order.status === 'UN_USE'" @click="handleScore(order.id)">计入积分</weui-btn>
+      <weui-btn
+        type="primary"
+        v-if="order && order.status === 'SUBMIT'"
+        @click="handleReceive(order.id)"
+      >已收款</weui-btn>
+      <weui-btn
+        type="primary"
+        v-if="order && order.status === 'RECEIVE'"
+        @click="handleSended(order.id)"
+      >已发货</weui-btn>
+      <weui-btn
+        type="primary"
+        v-if="order && order.status === 'SENDED'"
+        @click="handleScore(order.id)"
+      >计入积分</weui-btn>
     </weui-btn-area>
+    <mask-input :visible.sync="showMask" @ok="handleOk" :max="500"></mask-input>
   </div>
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-import format from 'date-fns/format';
-import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
+import axios from "../../common/js/axios";
+import format from "date-fns/format";
+import MaskInput from "../../buyer/member/MaskInput";
+import { openAlert, tryFunc, getQueryString } from "../../common/js/common";
 import {
   WeuiCellsTitle,
   WeuiCells,
   WeuiCell,
   WeuiBtnArea,
   WeuiBtn
-} from '../../common/components';
-import '../../common/js/share';
+} from "../../common/components";
+import "../../common/js/share";
 
 export default {
   components: {
@@ -48,26 +64,29 @@ export default {
     WeuiCells,
     WeuiCell,
     WeuiBtnArea,
-    WeuiBtn
+    WeuiBtn,
+    MaskInput
   },
   data() {
     return {
-      orderId: getQueryString('orderId'),
+      orderId: getQueryString("orderId"),
       order: {},
+      showMask: false,
       showApp: false,
-      showMsgs: false
+      showMsgs: false,
+      id: null
     };
   },
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
       if (!this.orderId) {
-        openAlert('订单编号无效');
+        openAlert("订单编号无效");
         return;
       }
       const { data } = await axios.get(`/buyer/order/${this.orderId}`);
       if (!data) {
-        openAlert('订单编号无效');
+        openAlert("订单编号无效");
       } else {
         this.order = data;
       }
@@ -75,24 +94,62 @@ export default {
   },
   methods: {
     handleScore(id) {
+      this.showMask = true;
+      this.id = id;
+    },
+    handleOk(value) {
       tryFunc(async () => {
-        await axios.put(`/shop/${id}/score`);
-        window.location.reload();
+        await axios
+          .put(`/shop/${this.id}/score/${value}`)
+          .then(function(response) {
+            window.location.reload();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+    },
+    handleSended(id) {
+      tryFunc(async () => {
+        await axios
+          .put(`/buyer/order/${id}/send`)
+          .then(function(response) {
+            window.location.reload();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+    },
+    handleReceive(id) {
+      tryFunc(async () => {
+        await axios
+          .put(`/buyer/order/${id}/receive`)
+          .then(function(response) {
+            window.location.reload();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       });
     }
   },
   filters: {
     status: val => {
-      if (val === 'UN_USE') {
-        return '未核销';
-      } else if (val === 'USED') {
-        return '已核销';
+      if (val === "SUBMIT") {
+        return "提交订单";
+      } else if (val === "RECEIVE") {
+        return "已收钱";
+      } else if (val === "SENDED") {
+        return "已发货";
+      } else if (val === "USED") {
+        return "已核销";
       } else {
-        return '';
+        return "";
       }
     },
     time: val => {
-      return format(val, 'YYYY-MM-DD HH:mm:ss');
+      return format(val, "YYYY-MM-DD HH:mm:ss");
     }
   }
 };

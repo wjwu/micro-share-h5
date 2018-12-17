@@ -88,14 +88,9 @@ export default {
             el: '.swiper-pagination'
           }
         });
-        console.log(swiper);
       });
 
-      this.shareFunc();
-    });
-  },
-  methods: {
-    async shareFunc() {
+
       let name;
       let desc;
       if (this.product.type === 'SPECIAL') {
@@ -104,8 +99,7 @@ export default {
           shopName = this.shopInfo.name;
         }
         name = shopName + '本周特价（欢迎抢购）';
-        const { data } = await axios.get(`/item/${this.productId}/special`);
-        desc = data.description ? data.description : '本周特价，欢迎大家选购';
+        desc =  this.product.description ? '本周特价，欢迎大家选购' : '本周特价：' + this.product.description;
       } else {
         name = this.product.name;
         desc = this.product.description ? this.product.description : '商品描述';
@@ -133,7 +127,11 @@ export default {
         },
         function(res) {}
       );
-    },
+
+
+    });
+  },
+  methods: {
     handleAddCart() {
       const cartKey = `cart_${this.shopInfo.userId}`;
       const strCart = localStorage.getItem(cartKey);

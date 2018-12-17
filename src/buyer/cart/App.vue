@@ -51,7 +51,6 @@
 
 <script>
 import axios from '../../common/js/axios';
-import { auth } from '../../common/js/auth';
 import { tryFunc, openConfirm, openAlert } from '../../common/js/common';
 import {
   WeuiPanel,
@@ -98,7 +97,6 @@ export default {
   },
   mounted() {
     tryFunc(async () => {
-      await auth();
       this.showApp = true;
       if (cart.length > 0) {
         const ids = cart.map(item => item.productId).join(',');
