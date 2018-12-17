@@ -14,16 +14,16 @@
               </a>
             </div>
             <div class="weui-media-box__bd">
-              <a :href="`/product.html?productId=${product.id}`">
-                <h4 class="weui-media-box__title">{{product.name}}</h4>
-              </a>
+              <h4 class="weui-media-box__title">{{product.name}}</h4>
               <div class="info">
                 <div class="price">￥{{product.sellPrice}}</div>
-                <div>
-                  <span class="count">&times;&nbsp;{{product.count}}</span>
-                  <span class="del" @click="handleDelete(product.id)">删除</span>
-                </div>
+                <div class="reduce" @click="handleReduce(product)"></div>
+                <input type="number" class="count" v-model="product.count" @keydown="handleCountKeydown($event,product)" @blur="handleCountBlur($event,product)" />
+                <div class="plus" @click="handlePlus(product)"></div>
               </div>
+            </div>
+            <div class="weui-media-box__fd">
+              <div class="del" @click="handleDelete(product.id)">删除</div>
             </div>
           </div>
         </div>
@@ -116,6 +116,36 @@ export default {
     });
   },
   methods: {
+    handleReduce(product) {
+      if (Number(product.count) - 1 >= 0) {
+        product.count = Number(product.count) - 1;
+      }
+    },
+    handlePlus(product) {
+      if (Number(product.count) + 1 <= Number(product.stock)) {
+        product.count = Number(product.count) + 1;
+      }
+    },
+    handleCountKeydown(e, product) {
+      if (e.keyCode !== 8 && (e.keyCode > 57 || e.keyCode < 48)) {
+        e.preventDefault();
+        return;
+      }
+      if (e.keyCode === 8) {
+        return;
+      }
+      if (
+        Number(product.count.toString() + e.key.toString()) >
+        Number(product.stock)
+      ) {
+        e.preventDefault();
+      }
+    },
+    handleCountBlur(e, product) {
+      if (product.count.toString() === '') {
+        product.count = 1;
+      }
+    },
     handleDelete(id) {
       openConfirm('您确定要删除该商品？', () => {
         cart = cart.filter(item => item.productId.toString() !== id.toString());
@@ -135,7 +165,9 @@ export default {
         .filter(item => item.checked)
         .map(item => `${item.id},${item.count}`);
       if (checkedProducts.length > 0) {
-        window.location.href = `/buyer/settlement.html?productIds=${checkedProducts.join(';')}`;
+        window.location.href = `/buyer/settlement.html?productIds=${checkedProducts.join(
+          ';'
+        )}`;
       } else {
         openAlert('请先选择要结算的商品');
       }
@@ -190,26 +222,68 @@ export default {
 .products {
   padding-bottom: 50px;
 }
-.price {
-  color: red;
-  font-weight: bold;
-}
 
 .info {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  .price {
+    flex: 1;
+    color: red;
+    font-weight: bold;
+  }
 
-  .count,
-  .del {
-    padding: 0 5px;
-    color: #999;
-    font-size: 0.75rem;
-    line-height: 1;
+  .reduce,
+  .plus {
+    display: inline-block;
+    position: relative;
+    width: 26px;
+    height: 26px;
+    background-color: #f7f7f7;
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      left: 50%;
+      top: 50%;
+      background-color: #999;
+      width: 14px;
+      height: 2px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .plus {
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      left: 50%;
+      top: 50%;
+      background-color: #999;
+      width: 2px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .count {
-    border-right: 1px solid #cecece;
+    margin: 0 2px;
+    width: 2rem;
+    height: 26px;
+    line-height: 26px;
+    background-color: #f7f7f7;
+    border: none;
+    font-size: 0.75rem;
+    text-align: center;
+    outline: none;
   }
+}
+
+.del {
+  font-size: 0.875rem;
+  padding-left: 10px;
+  color: #999;
 }
 
 .btns {

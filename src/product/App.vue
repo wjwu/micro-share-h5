@@ -13,10 +13,15 @@
       <div class="top_title">
         <p class="tit_name">商品名称：{{product.name}}</p>
         <p class="smalltit_name">{{product.description}}</p>
-        <p class="tit_money">
+        <div class="tit_money">
           <span>{{product.type === SPECIAL?'特价':'单价'}} ￥{{product.sellPrice}} </span>
           <span class="thought_money" v-if="product.type === SPECIAL"> 原价 <span class="del">¥ {{product.originPrice}}</span></span>
-        </p>
+          <div class="info">
+            <div class="reduce" @click="handleReduce(product)"></div>
+            <input type="number" class="count" v-model="product.count" @keydown="handleCountKeydown($event,product)" @blur="handleCountBlur($event,product)" />
+            <div class="plus" @click="handlePlus(product)"></div>
+          </div>
+        </div>
       </div>
       <!-- <div class="product-detail">
         {{product.description}}
@@ -30,7 +35,7 @@
     </div>
     <div class="buy-wrap">
       <div class="cart" @click="handleAddCart">加入购物车</div>
-      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},1&imm=true`">立即购买</a>
+      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},${product.count}&imm=true`">立即购买</a>
     </div>
   </cust-bar>
 </template>
@@ -66,6 +71,7 @@ export default {
       }
       const { data: product } = await axios.get(`/item/${this.productId}`);
       product.images = product.imgUrl.split(',');
+      product.count = 1;
       this.product = product;
       window.document.title = product.name;
 
@@ -145,16 +151,46 @@ export default {
       if (!product) {
         product = {
           productId: this.productId,
-          count: 1
+          count: this.product.count
         };
         cart.push(product);
       } else {
-        product.count = Number(product.count) + 1;
+        product.count = Number(this.product.count) + Number(product.count);
       }
       localStorage.setItem(cartKey, JSON.stringify(cart));
       setTimeout(() => {
         this.$refs.custBar.updateCartCount();
       }, 50);
+    },
+    handleReduce(product) {
+      if (Number(product.count) - 1 > 0) {
+        product.count = Number(product.count) - 1;
+      }
+    },
+    handlePlus(product) {
+      if (Number(product.count) + 1 <= Number(product.stock)) {
+        product.count = Number(product.count) + 1;
+      }
+    },
+    handleCountKeydown(e, product) {
+      if (e.keyCode !== 8 && (e.keyCode > 57 || e.keyCode < 48)) {
+        e.preventDefault();
+        return;
+      }
+      if (e.keyCode === 8) {
+        return;
+      }
+      if (
+        Number(product.count.toString() + e.key.toString()) >
+        Number(product.stock)
+      ) {
+        e.preventDefault();
+      }
+    },
+    handleCountBlur(e, product) {
+      if (product.count.toString() === '') {
+        product.count = 1;
+      }
     }
   }
 };
@@ -275,6 +311,68 @@ body {
   img {
     width: 12rem;
     height: 12rem;
+  }
+}
+
+.info {
+  float: right;
+  margin-top: 11px;
+  width: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+
+  .price {
+    flex: 1;
+    color: red;
+    font-weight: bold;
+  }
+
+  .reduce,
+  .plus {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #f7f7f7;
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      left: 50%;
+      top: 50%;
+      background-color: #999;
+      width: 8px;
+      height: 2px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .plus {
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      left: 50%;
+      top: 50%;
+      background-color: #999;
+      width: 2px;
+      height: 8px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .count {
+    margin: 0 2px;
+    width: 30px;
+    height: 20px;
+    line-height: 26px;
+    background-color: #fff;
+    border: 1px solid #f7f7f7;
+    font-size: 0.75rem;
+    text-align: center;
+    outline: none;
   }
 }
 </style>
