@@ -1,10 +1,10 @@
 <template>
   <div class="weui-mask weui-animate-fade-in" v-show="visible">
     <div class="weui-dialog">
-      <div class="weui-dialog__hd"><strong class="weui-dialog__title">请输入核销积分</strong></div>
+      <div class="weui-dialog__hd"><strong class="weui-dialog__title">{{title}}</strong></div>
       <div class="weui-dialog__bd">
-        <input type="number" :class="{'tip':showTip}" @input="handleInput" v-model="score"/>
-        <div class="text-tip" v-show="showTip">核销积分不能为空且大于{{max}}</div>
+        <input type="number" pattern="[0-9]*" @textInput="handleInput" v-model="score" />
+        <div class="text-tip" >{{tip}}不能为空且大于{{max}}</div>
       </div>
       <div class="weui-dialog__ft">
         <a href="javascript:;" @click="handleCancel" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
@@ -17,18 +17,36 @@
 <script>
 export default {
   props: {
+    title: {
+      type: String
+    },
+    tip: {
+      type: String
+    },
     max: {
       type: Number
     },
     visible: {
       type: Boolean
+    },
+    value: {
+      type: String
     }
   },
   data() {
     return {
-      score: '',
-      showTip: false
+      score: ''
     };
+  },
+  watch: {
+    value(curVal) {
+      this.score = curVal;
+    }
+  },
+  created() {
+    if (this.value) {
+      this.score = this.value;
+    }
   },
   mounted() {
     if (this.visible) {
@@ -37,21 +55,17 @@ export default {
   },
   methods: {
     handleInput(e) {
-      if (e.target.value) {
-        this.showTip = false;
-      } else {
-        this.showTip = true;
+      const reg = /^[0-9]$/;
+      if (!reg.test(e.data)) {
+        e.preventDefault();
+        return;
       }
-      const value = Number(e.target.value);
-      if (value && value > this.max) {
-        this.showTip = true;
-      } else {
-        this.showTip = false;
+      if (Number(this.score + e.data.toString()) > Number(this.max)) {
+        e.preventDefault();
       }
     },
     handleOk(e) {
       if (!this.score || Number(this.score) > this.max) {
-        this.showTip = true;
         return;
       }
       document.body.style.overflow = 'auto';
@@ -83,7 +97,8 @@ export default {
   }
 
   .text-tip {
-    color: #e64340;
+    margin-top:5px;
+    // color: #e64340;
   }
 }
 </style>

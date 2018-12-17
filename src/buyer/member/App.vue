@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <mask-input :visible.sync="showMask" @ok="handleOk" :max="100"></mask-input>
+    <mask-input :visible.sync="showMask" @ok="handleOk" :max="100" title="请输入核销积分" tip="核销积分"></mask-input>
   </div>
 </template>
 

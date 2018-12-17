@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div class="weui-panel__bd" v-else>
+        <!-- <div class="weui-panel__bd" v-else>
           <div class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__bd">
               <div class="weui-loadmore weui-loadmore_line">
@@ -76,7 +76,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

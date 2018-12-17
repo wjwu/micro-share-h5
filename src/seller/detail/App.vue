@@ -28,7 +28,7 @@
       <weui-btn type="primary" v-if="order && order.status === 'RECEIVE'" @click="handleSended(order.id)">已发货</weui-btn>
       <weui-btn type="primary" v-if="order && order.status === 'SENDED'" @click="handleScore(order.id)">计入积分</weui-btn>
     </weui-btn-area>
-    <mask-input :visible.sync="showMask" @ok="handleOk" :max="500"></mask-input>
+    <mask-input :visible.sync="showMask" @ok="handleOk" :value="score" :max="maxScore" title="请输入积分" tip="积分"></mask-input>
   </div>
 </template>
 
@@ -54,6 +54,14 @@ export default {
     WeuiBtnArea,
     WeuiBtn,
     MaskInput
+  },
+  computed: {
+    maxScore() {
+      return Number(this.order.coupon) + Number(this.order.price);
+    },
+    score() {
+      return (Number(this.order.coupon) + Number(this.order.price)).toString();
+    }
   },
   data() {
     return {

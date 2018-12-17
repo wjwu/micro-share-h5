@@ -18,7 +18,7 @@
               <div class="info">
                 <div class="price">￥{{product.sellPrice}}</div>
                 <div class="reduce" @click="handleReduce(product)"></div>
-                <input type="number" class="count" v-model="product.count" @keydown="handleCountKeydown($event,product)" @blur="handleCountBlur($event,product)" />
+                <input type="number" pattern="[0-9]*" class="count" v-model="product.count" @blur="handleCountBlur(product)" @textInput="handleCountInput($event,product)" />
                 <div class="plus" @click="handlePlus(product)"></div>
               </div>
             </div>
@@ -124,23 +124,21 @@ export default {
         product.count = Number(product.count) + 1;
       }
     },
-    handleCountKeydown(e, product) {
-      if (e.keyCode !== 8 && (e.keyCode > 57 || e.keyCode < 48)) {
+    handleCountInput(e, product) {
+      const reg = /^[0-9]$/;
+      if (!reg.test(e.data)) {
         e.preventDefault();
         return;
       }
-      if (e.keyCode === 8) {
-        return;
-      }
       if (
-        Number(product.count.toString() + e.key.toString()) >
+        Number(product.count.toString() + e.data.toString()) >
         Number(product.stock)
       ) {
         e.preventDefault();
       }
     },
-    handleCountBlur(e, product) {
-      if (product.count.toString() === '') {
+    handleCountBlur(product) {
+      if (product.count === '') {
         product.count = 1;
       }
     },
