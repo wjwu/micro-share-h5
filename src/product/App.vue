@@ -94,8 +94,8 @@ export default {
             el: '.swiper-pagination'
           }
         });
+        console.log(swiper);
       });
-
 
       let name;
       let desc;
@@ -105,7 +105,9 @@ export default {
           shopName = this.shopInfo.name;
         }
         name = shopName + '本周特价（欢迎抢购）';
-        desc =  this.product.description ? '本周特价，欢迎大家选购' : '本周特价：' + this.product.description;
+        desc = this.product.description
+          ? '本周特价，欢迎大家选购'
+          : '本周特价：' + this.product.description;
       } else {
         name = this.product.name;
         desc = this.product.description ? this.product.description : '商品描述';
@@ -133,8 +135,6 @@ export default {
         },
         function(res) {}
       );
-
-
     });
   },
   methods: {

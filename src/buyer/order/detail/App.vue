@@ -128,18 +128,19 @@ export default {
       const { data } = await axios.get(`/buyer/order/${this.orderId}`);
       this.order = data;
     });
-  },filters: {
+  },
+  filters: {
     status: val => {
-      if (val === "SUBMIT") {
-        return "提交订单";
-      } else if (val === "RECEIVE") {
-        return "已收钱";
-      } else if (val === "SENDED") {
-        return "已发货";
-      } else if (val === "USED") {
-        return "已核销";
+      if (val === 'SUBMIT') {
+        return '提交订单';
+      } else if (val === 'RECEIVE') {
+        return '已收钱';
+      } else if (val === 'SENDED') {
+        return '已发货';
+      } else if (val === 'USED') {
+        return '已核销';
       } else {
-        return "";
+        return '';
       }
     }
   }

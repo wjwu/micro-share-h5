@@ -24,39 +24,27 @@
       </weui-cell>
     </weui-cells>
     <weui-btn-area>
-      <weui-btn
-        type="primary"
-        v-if="order && order.status === 'SUBMIT'"
-        @click="handleReceive(order.id)"
-      >已收款</weui-btn>
-      <weui-btn
-        type="primary"
-        v-if="order && order.status === 'RECEIVE'"
-        @click="handleSended(order.id)"
-      >已发货</weui-btn>
-      <weui-btn
-        type="primary"
-        v-if="order && order.status === 'SENDED'"
-        @click="handleScore(order.id)"
-      >计入积分</weui-btn>
+      <weui-btn type="primary" v-if="order && order.status === 'SUBMIT'" @click="handleReceive(order.id)">已收款</weui-btn>
+      <weui-btn type="primary" v-if="order && order.status === 'RECEIVE'" @click="handleSended(order.id)">已发货</weui-btn>
+      <weui-btn type="primary" v-if="order && order.status === 'SENDED'" @click="handleScore(order.id)">计入积分</weui-btn>
     </weui-btn-area>
     <mask-input :visible.sync="showMask" @ok="handleOk" :max="500"></mask-input>
   </div>
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import format from "date-fns/format";
-import MaskInput from "../../buyer/member/MaskInput";
-import { openAlert, tryFunc, getQueryString } from "../../common/js/common";
+import axios from '../../common/js/axios';
+import format from 'date-fns/format';
+import MaskInput from '../../buyer/member/MaskInput';
+import { openAlert, tryFunc, getQueryString } from '../../common/js/common';
 import {
   WeuiCellsTitle,
   WeuiCells,
   WeuiCell,
   WeuiBtnArea,
   WeuiBtn
-} from "../../common/components";
-import "../../common/js/share";
+} from '../../common/components';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -69,7 +57,7 @@ export default {
   },
   data() {
     return {
-      orderId: getQueryString("orderId"),
+      orderId: getQueryString('orderId'),
       order: {},
       showMask: false,
       showApp: false,
@@ -81,12 +69,12 @@ export default {
     tryFunc(async () => {
       this.showApp = true;
       if (!this.orderId) {
-        openAlert("订单编号无效");
+        openAlert('订单编号无效');
         return;
       }
       const { data } = await axios.get(`/buyer/order/${this.orderId}`);
       if (!data) {
-        openAlert("订单编号无效");
+        openAlert('订单编号无效');
       } else {
         this.order = data;
       }
@@ -136,20 +124,20 @@ export default {
   },
   filters: {
     status: val => {
-      if (val === "SUBMIT") {
-        return "提交订单";
-      } else if (val === "RECEIVE") {
-        return "已收钱";
-      } else if (val === "SENDED") {
-        return "已发货";
-      } else if (val === "USED") {
-        return "已核销";
+      if (val === 'SUBMIT') {
+        return '提交订单';
+      } else if (val === 'RECEIVE') {
+        return '已收钱';
+      } else if (val === 'SENDED') {
+        return '已发货';
+      } else if (val === 'USED') {
+        return '已核销';
       } else {
-        return "";
+        return '';
       }
     },
     time: val => {
-      return format(val, "YYYY-MM-DD HH:mm:ss");
+      return format(val, 'YYYY-MM-DD HH:mm:ss');
     }
   }
 };
