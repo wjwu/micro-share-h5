@@ -159,10 +159,10 @@ body {
   .banner {
     width: 100%;
     // height: 13.4375rem;
-    height: 10.625rem;
-    background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 0.5rem /
+    height: 11rem;
+    background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 1rem /
         6.875rem 2.375rem,
-      url('./assets/images/banner-a@2x.png') no-repeat 50% / cover;
+      url('./assets/images/banner-a@2x.png') no-repeat 50% 0 / 100%;
   }
   .menu {
     width: 1.6875rem;
@@ -198,9 +198,14 @@ body {
         flex-direction: row-reverse;
         border-bottom: none;
         font-size: 0.8rem;
-
+        height: 2rem;
         &::before {
           display: none;
+        }
+
+        a {
+          background: url('./assets/images/details@2x.png') no-repeat right
+            center/1rem;
         }
       }
 
@@ -235,7 +240,7 @@ body {
 
     .round {
       position: relative;
-      padding: 13px 0;
+      padding: 10px 0 15px 0;
     }
 
     .circle {
@@ -246,7 +251,7 @@ body {
       line-height: 3.4375rem;
       z-index: 999;
       text-align: center;
-      top: 18px;
+      top: 15px;
       left: calc(50% - 7.5rem);
       position: absolute;
       color: #fff;
@@ -261,7 +266,7 @@ body {
       filter: alpha(opacity=40);
       z-index: -100;
       position: absolute;
-      top: 18px;
+      top: 15px;
       left: calc(50% - 7.5rem);
     }
     .circle_bottom2 {
