@@ -1,26 +1,39 @@
 <template>
   <div v-if="showApp">
-    <weui-cells-title>点击“分享”转发二维码给朋友，可和对方结成商伴进行资源（群资源&管家）互相共享</weui-cells-title>
-    <weui-cells-title>我的群列表</weui-cells-title>
-    <weui-cells v-if="myGroups.length>0">
-      <weui-cell v-for="item in myGroups" :key="item.id">
-        {{item.name}} | {{item.number}}人
-        <template slot="foot">
-          <weui-btn type="primary" mini @click="handleClick(item.id)">分享</weui-btn>
-        </template>
-      </weui-cell>
-    </weui-cells>
-    <weui-load-more-line v-else></weui-load-more-line>
-    <weui-cells-title>商伴的群列表</weui-cells-title>
-    <weui-cells v-if="orderGroups.length>0">
-      <weui-cell v-for="item in orderGroups" :key="item.id">
-        {{item.name}} | {{item.number}}人
-      </weui-cell>
-    </weui-cells>
-    <weui-load-more-line v-else></weui-load-more-line>
-    <div class="mask" v-show="showMask" @click="handleMaskClick">
-      <p>请长按二维码转发</p>
-      <vue-qr :text="shareUrl" :size="200" :margin="10"></vue-qr>
+    <div class="weui-tab">
+      <div class="weui-navbar">
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='group'}" @click="selectedTab = 'group'">
+          微信群共享
+        </div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='shelves'}" @click="selectedTab = 'shelves'">
+          货架共享
+        </div>
+      </div>
+      <div class="weui-tab__panel" v-show="selectedTab==='group'">
+        <weui-cells-title>点击“分享”转发二维码给朋友，可和对方结成商伴进行资源（群资源&管家）互相共享</weui-cells-title>
+        <weui-cells-title>我的群列表</weui-cells-title>
+        <weui-cells v-if="myGroups.length>0">
+          <weui-cell v-for="item in myGroups" :key="item.id">
+            {{item.name}} | {{item.number}}人
+            <template slot="foot">
+              <weui-btn type="primary" mini @click="handleClick(item.id)">分享</weui-btn>
+            </template>
+          </weui-cell>
+        </weui-cells>
+        <weui-load-more-line v-else></weui-load-more-line>
+        <weui-cells-title>商伴的群列表</weui-cells-title>
+        <weui-cells v-if="orderGroups.length>0">
+          <weui-cell v-for="item in orderGroups" :key="item.id">
+            {{item.name}} | {{item.number}}人
+          </weui-cell>
+        </weui-cells>
+        <weui-load-more-line v-else></weui-load-more-line>
+        <div class="mask" v-show="showMask" @click="handleMaskClick">
+          <p>请长按二维码转发</p>
+          <vue-qr :text="shareUrl" :size="200" :margin="10"></vue-qr>
+        </div>
+      </div>
+      <div class="weui-tab__panel" v-show="selectedTab==='shelves'"></div>
     </div>
   </div>
 </template>
@@ -52,6 +65,7 @@ export default {
   data() {
     return {
       showApp: false,
+      selectedTab: 'group',
       myGroups: [],
       orderGroups: [],
       shareUrl: '',
