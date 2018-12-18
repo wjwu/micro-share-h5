@@ -2,6 +2,9 @@
   <div v-if="showApp && circle">
     <div style="padding:1.5rem;">
       <h1>{{circle.name}}</h1>
+      <div v-if="circle.status == 'PASS' && userId != circle.userId">
+        您邀请成员有 <span style="color:red;">{{circle.passedMemberDtoList ? circle.passedMemberDtoList.length : 0}}</span> 名通过群分享审核，距一个月到期时间还剩{{circle.createTime}}天。
+      </div>
       <div v-if="circleFirstShow">
         <span>欢迎您加入{{circle.name}}圈子，您可参与“找商伴”分享，审核通过后即可免费获得智能货架使用工具，开启圈内抱团联合经营。</span>
         <a style="margin-top:1rem;" href="/" class="weui-btn weui-btn_plain-primary">我想先了解一下部落</a>
@@ -82,7 +85,8 @@ export default {
       showApp: false,
       circle: null,
       circleFirstShow: true,
-      userId: localStorage.getItem("userId")
+      userId: localStorage.getItem("userId"),
+      timestamp: new Date().getTime()
     };
   },
   mounted() {
