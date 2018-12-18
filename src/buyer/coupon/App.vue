@@ -1,30 +1,23 @@
 <template>
   <div v-if="showApp">
     <div class="title">
-      <h1>我的优惠券</h1>
+      <h1>我的抵扣券</h1>
     </div>
     <div v-if="coupons.length > 0">
-      <div class="weui-form-preview" v-for="item in coupons" :key="item.id">
-        <div class="weui-form-preview__hd">
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">优惠金额</label>
-            <em class="weui-form-preview__value">¥{{item.price}}</em>
+      <weui-panel v-for="item in coupons" :key="item[0]" :label="item[1][0].shopName">
+        <div class="weui-media-box weui-media-box_appmsg" v-for="coupon in item[1]" :key="coupon.id">
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="./assets/images/coupon.png">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">¥{{coupon.price}}</h4>
+            <p class="weui-media-box__desc">到账时间：{{coupon.createTime | time}}</p>
+          </div>
+          <div class="weui-media-box__fd">
+            <a :href="`/shop.html?userId=${coupon.shopId}`">去使用</a>
           </div>
         </div>
-        <div class="weui-form-preview__bd">
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">适用于</label>
-            <span class="weui-form-preview__value">{{item.shopName}}</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">到账时间</label>
-            <span class="weui-form-preview__value">{{item.createTime | time}}</span>
-          </div>
-        </div>
-        <div class="weui-form-preview__ft">
-          <a class="weui-form-preview__btn weui-form-preview__btn_primary" :href="`/shop.html?userId=${item.shopId}`">立即使用</a>
-        </div>
-      </div>
+      </weui-panel>
     </div>
     <weui-cells v-else>
       <weui-load-more-line></weui-load-more-line>
@@ -37,12 +30,12 @@ import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
-import { WeuiCells, WeuiLoadMoreLine } from '../../common/components';
+import { WeuiPanel, WeuiLoadMoreLine } from '../../common/components';
 import '../../common/js/share';
 
 export default {
   components: {
-    WeuiCells,
+    WeuiPanel,
     WeuiLoadMoreLine
   },
   data() {
@@ -55,8 +48,17 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get('/user/coupon');
-      this.coupons = data;
+      const { data: coupons } = await axios.get('/user/coupon');
+      const map = new Map();
+      for (const item of coupons) {
+        if (map.has(item.shopId)) {
+          const arr = map.get(item.shopId);
+          arr.push(item);
+        } else {
+          map.set(item.shopId, [item]);
+        }
+      }
+      this.coupons = [...map];
     });
   },
   filters: {
@@ -73,6 +75,12 @@ export default {
 }
 .weui-form-preview__label {
   text-align-last: auto;
+}
+.weui-media-box__fd {
+  a {
+    color: #586c94;
+    font-size: 14px;
+  }
 }
 </style>
 

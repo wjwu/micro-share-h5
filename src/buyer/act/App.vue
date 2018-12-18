@@ -117,7 +117,7 @@ export default {
         openAlert('请输入分享活动描述');
         return;
       }
-      if(!this.shopAct.mustPrice){
+      if (!this.shopAct.mustPrice) {
         openAlert('请输入满足金额');
         return;
       }

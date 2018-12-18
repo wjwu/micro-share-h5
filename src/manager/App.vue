@@ -25,7 +25,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/Order@2x.png" />
+              <img src="./assets/images/Order@2x.png" @click="handleJump('/grow.html')"/>
               <p>订单自动抓取</p>
             </div>
             <div class="bottom img-c">
@@ -34,7 +34,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/manage@2x.png" />
+              <img src="./assets/images/manage@2x.png" @click="handleJump('/grow.html')"/>
               <p>社群日常管理</p>
             </div>
             <div class="bottom img-d">
@@ -56,7 +56,7 @@
         <ul>
           <li>
             <div class="top">
-              <img src="./assets/images/quality@2x.png" />
+              <img src="./assets/images/quality@2x.png" @click="handleJump('/grow.html')"/>
               <p>谨审核/高质量</p>
             </div>
             <div class="bottom img-e">
@@ -65,7 +65,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/Sincerity@2x.png" />
+              <img src="./assets/images/Sincerity@2x.png" @click="handleJump('/grow.html')"/>
               <p>严信用/倡诚信</p>
             </div>
             <div class="bottom img-f">
@@ -74,7 +74,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/industry@2x.png" />
+              <img src="./assets/images/industry@2x.png" @click="handleJump('/grow.html')"/>
               <p>分行业/详地域</p>
             </div>
             <div class="bottom img-g">
@@ -83,7 +83,7 @@
           </li>
           <li>
             <div class="top">
-              <img src="./assets/images/On-line@2x.png" />
+              <img src="./assets/images/On-line@2x.png" @click="handleJump('/grow.html')"/>
               <p>抱团联合/共享私域</p>
             </div>
             <div class="bottom img-h">
@@ -136,19 +136,19 @@ body {
   padding-top: 50px;
 }
 .page-two {
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   .banner {
     background: url('./assets/images/banner-b.png') no-repeat 50% / cover;
   }
 }
 .page-three {
-  padding-bottom: 3.5rem;
+  padding-bottom: 1rem;
   .banner {
     background: url('./assets/images/banner-a@2x.png') no-repeat 0% / cover;
   }
 
   .tip {
-    padding: 0 0.9375rem 2rem 0.9375rem;
+    padding: 0 0.9375rem .5rem 0.9375rem;
     font-size: 0.75rem;
     color: #f65161;
   }
@@ -171,7 +171,7 @@ body {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      padding: 0.9375rem 0.9375rem 1.5rem 0.9375rem;
+      padding: 0.9375rem 0.9375rem 0 0.9375rem;
 
       li {
         flex: 0 0 48%;
@@ -245,7 +245,7 @@ body {
       width: 15rem;
       height: 3.4375rem;
       line-height: 3.4375rem;
-      z-index: 999;
+      z-index: 98;
       text-align: center;
       top: 18px;
       left: calc(50% - 7.5rem);

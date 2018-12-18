@@ -6,13 +6,7 @@
         <input v-model="name" class="weui-input" type="text" placeholder="请输入您的姓名">
       </weui-cell>
       <weui-cell label="手机号">
-        <input
-          v-model="phone"
-          class="weui-input"
-          type="number"
-          pattern="[0-9]*"
-          placeholder="请输入手机号"
-        >
+        <input v-model="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号">
       </weui-cell>
       <weui-cell-select label="省份">
         <select class="weui-select" v-model="selectedProvince" @change="handleProvinceChange">
@@ -41,12 +35,7 @@
     </weui-cells>
     <weui-panel>
       <div v-if="products.length > 0">
-        <a
-          v-for="product in products"
-          :key="product.id"
-          :href="`/product.html?productId=${product.id}`"
-          class="weui-media-box weui-media-box_appmsg"
-        >
+        <a v-for="product in products" :key="product.id" :href="`/product.html?productId=${product.id}`" class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
             <img class="weui-media-box__thumb" :src="product.imgUrl">
           </div>
@@ -104,8 +93,8 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
 import {
   WeuiPanel,
   WeuiLoadMoreLine,
@@ -116,15 +105,15 @@ import {
   WeuiCell,
   WeuiTextarea,
   WeuiCellSelect
-} from "../../common/components";
+} from '../../common/components';
 import {
   tryFunc,
   getQueryString,
   openAlert,
   checkPhone
-} from "../../common/js/common";
-import regions from "../../common/js/regions";
-import "../../common/js/share.js";
+} from '../../common/js/common';
+import regions from '../../common/js/regions';
+import '../../common/js/share.js';
 
 export default {
   components: {
@@ -158,44 +147,44 @@ export default {
   data() {
     return {
       showApp: false,
-      isImm: !!getQueryString("imm"),
+      isImm: !!getQueryString('imm'),
       products: [],
       coupons: [],
-      selectCoupon: "",
-      address: "",
-      selectedProvince: "",
-      selectedCity: "",
-      selectedCounty: "",
+      selectCoupon: '',
+      address: '',
+      selectedProvince: '',
+      selectedCity: '',
+      selectedCounty: '',
       provinces: [],
       cities: [],
       counties: [],
-      phone: "",
-      name: ""
+      phone: '',
+      name: ''
     };
   },
   created() {
-    const address = localStorage.getItem("address");
+    const address = localStorage.getItem('address');
     if (address) {
       this.address = address;
     }
-    const countyCode = localStorage.getItem("countyCode");
+    const countyCode = localStorage.getItem('countyCode');
     if (countyCode) {
       this.setSelected(countyCode);
     } else {
-      this.provinces = regions.filter(item => item.code.endsWith("0000"));
+      this.provinces = regions.filter(item => item.code.endsWith('0000'));
     }
 
-    const phone = localStorage.getItem("phone");
+    const phone = localStorage.getItem('phone');
     if (phone) {
       this.phone = phone;
     }
 
-    this.products = getQueryString("productIds")
-      .split(";")
+    this.products = getQueryString('productIds')
+      .split(';')
       .map(item => {
         return {
-          id: item.split(",")[0],
-          count: item.split(",")[1]
+          id: item.split(',')[0],
+          count: item.split(',')[1]
         };
       });
   },
@@ -203,7 +192,7 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const ids = this.products.map(item => item.id).join(",");
+      const ids = this.products.map(item => item.id).join(',');
       let response = await axios.get(`/item/findByIds?ids=${ids}`);
       for (let product of response.data) {
         for (let { count, id } of this.products) {
@@ -213,16 +202,16 @@ export default {
         }
       }
 
-      const name = localStorage.getItem("name");
+      const name = localStorage.getItem('name');
       if (name) {
         this.name = name;
       } else {
-        let response = await axios.get(`/user/info`);
+        let response = await axios.get('/user/info');
         this.name = response.data.userName;
       }
 
       this.products = response.data;
-      response = await axios.get("/user/coupon");
+      response = await axios.get('/user/coupon');
       if (response.data) {
         // 排序过滤优惠券
         this.coupons = response.data
@@ -239,18 +228,18 @@ export default {
       this.counties = regions.filter(
         item =>
           item.code.startsWith(countyCode.substr(0, 4)) &&
-          !item.code.endsWith("00")
+          !item.code.endsWith('00')
       );
       this.selectedCounty = countyCode;
 
       this.cities = regions.filter(
         item =>
           item.code.startsWith(countyCode.substr(0, 2)) &&
-          item.code.endsWith("00") &&
-          !item.code.endsWith("0000")
+          item.code.endsWith('00') &&
+          !item.code.endsWith('0000')
       );
 
-      this.provinces = regions.filter(item => item.code.endsWith("0000"));
+      this.provinces = regions.filter(item => item.code.endsWith('0000'));
       const city = this.cities.filter(
         item => item.code.substr(0, 4) === countyCode.substr(0, 4)
       )[0];
@@ -265,7 +254,7 @@ export default {
       this.cities = regions.filter(
         item =>
           item.code.startsWith(proviceCode.substr(0, 2)) &&
-          item.code.endsWith("00") &&
+          item.code.endsWith('00') &&
           item.code !== proviceCode
       );
       this.selectedCity = this.cities[0].code;
@@ -281,27 +270,27 @@ export default {
     },
     handleSubmit() {
       if (!this.selectedProvince) {
-        openAlert("请选择省份");
+        openAlert('请选择省份');
         return;
       }
       if (!this.selectedCity) {
-        openAlert("请选择城市");
+        openAlert('请选择城市');
         return;
       }
       if (!this.selectedCounty) {
-        openAlert("请选择区县");
+        openAlert('请选择区县');
         return;
       }
       if (!this.address) {
-        openAlert("请输入详细地址");
+        openAlert('请输入详细地址');
         return;
       }
       if (!checkPhone(this.phone)) {
-        openAlert("手机号码格式不正确");
+        openAlert('手机号码格式不正确');
         return;
       }
       if (!this.name) {
-        openAlert("请输入姓名");
+        openAlert('请输入姓名');
         return;
       }
       const proviceName = regions.filter(
@@ -314,11 +303,11 @@ export default {
         item => item.code === this.selectedCounty
       )[0].name;
       tryFunc(async () => {
-        localStorage.setItem("address", this.address);
-        localStorage.setItem("countyCode", this.selectedCounty);
-        localStorage.setItem("phone", this.phone);
-        localStorage.setItem("name", this.name);
-        const response = await axios.post("/buyer/order/", {
+        localStorage.setItem('address', this.address);
+        localStorage.setItem('countyCode', this.selectedCounty);
+        localStorage.setItem('phone', this.phone);
+        localStorage.setItem('name', this.name);
+        const response = await axios.post('/buyer/order/', {
           price: this.total - this.couponPrice,
           coupon: this.couponPrice,
           couponId: this.selectCoupon,
@@ -334,7 +323,7 @@ export default {
         });
         let orderNumber = response.data;
         if (!this.isImm) {
-          const visitShopUserId = localStorage.getItem("visitShopUserId");
+          const visitShopUserId = localStorage.getItem('visitShopUserId');
           const cartKey = `cart_${visitShopUserId}`;
           const strCart = localStorage.getItem(cartKey);
           let cart = [];
