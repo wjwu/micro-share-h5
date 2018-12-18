@@ -26,7 +26,7 @@
           <p>{{item.shopName}}</p>
         </div>
         <div class="weui-cell__ft">
-          奖励￥{{item.price}}
+          满￥{{item.mustPrice}}减￥{{item.price}}
           <br>
           {{item.startTime}}
           <br>

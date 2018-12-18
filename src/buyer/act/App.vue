@@ -45,6 +45,15 @@
       </div>
       <div class="weui-cell">
         <div class="weui-cell__hd">
+          <label class="weui-label">使用门槛</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" placeholder="满XX元减可使用优惠券" value="0" v-model="shopAct.mustPrice">
+        </div>
+        <div class="weui-cell__ft" style="font-size:1rem;">元</div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
           <label class="weui-label">单张券价值</label>
         </div>
         <div class="weui-cell__bd">
@@ -73,6 +82,7 @@ export default {
         description: '',
         startTime: '',
         endTime: '',
+        mustPrice: '',
         price: ''
       }
     };
@@ -103,6 +113,10 @@ export default {
       }
       if (!this.shopAct.description) {
         openAlert('请输入分享活动描述');
+        return;
+      }
+      if(!this.shopAct.mustPrice){
+        openAlert('请输入满足金额');
         return;
       }
       if (!this.shopAct.price) {

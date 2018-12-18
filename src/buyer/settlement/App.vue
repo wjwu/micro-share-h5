@@ -80,7 +80,7 @@
     <weui-cells>
       <weui-cell-select label="优惠券">
         <select class="weui-select" :disabled="coupons.length === 0" v-model="selectCoupon">
-          <option value v-if="coupons.length === 0">暂无可以用优惠券</option>
+          <option value v-if="coupons.length === 0">暂无可用优惠券</option>
           <option value v-else>请选择优惠券</option>
           <option :value="item.id" v-for="item in coupons" :key="item.id">{{item.price}}元</option>
         </select>
@@ -213,7 +213,8 @@ export default {
           .sort((a, b) => {
             return a.price - b.price;
           })
-          .filter(item => item.price < this.total);
+          .filter(item => item.price < this.total)
+          .filter(item => this.total >= item.mustPrice);
       }
     });
   },

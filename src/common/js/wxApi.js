@@ -18,6 +18,7 @@ export default {
         url = url.replace('&isappinstalled', '*isappinstalled');
         url = url.replace('&from', '*from');
       }
+      url = url.replace('&', '*');
       axios
         .get(`${config.apiHost}/wx/shareParam?reqUrl=${url}`)
         .then(response => {
