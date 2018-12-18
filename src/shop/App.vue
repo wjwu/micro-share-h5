@@ -10,7 +10,7 @@
         </div>
         <div class="notice">
           <p>店长公告：</p>
-          <marquee>{{shop.notice}}</marquee>
+          <marquee scrollamount="4">{{shop.notice}}</marquee>
         </div>
         <div class="activity" v-if="showAct">
           <h2>优惠活动

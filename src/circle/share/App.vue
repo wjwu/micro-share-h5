@@ -6,7 +6,7 @@
     <div class="desc" v-if="userName === mineUserName">请分享本页给朋友，本条提示仅圈主可见</div>
     <div class="desc">您的好友
       <b style="color:red;">{{userName}}</b>邀请您一起组建
-      <b style="color:red;">《{{circleName}}》</b>商伴圈，联合抱团经营。加入圈子，您将有机会免费获得手掌柜智能社交商城工具
+      <b style="color:red;">《{{circleName}}》</b>商伴圈，联合抱团经营。加入圈子，您将有机会免费获得好货架智能社交商城工具
     </div>
     <weui-btn-area>
       <weui-btn type="primary" @click="handleJoinClick">立即加入</weui-btn>
@@ -47,9 +47,9 @@ export default {
       this.circleName = data.name;
       this.showApp = true;
 
-      let title = `您的好友${this.userName}邀请您组件圈子`;
+      let title = `您的好友${this.userName}邀请您组建圈子联合抱团经营`;
       let desc =
-        '联合抱团经营。加入圈子，您将有机会免费获得手掌柜智能社交商城工具';
+        '联合抱团经营。加入圈子，您将有机会免费获得好货架智能社交商城工具';
       let link = location.href;
       let imgUrl = 'http://static.fangzhoubuluo.com/logo.png';
       await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);

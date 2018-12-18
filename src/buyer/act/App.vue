@@ -4,8 +4,10 @@
       <div class="page__hd" style="padding: 20px;">
         <h1 class="page__title">老带新活动</h1>
         <p class="page__desc">
-          老、新顾客各赠送现金抵扣券
-          <span style="color:red;">{{shopAct.price ? shopAct.price : 'X'}}</span>元（每次购物限用一张）
+          <span style="color:red;">1.请您务必慎重计算设置活动金额，以免给您带来损失</span><br />
+          2.活动时间：指抵扣券有效期时间<br />
+          3.新老顾客各赠送现金抵扣券
+          满 <span style="color:red;">{{shopAct.mustPrice ? shopAct.mustPrice : '0'}}</span> 减 <span style="color:red;">{{shopAct.price ? shopAct.price : 'X'}}</span>元（每次购物限用一张）
         </p>
       </div>
     </div>
