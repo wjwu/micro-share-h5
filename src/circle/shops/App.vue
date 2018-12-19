@@ -43,7 +43,9 @@ export default {
           userId: this.userId
         }
       });
-      this.shops = shops;
+      if (shops) {
+        this.shops = shops.slice(0, 6);
+      }
     });
   }
 };
@@ -61,7 +63,7 @@ export default {
 .weui-media-box:before {
   display: none;
 }
-.weui-loadmore_line .weui-loadmore__tips{
+.weui-loadmore_line .weui-loadmore__tips {
   background-color: #f8f8f8;
 }
 </style>
