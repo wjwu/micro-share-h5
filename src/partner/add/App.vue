@@ -1,31 +1,32 @@
 <template>
-  <div v-if="showApp">
-  </div>
+  <div v-if="showApp"></div>
 </template>
 
 <script>
-import axios from '../../common/js/axios';
-import { auth } from '../../common/js/auth';
-import { tryFunc, getQueryString, openAlert } from '../../common/js/common';
-import '../../common/js/share';
+import axios from "../../common/js/axios";
+import { auth } from "../../common/js/auth";
+import { tryFunc, getQueryString, openAlert } from "../../common/js/common";
+import "../../common/js/share";
 
 export default {
   data() {
     return {
       showApp: false,
-      partnerId: getQueryString('pid')
+      partnerId: getQueryString("pid"),
+      sid: getQueryString("sid")
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      if (!this.partnerId) {
-        openAlert('商伴Id无效');
-        return;
+      if (this.partnerId) {
+        await axios.post(`/user/room/${this.partnerId}`);
       }
-      await axios.post(`/user/room/${this.partnerId}`);
-      window.location.href = '/partner/success.html';
+      if (this.sid) {
+        await axios.post(`/shop/part/${this.sid}`);
+      }
+      window.location.href = "/partner/success.html";
     });
   }
 };

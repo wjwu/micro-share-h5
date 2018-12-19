@@ -264,7 +264,7 @@ export default {
       }
     },
     handleJumpBase(url) {
-      if (!this.vipInfo.baseVipFlag) {
+      if (!this.vipInfo.advVipFlag && !this.vipInfo.baseVipFlag) {
         openConfirm('您尚未购买基础版VIP功能，是否前往购买页面购买？', () => {
           window.location.href = '/pay.html';
         });
