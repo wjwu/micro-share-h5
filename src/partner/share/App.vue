@@ -2,16 +2,8 @@
   <div v-if="showApp">
     <div class="weui-tab">
       <div class="weui-navbar">
-        <div
-          class="weui-navbar__item"
-          :class="{'weui-bar__item_on':selectedTab==='group'}"
-          @click="selectedTab = 'group'"
-        >微信群共享</div>
-        <div
-          class="weui-navbar__item"
-          :class="{'weui-bar__item_on':selectedTab==='shelves'}"
-          @click="selectedTab = 'shelves'"
-        >货架共享</div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='group'}" @click="selectedTab = 'group'">微信群共享</div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='shelves'}" @click="selectedTab = 'shelves'">货架共享</div>
       </div>
       <div class="weui-tab__panel" v-if="selectedTab==='group'">
         <weui-cells-title>点击“分享”转发二维码给朋友，可和对方结成商伴进行资源（群资源&管家）互相共享</weui-cells-title>
@@ -58,19 +50,19 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import VueQr from "../../common/lib/vue-qr";
-import config from "../../common/js/config";
-import { auth } from "../../common/js/auth";
-import { tryFunc } from "../../common/js/common";
+import axios from '../../common/js/axios';
+import VueQr from '../../common/lib/vue-qr';
+import config from '../../common/js/config';
+import { auth } from '../../common/js/auth';
+import { tryFunc } from '../../common/js/common';
 import {
   WeuiCells,
   WeuiCell,
   WeuiCellsTitle,
   WeuiLoadMoreLine,
   WeuiBtn
-} from "../../common/components";
-import "../../common/js/share";
+} from '../../common/components';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -84,11 +76,11 @@ export default {
   data() {
     return {
       showApp: false,
-      selectedTab: "group",
+      selectedTab: 'group',
       myGroups: [],
       orderGroups: [],
       partShop: [],
-      shareUrl: "",
+      shareUrl: '',
       showMask: false,
       shopInfo: null
     };
@@ -97,18 +89,18 @@ export default {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      const { data } = await axios.get("/user/myAllRoom");
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
-        if (item.type === "NORMAL") {
+        if (item.type === 'NORMAL') {
           this.myGroups.push(item);
         } else {
           this.orderGroups.push(item);
         }
       }
-      let responseShop = await axios.get("/shop/part");
+      let responseShop = await axios.get('/shop/part');
       this.partShop = responseShop.data;
 
-      let response = await axios.get("/user/shopInfo");
+      let response = await axios.get('/user/shopInfo');
       this.shopInfo = response.data;
     });
   },
@@ -123,7 +115,7 @@ export default {
       this.showMask = true;
     },
     handleMaskClick(e) {
-      if (e.target.classList && e.target.classList[0] !== "mask") {
+      if (e.target.classList && e.target.classList[0] !== 'mask') {
         e.preventDefault();
         return;
       }

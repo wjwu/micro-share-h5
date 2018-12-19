@@ -2,16 +2,8 @@
   <div v-if="showApp">
     <div class="weui-tab">
       <div class="weui-navbar">
-        <div
-          class="weui-navbar__item"
-          :class="{'weui-bar__item_on':selectedTab==='group'}"
-          @click="selectedTab = 'group'"
-        >微信群管理</div>
-        <div
-          class="weui-navbar__item"
-          :class="{'weui-bar__item_on':selectedTab==='shelves'}"
-          @click="selectedTab = 'shelves'"
-        >货架管理</div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='group'}" @click="selectedTab = 'group'">微信群管理</div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='shelves'}" @click="selectedTab = 'shelves'">货架管理</div>
       </div>
       <div class="weui-tab__panel" v-if="selectedTab==='group'">
         <weui-cells-title>1、点击“删除”为双向删除对方</weui-cells-title>
@@ -54,17 +46,17 @@
 </template>
 
 <script>
-import axios from "../../common/js/axios";
-import { auth } from "../../common/js/auth";
-import { tryFunc, openConfirm } from "../../common/js/common";
+import axios from '../../common/js/axios';
+import { auth } from '../../common/js/auth';
+import { tryFunc, openConfirm } from '../../common/js/common';
 import {
   WeuiCells,
   WeuiCell,
   WeuiCellsTitle,
   WeuiLoadMoreLine,
   WeuiBtn
-} from "../../common/components";
-import "../../common/js/share";
+} from '../../common/components';
+import '../../common/js/share';
 
 export default {
   components: {
@@ -77,7 +69,7 @@ export default {
   data() {
     return {
       showApp: false,
-      selectedTab: "group",
+      selectedTab: 'group',
       myGroups: [],
       partShop: [],
       orderGroups: [],
@@ -93,19 +85,19 @@ export default {
   },
   methods: {
     async load() {
-      const { data } = await axios.get("/user/myAllRoom");
+      const { data } = await axios.get('/user/myAllRoom');
       for (let item of data) {
-        if (item.type === "NORMAL") {
+        if (item.type === 'NORMAL') {
           this.myGroups.push(item);
         } else {
           this.orderGroups.push(item);
         }
       }
 
-      let responseShop = await axios.get("/shop/part");
+      let responseShop = await axios.get('/shop/part');
       this.partShop = responseShop.data;
 
-      let response = await axios.get("/user/shopInfo");
+      let response = await axios.get('/user/shopInfo');
       this.shopInfo = response.data;
     },
     handleDelete(item) {
