@@ -1,13 +1,13 @@
 <template>
   <ul class="nav-head">
     <li>
-      <a href="/about.html">关于我们</a>
-    </li>
-    <li>
       <a href="/show/huojiayongtu.html">货架专属</a>
     </li>
     <li>
       <a href="/show/shangbanyongtu.html">商伴专属</a>
+    </li>
+    <li>
+      <a href="/about.html">关于我们</a>
     </li>
   </ul>
 </template>
