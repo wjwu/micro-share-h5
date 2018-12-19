@@ -138,13 +138,13 @@ body {
 .page-two {
   padding-bottom: 1rem;
   .banner {
-    background: url('./assets/images/banner-b.png') no-repeat 50% / cover;
+    background: url('http://static.fangzhoubuluo.com/manager-banner-b.png?imageView2/2/w/500/h/500/q/75|imageslim') no-repeat 50% / cover;
   }
 }
 .page-three {
   padding-bottom: 1rem;
   .banner {
-    background: url('./assets/images/banner-a@2x.png') no-repeat 0% / cover;
+    background: url('http://static.fangzhoubuluo.com/manager-banner-a@2x.png?imageView2/2/w/500/h/500/q/75|imageslim') no-repeat 0% / cover;
   }
 
   .tip {
@@ -210,28 +210,28 @@ body {
     }
 
     .img-a {
-      background: url('./assets/images/img-a@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-a@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-b {
-      background: url('./assets/images/img-b@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-b@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-c {
-      background: url('./assets/images/img-c@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-c@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-d {
-      background: url('./assets/images/img-d@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-d@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-e {
-      background: url('./assets/images/img-e@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-e@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-f {
-      background: url('./assets/images/img-f@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-f@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-g {
-      background: url('./assets/images/img-g@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-g@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
     .img-h {
-      background: url('./assets/images/img-h@2x.png') no-repeat 50% / cover;
+      background: url('http://static.fangzhoubuluo.com/img-h@2x.png?imageView2/2/w/200/h/200/q/75|imageslim') no-repeat 50% / cover;
     }
 
     .round {
