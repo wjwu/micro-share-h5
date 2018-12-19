@@ -18,7 +18,7 @@
           <span class="thought_money" v-if="product.type === SPECIAL"> 原价 <span class="del">¥ {{product.originPrice}}</span></span>
           <div class="info">
             <div class="reduce" @click="handleReduce(product)"></div>
-            <input type="number" class="count" v-model="product.count" @blur="handleCountBlur(product)" @textInput="handleCountInput($event,product)" />
+            <input type="number" pattern="[0-9]*" class="count" v-model="product.count" @blur="handleCountBlur(product)" @textInput="handleCountInput($event,product)" />
             <div class="plus" @click="handlePlus(product)"></div>
           </div>
         </div>
@@ -35,7 +35,7 @@
     </div>
     <div class="buy-wrap">
       <div class="cart" @click="handleAddCart">扔进背篓</div>
-      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},1&imm=true`">立即购买</a>
+      <a class="buy" :href="`/buyer/settlement.html?productIds=${productId},${product.count}&imm=true`">立即购买</a>
     </div>
   </cust-bar>
 </template>
