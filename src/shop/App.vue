@@ -62,6 +62,7 @@
         <div class="all">
           <h2>所有商品
             <span>/ ALL</span>
+            <a :href="`/circle/shops.html?userId=${userId}`">圈内好店</a>
           </h2>
           <ul v-if="products">
             <li v-for="product in products.normalList" :key="product.id">
@@ -271,6 +272,11 @@ body {
       letter-spacing: 1;
       line-height: 1.5625rem;
       padding-left: 0.375rem;
+    }
+
+    a{
+      float: right;
+      color: #f65161;
     }
   }
 
