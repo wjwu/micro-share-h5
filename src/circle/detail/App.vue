@@ -2,7 +2,7 @@
   <div v-if="showApp && circle">
     <div style="padding:1.5rem;">
       <h1>{{circle.name}}</h1>
-      <div v-if="circle.status == 'PASS' && userId != circle.userId">
+      <div v-if="circle.status == 'PASS' && userId == circle.userId">
         您邀请成员有 <span style="color:red;">{{circle.passedMemberDtoList ? circle.passedMemberDtoList.length : 0}}</span> 名通过群分享审核，距一个月到期时间还剩{{circle.createTime | time}}天。
       </div>
       <div v-if="circleFirstShow">
