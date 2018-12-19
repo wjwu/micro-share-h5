@@ -1,8 +1,14 @@
 <template>
   <ul class="nav-head">
-    <li><a href="/job.html">关于我们</a></li>
-    <li><a href="/contact.html">商伴专属</a></li>
-    <li><a href="/about.html">货架专属</a></li>
+    <li>
+      <a href="/about.html">关于我们</a>
+    </li>
+    <li>
+      <a href="/show/huojiayongtu.html">货架专属</a>
+    </li>
+    <li>
+      <a href="/show/shangbanyongtu.html">商伴专属</a>
+    </li>
   </ul>
 </template>
 
@@ -36,7 +42,7 @@ export default {};
       position: relative;
       top: 2px;
       left: 0.6rem;
-      content: '';
+      content: "";
       width: 1px;
       height: 17px;
       color: #fff;

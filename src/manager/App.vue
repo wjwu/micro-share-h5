@@ -5,36 +5,36 @@
       <div class="banner"></div>
       <div class="content">
         <ul>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/product@2x.png" @click="handleJump('/grow.html')" />
+              <img src="./assets/images/product@2x.png"/>
               <p>品牌宣传销售</p>
             </div>
             <div class="bottom img-a">
               <p>您的专属店铺信章/店铺Logo/二维码信息可植入您的商品展示与销售，打造您的品牌和专业形象。</p>
             </div>
           </li>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/drainage@2x.png" @click="handleJump('/grow.html')" />
+              <img src="./assets/images/drainage@2x.png" />
               <p>引流互联共享</p>
             </div>
             <div class="bottom img-b">
               <p>会员老带新/积分管理对目标客户的精确传递与引流，互联共享功能可打造数万户周边家庭的私人流量池。</p>
             </div>
           </li>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/Order@2x.png" @click="handleJump('/grow.html')"/>
+              <img src="./assets/images/Order@2x.png"/>
               <p>订单自动抓取</p>
             </div>
             <div class="bottom img-c">
               <p>不管在任何社群中，自动时刻帮您盯着众多社群滚滚信息流中的订单踪迹，将您的眼睛从手机中解脱出来。</p>
             </div>
           </li>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/manage@2x.png" @click="handleJump('/grow.html')"/>
+              <img src="./assets/images/manage@2x.png"/>
               <p>社群日常管理</p>
             </div>
             <div class="bottom img-d">
@@ -54,36 +54,36 @@
       <div class="banner"></div>
       <div class="content">
         <ul>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/quality@2x.png" @click="handleJump('/grow.html')"/>
+              <img src="./assets/images/quality@2x.png"/>
               <p>谨审核/高质量</p>
             </div>
             <div class="bottom img-e">
               <p>智能&人工对分享源群申请资料真实性、活跃度等进行多维度进行审核，确保源群高质量。</p>
             </div>
           </li>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/Sincerity@2x.png" @click="handleJump('/grow.html')"/>
+              <img src="./assets/images/Sincerity@2x.png"/>
               <p>严信用/倡诚信</p>
             </div>
             <div class="bottom img-f">
               <p>严格信用管理机制，商伴与源群评价机制结合，导向诚信互助，剔除短视投机。</p>
             </div>
           </li>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/industry@2x.png" @click="handleJump('/grow.html')"/>
+              <img src="./assets/images/industry@2x.png"/>
               <p>分行业/详地域</p>
             </div>
             <div class="bottom img-g">
               <p>数十类大行业与细分行业，可实现以您店铺为中心半径1KM-5KM范围内商伴选择。</p>
             </div>
           </li>
-          <li>
+          <li @click="handleJump('/show/grow.html')">
             <div class="top">
-              <img src="./assets/images/On-line@2x.png" @click="handleJump('/grow.html')"/>
+              <img src="./assets/images/On-line@2x.png"/>
               <p>抱团联合/共享私域</p>
             </div>
             <div class="bottom img-h">

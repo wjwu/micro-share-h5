@@ -4,20 +4,27 @@
       <div class="menu" @click="handleMenuClick"></div>
     </div>
     <div class="content">
-      <h2>关于我们</h2>
-      <p>商伴部落致力于通过提供有效的途径和工具，为有正规合法产品或服务销售的社区实体商家、小微商家之间搭建一座资源链接桥梁，采用线下抱团联合、线上共建共拓方式，协助大家低成本盘活资源、互补资源、共享资源，实现参与各方互助、共建、共享、共赢。 “执汝之手，伴汝长成”是部落愿景，也是对原意遵循诚信经营部落成员的服务理念。
+      <h2>部落愿景</h2>
+      <p>商伴部落致力于通过提供有效的途径和工具，为有正规合法产品或服务销售的社区实体商家、小微商家之间搭建一座资源链接桥梁，采用线下抱团联合、线上共建共拓方式，协助大家低成本盘活资源、互补资源、共享资源，实现参与各方互助、共建、共享、共赢。
+        <br>运作机制：
+        <br>
+        <img width="100%;" src="http://static.fangzhoubuluo.com/about1.png">
+        <br>“执汝之手，伴汝长成”是部落愿景，也是对原意遵循诚信经营部落成员的服务理念。
       </p>
+      <div class="page__bd page__bd_spacing" style="padding: 2rem;">
+        <a href="javascript:history.back(-1);" class="weui-btn weui-btn_default">返回</a>
+      </div>
     </div>
     <div class="footer">
       <p>成都鹅卵石信息技术有限公司</p>
-      <p> Copyright © 2019 蜀ICP备18026087号</p>
+      <p>Copyright © 2019 蜀ICP备18026087号</p>
     </div>
   </div>
 </template>
 
 <script>
-import weui from 'weui.js';
-import '../common/js/share';
+import weui from "weui.js";
+import "../common/js/share";
 
 export default {
   methods: {
@@ -28,33 +35,33 @@ export default {
       weui.actionSheet(
         [
           {
-            label: '首页',
+            label: "首页",
             onClick: function() {
-              window.location.href = '/';
+              window.location.href = "/";
             }
           },
           {
-            label: '关于我们',
+            label: "关于我们",
             onClick: function() {
-              window.location.href = '/about.html';
+              window.location.href = "/about.html";
             }
           },
           {
-            label: '联系我们',
+            label: "联系我们",
             onClick: function() {
-              window.location.href = '/contact.html';
+              window.location.href = "/contact.html";
             }
           },
           {
-            label: '招揽英才',
+            label: "招揽英才",
             onClick: function() {
-              window.location.href = '/job.html';
+              window.location.href = "/job.html";
             }
           }
         ],
         [
           {
-            label: '取消',
+            label: "取消",
             onClick: function() {}
           }
         ]
@@ -68,17 +75,13 @@ export default {
 html,
 body,
 .main {
-  height: 100%;
-}
-
-.main {
   display: flex;
   flex-direction: column;
 }
 
 .banner {
   height: 10rem;
-  background: url('./assets/images/about.jpg') no-repeat center 0 / cover;
+  background: url("./assets/images/about.jpg") no-repeat center 0 / cover;
 
   .menu {
     width: 2.125rem;
@@ -86,7 +89,7 @@ body,
     position: absolute;
     right: 1.375rem;
     top: 1.3125rem;
-    background: url('./assets/images/menu@2x.png') no-repeat 50% / cover;
+    background: url("./assets/images/menu@2x.png") no-repeat 50% / cover;
   }
 }
 
