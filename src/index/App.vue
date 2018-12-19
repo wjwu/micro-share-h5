@@ -162,7 +162,7 @@ body {
     height: 11rem;
     background: url('./assets/images/logo@2x.png') no-repeat 0.875rem 1rem /
         6.875rem 2.375rem,
-      url('http://static.fangzhoubuluo.com/banner-a@2x.png?imageView2/2/w/500/h/500/q/75|imageslim') no-repeat 50% 0 / 100%;
+      url('http://static.fangzhoubuluo.com/small-banner-a@2x.png') no-repeat 50% 0 / 100%;
   }
   .menu {
     width: 1.6875rem;
@@ -382,7 +382,7 @@ body {
     padding-top: 9.9375rem;
     width: 100%;
     height: 22.875rem;
-    background: url('http://static.fangzhoubuluo.com/bj@2x.png?imageView2/2/w/500/h/500/q/75|imageslim') no-repeat 50% 0% / cover;
+    background: url('http://static.fangzhoubuluo.com/small-bj@2x.png') no-repeat 50% 0% / cover;
 
     h1 {
       font-size: 2.1875rem;
