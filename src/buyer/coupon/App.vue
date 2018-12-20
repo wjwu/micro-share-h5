@@ -12,6 +12,7 @@
           <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title">¥{{coupon.price}}</h4>
             <p class="weui-media-box__desc">到账时间：{{coupon.createTime | time}}</p>
+            <p class="weui-media-box__desc">过期时间：{{coupon.expireTime | time}}</p>
           </div>
           <div class="weui-media-box__fd">
             <a :href="`/shop.html?userId=${coupon.shopId}`">去使用</a>
@@ -30,13 +31,14 @@ import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
-import { WeuiPanel, WeuiLoadMoreLine } from '../../common/components';
+import { WeuiPanel, WeuiLoadMoreLine,WeuiCells } from '../../common/components';
 import '../../common/js/share';
 
 export default {
   components: {
     WeuiPanel,
-    WeuiLoadMoreLine
+    WeuiLoadMoreLine,
+    WeuiCells
   },
   data() {
     return {

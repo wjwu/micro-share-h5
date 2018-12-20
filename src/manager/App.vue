@@ -251,7 +251,7 @@ body {
       left: calc(50% - 7.5rem);
       position: absolute;
       color: #fff;
-      font-size: 1.6rem;
+      font-size: 1.2rem;
       font-weight: bold;
     }
     .circle_bottom {

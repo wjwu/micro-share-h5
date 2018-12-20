@@ -3,15 +3,15 @@
     <div class="content">
       <div class="intro">
         <p>提醒:</p>
-        <p>1.购买支付成功后，账户管家购买功能自动开通。</p>
-        <p>2.个人账户管家管理功能开通，并提供人工客服服务。</p>
+        <p>1.购买支付成功后，货架购买功能自动开通。</p>
+        <p>2.个人账户货架能开通，并提供人工客服服务。</p>
       </div>
       <h4>产品报价</h4>
       <div class="price">
         <img src="./assets/images/pay.png" />
       </div>
       <h4>产品购买</h4>
-      <div class="weui-cells__title"><b>店长模块版</b></div>
+      <div class="weui-cells__title"><b>商城模块版</b></div>
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell weui-cell_select weui-cell_select-after">
           <div class="weui-cell__hd">

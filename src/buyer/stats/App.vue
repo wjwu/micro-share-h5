@@ -3,6 +3,7 @@
     <weui-cells>
       <weui-cell label="赠送券总数：">{{data.sendedNums}}</weui-cell>
       <weui-cell label="已核销券总数：">{{data.usedNums}}</weui-cell>
+      <weui-cell label="已过期券总数：">{{data.expireNums}}</weui-cell>
       <weui-cell label="剩余券总数：">{{data.sendedNums - data.usedNums}}</weui-cell>
     </weui-cells>
     <weui-cells>
@@ -26,9 +27,9 @@
 </template>
 
 <script>
-import { WeuiCells, WeuiCell, WeuiCellAccess } from '../../common/components';
-import { tryFunc } from '../../common/js/common';
-import axios from '../../common/js/axios';
+import { WeuiCells, WeuiCell, WeuiCellAccess } from "../../common/components";
+import { tryFunc } from "../../common/js/common";
+import axios from "../../common/js/axios";
 
 export default {
   data() {
@@ -46,7 +47,7 @@ export default {
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
-      const { data } = await axios.get('/shop/data');
+      const { data } = await axios.get("/shop/data");
       this.data = data;
     });
   },

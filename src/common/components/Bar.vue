@@ -10,7 +10,7 @@
       </a>
       <a href="/vip/shopper.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===3}">
         <img src="./assets/images/manager.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">我的网店</p>
+        <p class="weui-tabbar__label">我的货架</p>
       </a>
       <a href="/group/enter.html" class="weui-tabbar__item" :class="{'weui-bar__item_on':activeIndex===2}">
         <img src="./assets/images/users.png" alt="" class="weui-tabbar__icon">
