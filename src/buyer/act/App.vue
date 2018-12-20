@@ -4,8 +4,7 @@
       <div class="page__hd" style="padding: 20px;">
         <h1 class="page__title">老带新活动</h1>
         <p class="page__desc">
-          <span style="color:red;">1.请您务必慎重设置抵扣券金额和有效期，以避免失误给您带来不必要的损失“。用红色字体提示
-</span>
+          <span style="color:red;">1.请您务必慎重设置抵扣券金额和有效期，以避免失误给您带来不必要的损失。</span>
           <br>2.新老顾客各赠送现金抵扣券
           满
           <span
