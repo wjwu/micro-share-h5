@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="weui-tab">
-      <div class="weui-navbar">
+      <div class="weui-navbar fix">
         <div
           class="weui-navbar__item"
           :class="{'weui-bar__item_on':selectedTab==='group'}"
@@ -67,6 +67,10 @@ export default {
 
 .weui-cell__ft {
   line-height: 0;
+}
+
+.fix {
+  position: fixed;
 }
 </style>
 

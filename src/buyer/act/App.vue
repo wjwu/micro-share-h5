@@ -7,7 +7,9 @@
           <span style="color:red;">1.请您务必慎重计算设置活动金额，以免给您带来损失</span>
           <br>2.新老顾客各赠送现金抵扣券
           满
-          <span style="color:red;">{{shopAct.mustPrice ? shopAct.mustPrice : '0'}}</span> 减
+          <span
+            style="color:red;"
+          >{{shopAct.mustPrice ? shopAct.mustPrice : '0'}}</span> 减
           <span style="color:red;">{{shopAct.price ? shopAct.price : 'X'}}</span>元（每次购物限用一张）
         </p>
       </div>
@@ -87,7 +89,11 @@
           <label class="weui-label">券有效期</label>
         </div>
         <div class="weui-cell__bd">
-          xxx
+          <select class="weui-select" v-model="shopAct.expireNum">
+            <option value="1" selected>1个月</option>
+            <option value="2">2个月</option>
+            <option value="3">3个月</option>
+          </select>
         </div>
       </div>
       <div class="weui-btn-area">

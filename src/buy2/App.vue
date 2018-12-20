@@ -3,12 +3,12 @@
     <div class="main">
       <div class="top">
         <a href="./self/center.html">
-          <img id="head" :src="headPhoto" />
+          <img id="head" :src="headPhoto">
         </a>
         <div class="intro">
           <!-- <span>
             <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
-          </span> -->
+          </span>-->
           <span>
             <a style="color: white;font-weight: 900;" href="guide.html">网店指南</a>
           </span>
@@ -24,10 +24,10 @@
           </div>
           <div class="flow">
             <h4>购买流程</h4>
-            <img src="./assets/images/page2.png" />
+            <img src="./assets/images/page2.png">
             <h4>功能版本对比</h4>
-            <img src="./assets/images/introduction.png" />
-            <img src="./assets/images/desc.png" />
+            <img src="./assets/images/introduction.png">
+            <img src="./assets/images/desc.png">
           </div>
           <div class="footer">
             <button @click="handleJump('/pay.html')">购买货架</button>
@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import { auth, checkPhone } from '../common/js/auth';
-import { tryFunc } from '../common/js/common';
-import Bar from '../common/components/Bar';
-import defaultHeadPhone from './assets/images/user@2x.png';
-import '../common/js/share';
+import { auth, checkPhone } from "../common/js/auth";
+import { tryFunc } from "../common/js/common";
+import Bar from "../common/components/Bar";
+import defaultHeadPhone from "./assets/images/user@2x.png";
+import "../common/js/share";
 
 export default {
   components: {
@@ -53,16 +53,16 @@ export default {
   data() {
     return {
       showApp: false,
-      headPhoto: localStorage.getItem('headPhoto') || defaultHeadPhone
+      headPhoto: localStorage.getItem("headPhoto") || defaultHeadPhone
     };
   },
   mounted() {
     tryFunc(async () => {
       await auth();
       this.showApp = true;
-      if (checkPhone()) {
-        this.showApp = true;
-      }
+      // if (checkPhone()) {
+      //   this.showApp = true;
+      // }
     });
   },
   methods: {
@@ -99,6 +99,9 @@ body {
     height: 5.625rem;
     padding: 0.9375rem;
     background-color: #06b04f;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
 
     img {
       width: 3.6875rem;
@@ -122,7 +125,9 @@ body {
   }
 
   .content {
-    display: flex;
+    position: relative;
+    margin-top: 93px;
+
     flex-direction: column;
     flex: 1;
     background-color: #fff;

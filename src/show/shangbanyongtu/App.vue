@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="weui-tab">
-      <div class="weui-navbar">
+      <div class="weui-navbar fix">
         <div
           class="weui-navbar__item"
           :class="{'weui-bar__item_on':selectedTab==='group'}"
@@ -58,6 +58,10 @@ export default {
 }
 .weui-loadmore__tips {
   background-color: #f8f8f8 !important;
+}
+
+.fix {
+  position: fixed;
 }
 
 .weui-cell__ft {

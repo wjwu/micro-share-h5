@@ -1,7 +1,7 @@
 <template>
   <div v-if="showApp">
     <div class="weui-tab">
-      <div class="weui-navbar">
+      <div class="weui-navbar fix">
         <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='group'}" @click="selectedTab = 'group'">微信群管理</div>
         <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='shelves'}" @click="selectedTab = 'shelves'">货架管理</div>
       </div>
@@ -133,6 +133,10 @@ export default {
 
 .weui-cell__ft {
   line-height: 0;
+}
+
+.fix {
+  position: fixed;
 }
 </style>
 
