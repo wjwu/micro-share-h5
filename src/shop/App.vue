@@ -26,6 +26,7 @@
         <div class="special">
           <h2>本周特价
             <span>/ SPECIALS</span>
+            <a :href="`/circle/shops.html?userId=${userId}`">圈内好店</a>
           </h2>
           <ul v-if="products">
             <li v-for="product in products.specialList" :key="product.id">
@@ -62,7 +63,6 @@
         <div class="all">
           <h2>所有商品
             <span>/ ALL</span>
-            <a :href="`/circle/shops.html?userId=${userId}`">圈内好店</a>
           </h2>
           <ul v-if="products">
             <li v-for="product in products.normalList" :key="product.id">
