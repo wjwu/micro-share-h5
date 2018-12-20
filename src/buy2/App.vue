@@ -10,7 +10,7 @@
             <a style="color: white;font-weight: 900;" href="rule.html">运行规则</a>
           </span> -->
           <span>
-            <a style="color: white;font-weight: 900;" href="guide.html">网店指南</a>
+            <a style="color: white;font-weight: 900;" href="guide.html">货架指南</a>
           </span>
         </div>
       </div>
@@ -26,8 +26,8 @@
             <h4>购买流程</h4>
             <img src="./assets/images/page2.png" />
             <h4>功能版本对比</h4>
+            <img src="./assets/images/intro.png" />
             <img src="./assets/images/introduction.png" />
-            <img src="./assets/images/desc.png" />
           </div>
           <div class="footer">
             <button @click="handleJump('/pay.html')">购买货架</button>

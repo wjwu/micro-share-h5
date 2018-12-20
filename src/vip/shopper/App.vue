@@ -1,6 +1,6 @@
 <template>
   <bar v-if="showApp" :active-index="3">
-    <a href="/qa.html" class="help">
+    <a href="/guide.html" class="help">
       <img src="./assets/images/help.png">
     </a>
     <div class="page__hd top">
