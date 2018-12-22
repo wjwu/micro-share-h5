@@ -37,7 +37,7 @@
       <div v-if="products.length > 0">
         <a v-for="product in products" :key="product.id" :href="`/product.html?productId=${product.id}`" class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" :src="product.imgUrl">
+            <img class="weui-media-box__thumb" :src="product.imgUrl.split(',')[0]">
           </div>
           <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title">{{product.name}}</h4>
