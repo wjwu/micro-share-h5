@@ -159,7 +159,8 @@ export default {
       cities: [],
       counties: [],
       phone: '',
-      name: ''
+      name: '',
+      shopId: localStorage.getItem('visitShopUserId')
     };
   },
   created() {
@@ -219,7 +220,8 @@ export default {
             return a.price - b.price;
           })
           .filter(item => item.price < this.total)
-          .filter(item => this.total >= item.mustPrice);
+          .filter(item => this.total >= item.mustPrice)
+          .filter(item => item.shopId == this.shopId);
       }
     });
   },
