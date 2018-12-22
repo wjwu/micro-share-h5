@@ -39,7 +39,7 @@
             <template slot="head">
               <div class="head">
                 <img src="./assets/images/act.png">
-                <label>参与老带新活动</label>
+                <label>分享有礼</label>
               </div>
             </template>
           </weui-cell-access>

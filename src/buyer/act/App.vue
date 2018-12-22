@@ -151,7 +151,7 @@ export default {
         return;
       }
       if (!this.shopAct.mustPrice) {
-        openAlert("请输入满足金额");
+        openAlert("请输入使用门槛");
         return;
       }
       if (!this.shopAct.price) {
