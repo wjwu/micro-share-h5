@@ -130,6 +130,7 @@ export default {
     tryFunc(async () => {
       if (this.type === "mine") {
         this.userId = localStorage.getItem("userId");
+        //todo
       }
       this.showApp = true;
       const { data: shop } = await axios.get("/user/shopInfoById", {
