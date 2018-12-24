@@ -161,6 +161,13 @@ export default {
             shopId: this.userId
           }
         });
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+          localStorage.setItem("inviterInfo", inviterId + "#" + shopId);
+          // 显示优惠券
+          this.couponPrice = this.act.price.toString();
+          this.showCoupon = true;
+        }
         if (inviter) {
           // 显示优惠券
           this.couponPrice = this.act.price.toString();
