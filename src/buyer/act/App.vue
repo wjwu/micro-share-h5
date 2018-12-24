@@ -146,7 +146,7 @@ export default {
         this.shopAct = data;
       }
 
-      this.link = config.webHost + `/shop.html?userId=${this.userId}`;
+      this.link = config.webHost + `/shop.html?userId=${this.userId}&inviterId=${this.userId}`;
       await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
 
       window.wx.onMenuShareAppMessage(
