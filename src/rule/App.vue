@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import "../common/js/share";
+import '../common/js/share';
 
 export default {};
 </script>

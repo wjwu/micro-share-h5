@@ -1,9 +1,7 @@
 <template>
   <div>前言：
     <br>
-    <span
-      style="color:blue;"
-    >好货架聚焦于在您不具备自己店铺小程序/APP/产品网站/服务器/运维推广人员前提下，提供属于您自己的简洁/高效/易操作/低成本的网上店铺/智能店长工具，主要包括产品推广展示/引流拓客/智能销售/社区商伴圈互联共享四大功能。</span>
+    <span style="color:blue;">好货架聚焦于在您不具备自己店铺小程序/APP/产品网站/服务器/运维推广人员前提下，提供属于您自己的简洁/高效/易操作/低成本的网上店铺/智能店长工具，主要包括产品推广展示/引流拓客/智能销售/社区商伴圈互联共享四大功能。</span>
     <br>在使用货架中每个关键环节都有提示或说明指引您的使用，在使用过程中如有疑问，人工客服也会协助您完成各功能模块的使用。
     <br>完成货架购买后，相应的功能将会自动开通，您需要扫描添加机器人，并拉入您需要管理的社群即可开始使用。
     <br>
@@ -30,13 +28,9 @@
     <center>
       <img src="http://static.fangzhoubuluo.com/newMatchHelp/6.png">
       <br>商品展现形式：客户在微信群中进入您的店铺链接进入商品展现形式（含商品信息、店铺水印、店铺地址、您的二维码等信息）
-      <img
-        src="http://static.fangzhoubuluo.com/newMatchHelp/7.png"
-      >
+      <img src="http://static.fangzhoubuluo.com/newMatchHelp/7.png">
       <br>客户在微信群中进入您的店铺链接进入商品展现形式（客户可扫描您二维码实现引流、实体店可上门消费）
-      <img
-        src="http://static.fangzhoubuluo.com/newMatchHelp/8.png"
-      >
+      <img src="http://static.fangzhoubuluo.com/newMatchHelp/8.png">
     </center>
     <br><span style="color:red;font-weight:900;">商伴共享：</span>您可以通过“商伴共享”分享功能直接结成商伴，共享社群和网店资源，实现更多销售。
     <br>
@@ -68,7 +62,7 @@
 </template>
 
 <script>
-import "../common/js/share";
+import '../common/js/share';
 
 export default {};
 </script>

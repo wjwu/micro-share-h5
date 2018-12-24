@@ -221,7 +221,7 @@ export default {
           })
           .filter(item => item.price < this.total)
           .filter(item => this.total >= item.mustPrice)
-          .filter(item => item.shopId == this.shopId);
+          .filter(item => item.shopId.toString() === this.shopId.toString());
       }
     });
   },

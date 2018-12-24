@@ -2,16 +2,8 @@
   <div>
     <div class="weui-tab">
       <div class="weui-navbar fix">
-        <div
-          class="weui-navbar__item"
-          :class="{'weui-bar__item_on':selectedTab==='group'}"
-          @click="selectedTab = 'group'"
-        >用途与场景</div>
-        <div
-          class="weui-navbar__item"
-          :class="{'weui-bar__item_on':selectedTab==='shelves'}"
-          @click="selectedTab = 'shelves'"
-        >主要功能</div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='group'}" @click="selectedTab = 'group'">用途与场景</div>
+        <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='shelves'}" @click="selectedTab = 'shelves'">主要功能</div>
       </div>
       <div class="weui-tab__panel" v-if="selectedTab==='group'">
         <b>适合成员：</b>
@@ -37,12 +29,12 @@
 </template>
 
 <script>
-import "../../common/js/share";
+import '../../common/js/share';
 
 export default {
   data() {
     return {
-      selectedTab: "group"
+      selectedTab: 'group'
     };
   }
 };

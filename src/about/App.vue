@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import weui from "weui.js";
-import "../common/js/share";
+import weui from 'weui.js';
+import '../common/js/share';
 
 export default {
   methods: {
@@ -35,33 +35,33 @@ export default {
       weui.actionSheet(
         [
           {
-            label: "首页",
+            label: '首页',
             onClick: function() {
-              window.location.href = "/";
+              window.location.href = '/';
             }
           },
           {
-            label: "关于我们",
+            label: '关于我们',
             onClick: function() {
-              window.location.href = "/about.html";
+              window.location.href = '/about.html';
             }
           },
           {
-            label: "联系我们",
+            label: '联系我们',
             onClick: function() {
-              window.location.href = "/contact.html";
+              window.location.href = '/contact.html';
             }
           },
           {
-            label: "招揽英才",
+            label: '招揽英才',
             onClick: function() {
-              window.location.href = "/job.html";
+              window.location.href = '/job.html';
             }
           }
         ],
         [
           {
-            label: "取消",
+            label: '取消',
             onClick: function() {}
           }
         ]
@@ -81,7 +81,7 @@ body,
 
 .banner {
   height: 10rem;
-  background: url("./assets/images/about.jpg") no-repeat center 0 / cover;
+  background: url('./assets/images/about.jpg') no-repeat center 0 / cover;
 
   .menu {
     width: 2.125rem;
@@ -89,7 +89,7 @@ body,
     position: absolute;
     right: 1.375rem;
     top: 1.3125rem;
-    background: url("./assets/images/menu@2x.png") no-repeat 50% / cover;
+    background: url('./assets/images/menu@2x.png') no-repeat 50% / cover;
   }
 }
 

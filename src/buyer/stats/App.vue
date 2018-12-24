@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import { WeuiCells, WeuiCell, WeuiCellAccess } from "../../common/components";
-import { tryFunc } from "../../common/js/common";
-import axios from "../../common/js/axios";
+import { WeuiCells, WeuiCell, WeuiCellAccess } from '../../common/components';
+import { tryFunc } from '../../common/js/common';
+import axios from '../../common/js/axios';
 
 export default {
   data() {
@@ -47,7 +47,7 @@ export default {
   mounted() {
     tryFunc(async () => {
       this.showApp = true;
-      const { data } = await axios.get("/shop/data");
+      const { data } = await axios.get('/shop/data');
       this.data = data;
     });
   },

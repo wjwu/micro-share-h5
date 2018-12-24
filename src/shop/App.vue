@@ -33,9 +33,7 @@
           <ul v-if="products">
             <li v-for="product in products.specialList" :key="product.id">
               <a :href="`./product.html?productId=${product.id}`">
-                <img
-                  :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
-                >
+                <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
                 <h3>{{product.name}}</h3>
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
@@ -60,9 +58,7 @@
           <ul v-if="products">
             <li v-for="product in products.newerList" :key="product.id">
               <a :href="`./product.html?productId=${product.id}`">
-                <img
-                  :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
-                >
+                <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
                 <h3>{{product.name}}</h3>
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
@@ -81,9 +77,7 @@
           <ul v-if="products">
             <li v-for="product in products.normalList" :key="product.id">
               <a :href="`./product.html?productId=${product.id}`">
-                <img
-                  :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'"
-                >
+                <img :src="product.imgUrl + '?imageView2/1/w/500/h/500/interlace/1/q/75|watermark/2/text/QOWVhuS8tOmDqOiQvQ==/font/5b6u6L2v6ZuF6buR/fontsize/320/fill/I0ZBRkFGQQ==/dissolve/100/gravity/SouthEast/dx/10/dy/10|imageslim'">
                 <h3>{{product.name}}</h3>
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
@@ -97,54 +91,58 @@
       </div>
     </cust-bar>
     <coupon-mask :price="couponPrice" :visible.sync="showCoupon"></coupon-mask>
+    <share-mask :visible.sync="showMask"></share-mask>
   </div>
 </template>
 <script>
-import axios from "../common/js/axios";
-import { tryFunc, getQueryString, openAlert } from "../common/js/common";
-import CustBar from "../common/components/CustBar";
-import CouponMask from "./CouponMask";
-import config from "../common/js/config";
-import wxApi from "../common/js/wxApi";
+import axios from '../common/js/axios';
+import { tryFunc, getQueryString, openAlert } from '../common/js/common';
+import CustBar from '../common/components/CustBar';
+import CouponMask from './CouponMask';
+import ShareMask from './ShareMask';
+import config from '../common/js/config';
+import wxApi from '../common/js/wxApi';
 
 export default {
   components: {
     CustBar,
-    CouponMask
+    CouponMask,
+    ShareMask
   },
   data() {
     return {
       showApp: false,
       showAct: false,
       showCoupon: false,
-      couponPrice: "0",
+      showMask: false,
+      couponPrice: '0',
       act: null,
       shop: null,
       products: null,
-      cartCount: "",
-      userId: getQueryString("userId"),
-      type: getQueryString("type")
+      cartCount: '',
+      userId: getQueryString('userId'),
+      type: getQueryString('type')
     };
   },
   mounted() {
     tryFunc(async () => {
-      if (this.type === "mine") {
-        this.userId = localStorage.getItem("userId");
-        //todo
+      if (this.type === 'mine') {
+        this.userId = localStorage.getItem('userId');
+        this.showMask = true;
       }
       this.showApp = true;
-      const { data: shop } = await axios.get("/user/shopInfoById", {
+      const { data: shop } = await axios.get('/user/shopInfoById', {
         params: {
           userId: this.userId
         }
       });
       if (!shop) {
-        openAlert("暂未开通货架", () => {
-          window.location.href = "/";
+        openAlert('暂未开通货架', () => {
+          window.location.href = '/';
         });
       }
       this.shop = shop;
-      const { data: shopAct } = await axios.get("/user/shopAct", {
+      const { data: shopAct } = await axios.get('/user/shopAct', {
         params: {
           userId: this.userId
         }
@@ -153,9 +151,9 @@ export default {
         this.showAct = true;
         this.act = shopAct;
       }
-      const inviterId = getQueryString("inviterId");
+      const inviterId = getQueryString('inviterId');
       if (inviterId && shopAct) {
-        const { data: inviter } = await axios.get("/user/checkShopInvite", {
+        const { data: inviter } = await axios.get('/user/checkShopInvite', {
           params: {
             inviterId: inviterId,
             shopId: this.userId
@@ -174,7 +172,7 @@ export default {
       const getFirstImg = item => {
         return {
           ...item,
-          imgUrl: item.imgUrl ? item.imgUrl.split(",")[0] : ""
+          imgUrl: item.imgUrl ? item.imgUrl.split(',')[0] : ''
         };
       };
       products.newerList = products.newerList.map(getFirstImg);
@@ -182,10 +180,10 @@ export default {
       products.specialList = products.specialList.map(getFirstImg);
       this.products = products;
       this.$nextTick(() => {
-        this.$el.querySelector(".hd").style.background = `url("${
+        this.$el.querySelector('.hd').style.background = `url("${
           this.shop.background
         }") no-repeat`;
-        this.$el.querySelector(".avatar").style.background = `url("${
+        this.$el.querySelector('.avatar').style.background = `url("${
           this.shop.logo
         }") no-repeat`;
       });
@@ -193,9 +191,9 @@ export default {
       let title = this.shop.name;
       let desc = this.shop.description;
       let imgUrl =
-        this.shop.logo + "?imageView2/1/w/50/h/50/interlace/1/q/75/.jpg";
+        this.shop.logo + '?imageView2/1/w/50/h/50/interlace/1/q/75/.jpg';
       let link = config.webHost + `/shop.html?userId=${this.shop.userId}`;
-      await wxApi.config(["onMenuShareTimeline", "onMenuShareAppMessage"]);
+      await wxApi.config(['onMenuShareTimeline', 'onMenuShareAppMessage']);
       window.wx.onMenuShareAppMessage(
         {
           title: title,
@@ -222,8 +220,8 @@ export default {
 <style lang="scss">
 body {
   background-color: #fff;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 .thought_money {
   color: #999;
@@ -238,7 +236,7 @@ body {
   height: 10rem;
   background-size: cover !important;
   &:after {
-    content: "";
+    content: '';
     width: 100%;
     height: 10rem;
     position: absolute;

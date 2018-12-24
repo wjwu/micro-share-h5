@@ -31,7 +31,11 @@ import axios from '../../common/js/axios';
 import format from 'date-fns/format';
 import { auth } from '../../common/js/auth';
 import { tryFunc } from '../../common/js/common';
-import { WeuiPanel, WeuiLoadMoreLine,WeuiCells } from '../../common/components';
+import {
+  WeuiPanel,
+  WeuiLoadMoreLine,
+  WeuiCells
+} from '../../common/components';
 import '../../common/js/share';
 
 export default {
