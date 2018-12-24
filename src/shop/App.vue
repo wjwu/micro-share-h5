@@ -134,7 +134,6 @@ export default {
     tryFunc(async () => {
       if (this.type === "mine") {
         this.userId = localStorage.getItem("userId");
-        this.showMask = true;
       }
       this.showApp = true;
       const { data: shop } = await axios.get("/user/shopInfoById", {
@@ -142,12 +141,14 @@ export default {
           userId: this.userId
         }
       });
-      if (!shop) {
+      if (shop) {
+        if (this.type === "mine") {
+          this.showMask = true;
+        }
+      } else {
         openAlert("暂未开通货架", () => {
           window.location.href = "/";
         });
-      } else if (shop && this.type === "mine") {
-        this.showMask = true;
       }
       this.shop = shop;
       const { data: shopAct } = await axios.get("/user/shopAct", {
@@ -181,7 +182,7 @@ export default {
           this.showCoupon = true;
         }
       }
-      window.document.title = this.shop.name ? this.shop.name : '店铺首页';
+      window.document.title = this.shop.name ? this.shop.name : "店铺首页";
       const { data: products } = await axios.get(
         `item/owner/all?userId=${this.userId}`
       );
