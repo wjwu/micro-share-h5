@@ -25,7 +25,7 @@
             class="weui-input"
             type="text"
             v-model="shopAct.title"
-            maxlength="20"
+            maxlength="25"
             placeholder="请输入分享标题"
           >
         </div>

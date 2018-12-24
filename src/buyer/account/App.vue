@@ -21,7 +21,7 @@
             <template slot="head">
               <div class="head">
                 <img src="./assets/images/credit.png">
-                <label>我的消费积分</label>
+                <label>我的积分</label>
               </div>
             </template>
           </weui-cell-access>

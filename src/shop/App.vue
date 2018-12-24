@@ -40,8 +40,11 @@
                 <p class="desc">{{product.description}}</p>
                 <p class="price">
                   <span>
-                    ￥{{product.sellPrice}}元 / {{product.spec}}
-                    <span class="thought_money">原价:<span class="del">¥ {{product.originPrice}}</span></span>
+                    <span style="color:red;">￥{{product.sellPrice}}元 / {{product.spec}}</span>
+                    <span class="thought_money">
+                      原价:
+                      <span class="del">¥ {{product.originPrice}}</span>
+                    </span>
                   </span>
                   <small>{{product.stock}}可售</small>
                 </p>
@@ -89,7 +92,7 @@
                 </p>
               </a>
             </li>
-          </ul>
+          </ul>s
         </div>
       </div>
     </cust-bar>
@@ -98,7 +101,7 @@
 </template>
 <script>
 import axios from "../common/js/axios";
-import { tryFunc, getQueryString } from "../common/js/common";
+import { tryFunc, getQueryString, openAlert } from "../common/js/common";
 import CustBar from "../common/components/CustBar";
 import CouponMask from "./CouponMask";
 import config from "../common/js/config";
@@ -119,17 +122,26 @@ export default {
       shop: null,
       products: null,
       cartCount: "",
-      userId: getQueryString("userId")
+      userId: getQueryString("userId"),
+      type: getQueryString("type")
     };
   },
   mounted() {
     tryFunc(async () => {
+      if (this.type === "mine") {
+        this.userId = localStorage.getItem("userId");
+      }
       this.showApp = true;
       const { data: shop } = await axios.get("/user/shopInfoById", {
         params: {
           userId: this.userId
         }
       });
+      if (!shop) {
+        openAlert("暂未开通货架", () => {
+          window.location.href = "/";
+        });
+      }
       this.shop = shop;
       const { data: shopAct } = await axios.get("/user/shopAct", {
         params: {

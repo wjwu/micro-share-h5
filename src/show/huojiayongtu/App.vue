@@ -21,11 +21,11 @@
         <li>有意愿通过圈子内资源互补与结伴，更进一步扩大自己产品宣传和销售渠道的成员。</li>
         <b>用途场景：</b>
         <br>
-        <img src="http://static.fangzhoubuluo.com/use.png">
-        <img src="http://static.fangzhoubuluo.com/use2.png">
-        <img src="http://static.fangzhoubuluo.com/use3.png">
-        <img src="http://static.fangzhoubuluo.com/use4.png">
-        <img src="http://static.fangzhoubuluo.com/use5.png">
+        <img src="http://static.fangzhoubuluo.com/newuse1.png">
+        <img src="http://static.fangzhoubuluo.com/newuse2.png">
+        <img src="http://static.fangzhoubuluo.com/newuse3.png">
+        <img src="http://static.fangzhoubuluo.com/newuse4.png">
+        <img src="http://static.fangzhoubuluo.com/newuse5.png">
       </div>
       <div class="weui-tab__panel" v-if="selectedTab==='shelves'">
         <b>主要功能：</b><br>

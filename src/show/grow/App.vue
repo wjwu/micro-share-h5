@@ -1,14 +1,14 @@
 <template>
   <div class="main">
-    <h2>商伴部落，伴汝长成</h2>
+    <h2>线下联合，线上共拓</h2>
     <h4>适合成员：</h4>
     <p>有自己有竞争力的产品或服务，想围绕于附近1KM-5KM范围社区逐步引流、做深、做细、做透，立足长期服务于社区消费者的成员。</p>
     <h4>主要用途与场景：</h4>
     <img src="http://static.fangzhoubuluo.com/grow1.png">
     <img src="http://static.fangzhoubuluo.com/grow2.png">
-    <img src="http://static.fangzhoubuluo.com/grow3.png">
-    <img src="http://static.fangzhoubuluo.com/grow4.png">
-    <img src="http://static.fangzhoubuluo.com/grow5.png">
+    <img src="http://static.fangzhoubuluo.com/grow6.png">
+    <img src="http://static.fangzhoubuluo.com/grow7.png">
+    <img src="http://static.fangzhoubuluo.com/grow8.png">
     <div class="page__bd page__bd_spacing" style="padding: 2rem;">
       <a href="javascript:history.back(-1);" class="weui-btn weui-btn_default">返回</a>
     </div>
