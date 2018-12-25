@@ -29,7 +29,7 @@ export const auth = () => {
               localStorage.setItem("headPhoto", response.data.headPhoto);
 
               const inviterInfo = localStorage.getItem("inviterInfo");
-              if (inviterInfo.indexOf("#") != -1) {
+              if (inviterInfo && inviterInfo.indexOf("#") != -1) {
                 const inviterId = inviterInfo.split("#")[0];
                 const shopId = inviterInfo.split("#")[1];
                 axios.get("/user/checkShopInvite", {
