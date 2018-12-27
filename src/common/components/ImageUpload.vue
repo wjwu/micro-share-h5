@@ -109,6 +109,8 @@ export default {
           _this.percent = res.total.percent.toFixed(0);
         },
         error(error) {
+          _this.uploading = false;
+          _this.percent = 0;
           openAlert(JSON.stringify(error));
         },
         complete(res) {
