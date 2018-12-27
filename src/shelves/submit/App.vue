@@ -5,7 +5,7 @@
       <weui-cell label="名称">
         <input class="weui-input" @blur="setCache('product.name', product.name)" type="text" placeholder="请输入商品名(不超过25字)" maxlength="25" v-model="product.name">
       </weui-cell>
-      <image-upload title="商品图片" :token="token" :max="5" v-model="images" multiple @input="handleImageChange"></image-upload>
+      <image-upload title="商品图片" :token="token" :max="5" v-model="images" multiple></image-upload>
       <weui-cell label="原价" v-if="isSpecial">
         <input class="weui-input" @blur="setCache('product.originPrice', product.originPrice)" v-model="product.originPrice" type="number" pattern="[0-9]*" @textInput="handlKeyDownPrice($event)" placeholder="请输入商品原价">
       </weui-cell>
@@ -80,7 +80,8 @@ export default {
         spec: localStorage.getItem('product.spec')
       },
       token: '',
-      images: JSON.parse(localStorage.getItem('images') || '[]'),
+      //images: JSON.parse(localStorage.getItem('product.images') || '[]'),
+      images: [],
       regPrice: new RegExp('[0-9\\.]'),
       showApp: false
     };
@@ -149,7 +150,7 @@ export default {
         localStorage.setItem('product.description', '');
         localStorage.setItem('product.spec', '');
         localStorage.setItem('product.stock', '');
-        localStorage.setItem('product.images', '[]');
+        //localStorage.setItem('product.images', '[]');
         const dialog = weui.dialog({
           content: '操作成功',
           buttons: [
