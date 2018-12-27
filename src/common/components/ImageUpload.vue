@@ -111,7 +111,7 @@ export default {
         error(error) {
           _this.uploading = false;
           _this.percent = 0;
-          openAlert(JSON.stringify(error));
+          openAlert('图片上传失败请重试!');
         },
         complete(res) {
           _this.uploading = false;
