@@ -150,6 +150,7 @@ export default {
           userId: this.userId
         }
       });
+      //shopAct不为空   增加   并且  shopAct.startTime开始时间 < 现在时间 < shopAct.endTime 结束时间 （就是在活动时间之内）
       if (shopAct) {
         const startTime = new Date(shopAct.startTime).getTime();
         const endTime = new Date(shopAct.endTime + ' 23:59:59').getTime();
