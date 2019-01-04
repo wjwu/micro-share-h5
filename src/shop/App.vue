@@ -151,7 +151,12 @@ export default {
         }
       });
       if (shopAct) {
-        this.showAct = true;
+        const startTime = new Date(shopAct.startTime).getTime();
+        const endTime = new Date(shopAct.endTime + ' 23:59:59').getTime();
+        const currentTime = new Date().getTime();
+        if (startTime <= currentTime && currentTime <= endTime) {
+          this.showAct = true;
+        }
         this.act = shopAct;
       }
       const inviterId = getQueryString('inviterId');

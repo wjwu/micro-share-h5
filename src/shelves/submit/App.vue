@@ -80,7 +80,7 @@ export default {
         spec: localStorage.getItem('product.spec')
       },
       token: '',
-      //images: JSON.parse(localStorage.getItem('product.images') || '[]'),
+      // images: JSON.parse(localStorage.getItem('product.images') || '[]'),
       images: [],
       regPrice: new RegExp('[0-9\\.]'),
       showApp: false
@@ -150,7 +150,7 @@ export default {
         localStorage.setItem('product.description', '');
         localStorage.setItem('product.spec', '');
         localStorage.setItem('product.stock', '');
-        //localStorage.setItem('product.images', '[]');
+        // localStorage.setItem('product.images', '[]');
         const dialog = weui.dialog({
           content: '操作成功',
           buttons: [

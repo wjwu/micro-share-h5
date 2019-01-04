@@ -108,7 +108,7 @@ export default {
         next(res) {
           _this.percent = res.total.percent.toFixed(0);
         },
-        error(error) {
+        error() {
           _this.uploading = false;
           _this.percent = 0;
           openAlert('图片上传失败请重试!');
