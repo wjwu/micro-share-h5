@@ -6,7 +6,7 @@
         <div class="weui-navbar__item" :class="{'weui-bar__item_on':selectedTab==='shelves'}" @click="selectedTab = 'shelves'">货架共享</div>
       </div>
       <div class="weui-tab__panel" v-if="selectedTab==='group'">
-        <weui-cells-title>点击“分享”转发二维码给朋友，可和对方结成商伴进行资源（群资源&管家）互相共享</weui-cells-title>
+        <weui-cells-title>点击“分享”转发二维码给朋友，可和对方结成商伴进行资源（群资源&货架）互相共享</weui-cells-title>
         <weui-cells-title>我的群列表</weui-cells-title>
         <weui-cells v-if="myGroups.length>0">
           <weui-cell v-for="item in myGroups" :key="item.id">
